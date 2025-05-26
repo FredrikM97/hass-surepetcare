@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hass-surepetcare"
+version = "0.1.0"
+description = "Hass component library for SurePetcare API"
+authors = [
+    { name = "FredrikM97" }
+]
+readme = ""
+requires-python = ">=3.8"
+
+dependencies = [
+    "py-surepetcare @ git+https://github.com/FredrikM97/py-surepetcare.git@main",
+    "homeassistant>=2024.0.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["custom_components*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

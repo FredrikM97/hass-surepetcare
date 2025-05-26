@@ -1,0 +1,19 @@
+{
+  "name": "Python Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      },
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "GitHub.copilot"
+      ]
+    }
+  },
+  "workspaceFolder": "/workspaces/hass-surepetcare",
+  "postCreateCommand": "pip install -e . && pip install -r dev-requirements.txt"
+}
