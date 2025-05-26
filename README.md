@@ -1,3 +1,3 @@
 # SurePetCare for Home Assistant
 
-## Installation
+**WARNING** Note that this work is under construction and everything is not yet setup to work properly.
