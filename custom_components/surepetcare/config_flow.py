@@ -15,6 +15,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema({
     vol.Required(CONF_EMAIL): str,
     vol.Required(CONF_PASSWORD): str,
 })
+
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for SurePetCare integration."""
 
@@ -30,7 +31,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.device_schemas = None
 
     async def async_step_user(self, user_input=None):
-        logging.debug(f"[SurePetCareConfigFlow] async_step_user called with user_input: {user_input}")
+        logging.info(f"[SurePetCareConfigFlow] async_step_user called with user_input: {user_input}")
         # Reset state to avoid leakage between runs
         self.device_type = None
         errors = {}
@@ -130,7 +131,6 @@ class DeviceSubentryFlowHandler(config_entries.ConfigSubentryFlow):
                 )
 
     async def async_step_device_config(self, user_input=None):
-       
        
         return self.async_create_entry(
             title=f"{ProductId(self.product_id).name} Devices",
