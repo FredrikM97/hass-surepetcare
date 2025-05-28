@@ -1,20 +1,24 @@
-from voluptuous import Schema, Required
-from surepetcare.enums import ProductId
+"""TODO."""
+
+from voluptuous import Required, Schema, Optional
+
 from homeassistant.data_entry_flow import section
+from surepetcare.enums import ProductId
 
 DEVICE_CONFIG_SCHEMAS = {
     ProductId.FEEDER_CONNECT: {
-        "schema": Schema({
-            Required("location"): str,
-        }),
+        "schema": {Optional("location"): str},
         "title": "Feeder Connect Configuration",
     },
     ProductId.DUAL_SCAN_PET_DOOR: {
-        "schema": section(Schema({
+        "schema": {
             Required("location_inside"): str,
             Required("location_outside"): str,
-        })),
+        },
         "title": "Dual Scan Pet Door Configuration",
     },
+    ProductId.HUB: {
+        "schema": None,
+        "title": "Hub Configuration",
+    },
 }
-
