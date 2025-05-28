@@ -17,7 +17,8 @@ jobs:
         run: pip install pre-commit
       - name: Run pre-commit
         run: pre-commit run --all-files
-
+        continue-on-error: true
+      
       - name: Commit and push changes if needed
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
@@ -29,3 +30,6 @@ jobs:
           else
             echo "No changes to commit."
           fi
+      - name: Check if pre-commit fixed issues
+        run: pre-commit run --all-files
+      
