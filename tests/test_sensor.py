@@ -1,6 +1,11 @@
 from unittest.mock import AsyncMock
-from custom_components.surepetcare.sensor import PetLocationSensor, PetLastFedSensor, BatterySensor
+from custom_components.surepetcare.sensor import (
+    PetLocationSensor,
+    PetLastFedSensor,
+    BatterySensor,
+)
 import pytest
+
 
 @pytest.mark.asyncio
 async def test_pet_location_sensor_update_sets_native_value(hass):
@@ -13,6 +18,7 @@ async def test_pet_location_sensor_update_sets_native_value(hass):
     assert sensor.name == "Pet Fluffy Location"
     assert sensor.unit_of_measurement == "Location"
 
+
 async def test_pet_last_fed_sensor_update_sets_native_value(hass):
     pet = {"id": 2, "name": "Bella"}
     coordinator = AsyncMock()
@@ -23,6 +29,7 @@ async def test_pet_last_fed_sensor_update_sets_native_value(hass):
     assert sensor.name == "Pet Bella Last Fed"
     assert sensor.unit_of_measurement == "Time"
 
+
 def test_pet_location_sensor_properties():
     pet = {"id": 3, "name": "Max"}
     coordinator = AsyncMock()
@@ -31,6 +38,7 @@ def test_pet_location_sensor_properties():
     assert sensor.name == "Pet Max Location"
     assert sensor.unit_of_measurement == "Location"
 
+
 def test_pet_last_fed_sensor_properties():
     pet = {"id": 4, "name": "Luna"}
     coordinator = AsyncMock()
@@ -38,6 +46,7 @@ def test_pet_last_fed_sensor_properties():
     sensor = PetLastFedSensor(coordinator, pet)
     assert sensor.name == "Pet Luna Last Fed"
     assert sensor.unit_of_measurement == "Time"
+
 
 @pytest.mark.asyncio
 async def test_battery_sensor_properties_and_update():

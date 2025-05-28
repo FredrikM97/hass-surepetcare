@@ -1,8 +1,7 @@
 """TODO."""
 
-from voluptuous import Required, Schema, Optional
+from voluptuous import Required, Optional
 
-from homeassistant.data_entry_flow import section
 from surepetcare.enums import ProductId
 
 DEVICE_CONFIG_SCHEMAS = {
