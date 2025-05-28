@@ -94,7 +94,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # schema_dict[vol.Required(f"{device.id}")] = section(
             #    vol.Schema(schema_info["schema"])
             # )
-            # TODO ISSUE IS THAT en.json does not contain text therefor section is emopty...
+            # TODO ISSUE IS THAT en.json does not contain text therefore section is emopty...
             section_title = self.hass.config_entries.async_entry_for_domain_unique_id.translation.async_translate(
                 "config.step.configure_devices.section_title",
                 {"device_name": device.name, "product_id": device.product_id},
