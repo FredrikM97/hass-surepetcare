@@ -5,6 +5,10 @@ on:
     branches: [main, dev]
   pull_request:
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
@@ -17,3 +21,19 @@ jobs:
         run: pip install pre-commit
       - name: Run pre-commit
         run: pre-commit run --all-files
+        continue-on-error: true
+       
+      - name: Commit and push changes if needed
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add .
+            git commit -m "Apply pre-commit fixes"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+      - name: Check if pre-commit fixed issues
+        run: pre-commit run --all-files
+      

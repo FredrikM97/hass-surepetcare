@@ -1,138 +1,158 @@
-from typing import Any
-from homeassistant import config_entries
-from surepetcare.enums import ProductId
-import homeassistant.helpers.config_validation as cv
-from surepetcare.client import SurePetcareClient
-import uuid
-import logging
-from homeassistant.core import callback
+"""Config flow for SurePetCare integration."""
 
-from custom_components.surepetcare.device_config_schema import DEVICE_CONFIG_SCHEMAS
-from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN
+import logging
+import types
+import uuid
+from typing import Any
+
 import voluptuous as vol
 
-STEP_USER_DATA_SCHEMA = vol.Schema({
-    vol.Required(CONF_EMAIL): str,
-    vol.Required(CONF_PASSWORD): str,
-})
+from homeassistant import config_entries
+from surepetcare.client import SurePetcareClient
+from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN
+from .device_config_schema import DEVICE_CONFIG_SCHEMAS
+
+logger = logging.getLogger(__name__)
+
+STEP_USER_DATA_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_EMAIL): str,
+        vol.Required(CONF_PASSWORD): str,
+    }
+)
+
+
+def add_method(instance, id):
+    """Add func as a method to cls."""
+    name = f"async_step_{id}"
+
+    async def device_step(self, user_input=None):
+        return await self.async_step_configure_device(user_input, id=id)
+
+    device_step.__name__ = name
+    setattr(instance, name, types.MethodType(device_step, instance))
+
+
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for SurePetCare integration."""
 
-    VERSION = 1 
+    VERSION = 1
 
-    def __init__(self):
-        self.email = None
-        self.password = None
-        self.client = None
-        self.devices = None
-        self.device_type = None
-        self.client_device_id = None
-        self.device_schemas = None
+    def __init__(self) -> None:
+        """Initialize the config flow."""
+        self.devices: list[Any] = []
+        self.device_configs: list[dict[str, Any]] = []
+        self.token: str | None = None
+        self.client_device_id: str | None = None
+        self._methods_initialized = False
 
-    async def async_step_user(self, user_input=None):
-        logging.debug(f"[SurePetCareConfigFlow] async_step_user called with user_input: {user_input}")
-        # Reset state to avoid leakage between runs
-        self.device_type = None
+    async def async_step_user(self, user_input: dict[str, Any] | None = None):
+        """Authenticate and fetch devices."""
         errors = {}
-        if user_input is not None:
-            self.email = user_input[CONF_EMAIL]
-            self.password = user_input[CONF_PASSWORD]
-            self.client = SurePetcareClient()
-            self.generate_client_device_id()
 
-            # Get device_id from the client after login (if available)
-            if not await self.client.login(self.email, self.password):
+        if user_input is not None:
+            email = user_input[CONF_EMAIL]
+            password = user_input[CONF_PASSWORD]
+            client = SurePetcareClient()
+
+            if not await client.login(email=email, password=password):
                 errors["base"] = "auth_failed"
             else:
-                self.token = getattr(self.client, "token", None)
-                # Try to get device_id from the client after login
-              
-                logging.debug(f"[SurePetCareConfigFlow] Login successful, client_device_id: {self.client_device_id}, advancing to device config step.")
-                #return await self.async_step_device_config()
-                devices = await self.client.get_devices()
-                return self.async_create_entry(
-                    title="SurePetCare device configuration",
-                    data={
-                        "token": getattr(self, "token", None),
-                        "client_device_id": self.client_device_id,
-                        "devices": devices,
-                    },
-                )
+                self.token = getattr(client, "_token", None)
+                self.client_device_id = uuid.uuid4().hex
+                household_ids = [
+                    household["id"] for household in (await client.get_households())
+                ]
+                devices = await client.get_devices(household_ids)
+
+                if not devices:
+                    return self.async_abort(reason="no_devices_found")
+
+                self.devices = {d.id: d for d in devices}
+                await client.close()
+
+                return await self.async_step_select_device()
 
         return self.async_show_form(
             step_id="user",
             data_schema=STEP_USER_DATA_SCHEMA,
             errors=errors,
         )
-    
-    def generate_client_device_id(self):
-        # Generate a random device_id only once, when creating the config entry
-        if not self.client_device_id:
-            self.client_device_id = uuid.uuid4().hex
 
-    @classmethod
-    @callback
-    def async_get_supported_subentry_types(cls, config_entry):
-        return {
-            "device": DeviceSubentryFlowHandler,
-        }
-    
+    async def async_step_select_device(self, user_input: dict[str, Any] | None = None):
+        """Let the user select which device to configure next using a menu."""
+        if not self.devices:
+            return self.async_abort(reason="no_devices_found")
 
-class DeviceSubentryFlowHandler(config_entries.ConfigSubentryFlow):
-    """Handle subentry flow for adding and modifying a location."""
+        # Filter out already-configured devices
+        configured_ids = {str(d["id"]) for d in self.device_configs}
+        available_devices = [
+            d
+            for d in self.devices.values()
+            if str(d.id) not in configured_ids
+            and DEVICE_CONFIG_SCHEMAS.get(d.product_id)["schema"] is not None
+        ]
+        if len(available_devices) == 0:
+            return await self.async_step_create_entry()
+        menu_options = {str(d.id): d.name for d in available_devices}
+        menu_options["create_entry"] = "Finish configuration"
 
-    def __init__(self):
-        self.product_id = None
+        if not self._methods_initialized:
+            for device in self.devices.values():
+                add_method(self, device.id)
+            self._methods_initialized = True
 
-
-    async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
-    ) -> config_entries.SubentryFlowResult:
-        """User flow to add a new device.""" 
-        return await self.async_step_list_products()
-        
-    
-    async def async_step_list_products(self, user_input={}):
-        entry = self.hass.config_entries.async_get_known_entry(self._entry_id)
-        devices = entry.data.get("devices", [])
-
-        product_types = {}
-        for d in devices:
-            pid = d["product_id"]
-            pname = ProductId(d["product_id"]).name
-            product_types[pid] = pname
-        return self.async_show_form(
-            step_id="show_devices",
-            data_schema=vol.Schema({
-                vol.Required("product_id"): vol.In(product_types)
-            }),
-            errors={},
-            description_placeholders={"product_types": ", ".join(product_types.values())}
+        return self.async_show_menu(
+            step_id="select_device",
+            menu_options=menu_options,
+            description_placeholders={},
         )
-    
-    async def async_step_show_devices(self, user_input:dict=None):
-        self.product_id = user_input.get("product_id", None)
-        entry = self.hass.config_entries.async_get_known_entry(self._entry_id)
-        devices = entry.data.get("devices", [])
-        matching_devices = [d for d in devices if d["product_id"] == self.product_id]
-        schema_info = DEVICE_CONFIG_SCHEMAS.get(ProductId(self.product_id))
-    
-        combined_schema_dict = {}
-        for idx, device in enumerate(matching_devices):
-            combined_schema_dict.update({vol.Optional(f"{device['id']}"): schema_info['schema']})
-            combined_schema = vol.Schema(combined_schema_dict)
-            
-            return self.async_show_form(
-                    step_id="device_config",
-                    data_schema=combined_schema,
-                    errors={},
-                    description_placeholders={"product_type": ProductId(self.product_id).name}
-                )
 
-    async def async_step_device_config(self, user_input=None):
-       
-       
+    async def async_step_configure_device(
+        self, user_input: dict[str, Any] | None = None, id=None
+    ):
+        """Configure a single device."""
+        if id is not None:
+            device = self.devices[id]
+        if user_input and "id" in user_input:
+            device = self.devices.get(user_input["id"])
+        if user_input is not None:
+            config = {
+                "id": str(device.id),
+                "name": device.name,
+                "product_id": device.product_id,
+                **user_input,
+            }
+            self.device_configs.append(config)
+            return await self.async_step_select_device()
+
+        schema_info = DEVICE_CONFIG_SCHEMAS.get(device.product_id)
+        data_schema = vol.Schema(
+            {
+                vol.Required("id"): device.id,
+                **(
+                    schema_info["schema"]
+                    if schema_info and schema_info["schema"]
+                    else {}
+                ),
+            }
+        )
+
+        description = f"Configure: {device.name}"
+
+        return self.async_show_form(
+            step_id="configure_device",
+            data_schema=data_schema,
+            description_placeholders={"device_name": device.name, "info": description},
+        )
+
+    async def async_step_create_entry(self, user_input: dict[str, Any] | None = None):
+        """Create the config entry with all device configs."""
         return self.async_create_entry(
-            title=f"{ProductId(self.product_id).name} Devices",
-            data={"product_id": self.product_id, "device": user_input},
-        ) 
+            title="SurePetCare Devices",
+            data={
+                "token": self.token,
+                "client_device_id": self.client_device_id,
+                "devices": self.device_configs,
+            },
+        )

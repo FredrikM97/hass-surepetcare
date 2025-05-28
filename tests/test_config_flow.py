@@ -3,21 +3,33 @@ from unittest.mock import AsyncMock, patch
 from surepetcare.enums import ProductId
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 from homeassistant import config_entries
 from homeassistant.data_entry_flow import InvalidData
 from custom_components.surepetcare.config_flow import DOMAIN
 from homeassistant.config_entries import ConfigEntryState
 
+
 @pytest.fixture
 async def mock_surepy():
-    with patch("custom_components.surepetcare.config_flow.SurePetcareClient") as mock_client:
+    with patch(
+        "custom_components.surepetcare.config_flow.SurePetcareClient"
+    ) as mock_client:
         instance = mock_client.return_value
         instance.login = AsyncMock(return_value=True)
-        instance.get_devices = AsyncMock(return_value=[
-            {"product_id": ProductId.DUAL_SCAN_PET_DOOR.value, "id":1 , "name": "Flap 1"},
-            {"product_id": ProductId.FEEDER_CONNECT.value, "id": 2, "name": "Feeder 1"}
-        ])
+        instance.get_devices = AsyncMock(
+            return_value=[
+                {
+                    "product_id": ProductId.DUAL_SCAN_PET_DOOR.value,
+                    "id": 1,
+                    "name": "Flap 1",
+                },
+                {
+                    "product_id": ProductId.FEEDER_CONNECT.value,
+                    "id": 2,
+                    "name": "Feeder 1",
+                },
+            ]
+        )
         instance.token = "dummy-token"
         yield instance
 
@@ -31,9 +43,12 @@ async def test_flow_user_step_no_input(hass: HomeAssistant):
         await hass.config_entries.flow.async_configure(
             _result["flow_id"], user_input={}
         )
-    
+
+
 async def test_user_login_failure(hass: HomeAssistant, mock_surepy):
-    with patch("custom_components.surepetcare.config_flow.SurePetcareClient") as mock_client:
+    with patch(
+        "custom_components.surepetcare.config_flow.SurePetcareClient"
+    ) as mock_client:
         instance = mock_client.return_value
         instance.login = AsyncMock(return_value=False)
 
@@ -42,7 +57,8 @@ async def test_user_login_failure(hass: HomeAssistant, mock_surepy):
         )
 
         result = await hass.config_entries.flow.async_configure(
-            result["flow_id"], user_input={"email": "baduser@example.com", "password": "wrongpass"}
+            result["flow_id"],
+            user_input={"email": "baduser@example.com", "password": "wrongpass"},
         )
 
         assert result["type"] == FlowResultType.FORM
@@ -52,30 +68,34 @@ async def test_user_login_failure(hass: HomeAssistant, mock_surepy):
 def test_dual_scan_pet_door_schema_valid():
     from custom_components.surepetcare.device_config_schema import DEVICE_CONFIG_SCHEMAS
     from surepetcare.enums import ProductId
+
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
     # Valid input
     valid = {"location_inside": "Hall", "location_outside": "Garden"}
     assert schema(valid) == valid
     # Invalid input (missing location_inside)
     import voluptuous as vol
+
     with pytest.raises(vol.Invalid):
         schema({"location_outside": "Garden"})
     # Invalid input (missing location_outside)
     with pytest.raises(vol.Invalid):
         schema({"location_inside": "Hall"})
 
+
 async def test_device_subentry_flow(hass: HomeAssistant, mock_surepy):
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": "user"}
     )
     result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], user_input={"email": "user@example.com", "password": "test1234"}
+        result["flow_id"],
+        user_input={"email": "user@example.com", "password": "test1234"},
     )
-   
-    entry:config_entries.ConfigEntry = result.get("result")
-    
+
+    entry: config_entries.ConfigEntry = result.get("result")
+
     subentry_result = await hass.config_entries.subentries.async_init(
-        (entry.entry_id,"device"), context={"source": "user"}
+        (entry.entry_id, "device"), context={"source": "user"}
     )
     assert subentry_result["type"] == "form"
     product_id_field = subentry_result["data_schema"].schema["product_id"].container
@@ -84,7 +104,9 @@ async def test_device_subentry_flow(hass: HomeAssistant, mock_surepy):
         subentry_result["flow_id"], user_input={"product_id": product_id}
     )
     assert subentry_result["type"] == "form"
-    user_input = {"device_1": {"location_inside": "Living Room", "location_outside": "Garden"}}
+    user_input = {
+        "device_1": {"location_inside": "Living Room", "location_outside": "Garden"}
+    }
     subentry_result = await hass.config_entries.subentries.async_configure(
         subentry_result["flow_id"], user_input=user_input
     )
@@ -97,18 +119,18 @@ async def test_device_subentry_flow(hass: HomeAssistant, mock_surepy):
 
 
 async def test_entities_created_for_devices(hass: HomeAssistant, mock_surepy):
-
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": "user"}
     )
     result = await hass.config_entries.flow.async_configure(
-        result["flow_id"], user_input={"email": "user@example.com", "password": "test1234"}
+        result["flow_id"],
+        user_input={"email": "user@example.com", "password": "test1234"},
     )
 
-    entry:config_entries.ConfigEntry = result.get("result")
-    
+    entry: config_entries.ConfigEntry = result.get("result")
+
     subentry_result = await hass.config_entries.subentries.async_init(
-        (entry.entry_id,"device"), context={"source": "user"}
+        (entry.entry_id, "device"), context={"source": "user"}
     )
     assert subentry_result["type"] == "form"
     product_id_field = subentry_result["data_schema"].schema["product_id"].container
