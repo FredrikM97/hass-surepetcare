@@ -1,11 +1,9 @@
 """TODO."""
 
 from custom_components.surepetcare.coordinator import SurePetcareCoordinator
-from dbus_fast import AuthError
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from config.custom_components.surepetcare.const import DOMAIN
-from homeassistant import core
 
 PLATFORMS = ["sensor"]
 
