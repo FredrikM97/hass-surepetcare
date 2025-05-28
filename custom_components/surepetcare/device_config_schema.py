@@ -6,7 +6,7 @@ from surepetcare.enums import ProductId
 
 DEVICE_CONFIG_SCHEMAS = {
     ProductId.FEEDER_CONNECT: {
-        "schema": {Optional("location"): str},
+        "schema": None,
         "title": "Feeder Connect Configuration",
     },
     ProductId.DUAL_SCAN_PET_DOOR: {

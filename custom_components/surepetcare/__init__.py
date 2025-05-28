@@ -5,7 +5,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from config.custom_components.surepetcare.const import DOMAIN
 
-PLATFORMS = ["sensor"]
+PLATFORMS = ["sensor", "binary_sensor"]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

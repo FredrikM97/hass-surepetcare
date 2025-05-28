@@ -87,9 +87,13 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # Filter out already-configured devices
         configured_ids = {str(d["id"]) for d in self.device_configs}
         available_devices = [
-            d for d in self.devices.values() if str(d.id) not in configured_ids
+            d
+            for d in self.devices.values()
+            if str(d.id) not in configured_ids
+            and DEVICE_CONFIG_SCHEMAS.get(d.product_id)["schema"] is not None
         ]
-
+        if len(available_devices) == 0:
+            return await self.async_step_create_entry()
         menu_options = {str(d.id): d.name for d in available_devices}
         menu_options["create_entry"] = "Finish configuration"
 

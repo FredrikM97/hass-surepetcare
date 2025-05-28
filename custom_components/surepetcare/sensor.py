@@ -1,5 +1,6 @@
 """TODO."""
 
+import logging
 import re
 from config.custom_components.surepetcare.const import DOMAIN
 from homeassistant.components.sensor import SensorEntity
@@ -7,6 +8,9 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepetcare.enums import ProductId
+from .entity import SurePetcareBaseEntity
+
+logger = logging.getLogger(__name__)
 
 
 def _sanitize_id(value: str) -> str:
@@ -14,7 +18,7 @@ def _sanitize_id(value: str) -> str:
     return re.sub(r"[^a-zA-Z0-9_-]", "_", value)
 
 
-class SurePetcareBaseSensor(SensorEntity):
+class SurePetcareBaseSensor(SurePetcareBaseEntity, SensorEntity):
     """Base class for SurePetcare sensors with device_info."""
 
     def __init__(self, coordinator, data) -> None:
@@ -45,7 +49,7 @@ class SurePetcareBaseSensor(SensorEntity):
         return f"{self.sensor_name}"
 
 
-class PetLocationSensor(SurePetcareBaseSensor):
+class PetLocationSensor(SurePetcareBaseEntity, SensorEntity):
     """Representation of a pet's location sensor."""
 
     @property
@@ -68,7 +72,7 @@ class PetLocationSensor(SurePetcareBaseSensor):
         return "Location"
 
 
-class PetLastFedSensor(SurePetcareBaseSensor):
+class PetLastFedSensor(SurePetcareBaseEntity, SensorEntity):
     """Representation of a pet's last fed sensor."""
 
     @property
@@ -82,7 +86,7 @@ class PetLastFedSensor(SurePetcareBaseSensor):
         return "Time"
 
 
-class BatterySensor(SurePetcareBaseSensor):
+class BatterySensor(SurePetcareBaseEntity, SensorEntity):
     """Representation of a Device's battery sensor."""
 
     @property
@@ -106,6 +110,7 @@ PRODUCT_SENSOR_MAPPINGS = {
         "location": PetLocationSensor,
         "battery": BatterySensor,
     },
+    ProductId.HUB: {},
 }
 
 
@@ -120,6 +125,8 @@ async def async_setup_entry(
     for device in coordinator.devices:
         product_id = device.product_id
 
+        if product_id not in PRODUCT_SENSOR_MAPPINGS:
+            continue
         sensor_map = PRODUCT_SENSOR_MAPPINGS.get(product_id, {})
         entities.extend(
             [
