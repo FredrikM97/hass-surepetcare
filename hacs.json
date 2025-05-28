@@ -1,6 +1,5 @@
 {
   "name": "SurePetcare",
   "content_in_root": false,
-  "domains": ["surepetcare"],
-  "experimental": ["dev"]
+  "domains": ["surepetcare"]
 }
