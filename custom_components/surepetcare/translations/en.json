@@ -9,11 +9,25 @@
                 "password": "Password"
             }
         },
+        "configure_device":{
+            "title": "Configure Device specific settings",
+            "description": "{info}",
+            "data": {
+              "id": "Device ID: "
+            }
+        },
         "configure_devices": {
             "title": "Configure Devices",
             "description": "Set up each device below. Fields marked with * are required.",
-            "section_title": "Configure {device_name} (Product: {product_id})"
-          }
+            "sections": {
+              "section_title":{
+                "name": "Device hurrdurr",
+                 "data_description": {
+                  "qos": "The Quality of Service value the device's entities should use."
+                }
+              }
+            }
+        }
 
     },
     "error": {
