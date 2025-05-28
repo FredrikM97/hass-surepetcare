@@ -20,31 +20,5 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
       - name: Run pre-commit
-<<<<<<< Updated upstream
         run: pre-commit run --all-files
-        continue-on-error: true
        
-      - name: Commit and push changes if needed
-        run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git add .
-            git commit -m "Apply pre-commit fixes"
-            git push
-          else
-            echo "No changes to commit."
-          fi
-      - name: Check if pre-commit fixed issues
-        run: pre-commit run --all-files
-      
-=======
-<<<<<<< Updated upstream
-        run: pre-commit run --all-files
-=======
-        run: pre-commit run --all-files
-        continue-on-error: true
-      
-      
->>>>>>> Stashed changes
->>>>>>> Stashed changes
