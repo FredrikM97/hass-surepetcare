@@ -1,6 +1,6 @@
 """TODO."""
 
-from voluptuous import Required, Optional
+from voluptuous import Required
 
 from surepetcare.enums import ProductId
 
