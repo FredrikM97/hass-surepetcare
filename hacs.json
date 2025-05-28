@@ -1,4 +1,6 @@
 {
-  "name": "SurePetCare",
-  "render_readme": true
+  "name": "SurePetcare",
+  "content_in_root": false,
+  "domains": ["surepetcare"],
+  "experimental": ["dev"]
 }
