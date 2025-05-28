@@ -31,7 +31,6 @@ def add_method(instance, id):
 
     device_step.__name__ = name
     setattr(instance, name, types.MethodType(device_step, instance))
-    # return device_step  # Optional: allows normal use of func
 
 
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -45,6 +44,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.device_configs: list[dict[str, Any]] = []
         self.token: str | None = None
         self.client_device_id: str | None = None
+        self._methods_initialized = False
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Authenticate and fetch devices."""
@@ -89,29 +89,14 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         available_devices = [
             d for d in self.devices.values() if str(d.id) not in configured_ids
         ]
-        # Always show the menu if there are devices left
-        if not available_devices:
-            return self.async_step_create_entry()
-
-        # Dynamically create methods for each device to handle configuration
-        # This allows us to have a separate step for each device
-        # Maybe not the best design, but it keeps the flow "simple"
-        for device in self.devices.values():
-            add_method(self, device.id)
-            # setattr(self, method_name, types.MethodType(device_step, self))
 
         menu_options = {str(d.id): d.name for d in available_devices}
         menu_options["create_entry"] = "Finish configuration"
 
-        # if user_input is not None:
-        #    selected_id = user_input["menu_option"]
-        #    if selected_id == "skip":
-        #        return self._create_entry_with_devices()
-        # self._device_idx = next(
-        #    idx for idx, d in enumerate(self.devices) if str(d.id) == selected_id
-        # )
-        # Always go to configure_device, even if only one device left
-        #    return await self.async_step_configure_device()
+        if not self._methods_initialized:
+            for device in self.devices.values():
+                add_method(self, device.id)
+            self._methods_initialized = True
 
         return self.async_show_menu(
             step_id="select_device",
