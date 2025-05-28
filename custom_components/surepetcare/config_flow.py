@@ -82,7 +82,6 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return self._create_entry_with_devices()
 
         schema_dict = {}
-        description_placeholders = {}
         for device in self.devices:
             schema_info = DEVICE_CONFIG_SCHEMAS.get(device.product_id)
             # if schema_info and schema_info["schema"]:
