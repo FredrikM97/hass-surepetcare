@@ -20,6 +20,7 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
       - name: Run pre-commit
+<<<<<<< Updated upstream
         run: pre-commit run --all-files
         continue-on-error: true
        
@@ -37,3 +38,13 @@ jobs:
       - name: Check if pre-commit fixed issues
         run: pre-commit run --all-files
       
+=======
+<<<<<<< Updated upstream
+        run: pre-commit run --all-files
+=======
+        run: pre-commit run --all-files
+        continue-on-error: true
+      
+      
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
