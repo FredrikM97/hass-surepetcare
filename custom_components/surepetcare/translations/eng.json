@@ -1,3 +1,52 @@
 {
-  "title": "SurePet Configuration"
+  "config": {
+    "step": {
+        "user": {
+            "title": "Sure Petcare",
+            "description": "Login with your Sure Petcare Account.",
+            "data": {
+                "email": "Email",
+                "password": "Password"
+            }
+        },
+        "configure_devices": {
+            "title": "Configure Devices",
+            "description": "Set up each device below. Fields marked with * are required.",
+            "section_title": "Configure {device_name} (Product: {product_id})"
+          }
+
+    },
+    "error": {
+        "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+        "unknown": "[%key:common::config_flow::error::unknown%]"
+    }
+  },
+  "config_subentries": {
+    "device": {
+      "title": "Device configuration",
+      "step": {
+        "list_products": {
+          "title": "Select Products",
+          "data": {
+            "product_id": "Products"
+          }
+        },
+        "show_devices": {
+          "title": "Select SurePetCare Device",
+          "data": {
+            "product_id": "Product ID"
+          }
+        },
+        "device_config": {
+          "title": "Configure SurePetCare Device",
+          "data": {
+            "device_id": "Device ID",
+            "product_id": "Product ID"
+          }
+        }
+      },
+      "error": {},
+      "abort": {}
+    }
+  }
 }

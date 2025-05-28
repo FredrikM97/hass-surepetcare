@@ -6,6 +6,6 @@
   "domain": "surepetcare",
   "iot_class": "cloud_polling",
   "name": "SurePetCare",
-  "requirements": [],
+  "requirements": ["py-surepetcare"],
   "version": "1.0.0"
 }
