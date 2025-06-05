@@ -1,40 +1,59 @@
-from config.custom_components.hacs.const import DOMAIN
-from config.custom_components.surepetcare.binary_sensor import DeviceInfo
-from homeassistant.helpers.entity import Entity
-import re
+from abc import abstractmethod
+
+from surepetcare.client import SurePetcareClient
+from surepetcare.devices.device import SurepyDevice
+from .const import DOMAIN
+from config.custom_components.spc.coordinator import (
+    SurePetCareDeviceDataUpdateCoordinator,
+)
+from homeassistant.core import callback
+from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 
-def _sanitize_id(value: str) -> str:
-    """Sanitize a string to be used as an ID (alphanumeric, dash, underscore)."""
-    return re.sub(r"[^a-zA-Z0-9_-]", "_", value)
+class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
+    """Base Tradfri device."""
 
+    _attr_has_entity_name = True
 
-class SurePetcareBaseEntity(Entity):
-    """Base class for SurePetcare sensors with device_info."""
+    def __init__(
+        self,
+        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
+        client: SurePetcareClient,
+    ) -> None:
+        """Initialize a device."""
+        super().__init__(device_coordinator)
 
-    def __init__(self, coordinator, data) -> None:
-        """TODO."""
-        self.coordinator = coordinator
-        self.device = coordinator.data.get(data["id"], {})
-        self.sensor_name = data["name"]
+        self._device: SurepyDevice = device_coordinator.data
+        self._client = client
 
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Return the device info."""
-        return DeviceInfo(
-            identifiers={(DOMAIN, self.device.id)},
-            name=self.device.name,
-            manufacturer="Sure Petcare",
-            model_id=self.device.product_id,
-            via_device=(DOMAIN, self.device.id),
-        )
+        device_info = {
+            "identifiers": {(DOMAIN, f"{self._device.id}")},
+            "manufacturer": "SurePetCare",
+            "model": self._device.product_id,
+            "name": self._device.name,
+        }
+        if self._device.parent_device_id is not None:
+            device_info["via_device"] = (DOMAIN, str(self._device.parent_device_id))
+        self._attr_device_info = DeviceInfo(**device_info)
+        self._attr_unique_id = f"{self._device.id}"
 
-    @property
-    def unique_id(self) -> str:
-        """Return a unique ID for this sensor."""
-        return f"{_sanitize_id(str(self.device.id))}_{_sanitize_id(self.sensor_name)}"
+    @abstractmethod
+    @callback
+    def _refresh(self) -> None:
+        """Refresh device data."""
 
-    @property
-    def name(self):
-        """TODO."""
-        return f"{self.sensor_name}"
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator.
+
+        Tests fails without this method.
+        """
+        self._refresh()
+        super()._handle_coordinator_update()
+
+    # This causes issue for pet..
+    # @property
+    # def available(self) -> bool:
+    #    """Return if entity is available."""
+    #    return cast(bool, self._device.available) and super().available

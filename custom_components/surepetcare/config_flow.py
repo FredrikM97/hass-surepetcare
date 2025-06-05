@@ -2,13 +2,20 @@
 
 import logging
 import types
-import uuid
 from typing import Any
 
+from surepetcare.client import SurePetcareClient
 import voluptuous as vol
 
+from config.custom_components.spc import Household
 from homeassistant import config_entries
-from surepetcare.client import SurePetcareClient
+from homeassistant.config_entries import (
+    ConfigEntry,
+    ConfigSubentryFlow,
+    SubentryFlowResult,
+)
+from homeassistant.core import callback
+
 from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN
 from .device_config_schema import DEVICE_CONFIG_SCHEMAS
 
@@ -40,11 +47,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     def __init__(self) -> None:
         """Initialize the config flow."""
-        self.devices: list[Any] = []
-        self.device_configs: list[dict[str, Any]] = []
-        self.token: str | None = None
-        self.client_device_id: str | None = None
-        self._methods_initialized = False
+        self.client = None
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Authenticate and fetch devices."""
@@ -53,25 +56,15 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             email = user_input[CONF_EMAIL]
             password = user_input[CONF_PASSWORD]
-            client = SurePetcareClient()
+            self.client = SurePetcareClient()
+            logged_in = await self.client.login(email=email, password=password)
 
-            if not await client.login(email=email, password=password):
+            # Ensure client is closed after fetching data
+            await self.client.close()
+            if not logged_in:
                 errors["base"] = "auth_failed"
             else:
-                self.token = getattr(client, "_token", None)
-                self.client_device_id = uuid.uuid4().hex
-                household_ids = [
-                    household["id"] for household in (await client.get_households())
-                ]
-                devices = await client.get_devices(household_ids)
-
-                if not devices:
-                    return self.async_abort(reason="no_devices_found")
-
-                self.devices = {d.id: d for d in devices}
-                await client.close()
-
-                return await self.async_step_select_device()
+                return await self.async_step_create_entry()
 
         return self.async_show_form(
             step_id="user",
@@ -79,80 +72,109 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
-    async def async_step_select_device(self, user_input: dict[str, Any] | None = None):
-        """Let the user select which device to configure next using a menu."""
-        if not self.devices:
-            return self.async_abort(reason="no_devices_found")
-
-        # Filter out already-configured devices
-        configured_ids = {str(d["id"]) for d in self.device_configs}
-        available_devices = [
-            d
-            for d in self.devices.values()
-            if str(d.id) not in configured_ids
-            and DEVICE_CONFIG_SCHEMAS.get(d.product_id)["schema"] is not None
-        ]
-        if len(available_devices) == 0:
-            return await self.async_step_create_entry()
-        menu_options = {str(d.id): d.name for d in available_devices}
-        menu_options["create_entry"] = "Finish configuration"
-
-        if not self._methods_initialized:
-            for device in self.devices.values():
-                add_method(self, device.id)
-            self._methods_initialized = True
-
-        return self.async_show_menu(
-            step_id="select_device",
-            menu_options=menu_options,
-            description_placeholders={},
-        )
-
-    async def async_step_configure_device(
-        self, user_input: dict[str, Any] | None = None, id=None
-    ):
-        """Configure a single device."""
-        if id is not None:
-            device = self.devices[id]
-        if user_input and "id" in user_input:
-            device = self.devices.get(user_input["id"])
-        if user_input is not None:
-            config = {
-                "id": str(device.id),
-                "name": device.name,
-                "product_id": device.product_id,
-                **user_input,
-            }
-            self.device_configs.append(config)
-            return await self.async_step_select_device()
-
-        schema_info = DEVICE_CONFIG_SCHEMAS.get(device.product_id)
-        data_schema = vol.Schema(
-            {
-                vol.Required("id"): device.id,
-                **(
-                    schema_info["schema"]
-                    if schema_info and schema_info["schema"]
-                    else {}
-                ),
-            }
-        )
-
-        description = f"Configure: {device.name}"
-
-        return self.async_show_form(
-            step_id="configure_device",
-            data_schema=data_schema,
-            description_placeholders={"device_name": device.name, "info": description},
-        )
+    @classmethod
+    @callback
+    def async_get_supported_subentry_types(
+        cls, config_entry: ConfigEntry
+    ) -> dict[str, type[ConfigSubentryFlow]]:
+        """Return subentries supported by this integration."""
+        return {"device": SurePetCareDeviceSubentryFlowHandler}
 
     async def async_step_create_entry(self, user_input: dict[str, Any] | None = None):
         """Create the config entry with all device configs."""
+
         return self.async_create_entry(
             title="SurePetCare Devices",
             data={
-                "token": self.token,
-                "client_device_id": self.client_device_id,
-                "devices": self.device_configs,
+                "token": self.client.token,
+                "client_device_id": self.client.device_id,
+            },
+            subentries=await self._setup_subentry_data(),
+        )
+
+    async def _setup_subentry_data(self):
+        """Set up subentry data for devices and pets."""
+
+        households = await self.client.api(Household.get_households())
+        entities = []
+        for household in households:
+            entities.extend(await self.client.api(household.get_devices()))
+            entities.extend(await self.client.api(household.get_pets()))
+        # Ensure client is closed after fetching data
+        await self.client.close()
+        if not entities:
+            return self.async_abort(reason="no_devices_or_pet_found")
+
+        # devices = {d.id: d for d in devices}
+
+        # Just iterate data to define which device available for subentry
+        subentries = []
+        subentries.extend(
+            [
+                {
+                    "title": entity.name,
+                    "data": {
+                        "id": str(entity.id),
+                        "name": entity.name,
+                        "product_id": entity.product_id,
+                    },
+                    "subentry_type": "device",
+                }
+                for entity in entities
+            ]
+        )
+        return subentries
+
+
+class SurePetCareDeviceSubentryFlowHandler(ConfigSubentryFlow):
+    """Handle subentry flow for adding and modifying a SurePetCare device."""
+
+    def build_dynamic_schema(self, schema_info: dict, current_data: dict) -> vol.Schema:
+        """Build a voluptuous schema with dynamic defaults based on current_data."""
+        fields = {}
+        for key, validator in schema_info.items():
+            # Use the value from current_data if present, otherwise use the default from the schema
+            default = current_data.get(key, getattr(key, "default", None))
+            if isinstance(key, vol.Required):
+                fields[vol.Required(key.schema, default=default)] = validator
+            elif isinstance(key, vol.Optional):
+                fields[vol.Optional(key.schema, default=default)] = validator
+            else:
+                # If key is just a string, treat as Required
+                fields[vol.Required(key, default=default)] = validator
+        return vol.Schema(fields)
+
+    async def async_step_configure_user(self, user_input: dict[str, Any] | None = None):
+        """Configure a device subentry."""
+        if user_input is not None:
+            # Save the updated options for this device subentry
+            return self.async_create_entry(data=user_input)
+
+        return await self.async_step_select_device()
+
+    async def async_step_reconfigure(
+        self, user_input: dict[str, Any] | None = None
+    ) -> SubentryFlowResult:
+        entry = self._get_entry()
+        subentry = self._get_reconfigure_subentry()
+        device = entry.subentries[subentry.subentry_id]
+        product_id = device.data["product_id"]
+        schema_info = DEVICE_CONFIG_SCHEMAS.get(product_id)
+
+        if user_input is not None:
+            return self.async_update_and_abort(
+                entry=entry,
+                subentry=subentry,
+                data_updates=user_input,
+            )
+
+        if schema_info["schema"] is None:
+            return self.async_abort(reason="no_reconfigure_schema")
+
+        return self.async_show_form(
+            step_id="reconfigure",
+            data_schema=self.build_dynamic_schema(schema_info["schema"], subentry.data),
+            description_placeholders={
+                "device_name": device.data["name"],
             },
         )

@@ -31,36 +31,63 @@
 
     },
     "error": {
-        "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
-        "unknown": "[%key:common::config_flow::error::unknown%]"
+        "invalid_auth": "Authentication failed. Please check your credentials.",
+        "unknown": "Unknown error occurred.",
+        "auth_failed": "Authentication failed. Please check your credentials.",
+        "no_devices_or_pet_found": "No devices or pets found in your account."
+    },
+    "abort": {
+        "already_configured": "This account is already configured."
     }
   },
   "config_subentries": {
     "device": {
-      "title": "Device configuration",
+      "title": "Device",
       "step": {
-        "list_products": {
-          "title": "Select Products",
-          "data": {
-            "product_id": "Products"
-          }
+        "user": {
+          "title": "Add device",
+          "description": "Configure the device."
         },
-        "show_devices": {
-          "title": "Select SurePetCare Device",
+        "reconfigure": {
+          "title": "Update device",
+          "description": "Update the device configuration.",
           "data": {
-            "product_id": "Product ID"
-          }
-        },
-        "device_config": {
-          "title": "Configure SurePetCare Device",
-          "data": {
-            "device_id": "Device ID",
-            "product_id": "Product ID"
+            "location_inside": "Location Inside",
+            "location_outside": "Location Outside"
           }
         }
       },
       "error": {},
       "abort": {}
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Connectivity",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      }
+
+    },
+    "sensor": {
+      "consumption": {
+        "name": "Consumption"
+      },
+      "tag": {
+        "name": "Tag"
+      },
+      "household_id": {
+        "name": "Household ID"
+      },
+      "info": {
+        "name": "Information"
+      },
+      "feeding": {
+        "name": "Feeding"
+      }
     }
   }
 }

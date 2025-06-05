@@ -1,138 +1,217 @@
 """TODO."""
 
+from dataclasses import dataclass
 import logging
-import re
-from config.custom_components.surepetcare.const import DOMAIN
-from homeassistant.components.sensor import SensorEntity
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import DeviceInfo
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from typing import Any, Callable, cast
+
+from surepetcare.client import SurePetcareClient
 from surepetcare.enums import ProductId
-from .entity import SurePetcareBaseEntity
+
+from config.custom_components.spc.const import DOMAIN
+from config.custom_components.spc.coordinator import (
+    SurePetCareDeviceDataUpdateCoordinator,
+)
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorEntityDescription,
+    SensorStateClass,
+)
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import PERCENTAGE
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+
+from .const import COORDINATOR, COORDINATOR_LIST, KEY_API
+from .entity import SurePetCareBaseEntity
 
 logger = logging.getLogger(__name__)
 
 
-def _sanitize_id(value: str) -> str:
-    """Sanitize a string to be used as an ID (alphanumeric, dash, underscore)."""
-    return re.sub(r"[^a-zA-Z0-9_-]", "_", value)
-
-
-class SurePetcareBaseSensor(SurePetcareBaseEntity, SensorEntity):
-    """Base class for SurePetcare sensors with device_info."""
-
-    def __init__(self, coordinator, data) -> None:
-        """TODO."""
-        self.coordinator = coordinator
-        self.device = coordinator.data.get(data["id"], {})
-        self.sensor_name = data["name"]
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        """Return the device info."""
-        return DeviceInfo(
-            identifiers={(DOMAIN, self.device.id)},
-            name=self.device.name,
-            manufacturer="Sure Petcare",
-            model_id=self.device.product_id,
-            via_device=(DOMAIN, self.device.id),
-        )
-
-    @property
-    def unique_id(self) -> str:
-        """Return a unique ID for this sensor."""
-        return f"{_sanitize_id(str(self.device.id))}_{_sanitize_id(self.sensor_name)}"
-
-    @property
-    def name(self):
-        """TODO."""
-        return f"{self.sensor_name}"
-
-
-class PetLocationSensor(SurePetcareBaseEntity, SensorEntity):
-    """Representation of a pet's location sensor."""
-
-    @property
-    def state(self):
-        """TODO."""
-        return 20  # Placeholder for location state
-
-    @property
-    def extra_state_attributes(self):
-        """TODO."""
-        # Todo: Map to data values
+def get_feeding_events(device: Any) -> list[dict[str, Any]] | None:
+    """Return feeding events as a list of dicts with timestamp and weights for both bowls."""
+    feeding_event = getattr(device, "feeding", None)
+    if feeding_event:
+        first_feeding_event = feeding_event[-1]
         return {
-            "location_inside": "test1",
-            "location_outside": "test2",
+            "native": abs(first_feeding_event.weights[0].change)
+            + abs(first_feeding_event.weights[1].change),
+            "data": {
+                "device_id": first_feeding_event.device_id,
+                "duration": first_feeding_event.duration,
+                "timestamp": first_feeding_event.from_,
+                "bowl_1": {
+                    "change": first_feeding_event.weights[0].change,
+                    "weight": first_feeding_event.weights[0].weight,
+                },
+                "bowl_2": {
+                    "change": first_feeding_event.weights[1].change,
+                    "weight": first_feeding_event.weights[1].weight,
+                },
+            },
         }
 
-    @property
-    def unit_of_measurement(self):
-        """TODO."""
-        return "Location"
+    return {"native": None, "data": None}
 
 
-class PetLastFedSensor(SurePetcareBaseEntity, SensorEntity):
-    """Representation of a pet's last fed sensor."""
+def get_location(device: Any, reconfig) -> bool | None:
+    """Return True if pet is inside, False if outside, or None if unknown.
 
-    @property
-    def state(self):
-        """TODO."""
-        return 5  # Placeholder for last fed time
+    Uses reconfigured values for location_inside/location_outside if available.
+    """
+    location_inside = reconfig.get("location_inside")
+    location_outside = reconfig.get("location_outside")
 
-    @property
-    def unit_of_measurement(self):
-        """TODO."""
-        return "Time"
-
-
-class BatterySensor(SurePetcareBaseEntity, SensorEntity):
-    """Representation of a Device's battery sensor."""
-
-    @property
-    def state(self):
-        """TODO."""
-        return self.device.battery_level  # Placeholder for battery percentage
-
-    @property
-    def unit_of_measurement(self):
-        """TODO."""
-        return "%"
+    if movement := getattr(device, "movement", []):
+        latest = movement[0] if isinstance(movement, list) else movement
+        if getattr(latest, "active", False):
+            return location_inside if location_inside is not None else True
+        return location_outside if location_outside is not None else False
+    return None
 
 
-# Map product IDs to their sensors
-PRODUCT_SENSOR_MAPPINGS = {
-    ProductId.FEEDER_CONNECT: {
-        "consumption": PetLastFedSensor,
-        "battery": BatterySensor,
-    },
-    ProductId.DUAL_SCAN_PET_DOOR: {
-        "location": PetLocationSensor,
-        "battery": BatterySensor,
-    },
-    ProductId.HUB: {},
+@dataclass(frozen=True, kw_only=True)
+class SurePetCareSensorEntityDescription(SensorEntityDescription):
+    """Describes SurePetCare sensor entity."""
+
+    value: Callable[[Any, dict[str, Any] | None], Any | None]
+    frozen: bool = False
+
+
+SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
+    SurePetCareSensorEntityDescription(
+        key="battery_level",
+        device_class=SensorDeviceClass.BATTERY,
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement=PERCENTAGE,
+        value=lambda device, r: cast(int, device.battery_level),
+    ),
+)
+SENSOR_DESCRIPTIONS_PRODUCT: tuple[SurePetCareSensorEntityDescription, ...] = (
+    SurePetCareSensorEntityDescription(
+        key="info",
+        translation_key="info",
+        value=lambda device, r: {
+            "native": "Up to date",
+            "data": {
+                "household_id": getattr(device, "household_id", None),
+                "product_id": getattr(device, "product_id", None),
+                "tag": getattr(device, "tag", None),
+                "id": getattr(device, "id", None),
+                "parent_device_id": getattr(device, "parent_device_id", None),
+            },
+        },
+        frozen=True,
+    ),
+)
+SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
+    ProductId.FEEDER_CONNECT: (
+        SurePetCareSensorEntityDescription(
+            key="consumption",
+            translation_key="consumption",
+            state_class=SensorStateClass.MEASUREMENT,
+            value=lambda device, r: cast(int, 5),
+        ),
+        *SENSOR_DESCRIPTIONS_PRODUCT,
+        *SENSOR_DESCRIPTIONS_BATTERY,
+    ),
+    ProductId.DUAL_SCAN_PET_DOOR: (
+        *SENSOR_DESCRIPTIONS_PRODUCT,
+        *SENSOR_DESCRIPTIONS_BATTERY,
+        SurePetCareSensorEntityDescription(
+            key="location",
+            translation_key="location",
+            value=lambda device, r: get_location(device, r),
+        ),
+    ),
+    ProductId.HUB: (*SENSOR_DESCRIPTIONS_PRODUCT,),
+    ProductId.PET: (
+        SurePetCareSensorEntityDescription(
+            key="feeding",
+            translation_key="feeding",
+            value=lambda device, r: get_feeding_events(device),
+        ),
+        *SENSOR_DESCRIPTIONS_PRODUCT,
+    ),
 }
 
 
-# Main entry: devices is a list
 async def async_setup_entry(
-    hass: HomeAssistant, entry, async_add_entities: AddEntitiesCallback
-):
-    coordinator = hass.data[DOMAIN]["coordinator"]
-    entities: list = []
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddConfigEntryEntitiesCallback,
+) -> None:
+    """Set up SurePetCare sensors for each matching subentry device."""
+    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
+    client = coordinator_data[KEY_API]
+    coordinators_by_id = {
+        str(coordinator.device.id): coordinator
+        for coordinator in coordinator_data[COORDINATOR_LIST]
+    }
 
-    # Add sensors for all devices managed by the coordinator
-    for device in coordinator.devices:
-        product_id = device.product_id
-
-        if product_id not in PRODUCT_SENSOR_MAPPINGS:
+    for subentry_id, subentry in config_entry.subentries.items():
+        device_id = subentry.data.get("id")
+        if not device_id:
             continue
-        sensor_map = PRODUCT_SENSOR_MAPPINGS.get(product_id, {})
-        entities.extend(
-            [
-                sensor_cls(coordinator, {"id": device.id, "name": name})
-                for name, sensor_cls in sensor_map.items()
-            ]
-        )
+        if coordinator := coordinators_by_id.get(device_id):
+            descriptions = SENSORS.get(coordinator.device.product_id, ())
+            if not descriptions:
+                continue
+            entities = []
+            for description in descriptions:
+                entities.append(
+                    SurePetCareSensor(
+                        coordinator,
+                        client,
+                        description=description,
+                        subentry_data=subentry.data,
+                    )
+                )
+            async_add_entities(
+                entities,
+                update_before_add=True,
+                config_subentry_id=subentry_id,
+            )
 
-    async_add_entities(entities, update_before_add=True)
+
+class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
+    """The platform class required by Home Assistant."""
+
+    entity_description: SurePetCareSensorEntityDescription
+
+    def __init__(
+        self,
+        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
+        client: SurePetcareClient,
+        description: SurePetCareSensorEntityDescription,
+        subentry_data: dict[str, Any] = None,
+    ) -> None:
+        """Initialize a Surepetcare sensor."""
+        super().__init__(
+            device_coordinator=device_coordinator,
+            client=client,
+        )
+        self.subentry_data = subentry_data
+        self.entity_description = description
+        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._refresh()  # Set initial state
+
+    def _refresh(self) -> None:
+        """Refresh the device."""
+        if (
+            getattr(self.entity_description, "frozen", False)
+            and self._attr_native_value is not None
+        ):
+            # If the sensor is frozen, do not update its value
+            return
+        value = self.entity_description.value(
+            self.coordinator.data,
+            self.subentry_data,
+        )
+        if isinstance(value, dict):
+            # Just temporarily hack so it does not show up as unknown
+            self.native_value = value.get("native", "Unknown native value")
+            self.extra_state_attributes = value.get("data", "Unknown data")
+            return
+
+        self._attr_native_value = value
