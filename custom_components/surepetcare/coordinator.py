@@ -1,39 +1,48 @@
+from datetime import timedelta
 import logging
+from typing import Any
 
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from surepetcare.devices.device import SurepyDevice
 from surepetcare.client import SurePetcareClient
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
 
+SCAN_INTERVAL = 300
 
-class SurePetcareCoordinator(DataUpdateCoordinator):
-    """Coordinator for SurePetcare devices."""
 
-    def __init__(self, hass: HomeAssistant, data) -> None:
-        """TODO."""
+class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
+    """Coordinator to manage data for a specific SurePetCare device."""
+
+    config_entry: ConfigEntry
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        config_entry: ConfigEntry,
+        client: SurePetcareClient,
+        device: SurepyDevice,
+    ) -> None:
+        """Initialize device coordinator."""
+        self.client = client
+        self.device = device
+        self._exception: Exception | None = None
+
         super().__init__(
             hass,
-            logger=logger,
-            name="SurePetcare Coordinator",
-            update_interval=None,
+            logger,
+            config_entry=config_entry,
+            name=f"Update coordinator for {device}",
+            update_interval=timedelta(seconds=SCAN_INTERVAL),
         )
-        self.token = data["token"]
-        self.device_id = data["client_device_id"]
-        self.client = SurePetcareClient()
-        self.devices = {}
 
-    async def _async_setup(self) -> None:
-        await self.client.login(token=self.token, device_id=self.device_id)
-        household_ids = [
-            household["id"] for household in (await self.client.get_households())
-        ]
-        self.devices = await self.client.get_devices(household_ids)
-        await self.client.close()
+    @callback
+    def _observe_update(self, device: Any) -> None:
+        """Update the coordinator for a device when a change is detected."""
+        self.async_set_updated_data(data=device)
 
-    async def _async_update_data(self):
-        # Fetch and update device data here
-        # for device in self.devices.values():
-        #    await device.async_update()
-        # Optionally, return a summary dict for all devices
-        return {device.id: device for device in self.devices}
+    async def _async_update_data(self) -> Any:
+        """Fetch data from the api for a specific device."""
+        return await self.client.api(self.device.refresh())
