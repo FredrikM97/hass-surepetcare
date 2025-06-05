@@ -3,6 +3,7 @@
 import logging
 import types
 from typing import Any
+import uuid
 
 from surepetcare.client import SurePetcareClient
 import voluptuous as vol
