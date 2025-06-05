@@ -1,5 +1,4 @@
 from abc import abstractmethod
-from typing import cast
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice

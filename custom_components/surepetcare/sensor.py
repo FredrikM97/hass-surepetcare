@@ -209,8 +209,8 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
             self.subentry_data,
         )
         if isinstance(value, dict):
-            # Just temporarly hack so it does not show up as unknown
-            self.native_value = value.get("native", "Unknow native value")
+            # Just temporarily hack so it does not show up as unknown
+            self.native_value = value.get("native", "Unknown native value")
             self.extra_state_attributes = value.get("data", "Unknown data")
             return
 
