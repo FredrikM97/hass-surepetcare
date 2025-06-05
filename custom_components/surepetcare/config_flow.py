@@ -1,13 +1,12 @@
 """Config flow for SurePetCare integration."""
 
 import logging
-import types
 from typing import Any
 
 from surepetcare.client import SurePetcareClient
 import voluptuous as vol
 
-from config.custom_components.spc import Household
+from surepetcare.household import Household
 from homeassistant import config_entries
 from homeassistant.config_entries import (
     ConfigEntry,
@@ -27,18 +26,6 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_PASSWORD): str,
     }
 )
-
-
-def add_method(instance, id):
-    """Add func as a method to cls."""
-    name = f"async_step_{id}"
-
-    async def device_step(self, user_input=None):
-        return await self.async_step_configure_device(user_input, id=id)
-
-    device_step.__name__ = name
-    setattr(instance, name, types.MethodType(device_step, instance))
-
 
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for SurePetCare integration."""

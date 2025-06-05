@@ -7,7 +7,7 @@ from typing import Any, cast
 
 from surepetcare.enums import ProductId
 
-from config.custom_components.spc.coordinator import (
+from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
 from homeassistant.components.binary_sensor import (

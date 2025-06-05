@@ -2,11 +2,11 @@
 
 from typing import Any
 
-from custom_components.spc.coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
 
-from config.custom_components.spc.const import DOMAIN
+from .const import DOMAIN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
@@ -27,7 +27,7 @@ async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
 ) -> bool:
-    """Create a hub."""
+    """TODO."""
     surepetcare_data: dict[str, Any] = {}
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
 
