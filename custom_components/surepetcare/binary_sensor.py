@@ -40,7 +40,14 @@ SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, .
 )
 
 SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
-    ProductId.FEEDER_CONNECT: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
+    ProductId.FEEDER_CONNECT: (
+        SurePetCareBinarySensorEntityDescription(
+            key="learn_mode",
+            translation_key="learn_mode",
+            value=lambda device: device.raw_data["status"]["learn_mode"],
+        ),
+        *SENSOR_DESCRIPTIONS_AVAILABLE,
+    ),
     ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
     ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
 }
