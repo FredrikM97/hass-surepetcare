@@ -4,13 +4,6 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py37-plus]
-  - repo: https://github.com/psf/black
-    rev: 24.4.2
-    hooks:
-      - id: black
-        args:
-          - --quiet
-        files: ^((custom_components|homeassistant|script|tests)/.+)?[^/]+\.py$
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6
     hooks:
