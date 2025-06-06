@@ -2,23 +2,24 @@
 
 from typing import Any
 
-from custom_components.spc.coordinator import SurePetCareDeviceDataUpdateCoordinator
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
 
-from config.custom_components.spc.const import DOMAIN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
+
 from .const import (
     CLIENT_DEVICE_ID,
     COORDINATOR,
     COORDINATOR_LIST,
+    DOMAIN,
     FACTORY,
     KEY_API,
     TOKEN,
 )
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
@@ -27,7 +28,7 @@ async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
 ) -> bool:
-    """Create a hub."""
+    """TODO."""
     surepetcare_data: dict[str, Any] = {}
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
 
@@ -98,9 +99,8 @@ def remove_stale_devices(
         device_registry, config_entry.entry_id
     )
     all_device_ids = {str(device.id) for device in devices}
-    device_id: str | None
     for device_entry in device_entries:
-        device_id: str | None = None
+        device_id: str | None = None  # Only define here
         # Check that device part of DOMAIN
         for identifier in device_entry.identifiers:
             if identifier[0] != DOMAIN:

@@ -1,8 +1,7 @@
 """TODO."""
 
-from voluptuous import Required
-
 from surepetcare.enums import ProductId
+from voluptuous import Required
 
 DEVICE_CONFIG_SCHEMAS = {
     ProductId.FEEDER_CONNECT: {

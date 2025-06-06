@@ -1,16 +1,13 @@
 """TODO."""
 
+from collections.abc import Callable
 from dataclasses import dataclass
 import logging
-from typing import Any, Callable, cast
+from typing import Any, cast
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.enums import ProductId
 
-from config.custom_components.spc.const import DOMAIN
-from config.custom_components.spc.coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
-)
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -22,14 +19,15 @@ from homeassistant.const import PERCENTAGE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_LIST, KEY_API
+from .const import COORDINATOR, COORDINATOR_LIST, DOMAIN, KEY_API
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import SurePetCareBaseEntity
 
 logger = logging.getLogger(__name__)
 
 
-def get_feeding_events(device: Any) -> list[dict[str, Any]] | None:
-    """Return feeding events as a list of dicts with timestamp and weights for both bowls."""
+def get_feeding_events(device: Any) -> dict[str, Any] | None:
+    """Return feeding events as a dict with timestamp and weights for both bowls."""
     feeding_event = getattr(device, "feeding", None)
     if feeding_event:
         first_feeding_event = feeding_event[-1]
@@ -50,8 +48,7 @@ def get_feeding_events(device: Any) -> list[dict[str, Any]] | None:
                 },
             },
         }
-
-    return {"native": None, "data": None}
+    return None
 
 
 def get_location(device: Any, reconfig) -> bool | None:
@@ -59,11 +56,14 @@ def get_location(device: Any, reconfig) -> bool | None:
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
-    location_inside = reconfig.get("location_inside")
-    location_outside = reconfig.get("location_outside")
 
     if movement := getattr(device, "movement", []):
         latest = movement[0] if isinstance(movement, list) else movement
+
+        # Get the names of the locations from the reconfiguration data
+        location_inside = reconfig.get(latest.device_id).get("location_inside")
+        location_outside = reconfig.get(latest.device_id).get("location_outside")
+
         if getattr(latest, "active", False):
             return location_inside if location_inside is not None else True
         return location_outside if location_outside is not None else False
@@ -129,11 +129,22 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="feeding",
             translation_key="feeding",
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement="g",
             value=lambda device, r: get_feeding_events(device),
         ),
         *SENSOR_DESCRIPTIONS_PRODUCT,
     ),
 }
+
+
+def build_device_config_map(config_entry: ConfigEntry) -> dict[str, dict[str, Any]]:
+    """Build a mapping from device ID to subentry config data."""
+    return {
+        str(subentry.data.get("id")): subentry.data
+        for subentry in config_entry.subentries.values()
+        if "id" in subentry.data
+    }
 
 
 async def async_setup_entry(
@@ -148,11 +159,13 @@ async def async_setup_entry(
         str(coordinator.device.id): coordinator
         for coordinator in coordinator_data[COORDINATOR_LIST]
     }
-
+    # Expose subentry data to all sensors since some depends on each other
+    subentry_data = build_device_config_map(config_entry)
     for subentry_id, subentry in config_entry.subentries.items():
         device_id = subentry.data.get("id")
         if not device_id:
             continue
+
         if coordinator := coordinators_by_id.get(device_id):
             descriptions = SENSORS.get(coordinator.device.product_id, ())
             if not descriptions:
@@ -164,7 +177,7 @@ async def async_setup_entry(
                         coordinator,
                         client,
                         description=description,
-                        subentry_data=subentry.data,
+                        subentry_data=subentry_data,
                     )
                 )
             async_add_entities(
@@ -178,13 +191,14 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareSensorEntityDescription
+    _attr_native_value: Any = None
 
     def __init__(
         self,
         device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
         client: SurePetcareClient,
         description: SurePetCareSensorEntityDescription,
-        subentry_data: dict[str, Any] = None,
+        subentry_data: dict[str, Any] | None = None,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
@@ -208,6 +222,9 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
             self.coordinator.data,
             self.subentry_data,
         )
+        if value is None:
+            # Just skip and continue without changing
+            return
         if isinstance(value, dict):
             # Just temporarily hack so it does not show up as unknown
             self.native_value = value.get("native", "Unknown native value")

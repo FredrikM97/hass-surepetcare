@@ -9,7 +9,8 @@ description = "Hass component library for SurePetcare API"
 authors = [
     { name = "FredrikM97" }
 ]
-readme = ""
+license = { text = "MIT" }
+readme = "README.md"
 requires-python = ">=3.8"
 
 dependencies = [
@@ -18,7 +19,10 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["custom_components*"]
+include = ["custom_components.surepetcare*"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+
+[tool.mypy]
+ignore_missing_imports = true
