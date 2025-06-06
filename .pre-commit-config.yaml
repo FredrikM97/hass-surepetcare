@@ -9,9 +9,8 @@ repos:
     hooks:
       - id: black
         args:
-          - --safe
           - --quiet
-        files: ^((homeassistant|script|tests)/.+)?[^/]+\.py$
+        files: ^((custom_components|homeassistant|script|tests)/.+)?[^/]+\.py$
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6
     hooks:
@@ -35,3 +34,5 @@ repos:
           - --pretty
           - --show-error-codes
           - --show-error-context
+          - --explicit-package-bases
+          - --ignore-missing-imports
