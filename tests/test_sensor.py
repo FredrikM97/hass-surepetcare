@@ -2,8 +2,20 @@ import importlib
 import pytest
 from unittest.mock import MagicMock, patch
 from custom_components.surepetcare import sensor
-from custom_components.surepetcare.sensor import SurePetCareSensor, SurePetCareSensorEntityDescription, get_location, get_feeding_events, build_device_config_map
-from tests.conftest import DummyDevice, DummyCoordinator, DummyClient, DummyDeviceWithFeeding, DummyDeviceWithNoneRefresh
+from custom_components.surepetcare.sensor import (
+    SurePetCareSensor,
+    SurePetCareSensorEntityDescription,
+    get_location,
+    get_feeding_events,
+    build_device_config_map,
+)
+from tests.conftest import (
+    DummyDevice,
+    DummyCoordinator,
+    DummyClient,
+    DummyDeviceWithFeeding,
+    DummyDeviceWithNoneRefresh,
+)
 
 
 def test_get_location():
@@ -33,7 +45,9 @@ def test_surepetcare_sensor_refresh_and_native_value():
         key="test",
         value=lambda device, r: 42,
     )
-    sensor_entity = SurePetCareSensor(DummyCoordinator(), DummyClient(), desc, subentry_data={})
+    sensor_entity = SurePetCareSensor(
+        DummyCoordinator(), DummyClient(), desc, subentry_data={}
+    )
     sensor_entity._refresh()
     assert sensor_entity._attr_native_value == 42
     # Test frozen sensor does not update
@@ -42,7 +56,9 @@ def test_surepetcare_sensor_refresh_and_native_value():
         value=lambda device, r: 99,
         frozen=True,
     )
-    sensor_entity_frozen = SurePetCareSensor(DummyCoordinator(), DummyClient(), desc_frozen, subentry_data={})
+    sensor_entity_frozen = SurePetCareSensor(
+        DummyCoordinator(), DummyClient(), desc_frozen, subentry_data={}
+    )
     sensor_entity_frozen._attr_native_value = 1
     sensor_entity_frozen._refresh()
     assert sensor_entity_frozen._attr_native_value == 1
@@ -53,7 +69,9 @@ def test_surepetcare_sensor_refresh_dict_value():
         key="test_dict",
         value=lambda device, r: {"native": 123, "data": {"foo": "bar"}},
     )
-    sensor_entity = SurePetCareSensor(DummyCoordinator(), DummyClient(), desc, subentry_data={})
+    sensor_entity = SurePetCareSensor(
+        DummyCoordinator(), DummyClient(), desc, subentry_data={}
+    )
     sensor_entity._refresh()
     assert hasattr(sensor_entity, "native_value")
     assert hasattr(sensor_entity, "extra_state_attributes")
@@ -130,11 +148,29 @@ async def test_async_setup_entry():
     coordinator = DummyCoordinator(device)
     coordinator.device.product_id = "PET"
     from custom_components.surepetcare.const import KEY_API, COORDINATOR_LIST
-    hass.data = {"surepetcare": {config_entry.entry_id: {"coordinator": {KEY_API: DummyClient(), COORDINATOR_LIST: [coordinator]}}}}
+
+    hass.data = {
+        "surepetcare": {
+            config_entry.entry_id: {
+                "coordinator": {KEY_API: DummyClient(), COORDINATOR_LIST: [coordinator]}
+            }
+        }
+    }
     config_entry.subentries = {"1": MagicMock(data={"id": "1"})}
     # Patch SENSORS to ensure at least one description is present
-    with patch("custom_components.surepetcare.sensor.build_device_config_map", return_value={"1": {"id": "1"}}), \
-         patch("custom_components.surepetcare.sensor.SENSORS", {"PET": (sensor.SurePetCareSensorEntityDescription(key="test", value=lambda d, r: 1),)}):
+    with patch(
+        "custom_components.surepetcare.sensor.build_device_config_map",
+        return_value={"1": {"id": "1"}},
+    ), patch(
+        "custom_components.surepetcare.sensor.SENSORS",
+        {
+            "PET": (
+                sensor.SurePetCareSensorEntityDescription(
+                    key="test", value=lambda d, r: 1
+                ),
+            )
+        },
+    ):
         await sensor.async_setup_entry(hass, config_entry, async_add_entities)
     async_add_entities.assert_called()
 
@@ -144,34 +180,67 @@ async def test_async_setup_entry_all_paths():
     hass = MagicMock()
     config_entry = MagicMock()
     from custom_components.surepetcare.const import KEY_API, COORDINATOR_LIST
+
     device = DummyDevice()
     coordinator = DummyCoordinator(device)
     coordinator.device.product_id = "PET"
-    hass.data = {"surepetcare": {config_entry.entry_id: {"coordinator": {KEY_API: DummyClient(), COORDINATOR_LIST: [coordinator]}}}}
+    hass.data = {
+        "surepetcare": {
+            config_entry.entry_id: {
+                "coordinator": {KEY_API: DummyClient(), COORDINATOR_LIST: [coordinator]}
+            }
+        }
+    }
     # --- Case 1: Normal path ---
     async_add_entities = MagicMock()
     config_entry.subentries = {"1": MagicMock(data={"id": "1"})}
-    with patch("custom_components.surepetcare.sensor.build_device_config_map", return_value={"1": {"id": "1"}}), \
-         patch("custom_components.surepetcare.sensor.SENSORS", {"PET": (sensor.SurePetCareSensorEntityDescription(key="test", value=lambda d, r: 1),)}):
+    with patch(
+        "custom_components.surepetcare.sensor.build_device_config_map",
+        return_value={"1": {"id": "1"}},
+    ), patch(
+        "custom_components.surepetcare.sensor.SENSORS",
+        {
+            "PET": (
+                sensor.SurePetCareSensorEntityDescription(
+                    key="test", value=lambda d, r: 1
+                ),
+            )
+        },
+    ):
         await sensor.async_setup_entry(hass, config_entry, async_add_entities)
     async_add_entities.assert_called()
     # Check that config_subentry_id is passed
-    assert any("config_subentry_id" in kwargs for args, kwargs in async_add_entities.call_args_list)
+    assert any(
+        "config_subentry_id" in kwargs
+        for args, kwargs in async_add_entities.call_args_list
+    )
     # Check that at least one entity is a SurePetCareSensor
     entities = async_add_entities.call_args[0][0]
     assert any(isinstance(e, SurePetCareSensor) for e in entities)
     # --- Case 2: subentry with no device_id (should skip) ---
     async_add_entities.reset_mock()
     config_entry.subentries = {"1": MagicMock(data={})}
-    with patch("custom_components.surepetcare.sensor.build_device_config_map", return_value={}), \
-         patch("custom_components.surepetcare.sensor.SENSORS", {"PET": (sensor.SurePetCareSensorEntityDescription(key="test", value=lambda d, r: 1),)}):
+    with patch(
+        "custom_components.surepetcare.sensor.build_device_config_map", return_value={}
+    ), patch(
+        "custom_components.surepetcare.sensor.SENSORS",
+        {
+            "PET": (
+                sensor.SurePetCareSensorEntityDescription(
+                    key="test", value=lambda d, r: 1
+                ),
+            )
+        },
+    ):
         await sensor.async_setup_entry(hass, config_entry, async_add_entities)
     async_add_entities.assert_not_called()
     # --- Case 3: SENSORS missing for product (should skip) ---
     async_add_entities.reset_mock()
     config_entry.subentries = {"1": MagicMock(data={"id": "1"})}
-    with patch("custom_components.surepetcare.sensor.build_device_config_map", return_value={"1": {"id": "1"}}), \
-         patch("custom_components.surepetcare.sensor.SENSORS", {}):
+    with patch(
+        "custom_components.surepetcare.sensor.build_device_config_map",
+        return_value={"1": {"id": "1"}},
+    ), patch("custom_components.surepetcare.sensor.SENSORS", {}):
         await sensor.async_setup_entry(hass, config_entry, async_add_entities)
     async_add_entities.assert_not_called()
 
@@ -199,6 +268,7 @@ def test_pet_door_location_multiple_devices():
     # Device 1: bedroom -> kitchen (inside)
     # Device 2: kitchen -> garden (outside)
     from custom_components.surepetcare.sensor import get_location
+
     class PetDevice:
         id = "cat1"
         name = "Whiskers"
@@ -207,6 +277,7 @@ def test_pet_door_location_multiple_devices():
             type("M", (), {"active": True, "device_id": "door1"})(),
             type("M", (), {"active": True, "device_id": "door2"})(),
         ]
+
     # Reconfig for both doors
     reconfig = {
         "door1": {"location_inside": "Bedroom", "location_outside": "Kitchen"},

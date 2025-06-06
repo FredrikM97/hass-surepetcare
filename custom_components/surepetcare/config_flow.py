@@ -4,9 +4,9 @@ import logging
 from typing import Any
 
 from surepetcare.client import SurePetcareClient
+from surepetcare.household import Household
 import voluptuous as vol
 
-from surepetcare.household import Household
 from homeassistant import config_entries
 from homeassistant.config_entries import (
     ConfigEntry,
@@ -26,6 +26,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_PASSWORD): str,
     }
 )
+
 
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for SurePetCare integration."""

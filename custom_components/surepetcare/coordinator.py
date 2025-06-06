@@ -2,8 +2,9 @@ from datetime import timedelta
 import logging
 from typing import Any
 
-from surepetcare.devices.device import SurepyDevice
 from surepetcare.client import SurePetcareClient
+from surepetcare.devices.device import SurepyDevice
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator

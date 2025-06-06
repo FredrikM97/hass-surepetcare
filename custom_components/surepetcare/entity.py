@@ -2,13 +2,13 @@ from abc import abstractmethod
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
-from .const import DOMAIN
-from .coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
-)
+
 from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from .const import DOMAIN
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 
 class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):

@@ -7,9 +7,6 @@ from typing import Any, cast
 
 from surepetcare.enums import ProductId
 
-from .coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
-)
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -20,6 +17,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import COORDINATOR, COORDINATOR_LIST, DOMAIN, KEY_API
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import SurePetCareBaseEntity
 
 logger = logging.getLogger(__name__)

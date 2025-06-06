@@ -1,16 +1,13 @@
 """TODO."""
 
+from collections.abc import Callable
 from dataclasses import dataclass
 import logging
-from typing import Any, Callable, cast
+from typing import Any, cast
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.enums import ProductId
 
-from .const import DOMAIN
-from .coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
-)
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -22,7 +19,8 @@ from homeassistant.const import PERCENTAGE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_LIST, KEY_API
+from .const import COORDINATOR, COORDINATOR_LIST, DOMAIN, KEY_API
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import SurePetCareBaseEntity
 
 logger = logging.getLogger(__name__)
@@ -162,7 +160,7 @@ async def async_setup_entry(
         str(coordinator.device.id): coordinator
         for coordinator in coordinator_data[COORDINATOR_LIST]
     }
-    # Expose subentry data to all sensors since some dependends on each other
+    # Expose subentry data to all sensors since some depends on each other
     subentry_data = build_device_config_map(config_entry)
     for subentry_id, subentry in config_entry.subentries.items():
         device_id = subentry.data.get("id")
@@ -228,8 +226,8 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
             # Just skip and continue without changing
             return
         if isinstance(value, dict):
-            # Just temporarly hack so it does not show up as unknown
-            self.native_value = value.get("native", "Unknow native value")
+            # Just temporarily hack so it does not show up as unknown
+            self.native_value = value.get("native", "Unknown native value")
             self.extra_state_attributes = value.get("data", "Unknown data")
             return
 

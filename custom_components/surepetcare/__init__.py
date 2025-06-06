@@ -2,23 +2,24 @@
 
 from typing import Any
 
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
 
-from .const import DOMAIN
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
+
 from .const import (
     CLIENT_DEVICE_ID,
     COORDINATOR,
     COORDINATOR_LIST,
+    DOMAIN,
     FACTORY,
     KEY_API,
     TOKEN,
 )
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
