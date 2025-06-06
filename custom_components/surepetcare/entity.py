@@ -30,7 +30,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         device_info = {
             "identifiers": {(DOMAIN, f"{self._device.id}")},
             "manufacturer": "SurePetCare",
-            "model": self._device.product_id,
+            "model": self._device.product_name,
             "name": self._device.name,
         }
         if self._device.parent_device_id is not None:

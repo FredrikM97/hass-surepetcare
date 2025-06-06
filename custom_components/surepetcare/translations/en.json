@@ -69,8 +69,14 @@
           "on": "Online",
           "off": "Offline"
         }
+      },
+       "learn_mode": {
+        "name": "Learn Mode",
+        "state": {
+          "on": "Enabled",
+          "off": "Disabled"
+        }
       }
-
     },
     "sensor": {
       "consumption": {
@@ -87,6 +93,24 @@
       },
       "feeding": {
         "name": "Feeding"
+      },
+      "rssi": {
+        "name": "RSSI",
+        "unit_of_measurement": "dBm"
+      },
+      "bowls": {
+        "name": "Bowls"
+      },
+      "lid_delay": {
+        "name": "Lid Delay",
+        "state": {
+          "0": "Faster",
+          "1": "Normal",
+          "2": "Slow"
+        }
+      },
+      "tare": {
+        "name": "Tare"
       }
     }
   }

@@ -18,6 +18,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity import EntityCategory
 
 from .const import COORDINATOR, COORDINATOR_LIST, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
@@ -101,16 +102,65 @@ SENSOR_DESCRIPTIONS_PRODUCT: tuple[SurePetCareSensorEntityDescription, ...] = (
                 "parent_device_id": getattr(device, "parent_device_id", None),
             },
         },
+        entity_category=EntityCategory.DIAGNOSTIC,
         frozen=True,
     ),
 )
 SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareSensorEntityDescription(
-            key="consumption",
-            translation_key="consumption",
-            state_class=SensorStateClass.MEASUREMENT,
-            value=lambda device, r: cast(int, 5),
+            key="tare",
+            translation_key="tare",
+            value=lambda device, r: {
+                "native": device.raw_data["control"].get("tare"),
+                "data": None,
+            },
+            entity_registry_enabled_default=False,
+        ),
+        SurePetCareSensorEntityDescription(
+            key="lid_delay",
+            translation_key="lid_delay",
+            value=lambda device, r: {
+                "native": device.lid_delay,
+                "data": None,
+            },
+            entity_registry_enabled_default=False,
+        ),
+        SurePetCareSensorEntityDescription(
+            key="training_mode",
+            translation_key="training_mode",
+            value=lambda device, r: {
+                "native": device.raw_data["control"]["training_mode"],
+                "data": None,
+            },
+            entity_registry_enabled_default=False,
+        ),
+        SurePetCareSensorEntityDescription(
+            key="bowls",
+            translation_key="bowls",
+            value=lambda device, r: {
+                "native": device.bowls[0].food_type,
+                "data": {
+                    "bowl_1": {
+                        "type": device.bowls[0].food_type,
+                        "position": device.bowls[0].position,
+                    },
+                    "bowl_2": {
+                        "type": device.bowls[0].food_type,
+                        "position": device.bowls[1].position,
+                    }
+                    if len(device.bowls) == 2
+                    else None,
+                },
+            },
+        ),
+        SurePetCareSensorEntityDescription(
+            key="rssi",
+            translation_key="rssi",
+            value=lambda device, r: {
+                "native": device.raw_data["status"]["signal"]["device_rssi"],
+                "data": None,
+            },
         ),
         *SENSOR_DESCRIPTIONS_PRODUCT,
         *SENSOR_DESCRIPTIONS_BATTERY,

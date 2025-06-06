@@ -28,15 +28,13 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-class SurePetCareConfigFlow(config_entries.ConfigFlow):
+class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Handle a config flow for SurePetCare integration."""
 
-    domain = DOMAIN
     VERSION = 1
 
     def __init__(self) -> None:
         """Initialize the config flow."""
-        super().__init__(domain=self.domain)
         self.client: SurePetcareClient | None = None
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
