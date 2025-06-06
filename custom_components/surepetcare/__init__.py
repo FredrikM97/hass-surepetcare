@@ -99,9 +99,8 @@ def remove_stale_devices(
         device_registry, config_entry.entry_id
     )
     all_device_ids = {str(device.id) for device in devices}
-    device_id: str | None
     for device_entry in device_entries:
-        device_id: str | None = None
+        device_id: str | None = None  # Only define here
         # Check that device part of DOMAIN
         for identifier in device_entry.identifiers:
             if identifier[0] != DOMAIN:

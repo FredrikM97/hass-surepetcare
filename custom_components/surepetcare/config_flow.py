@@ -28,14 +28,16 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+class SurePetCareConfigFlow(config_entries.ConfigFlow):
     """Handle a config flow for SurePetCare integration."""
 
+    domain = DOMAIN
     VERSION = 1
 
     def __init__(self) -> None:
         """Initialize the config flow."""
-        self.client = None
+        super().__init__(domain=self.domain)
+        self.client: SurePetcareClient | None = None
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Authenticate and fetch devices."""
@@ -45,10 +47,15 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             email = user_input[CONF_EMAIL]
             password = user_input[CONF_PASSWORD]
             self.client = SurePetcareClient()
-            logged_in = await self.client.login(email=email, password=password)
+            logged_in = (
+                await self.client.login(email=email, password=password)
+                if self.client
+                else False
+            )
 
             # Ensure client is closed after fetching data
-            await self.client.close()
+            if self.client:
+                await self.client.close()
             if not logged_in:
                 errors["base"] = "auth_failed"
             else:
@@ -70,7 +77,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_create_entry(self, user_input: dict[str, Any] | None = None):
         """Create the config entry with all device configs."""
-
+        assert self.client is not None
         return self.async_create_entry(
             title="SurePetCare Devices",
             data={
@@ -82,7 +89,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _setup_subentry_data(self):
         """Set up subentry data for devices and pets."""
-
+        assert self.client is not None
         households = await self.client.api(Household.get_households())
         entities = []
         for household in households:
@@ -92,10 +99,6 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         await self.client.close()
         if not entities:
             return self.async_abort(reason="no_devices_or_pet_found")
-
-        # devices = {d.id: d for d in devices}
-
-        # Just iterate data to define which device available for subentry
         subentries = []
         subentries.extend(
             [
@@ -137,7 +140,6 @@ class SurePetCareDeviceSubentryFlowHandler(ConfigSubentryFlow):
         if user_input is not None:
             # Save the updated options for this device subentry
             return self.async_create_entry(data=user_input)
-
         return await self.async_step_select_device()
 
     async def async_step_reconfigure(
@@ -148,17 +150,15 @@ class SurePetCareDeviceSubentryFlowHandler(ConfigSubentryFlow):
         device = entry.subentries[subentry.subentry_id]
         product_id = device.data["product_id"]
         schema_info = DEVICE_CONFIG_SCHEMAS.get(product_id)
-
         if user_input is not None:
             return self.async_update_and_abort(
                 entry=entry,
                 subentry=subentry,
                 data_updates=user_input,
             )
-
-        if schema_info["schema"] is None:
+        # Fix: Ensure schema_info is a dict and indexable
+        if not isinstance(schema_info, dict) or schema_info.get("schema") is None:
             return self.async_abort(reason="no_reconfigure_schema")
-
         return self.async_show_form(
             step_id="reconfigure",
             data_schema=self.build_dynamic_schema(schema_info["schema"], subentry.data),

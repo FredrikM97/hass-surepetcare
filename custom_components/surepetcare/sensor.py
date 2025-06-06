@@ -26,8 +26,8 @@ from .entity import SurePetCareBaseEntity
 logger = logging.getLogger(__name__)
 
 
-def get_feeding_events(device: Any) -> list[dict[str, Any]] | None:
-    """Return feeding events as a list of dicts with timestamp and weights for both bowls."""
+def get_feeding_events(device: Any) -> dict[str, Any] | None:
+    """Return feeding events as a dict with timestamp and weights for both bowls."""
     feeding_event = getattr(device, "feeding", None)
     if feeding_event:
         first_feeding_event = feeding_event[-1]
@@ -48,7 +48,6 @@ def get_feeding_events(device: Any) -> list[dict[str, Any]] | None:
                 },
             },
         }
-
     return None
 
 
@@ -192,13 +191,14 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareSensorEntityDescription
+    _attr_native_value: Any = None
 
     def __init__(
         self,
         device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
         client: SurePetcareClient,
         description: SurePetCareSensorEntityDescription,
-        subentry_data: dict[str, Any] = None,
+        subentry_data: dict[str, Any] | None = None,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
