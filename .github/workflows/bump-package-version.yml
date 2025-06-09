@@ -1,0 +1,80 @@
+name: Bump package version
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+ 
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  
+
+jobs:
+  bump-version:
+    name: Update version tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Git user
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+      
+      - name: Install bump-my-version
+        run: pip install bump-my-version
+
+      - name: Bump version
+        id: bump
+        uses: callowayproject/bump-my-version@master
+        with:
+          args: ${{ github.event.inputs.bump }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check
+        if: steps.bump.outputs.bumped == 'true'
+        run: |
+          echo "Version was bumped from ${{ steps.bump.outputs.previous-version }} to ${{ steps.bump.outputs.current-version }}!"
+      - name: Push version bump branch
+        if: steps.bump.outputs.bumped == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Commit version bump
+        if: steps.bump.outputs.bumped == 'true'
+        run: |
+          git add .
+          git commit -m "Bump version to ${{ steps.bump.outputs.current-version }}" || echo "No changes to commit"  
+  
+      - name: Create Pull Request
+        if: steps.bump.outputs.bumped == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          title: "Bump version to ${{ steps.bump.outputs.current-version }}"
+          body: "This PR bumps the version to ${{ steps.bump.outputs.current-version }}."
+          base: main
+          head: bump-version-${{ github.run_id }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          labels: bump-version
+          commit-message: "Bump version to ${{ steps.bump.outputs.current-version }}"
+          branch: bump-version-${{ github.run_id }}
+          delete-branch: true
