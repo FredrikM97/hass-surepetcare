@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from typing import cast
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
@@ -39,8 +40,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         self._attr_device_info = DeviceInfo(**device_info)
         self._attr_unique_id = f"{self._device.id}"
 
-    # This causes issue for pet..
-    # @property
-    # def available(self) -> bool:
-    #    """Return if entity is available."""
-    #    return cast(bool, self._device.available) and super().available
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return cast(bool, self._device.available) and super().available
