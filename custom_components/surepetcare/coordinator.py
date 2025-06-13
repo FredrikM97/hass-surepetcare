@@ -1,5 +1,7 @@
+import copy
 from datetime import timedelta
 import logging
+from types import MappingProxyType
 from typing import Any
 
 from surepetcare.client import SurePetcareClient
@@ -27,10 +29,6 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
         device: SurepyDevice,
     ) -> None:
         """Initialize device coordinator."""
-        self.client = client
-        self.device = device
-        self._exception: Exception | None = None
-
         super().__init__(
             hass,
             logger,
@@ -38,12 +36,16 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
             name=f"Update coordinator for {device}",
             update_interval=timedelta(seconds=SCAN_INTERVAL),
         )
+        self.product_id = device.product_id
+        self.client = client
+        self._device = device
+        self._photo: str | None = None
+        self._exception: Exception | None = None
 
-    @callback
-    def _observe_update(self, device: Any) -> None:
-        """Update the coordinator for a device when a change is detected."""
-        self.async_set_updated_data(data=device)
+    async def _async_setup(self):
+        """Set up the coordinator."""
+        self._photo = self._device._data.get("photo", {}).get("location")
 
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
-        return await self.client.api(self.device.refresh())
+        return await self.client.api(self._device.refresh())
