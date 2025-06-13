@@ -4,7 +4,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 import logging
 from typing import Any, cast
-
+from homeassistant.helpers.entity import EntityCategory
 from surepetcare.enums import ProductId
 
 from homeassistant.components.binary_sensor import (
@@ -45,6 +45,8 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="learn_mode",
             translation_key="learn_mode",
             value=lambda device: device.raw_data["status"]["learn_mode"],
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),

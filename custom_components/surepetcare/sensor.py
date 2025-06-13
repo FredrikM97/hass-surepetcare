@@ -279,7 +279,9 @@ class SurePetCareMainSensor(SurePetCareBaseEntity, SensorEntity):
         )
 
         self.entity_description = SurePetCareSensorEntityDescription(
-            key="entity_information", translation_key="entity_information"
+            key="entity_information",
+            translation_key="entity_information",
+            entity_category=EntityCategory.DIAGNOSTIC,
         )
 
         self._attr_unique_id = f"{self._attr_unique_id}-{self.entity_description.key}"
