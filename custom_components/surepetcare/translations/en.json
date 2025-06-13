@@ -8,27 +8,7 @@
                 "email": "Email",
                 "password": "Password"
             }
-        },
-        "configure_device":{
-            "title": "Configure Device specific settings",
-            "description": "{info}",
-            "data": {
-              "id": "Device ID: "
-            }
-        },
-        "configure_devices": {
-            "title": "Configure Devices",
-            "description": "Set up each device below. Fields marked with * are required.",
-            "sections": {
-              "section_title":{
-                "name": "Device hurrdurr",
-                 "data_description": {
-                  "qos": "The Quality of Service value the device's entities should use."
-                }
-              }
-            }
         }
-
     },
     "error": {
         "invalid_auth": "Authentication failed. Please check your credentials.",
@@ -37,8 +17,7 @@
         "no_devices_or_pet_found": "No devices or pets found in your account."
     },
     "abort": {
-        "already_configured": "This account is already configured.",
-        "no_reconfigure_schema": "There are no settings available to configure for this device."
+        "already_configured": "This account is already configured."
     }
   },
   "config_subentries": {
@@ -59,7 +38,9 @@
         }
       },
       "error": {},
-      "abort": {}
+      "abort": {
+        "no_reconfigure_schema": "There are no settings available to configure for this device."
+      }
     }
   },
   "entity": {
