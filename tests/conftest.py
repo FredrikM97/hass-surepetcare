@@ -79,6 +79,7 @@ class DummyDevice:
 
 class DummyDeviceWithNoneRefresh(DummyDevice):
     """A dummy device whose refresh returns None (for edge case tests)."""
+
     product_name = "Feeder Connect"
     raw_data = {"status": {"learn_mode": False}}
 
@@ -301,6 +302,7 @@ async def async_unload_platforms(entry, platforms) -> bool:
 def make_coordinator_data(coordinator):
     # Helper to create coordinator_data dict with COORDINATOR_DICT for tests
     from custom_components.surepetcare.const import COORDINATOR_DICT, KEY_API
+
     return {
         KEY_API: DummyClient(),
         COORDINATOR_DICT: {coordinator.data.id: coordinator},
@@ -316,4 +318,5 @@ def patch_dummy_client_api(monkeypatch):
         if arg is not None and inspect.iscoroutine(arg):
             arg = await arg
         return await orig_api(self, arg)
+
     monkeypatch.setattr(DummyClient, "api", patched_api)

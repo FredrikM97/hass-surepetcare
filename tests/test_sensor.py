@@ -59,7 +59,7 @@ def test_surepetcare_sensor_refresh_and_native_value():
         DummyCoordinator(), DummyClient(), desc_frozen, subentry_data={}
     )
     sensor_entity_frozen._attr_native_value = 1
-    
+
     _ = sensor_entity_frozen.native_value
     assert sensor_entity_frozen._attr_native_value == 1
 
@@ -137,9 +137,7 @@ async def test_async_setup_entry():
 
     hass.data = {
         "surepetcare": {
-            config_entry.entry_id: {
-                "coordinator": make_coordinator_data(coordinator)
-            }
+            config_entry.entry_id: {"coordinator": make_coordinator_data(coordinator)}
         }
     }
     config_entry.subentries = {"1": MagicMock(data={"id": "1"})}
@@ -169,9 +167,7 @@ async def test_async_setup_entry_all_paths():
     coordinator = DummyCoordinator(device)
     hass.data = {
         "surepetcare": {
-            config_entry.entry_id: {
-                "coordinator": make_coordinator_data(coordinator)
-            }
+            config_entry.entry_id: {"coordinator": make_coordinator_data(coordinator)}
         }
     }
     # --- Case 1: Normal path ---

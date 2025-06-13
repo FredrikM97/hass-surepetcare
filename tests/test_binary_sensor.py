@@ -1,6 +1,5 @@
 from unittest.mock import MagicMock, patch
 import pytest
-from custom_components.surepetcare import binary_sensor
 from custom_components.surepetcare.binary_sensor import (
     SENSORS,
     ProductId,
@@ -30,9 +29,7 @@ async def test_async_setup_entry_binary_sensor():
 
     hass.data = {
         "surepetcare": {
-            config_entry.entry_id: {
-                "coordinator": make_coordinator_data(coordinator)
-            }
+            config_entry.entry_id: {"coordinator": make_coordinator_data(coordinator)}
         }
     }
     config_entry.subentries = {"1": MagicMock(data={"id": "1"})}
@@ -41,5 +38,8 @@ async def test_async_setup_entry_binary_sensor():
         {ProductId.FEEDER_CONNECT: SENSORS[ProductId.FEEDER_CONNECT]},
     ):
         import custom_components.surepetcare.binary_sensor as binary_sensor_mod
-        await binary_sensor_mod.async_setup_entry(hass, config_entry, async_add_entities)
+
+        await binary_sensor_mod.async_setup_entry(
+            hass, config_entry, async_add_entities
+        )
     async_add_entities.assert_called()

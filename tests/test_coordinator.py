@@ -10,7 +10,9 @@ from tests.conftest import DummyDevice, DummyClient, DummyConfigEntry, DummyHass
 async def test_coordinator_update(monkeypatch):
     # Patch async_set_updated_data to track calls, but use AsyncMock for awaitable
     with patch.object(
-        SurePetCareDeviceDataUpdateCoordinator, "async_set_updated_data", new_callable=AsyncMock
+        SurePetCareDeviceDataUpdateCoordinator,
+        "async_set_updated_data",
+        new_callable=AsyncMock,
     ) as mock_set_data:
         c = SurePetCareDeviceDataUpdateCoordinator(
             DummyHass(), DummyConfigEntry(), DummyClient(), DummyDevice()
