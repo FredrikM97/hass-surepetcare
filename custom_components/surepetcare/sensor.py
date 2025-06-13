@@ -15,7 +15,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE
+from homeassistant.const import PERCENTAGE, UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
@@ -95,7 +95,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="bowl_1_weight",
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
-            native_unit_of_measurement="g",
+            native_unit_of_measurement=UnitOfMass.GRAMS,
             value=lambda device, r: {
                 "native": device.bowls[0].current_weight,
                 "data": asdict(device.bowls[0]),
@@ -108,7 +108,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="bowl_2_weight",
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
-            native_unit_of_measurement="g",
+            native_unit_of_measurement=UnitOfMass.GRAMS,
             value=lambda device, r: {
                 "native": device.bowls[1].current_weight,
                 "data": asdict(device.bowls[1]),
@@ -133,6 +133,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "data": None,
             },
             entity_registry_enabled_default=False,
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="lid_delay",
@@ -176,7 +177,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="feeding",
             translation_key="feeding",
             state_class=SensorStateClass.MEASUREMENT,
-            native_unit_of_measurement="g",
+            native_unit_of_measurement=UnitOfMass.GRAMS,
             value=lambda device, r: get_feeding_events(device),
         ),
     ),
