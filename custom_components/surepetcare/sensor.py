@@ -1,7 +1,7 @@
 """TODO."""
 
 from collections.abc import Callable
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 import logging
 from typing import Any, cast
 
@@ -75,7 +75,9 @@ def get_location(device: Any, reconfig) -> bool | None:
 class SurePetCareSensorEntityDescription(SensorEntityDescription):
     """Describes SurePetCare sensor entity."""
 
-    value: Callable[[Any, dict[str, Any] | None], Any | None] = None
+    value: Callable[[Any, dict[str, Any] | None], Any | None] = field(
+        default=lambda device, r: device
+    )
     frozen: bool = False
 
 

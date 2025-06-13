@@ -14,7 +14,6 @@ from homeassistant.helpers import device_registry as dr
 from .const import (
     CLIENT_DEVICE_ID,
     COORDINATOR,
-    COORDINATOR_LIST,
     COORDINATOR_DICT,
     DOMAIN,
     FACTORY,

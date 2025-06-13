@@ -1,14 +1,12 @@
-import copy
 from datetime import timedelta
 import logging
-from types import MappingProxyType
 from typing import Any
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
