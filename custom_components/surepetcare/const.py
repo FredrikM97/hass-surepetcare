@@ -11,4 +11,5 @@ FACTORY = "surepetcare_factory"
 TIMEOUT_API = 10
 KEY_API = "surepetcare_api"
 COORDINATOR_LIST = "coordinator_list"
+COORDINATOR_DICT = "coordinator_dict"
 COORDINATOR = "coordinator"

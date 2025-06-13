@@ -1,5 +1,6 @@
 """TODO."""
 
+import logging
 from typing import Any
 
 from surepetcare.client import SurePetcareClient
@@ -14,12 +15,15 @@ from .const import (
     CLIENT_DEVICE_ID,
     COORDINATOR,
     COORDINATOR_LIST,
+    COORDINATOR_DICT,
     DOMAIN,
     FACTORY,
     KEY_API,
     TOKEN,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+
+logger = logging.getLogger(__name__)
 
 PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
 
@@ -29,6 +33,8 @@ async def async_setup_entry(
     entry: ConfigEntry,
 ) -> bool:
     """TODO."""
+    logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
+
     surepetcare_data: dict[str, Any] = {}
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
 
@@ -60,16 +66,23 @@ async def async_setup_entry(
     # Setup the device coordinators
     coordinator_data = {
         KEY_API: client,
-        COORDINATOR_LIST: [],
+        COORDINATOR_DICT: {},
     }
 
     for device in entities:
-        coordinator = SurePetCareDeviceDataUpdateCoordinator(
-            hass=hass, config_entry=entry, client=client, device=device
-        )
-        await coordinator.async_config_entry_first_refresh()
+        device_id = str(device.id)
+        if device_id not in coordinator_data[COORDINATOR_DICT]:
+            coordinator = SurePetCareDeviceDataUpdateCoordinator(
+                hass=hass,
+                config_entry=entry,
+                client=client,
+                device=device,
+            )
+            await coordinator.async_config_entry_first_refresh()
 
-        coordinator_data[COORDINATOR_LIST].append(coordinator)
+            coordinator_data[COORDINATOR_DICT][device_id] = coordinator
+        else:
+            logger.warning("Coordinator already exists for device %s", device_id)
 
     surepetcare_data[COORDINATOR] = coordinator_data
 
@@ -94,6 +107,7 @@ def remove_stale_devices(
     hass: HomeAssistant, config_entry: ConfigEntry, devices: list[Any]
 ) -> None:
     """Remove stale devices from device registry. TODO: Work in progress and not functional yet"""
+
     device_registry = dr.async_get(hass)
     device_entries = dr.async_entries_for_config_entry(
         device_registry, config_entry.entry_id
@@ -109,6 +123,11 @@ def remove_stale_devices(
             _id = identifier[1]
             device_id = str(_id)
         if device_id is None or device_id not in all_device_ids:
+            logger.info(
+                "Removing stale device entry %s for config entry %s",
+                device_entry.id,
+                config_entry.entry_id,
+            )
             device_registry.async_update_device(
                 device_entry.id, remove_config_entry_id=config_entry.entry_id
             )
