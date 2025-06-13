@@ -6,7 +6,7 @@ from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
 
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
@@ -27,10 +27,6 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
         device: SurepyDevice,
     ) -> None:
         """Initialize device coordinator."""
-        self.client = client
-        self.device = device
-        self._exception: Exception | None = None
-
         super().__init__(
             hass,
             logger,
@@ -38,12 +34,11 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
             name=f"Update coordinator for {device}",
             update_interval=timedelta(seconds=SCAN_INTERVAL),
         )
-
-    @callback
-    def _observe_update(self, device: Any) -> None:
-        """Update the coordinator for a device when a change is detected."""
-        self.async_set_updated_data(data=device)
+        self.product_id = device.product_id
+        self.client = client
+        self._device = device
+        self._exception: Exception | None = None
 
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
-        return await self.client.api(self.device.refresh())
+        return await self.client.api(self._device.refresh())

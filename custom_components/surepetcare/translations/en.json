@@ -37,7 +37,8 @@
         "no_devices_or_pet_found": "No devices or pets found in your account."
     },
     "abort": {
-        "already_configured": "This account is already configured."
+        "already_configured": "This account is already configured.",
+        "no_reconfigure_schema": "There are no settings available to configure for this device."
     }
   },
   "config_subentries": {
@@ -111,6 +112,30 @@
       },
       "tare": {
         "name": "Tare"
+      },
+      "current_weight": {
+        "name": "Current Weight"
+      },
+      "target_weight": {
+        "name": "Target Weight"
+      },
+      "bowl_1_weight": {
+        "name": "Bowl Left Weight"
+      },"bowl_2_weight": {
+        "name": "Bowl Right Weight"
+      },
+      "weight_capacity": {
+        "name": "Total Weight Limit"
+      },
+      "entity_information": {
+        "name": "Entity Information"
+      },
+      "training_mode":{
+        "name": "Training Mode",
+        "state": {
+          "1": "Enabled",
+          "0": "Disabled"
+        }
       }
     }
   }

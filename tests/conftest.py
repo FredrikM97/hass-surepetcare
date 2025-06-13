@@ -69,6 +69,8 @@ class DummyDevice:
     product_id = "FEEDER_CONNECT"
     parent_device_id = None
     available = True
+    product_name = "Feeder Connect"
+    raw_data = {"status": {"learn_mode": False}}
 
     async def refresh(self) -> "DummyDevice":
         """Simulate async refresh, returning self."""
@@ -77,6 +79,9 @@ class DummyDevice:
 
 class DummyDeviceWithNoneRefresh(DummyDevice):
     """A dummy device whose refresh returns None (for edge case tests)."""
+
+    product_name = "Feeder Connect"
+    raw_data = {"status": {"learn_mode": False}}
 
     async def refresh(self):
         return None
@@ -88,6 +93,12 @@ class DummyCoordinator:
     def __init__(self, device: DummyDevice = None):
         self.data = device or DummyDevice()
         self.device = self.data
+        self.COORDINATOR_DICT = {self.data.id: self}
+        self.product_id = getattr(self.data, "product_id", "FEEDER_CONNECT")
+
+    # Add a dummy _observe_update for test_coordinator_update
+    def _observe_update(self):
+        pass
 
 
 class DummyClient:
@@ -158,6 +169,7 @@ class DummyHousehold:
 
     id = "dummy_household_id"
     name = "Dummy Household"
+    product_id = "FEEDER_CONNECT"  # Add this attribute for compatibility
 
     @staticmethod
     def get_households() -> str:
@@ -199,6 +211,8 @@ class DummyDeviceWithFeeding:
     """A dummy device with feeding events for feeding event tests."""
 
     feeding = [DummyFeedingEvent()]
+    product_name = "Feeder Connect"
+    raw_data = {"status": {"learn_mode": False}}
 
 
 @pytest.fixture
@@ -283,3 +297,26 @@ async def async_forward_entry_setups(*args, **kwargs) -> bool:
 async def async_unload_platforms(entry, platforms) -> bool:
     """Async helper to simulate unloading platforms."""
     return True
+
+
+def make_coordinator_data(coordinator):
+    # Helper to create coordinator_data dict with COORDINATOR_DICT for tests
+    from custom_components.surepetcare.const import COORDINATOR_DICT, KEY_API
+
+    return {
+        KEY_API: DummyClient(),
+        COORDINATOR_DICT: {coordinator.data.id: coordinator},
+    }
+
+
+@pytest.fixture(autouse=True)
+def patch_dummy_client_api(monkeypatch):
+    """Patch DummyClient.api to always await coroutine arguments in all tests."""
+    orig_api = DummyClient.api
+
+    async def patched_api(self, arg=None):
+        if arg is not None and inspect.iscoroutine(arg):
+            arg = await arg
+        return await orig_api(self, arg)
+
+    monkeypatch.setattr(DummyClient, "api", patched_api)
