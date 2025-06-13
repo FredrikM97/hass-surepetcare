@@ -31,26 +31,13 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             "identifiers": {(DOMAIN, f"{self._device.id}")},
             "manufacturer": "SurePetCare",
             "model": self._device.product_name,
+            "model_id": self._device.product_id,
             "name": self._device.name,
         }
         if self._device.parent_device_id is not None:
             device_info["via_device"] = (DOMAIN, str(self._device.parent_device_id))
         self._attr_device_info = DeviceInfo(**device_info)
         self._attr_unique_id = f"{self._device.id}"
-
-    @abstractmethod
-    @callback
-    def _refresh(self) -> None:
-        """Refresh device data."""
-
-    @callback
-    def _handle_coordinator_update(self) -> None:
-        """Handle updated data from the coordinator.
-
-        Tests fails without this method.
-        """
-        self._refresh()
-        super()._handle_coordinator_update()
 
     # This causes issue for pet..
     # @property
