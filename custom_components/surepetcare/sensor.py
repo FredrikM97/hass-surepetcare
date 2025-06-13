@@ -306,4 +306,4 @@ class SurePetCareMainSensor(SurePetCareBaseEntity, SensorEntity):
     @property
     def entity_picture(self) -> str | None:
         """Return the entity picture URL."""
-        return self.coordinator._photo  # Or wherever your photo URL is stored
+        return self.coordinator.data.photo

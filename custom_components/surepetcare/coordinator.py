@@ -39,12 +39,7 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
         self.product_id = device.product_id
         self.client = client
         self._device = device
-        self._photo: str | None = None
         self._exception: Exception | None = None
-
-    async def _async_setup(self):
-        """Set up the coordinator."""
-        self._photo = self._device._data.get("photo", {}).get("location")
 
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
