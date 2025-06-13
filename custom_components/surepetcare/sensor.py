@@ -143,6 +143,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "data": None,
             },
             entity_registry_enabled_default=False,
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="training_mode",
@@ -152,6 +153,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "data": None,
             },
             entity_registry_enabled_default=False,
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="rssi",
