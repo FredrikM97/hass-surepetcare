@@ -1,6 +1,13 @@
 from __future__ import annotations
+<<<<<<< HEAD
 from dataclasses import dataclass
 from typing import Any, Callable, cast
+=======
+from dataclasses import dataclass, is_dataclass, fields, asdict
+from typing import Any, Callable, cast
+from collections.abc import Mapping
+from enum import Enum
+>>>>>>> 0ad8e71 (Apply rework of entity paths)
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
@@ -59,9 +66,15 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     def native_value(self) -> Any:
         """Return the sensor value."""
         data = self.coordinator.data
+<<<<<<< HEAD
         if self.entity_description.field_fn is not None:
             value = self.entity_description.field_fn(data, self.subentry_data)
         elif self.entity_description.field is not None:
+=======
+        if self.entity_description.field_fn:
+            value = self.entity_description.field_fn(data, self.subentry_data)
+        elif self.entity_description.field:
+>>>>>>> 0ad8e71 (Apply rework of entity paths)
             value = get_by_paths(data, self.entity_description.field, native=True)
         else:
             value = get_by_paths(data, self.entity_description.key, native=True)
@@ -71,9 +84,15 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return extra state attributes."""
         data = self.coordinator.data
+<<<<<<< HEAD
         if self.entity_description.extra_fn is not None:
             return self.entity_description.extra_fn(data, self.subentry_data)
         elif self.entity_description.extra_field is not None:
+=======
+        if self.entity_description.extra_fn:
+            return self.entity_description.extra_fn(data, self.subentry_data)
+        elif self.entity_description.extra_field:
+>>>>>>> 0ad8e71 (Apply rework of entity paths)
             return get_by_paths(
                 self.coordinator.data,
                 self.entity_description.extra_field,
