@@ -1,10 +1,9 @@
 """TODO."""
 
-from collections.abc import Callable
+import dataclasses as dc
 from dataclasses import dataclass
 import logging
-from typing import Any, cast
-from homeassistant.helpers.entity import EntityCategory
+
 from surepetcare.enums import ProductId
 
 from homeassistant.components.binary_sensor import (
@@ -14,20 +13,27 @@ from homeassistant.components.binary_sensor import (
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
-from .entity import SurePetCareBaseEntity
+from .entity import (
+    SurePetCareBaseEntity,
+    SurePetCareBaseEntityDescription,
+    get_by_paths,
+)
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)
-class SurePetCareBinarySensorEntityDescription(BinarySensorEntityDescription):
-    """Describes SurePetCare sensor entity."""
+class SurePetCareBinarySensorEntityDescription(
+    SurePetCareBaseEntityDescription, BinarySensorEntityDescription
+):
+    """Describes SurePetCare.binary_sensor entity."""
 
-    value: Callable[[Any], Any | None]
+    extra_field: list[str] = dc.field(default_factory=list)
 
 
 SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, ...] = (
@@ -35,7 +41,7 @@ SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, .
         key="connectivity",
         translation_key="connectivity",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
-        value=lambda device: cast(bool, device.available),
+        field="available",
     ),
 )
 
@@ -44,7 +50,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            value=lambda device: device.raw_data["status"]["learn_mode"],
+            field="raw_data.status.learn_mode",
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -113,4 +119,6 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return self.entity_description.value(self.coordinator.data)
+        return get_by_paths(
+            self.coordinator.data, self.entity_description.field, native=True
+        )

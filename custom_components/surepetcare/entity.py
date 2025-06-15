@@ -1,13 +1,27 @@
-from typing import cast
+from __future__ import annotations
+from dataclasses import dataclass, is_dataclass, fields, asdict
+from typing import Any, Callable, cast
+from collections.abc import Mapping
+from enum import Enum
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.devices.device import SurepyDevice
-
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .entity_path import get_by_paths
+
+
+@dataclass(frozen=True, kw_only=True)
+class SurePetCareBaseEntityDescription:
+    """Describes SurePetCare Base entity."""
+
+    field: str | None = None
+    field_fn: Callable | None = None
+    extra_fn: Callable | None = None
+    frozen: bool = False
 
 
 class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
@@ -42,3 +56,31 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     def available(self) -> bool:
         """Return if entity is available."""
         return cast(bool, self._device.available) and super().available
+
+    @property
+    def native_value(self) -> Any:
+        """Return the sensor value."""
+        data = self.coordinator.data
+        if self.entity_description.field_fn:
+            value = self.entity_description.field_fn(data, self.subentry_data)
+        elif self.entity_description.field:
+            value = get_by_paths(data, self.entity_description.field, native=True)
+        else:
+            value = get_by_paths(data, self.entity_description.key, native=True)
+        return value
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any] | None:
+        """Return extra state attributes."""
+        data = self.coordinator.data
+        if self.entity_description.extra_fn:
+            return self.entity_description.extra_fn(data, self.subentry_data)
+        elif self.entity_description.extra_field:
+            return get_by_paths(
+                self.coordinator.data,
+                self.entity_description.extra_field,
+                serialize=True,
+                flatten=True,
+            )
+        else:
+            return None
