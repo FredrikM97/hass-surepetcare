@@ -3,10 +3,7 @@
 import dataclasses as dc
 from dataclasses import dataclass
 import logging
-<<<<<<< HEAD
 from typing import cast
-=======
->>>>>>> 0ad8e71 (Apply rework of entity paths)
 
 from surepetcare.enums import ProductId
 
