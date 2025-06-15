@@ -250,8 +250,8 @@ def test_property_list_of_dataclass_flatten():
             {"food_type": "WET", "full_weight": 0},
         ]
     }
-    # Get each item in the list (now always flattened)
-    result = get_by_paths(device, ["bowl_targets.*"])
+    # Get each item in the list, fully flattened
+    result = get_by_paths(device, ["bowl_targets.*"], flatten=True)
     assert result == {
         "bowl_targets_0_food_type": "WET",
         "bowl_targets_0_full_weight": 0,
