@@ -109,7 +109,7 @@ def get_by_paths(
     data: object,
     path: list[str] | str,
     **kwargs,
-) -> dict[str, Any] | Any | None:
+) -> Any | None:
     """Traverse and extract values from nested data structures (dicts, dataclasses, lists, objects) using dot-separated paths.
     Supports options for serialization, flattening, and list expansion via keyword arguments.
 

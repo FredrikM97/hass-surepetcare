@@ -1,9 +1,8 @@
 """TODO."""
 
-from collections.abc import Callable
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass
 import logging
-from typing import Any, cast
+from typing import Any
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.enums import ProductId
@@ -14,42 +13,22 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
+import dataclasses as dc
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE, UnitOfMass
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
-from .entity import SurePetCareBaseEntity
+from .entity import (
+    SurePetCareBaseEntity,
+    SurePetCareBaseEntityDescription,
+    get_by_paths,
+)
 
 logger = logging.getLogger(__name__)
-
-
-def get_feeding_events(device: Any) -> dict[str, Any] | None:
-    """Return feeding events as a dict with timestamp and weights for both bowls."""
-    feeding_event = getattr(device, "feeding", None)
-    if feeding_event:
-        first_feeding_event = feeding_event[-1]
-        return {
-            "native": abs(first_feeding_event.weights[0].change)
-            + abs(first_feeding_event.weights[1].change),
-            "data": {
-                "device_id": first_feeding_event.device_id,
-                "duration": first_feeding_event.duration,
-                "timestamp": first_feeding_event.from_,
-                "bowl_1": {
-                    "change": first_feeding_event.weights[0].change,
-                    "weight": first_feeding_event.weights[0].weight,
-                },
-                "bowl_2": {
-                    "change": first_feeding_event.weights[1].change,
-                    "weight": first_feeding_event.weights[1].weight,
-                },
-            },
-        }
-    return None
 
 
 def get_location(device: Any, reconfig) -> bool | None:
@@ -72,13 +51,12 @@ def get_location(device: Any, reconfig) -> bool | None:
 
 
 @dataclass(frozen=True, kw_only=True)
-class SurePetCareSensorEntityDescription(SensorEntityDescription):
+class SurePetCareSensorEntityDescription(
+    SurePetCareBaseEntityDescription, SensorEntityDescription
+):
     """Describes SurePetCare sensor entity."""
 
-    value: Callable[[Any, dict[str, Any] | None], Any | None] = field(
-        default=lambda device, r: device
-    )
-    frozen: bool = False
+    extra_field: list[str] = dc.field(default_factory=list)
 
 
 SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
@@ -87,7 +65,17 @@ SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
-        value=lambda device, r: cast(int, device.battery_level),
+        field="battery_level",
+    ),
+)
+
+SENSOR_DESCRIPTIONS_INFORMATION: tuple[SurePetCareSensorEntityDescription, ...] = (
+    SurePetCareSensorEntityDescription(
+        key="entity_information",
+        translation_key="entity_information",
+        icon="mdi:information",
+        field="name",
+        extra_field=["household_id", "product_id", "tag", "id", "parent_device_id"],
     ),
 )
 SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
@@ -98,12 +86,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            value=lambda device, r: {
-                "native": device.bowls[0].current_weight,
-                "data": asdict(device.bowls[0]),
-            }
-            if len(device.bowls) > 0
-            else None,
+            field="bowls.0.current_weight",
+            extra_field=["bowls.0.*"],
         ),
         SurePetCareSensorEntityDescription(
             key="bowl_2_weight",
@@ -111,69 +95,55 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            value=lambda device, r: {
-                "native": device.bowls[1].current_weight,
-                "data": asdict(device.bowls[1]),
-            }
-            if len(device.bowls) > 1
-            else None,
+            field="bowls.1.current_weight",
+            extra_field=["bowls.1.*"],
         ),
         SurePetCareSensorEntityDescription(
             key="weight_capacity",
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
-            value=lambda device, r: {
-                "native": sum([w.full_weight for w in device.bowl_targets]),
-                "data": {"target": device.bowl_targets},
-            },
+            field_fn=lambda device, r: sum(
+                [w.full_weight for w in device.bowl_targets]
+            ),
+            extra_field=["bowl_targets.*"],
         ),
         SurePetCareSensorEntityDescription(
             key="tare",
             translation_key="tare",
-            value=lambda device, r: {
-                "native": device.raw_data["control"].get("tare"),
-                "data": None,
-            },
+            field="raw_data.control.tare",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="lid_delay",
             translation_key="lid_delay",
-            value=lambda device, r: {
-                "native": device.lid_delay,
-                "data": None,
-            },
+            field="lid_delay",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="training_mode",
             translation_key="training_mode",
-            value=lambda device, r: {
-                "native": device.raw_data["control"]["training_mode"],
-                "data": None,
-            },
+            field="raw_data.control.training_mode",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="rssi",
             translation_key="rssi",
-            value=lambda device, r: {
-                "native": device.raw_data["status"]["signal"]["device_rssi"],
-                "data": None,
-            },
+            field="raw_data.status.signal.device_rssi",
         ),
         *SENSOR_DESCRIPTIONS_BATTERY,
+        *SENSOR_DESCRIPTIONS_INFORMATION,
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (
         *SENSOR_DESCRIPTIONS_BATTERY,
         SurePetCareSensorEntityDescription(
             key="location",
             translation_key="location",
-            value=lambda device, r: get_location(device, r),
+            field_fn=get_location,
         ),
+        *SENSOR_DESCRIPTIONS_INFORMATION,
     ),
     ProductId.HUB: (),
     ProductId.PET: (
@@ -182,8 +152,37 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="feeding",
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            value=lambda device, r: get_feeding_events(device),
+            field_fn=lambda device, r: (
+                (
+                    abs(v0)
+                    if (
+                        v0 := get_by_paths(
+                            device, "feeding.-1.weights.0.change", native=True
+                        )
+                    )
+                    is not None
+                    else 0
+                )
+                + (
+                    abs(v1)
+                    if (
+                        v1 := get_by_paths(
+                            device, "feeding.-1.weights.1.change", native=True
+                        )
+                    )
+                    is not None
+                    else 0
+                )
+            ),
+            extra_field=[  # Multiple values might be returned but we can only use latest one right now
+                "feeding.-1.device_id",
+                "feeding.-1.duration",
+                "feeding.-1.from_",
+                "feeding.-1.weights.*.change",
+                "feeding.-1.weights.*.change",
+            ],
         ),
+        *SENSOR_DESCRIPTIONS_INFORMATION,
     ),
 }
 
@@ -207,7 +206,6 @@ async def async_setup_entry(
             if not descriptions:
                 continue
             entities = []
-            entities.append(SurePetCareMainSensor(device_coordinator, client))
             for description in descriptions:
                 entities.append(
                     SurePetCareSensor(
@@ -228,7 +226,6 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareSensorEntityDescription
-    _attr_native_value: Any = None
 
     def __init__(
         self,
@@ -247,65 +244,8 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
 
     @property
-    def native_value(self) -> Any:
-        """Return the sensor value."""
-        value = self.entity_description.value(self.coordinator.data, self.subentry_data)
-        if isinstance(value, dict):
-            return value.get("native")
-        return value
-
-    @property
-    def extra_state_attributes(self) -> dict[str, Any] | None:
-        """Return extra state attributes."""
-        value = self.entity_description.value(self.coordinator.data, self.subentry_data)
-        if isinstance(value, dict):
-            return value.get("data")
-        return None
-
-
-class SurePetCareMainSensor(SurePetCareBaseEntity, SensorEntity):
-    # Just a placeholder for the main sensor entity. Should contain only static data
-
-    entity_description: SurePetCareSensorEntityDescription
-    _attr_native_value: Any = None
-
-    def __init__(
-        self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client: SurePetcareClient,
-    ) -> None:
-        """Initialize a Surepetcare sensor."""
-        super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
-        )
-
-        self.entity_description = SurePetCareSensorEntityDescription(
-            key="entity_information",
-            translation_key="entity_information",
-            entity_category=EntityCategory.DIAGNOSTIC,
-        )
-
-        self._attr_unique_id = f"{self._attr_unique_id}-{self.entity_description.key}"
-
-    @property
-    def native_value(self) -> Any:
-        """Return the sensor value."""
-        return self.coordinator.data.name
-
-    @property
-    def extra_state_attributes(self) -> dict[str, Any] | None:
-        """Return extra state attributes."""
-        device = self.coordinator.data
-        return {
-            "household_id": getattr(device, "household_id", None),
-            "product_id": getattr(device, "product_id", None),
-            "tag": getattr(device, "tag", None),
-            "id": getattr(device, "id", None),
-            "parent_device_id": getattr(device, "parent_device_id", None),
-        }
-
-    @property
     def entity_picture(self) -> str | None:
         """Return the entity picture URL."""
-        return self.coordinator.data.photo
+        if self.entity_description.icon:
+            return self.coordinator.data.photo
+        return None
