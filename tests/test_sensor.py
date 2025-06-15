@@ -66,30 +66,9 @@ if binary_sensor_mod:
     binary_sensor_mod.SurePetCareBinarySensorEntityDescription = DummyDescription
 
 
-@pytest.mark.skip(reason="Patched class does not have 'value' attribute; not relevant for current code.")
-def test_binary_sensor_entity_refresh():
-    pass
-
-
 def test_get_location():
     reconfig = {"1": {"location_inside": "Home", "location_outside": "Yard"}}
     assert get_location(DummyDevice(), reconfig) in ("Home", "Yard", None)
-
-
-@pytest.mark.skip(reason="Descriptor 'value' argument is not supported in production code.")
-def test_surepetcare_sensor_refresh_and_native_value():
-    pass
-
-
-@pytest.mark.skip(reason="Descriptor 'value' argument is not supported in production code.")
-def test_sensor_entity_refresh_and_frozen():
-    pass
-
-
-@pytest.mark.skip(reason="Descriptor 'value' argument is not supported in production code.")
-def test_sensor_entity_refresh_dict_value():
-    pass
-
 
 def test_get_location_none():
     # No movement
