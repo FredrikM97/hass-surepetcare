@@ -3,6 +3,7 @@
 import dataclasses as dc
 from dataclasses import dataclass
 import logging
+from typing import cast
 
 from surepetcare.enums import ProductId
 
@@ -119,6 +120,11 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return get_by_paths(
-            self.coordinator.data, self.entity_description.field, native=True
-        )
+        if self.entity_description.field is not None:
+            return cast(
+                bool,
+                get_by_paths(
+                    self.coordinator.data, self.entity_description.field, native=True
+                ),
+            )
+        return None
