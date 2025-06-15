@@ -123,7 +123,6 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-<<<<<<< HEAD
         if self.entity_description.field is not None:
             return cast(
                 bool,
@@ -132,8 +131,3 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
                 ),
             )
         return None
-=======
-        return get_by_paths(
-            self.coordinator.data, self.entity_description.field, native=True
-        )
->>>>>>> 0ad8e71 (Apply rework of entity paths)
