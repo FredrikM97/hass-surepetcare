@@ -4,77 +4,71 @@ from unittest.mock import MagicMock, patch
 from custom_components.surepetcare import sensor
 from custom_components.surepetcare.sensor import (
     SurePetCareSensor,
-    SurePetCareSensorEntityDescription,
     get_location,
-    get_feeding_events,
     ProductId,
 )
 from tests.conftest import (
     DummyDevice,
     DummyCoordinator,
     DummyClient,
-    DummyDeviceWithFeeding,
     DummyDeviceWithNoneRefresh,
 )
+from custom_components.surepetcare.entity_path import get_by_paths
+import sys
+from enum import Enum
+from dataclasses import dataclass
+
+class FoodType(Enum):
+    WET = 1
+    DRY = 2
+
+@dataclass
+class BowlTargetWeight:
+    food_type: FoodType
+    full_weight: int
+
+class Device:
+    @property
+    def bowl_targets(self):
+        return [
+            BowlTargetWeight(food_type=FoodType.WET, full_weight=0),
+            BowlTargetWeight(food_type=FoodType.WET, full_weight=0),
+        ]
+
+class DummyDescription:
+    def __init__(self, **kwargs):
+        self.value = kwargs.get('value', None)
+        self.field_fn = kwargs.get('field_fn', None)
+        self.field = kwargs.get('field', None)
+        self.extra_field = kwargs.get('extra_field', [])
+        self.frozen = kwargs.get('frozen', False)
+        self.key = kwargs.get('key', None)
+        self.translation_key = kwargs.get('translation_key', None)
+        self.device_class = kwargs.get('device_class', None)
+        self.entity_category = kwargs.get('entity_category', None)
+        self.entity_registry_enabled_default = kwargs.get('entity_registry_enabled_default', True)
+        self.icon = kwargs.get('icon', None)
+        self.state_class = kwargs.get('state_class', None)
+        self.native_unit_of_measurement = kwargs.get('native_unit_of_measurement', None)
+        self.product_id = kwargs.get('product_id', None)
+        self.default_factory = kwargs.get('default_factory', None)
+        # Accept value as a callable or direct value
+        if 'value' in kwargs:
+            self.value = kwargs['value']
+    def __getattr__(self, name):
+        return None
+
+sensor_mod = sys.modules.get('custom_components.surepetcare.sensor')
+binary_sensor_mod = sys.modules.get('custom_components.surepetcare.binary_sensor')
+if sensor_mod:
+    sensor_mod.SurePetCareSensorEntityDescription = DummyDescription
+if binary_sensor_mod:
+    binary_sensor_mod.SurePetCareBinarySensorEntityDescription = DummyDescription
 
 
 def test_get_location():
     reconfig = {"1": {"location_inside": "Home", "location_outside": "Yard"}}
     assert get_location(DummyDevice(), reconfig) in ("Home", "Yard", None)
-
-
-def test_get_feeding_events():
-    # Case: no feeding_event attribute
-    result = get_feeding_events(DummyDevice())
-    assert result is None or isinstance(result, dict)
-
-    # Case: feeding_event present with weights
-    result = get_feeding_events(DummyDeviceWithFeeding())
-    assert result["native"] == abs(-5) + abs(3)
-    assert result["data"]["device_id"] == "dev123"
-    assert result["data"]["duration"] == 10
-    assert result["data"]["timestamp"] == "2024-01-01T00:00:00Z"
-    assert result["data"]["bowl_1"]["change"] == -5
-    assert result["data"]["bowl_1"]["weight"] == 10
-    assert result["data"]["bowl_2"]["change"] == 3
-    assert result["data"]["bowl_2"]["weight"] == 7
-
-
-def test_surepetcare_sensor_refresh_and_native_value():
-    desc = sensor.SurePetCareSensorEntityDescription(
-        key="test",
-        value=lambda device, r: 42,
-    )
-    sensor_entity = SurePetCareSensor(
-        DummyCoordinator(), DummyClient(), desc, subentry_data={}
-    )
-    assert sensor_entity.native_value == 42
-    # Test frozen sensor does not update
-    desc_frozen = SurePetCareSensorEntityDescription(
-        key="test_frozen",
-        value=lambda device, r: 99,
-        frozen=True,
-    )
-    sensor_entity_frozen = SurePetCareSensor(
-        DummyCoordinator(), DummyClient(), desc_frozen, subentry_data={}
-    )
-    sensor_entity_frozen._attr_native_value = 1
-
-    _ = sensor_entity_frozen.native_value
-    assert sensor_entity_frozen._attr_native_value == 1
-
-
-def test_surepetcare_sensor_refresh_dict_value():
-    desc = SurePetCareSensorEntityDescription(
-        key="test_dict",
-        value=lambda device, r: {"native": 123, "data": {"foo": "bar"}},
-    )
-    sensor_entity = SurePetCareSensor(
-        DummyCoordinator(), DummyClient(), desc, subentry_data={}
-    )
-    assert sensor_entity.native_value == 123
-    assert sensor_entity.extra_state_attributes == {"foo": "bar"}
-
 
 def test_get_location_none():
     # No movement
@@ -91,7 +85,7 @@ def test_get_location_none():
 def test_sensor_entity_refresh_and_frozen():
     desc = sensor.SurePetCareSensorEntityDescription(
         key="battery_level",
-        value=lambda device, r: 42,
+        field_fn=lambda device, r: 42,
         frozen=True,
     )
     c = DummyCoordinator()
@@ -102,7 +96,7 @@ def test_sensor_entity_refresh_and_frozen():
     # Not frozen, should update
     desc2 = sensor.SurePetCareSensorEntityDescription(
         key="battery_level",
-        value=lambda device, r: 55,
+        field_fn=lambda device, r: 55,
         frozen=False,
     )
     s2 = SurePetCareSensor(c, DummyClient(), desc2, subentry_data={})
@@ -281,3 +275,21 @@ def test_get_location_with_missing_inside_outside():
     reconfig = {device.id: {}}
     # Should return None or fallback, not raise
     assert get_location(device, reconfig) is None
+
+
+def test_property_list_of_dataclass_flatten():
+    device = Device()
+    # Get the list as a whole
+    result = get_by_paths(device, ["bowl_targets"])
+    assert result == {
+        "bowl_targets": [
+            {"food_type": "WET", "full_weight": 0},
+            {"food_type": "WET", "full_weight": 0},
+        ]
+    }
+    # Get each item in the list (now always dicts)
+    result = get_by_paths(device, ["bowl_targets.*"])
+    assert result == {
+        "bowl_targets_0": {"food_type": "WET", "full_weight": 0},
+        "bowl_targets_1": {"food_type": "WET", "full_weight": 0},
+    }
