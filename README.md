@@ -6,7 +6,7 @@ Sensors for Feeders, flaps, hub and fountain.
 
 ## Installation via HACS
 
-This integration is available as a [Custom Repository](https://hacs.xyz/) for Home Assistant Community Store (HACS).
+[![Add to HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare)
 
 **To install:**
 1. Go to HACS in your Home Assistant sidebar.
