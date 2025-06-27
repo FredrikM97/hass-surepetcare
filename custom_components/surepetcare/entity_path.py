@@ -138,17 +138,10 @@ def get_by_paths(
     if not isinstance(path, (dict, str)):
         raise TypeError(f"paths must be a dict or str, got {type(path).__name__}")
 
-    if not isinstance(path, (dict, str)):
-        raise TypeError(f"paths must be a dict or str, got {type(path).__name__}")
-
     if isinstance(path, str):
         path = {path: path}
 
     path_items = list(path.items())
-
-    @lru_cache(maxsize=128)
-    def _parse_path_str(path_str):
-        return tuple(PathWildcard.WILDCARD if p == WILDCARD else p for p in path_str.split("."))
 
     pairs = []
     for out_key, path_str in path_items:
