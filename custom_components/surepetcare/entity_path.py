@@ -2,6 +2,7 @@ from dataclasses import dataclass, is_dataclass, fields, asdict
 from typing import Any
 from collections.abc import Mapping
 from enum import Enum
+from functools import lru_cache
 import logging
 
 logger = logging.getLogger(__name__)
@@ -105,6 +106,13 @@ def _traverse(data, path, key_path=()):
     )
 
 
+@lru_cache(maxsize=128)
+def _parse_path_str(path_str):
+    return tuple(
+        PathWildcard.WILDCARD if p == WILDCARD else p for p in path_str.split(".")
+    )
+
+
 def get_by_paths(
     data: object,
     path: dict[str, str] | str,
@@ -134,14 +142,11 @@ def get_by_paths(
 
     path_items = list(path.items())
 
-    def parse(p):
-        return PathWildcard.WILDCARD if p == WILDCARD else p
-
     pairs = []
     for out_key, path_str in path_items:
         if not isinstance(path_str, str):
             continue  # skip non-string paths (e.g., empty list)
-        keys = [parse(p) for p in path_str.split(".")]
+        keys = _parse_path_str(path_str)
         is_wildcard = any(p == PathWildcard.WILDCARD for p in keys)
         for k, v in _traverse(data, keys):
             # If the output key is blank, use the traversal key as the output key
