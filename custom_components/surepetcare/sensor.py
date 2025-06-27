@@ -25,7 +25,6 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    get_by_paths,
 )
 
 logger = logging.getLogger(__name__)
@@ -56,7 +55,7 @@ class SurePetCareSensorEntityDescription(
 ):
     """Describes SurePetCare sensor entity."""
 
-    extra_field: list[str] = dc.field(default_factory=list)
+    extra_field: dict[str, str] = dc.field(default_factory=dict)
 
 
 SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
@@ -69,15 +68,39 @@ SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
     ),
 )
 
-SENSOR_DESCRIPTIONS_INFORMATION: tuple[SurePetCareSensorEntityDescription, ...] = (
+SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
+    SurePetCareSensorEntityDescription, ...
+] = (
     SurePetCareSensorEntityDescription(
         key="entity_information",
         translation_key="entity_information",
         icon="mdi:information",
         field="name",
-        extra_field=["household_id", "product_id", "tag", "id", "parent_device_id"],
+        extra_field={
+            "household_id": "household_id",
+            "product_id": "product_id",
+            "id": "id",
+            "parent_device_id": "parent_device_id",
+        },
     ),
 )
+
+SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, ...] = (
+    SurePetCareSensorEntityDescription(
+        key="entity_information",
+        translation_key="entity_information",
+        icon="mdi:information",
+        field="name",
+        extra_field={
+            "household_id": "household_id",
+            "product_id": "product_id",
+            "tag": "tag",
+            "id": "id",
+            "parent_device_id": "parent_device_id",
+        },
+    ),
+)
+
 SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareSensorEntityDescription(
@@ -87,7 +110,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field="bowls.0.current_weight",
-            extra_field=["bowls.0.*"],
+            extra_field={
+                "position": "bowls.0.position",
+                "food_type": "bowls.0.food_type",
+                "substance_type": "bowls.0.substance_type",
+                "current_weight": "bowls.0.current_weight",
+                "last_filled_at": "bowls.0.last_filled_at",
+                "last_zeroed_at": "bowls.0.last_zeroed_at",
+                "last_fill_weight": "bowls.0.last_fill_weight",
+                "fill_percentage": "bowls.0.fill_percentage",
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="bowl_2_weight",
@@ -96,16 +128,28 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field="bowls.1.current_weight",
-            extra_field=["bowls.1.*"],
+            extra_field={
+                "position": "bowls.1.position",
+                "food_type": "bowls.1.food_type",
+                "substance_type": "bowls.1.substance_type",
+                "current_weight": "bowls.1.current_weight",
+                "last_filled_at": "bowls.1.last_filled_at",
+                "last_zeroed_at": "bowls.1.last_zeroed_at",
+                "last_fill_weight": "bowls.1.last_fill_weight",
+                "fill_percentage": "bowls.1.fill_percentage",
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="weight_capacity",
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
             field_fn=lambda device, r: sum(
-                [w.full_weight for w in device.bowl_targets]
+                w.full_weight for w in getattr(device, "bowl_targets", [])
             ),
-            extra_field=["bowl_targets.*"],
+            extra_field={
+                "food_type": "bowl_targets.0.food_type",
+                "full_weight": "bowl_targets.0.full_weight",
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="tare",
@@ -134,7 +178,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             field="raw_data.status.signal.device_rssi",
         ),
         *SENSOR_DESCRIPTIONS_BATTERY,
-        *SENSOR_DESCRIPTIONS_INFORMATION,
+        *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (
         *SENSOR_DESCRIPTIONS_BATTERY,
@@ -143,7 +187,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="location",
             field_fn=get_location,
         ),
-        *SENSOR_DESCRIPTIONS_INFORMATION,
+        *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.HUB: (),
     ProductId.PET: (
@@ -152,37 +196,21 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="feeding",
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field_fn=lambda device, r: (
-                (
-                    abs(v0)
-                    if (
-                        v0 := get_by_paths(
-                            device, "feeding.-1.weights.0.change", native=True
-                        )
-                    )
-                    is not None
-                    else 0
-                )
-                + (
-                    abs(v1)
-                    if (
-                        v1 := get_by_paths(
-                            device, "feeding.-1.weights.1.change", native=True
-                        )
-                    )
-                    is not None
-                    else 0
-                )
-            ),
-            extra_field=[  # Multiple values might be returned but we can only use latest one right now
-                "feeding.-1.device_id",
-                "feeding.-1.duration",
-                "feeding.-1.from_",
-                "feeding.-1.weights.*.change",
-                "feeding.-1.weights.*.change",
-            ],
+            field_fn=lambda device, r: sum(
+                getattr(w, "change", 0)
+                for w in getattr(getattr(device, "feeding", [])[-1], "weights", [])
+            )
+            if getattr(device, "feeding", [])
+            else 0,
+            extra_field={  # Multiple values might be returned but we can only use latest one right now
+                "device_id": "feeding.-1.device_id",
+                "duration": "feeding.-1.duration",
+                "from": "feeding.-1.from_",
+                "weight_change_0": "feeding.-1.weights.0.change",
+                "weight_change_1": "feeding.-1.weights.1.change",
+            },
         ),
-        *SENSOR_DESCRIPTIONS_INFORMATION,
+        *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),
 }
 
