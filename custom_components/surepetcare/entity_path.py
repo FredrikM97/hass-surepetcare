@@ -137,16 +137,22 @@ def get_by_paths(
     if not isinstance(path, (dict, str)):
         raise TypeError(f"paths must be a dict or str, got {type(path).__name__}")
 
+    if not isinstance(path, (dict, str)):
+        raise TypeError(f"paths must be a dict or str, got {type(path).__name__}")
+
     if isinstance(path, str):
         path = {path: path}
 
     path_items = list(path.items())
 
+    def parse(p):
+        return PathWildcard.WILDCARD if p == WILDCARD else p
+
     pairs = []
     for out_key, path_str in path_items:
         if not isinstance(path_str, str):
             continue  # skip non-string paths (e.g., empty list)
-        keys = _parse_path_str(path_str)
+        keys = [parse(p) for p in path_str.split(".")]
         is_wildcard = any(p == PathWildcard.WILDCARD for p in keys)
         for k, v in _traverse(data, keys):
             # If the output key is blank, use the traversal key as the output key

@@ -1,7 +1,6 @@
 import pytest
 from dataclasses import dataclass
 from enum import Enum
-import time
 
 from custom_components.surepetcare.entity_path import get_by_paths, _serialize_value
 
@@ -41,20 +40,15 @@ class Bowl:
 def test_traverse_path_dict():
     data = {"a": {"b": 42}}
     assert get_by_paths(data, {"b": "a.b"}) == {"b": 42}
-    assert get_by_paths(data, {"b": "a.b"}) == {"b": 42}
 
 
 def test_traverse_path_list():
     data = {"a": [10, 20, 30]}
     assert get_by_paths(data, {"a_1": "a.1"}) == {"a_1": 20}
-    assert get_by_paths(data, {"a_1": "a.1"}) == {"a_1": 20}
 
 
 def test_traverse_path_dataclass():
     data = Outer(inner=Inner(foo=5, bar="baz"), items=[1, 2], mapping={"x": 7})
-    assert get_by_paths(data, {"inner_foo": "inner.foo"}) == {"inner_foo": 5}
-    assert get_by_paths(data, {"items_1": "items.1"}) == {"items_1": 2}
-    assert get_by_paths(data, {"mapping_x": "mapping.x"}) == {"mapping_x": 7}
     assert get_by_paths(data, {"inner_foo": "inner.foo"}) == {"inner_foo": 5}
     assert get_by_paths(data, {"items_1": "items.1"}) == {"items_1": 2}
     assert get_by_paths(data, {"mapping_x": "mapping.x"}) == {"mapping_x": 7}
@@ -75,20 +69,17 @@ def test_wildcard_dict_blank_key():
 def test_wildcard_list():
     data = {"a": [10, 20, 30]}
     result = get_by_paths(data, {"a": "a.*"})
-    result = get_by_paths(data, {"a": "a.*"})
     assert result == {"a_0": 10, "a_1": 20, "a_2": 30}
 
 
 def test_wildcard_dataclass():
     data = Inner(foo=5, bar="baz")
     result = get_by_paths(data, {"": "*"})
-    result = get_by_paths(data, {"": "*"})
     assert result == {"foo": 5, "bar": "baz"}
 
 
 def test_wildcard_nested():
     data = {"a": [Inner(foo=1, bar="x"), Inner(foo=2, bar="y")]}
-    result = get_by_paths(data, {"": "a.*.foo"})
     result = get_by_paths(data, {"": "a.*.foo"})
     assert result == {"a_0_foo": 1, "a_1_foo": 2}
 
@@ -102,7 +93,6 @@ def test_serialize_enum():
 def test_flatten():
     data = {"a": {"b": {"c": 1, "d": 2}}}
     result = get_by_paths(data, {"": "a.b.*"}, flatten=True)
-    result = get_by_paths(data, {"": "a.b.*"}, flatten=True)
     assert result == {"a_b_c": 1, "a_b_d": 2}
 
 
@@ -110,13 +100,11 @@ def test_native():
     data = {"a": {"b": 123}}
     # Only native, not flatten
     result = get_by_paths(data, {"": "a.b"}, native=True, flatten=False)
-    result = get_by_paths(data, {"": "a.b"}, native=True, flatten=False)
     assert result == 123
 
 
 def test_serialize():
     data = Inner(foo=7, bar="hi")
-    result = get_by_paths(data, {"": "foo"}, serialize=True)
     result = get_by_paths(data, {"": "foo"}, serialize=True)
     assert result == {"foo": 7}
 
@@ -124,12 +112,10 @@ def test_serialize():
 def test_not_found():
     data = {"a": 1}
     assert get_by_paths(data, {"": "b"}) is None
-    assert get_by_paths(data, {"": "b"}) is None
 
 
 def test_empty_list():
     data = {"a": []}
-    assert get_by_paths(data, {"": "a"}) == {"a": []}
     assert get_by_paths(data, {"": "a"}) == {"a": []}
 
 
@@ -137,13 +123,11 @@ def test_last_index_list():
     data = {"a": [10, 20, 30]}
     # Should get the last item in the list using its actual index
     assert get_by_paths(data, {"": "a.2"}) == {"a_2": 30}
-    assert get_by_paths(data, {"": "a.2"}) == {"a_2": 30}
 
 
 def test_negative_index_list():
     data = {"a": [10, 20, 30]}
     # Should get the last item in the list, but key should be the resolved index
-    assert get_by_paths(data, {"": "a.-1"}) == {"a_2": 30}
     assert get_by_paths(data, {"": "a.-1"}) == {"a_2": 30}
 
 
@@ -313,30 +297,3 @@ def test_wildcard_dict_key_same_as_path():
     # If the key is the same as the first part of the path, should still prefix both
     result = get_by_paths(data, {"a": "a.*"})
     assert result == {"a_x": 1, "a_y": 2}
-
-
-def test_get_by_paths_path_cache_speed():
-    data = {"a": {"b": {"c": 123}}}
-    path = {"": "a.b.c"}
-    # First batch (cache miss)
-    t0 = time.perf_counter()
-    for _ in range(1000):
-        get_by_paths(data, path)
-    t1 = time.perf_counter()
-    # Second batch (cache hit)
-    for _ in range(1000):
-        get_by_paths(data, path)
-    t2 = time.perf_counter()
-    print("First batch:", t1 - t0, "Second batch:", t2 - t1)
-    # The second batch should not be slower than the first (allow some noise)
-    assert (t2 - t1) <= (t1 - t0) * 1.2
-
-
-def test_get_by_paths_path_cache_info():
-    data = {"a": {"b": {"c": 123}}}
-    path = {"": "a.b.c"}
-    get_by_paths(data, path)
-    cache_info = get_by_paths.__globals__["_parse_path_str"].cache_info()
-    print("Cache info:", cache_info)
-    assert cache_info.hits >= 0
-    assert cache_info.misses >= 1
