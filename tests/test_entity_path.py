@@ -69,13 +69,6 @@ def test_wildcard_dict():
 def test_wildcard_dict_blank_key():
     data = {"a": {"x": 1, "y": 2}}
     result = get_by_paths(data, {"": "a.*"})
-    result = get_by_paths(data, {"a_x": "a.*"})
-    assert result == {"a_x": 1, "a_x_a_y": 2}
-
-
-def test_wildcard_dict_blank_key():
-    data = {"a": {"x": 1, "y": 2}}
-    result = get_by_paths(data, {"": "a.*"})
     assert result == {"a_x": 1, "a_y": 2}
 
 
@@ -102,7 +95,7 @@ def test_wildcard_nested():
 
 def test_serialize_enum():
     data = EnumHolder(color=Color.GREEN, name="test")
-    result = get_by_paths(data, {"":"color"})
+    result = get_by_paths(data, {"": "color"})
     assert result == {"color": "GREEN"}
 
 
@@ -116,7 +109,7 @@ def test_flatten():
 def test_native():
     data = {"a": {"b": 123}}
     # Only native, not flatten
-    result = get_by_paths(data, {"":"a.b"}, native=True, flatten=False)
+    result = get_by_paths(data, {"": "a.b"}, native=True, flatten=False)
     result = get_by_paths(data, {"": "a.b"}, native=True, flatten=False)
     assert result == 123
 
@@ -191,8 +184,16 @@ def test_list_of_dataclass_wildcard_explicit():
     data = {
         "bowls": [Bowl(id=1, name="A", weight=10.5), Bowl(id=2, name="B", weight=20.0)]
     }
-    result = get_by_paths(data, {"bowls_0_id": "bowls.0.id", "bowls_0_name": "bowls.0.name", "bowls_0_weight": "bowls.0.weight"})
+    result = get_by_paths(
+        data,
+        {
+            "bowls_0_id": "bowls.0.id",
+            "bowls_0_name": "bowls.0.name",
+            "bowls_0_weight": "bowls.0.weight",
+        },
+    )
     assert result == {"bowls_0_id": 1, "bowls_0_name": "A", "bowls_0_weight": 10.5}
+
 
 def test_list_of_dataclass_wildcard_wildcard():
     data = {
@@ -235,7 +236,7 @@ def test_recursive_get_else_branch():
         pass
 
     data = Dummy()
-    assert get_by_paths(data, {"":"foo"}) is None
+    assert get_by_paths(data, {"": "foo"}) is None
 
 
 def test_get_by_paths_typeerror():
@@ -329,6 +330,7 @@ def test_get_by_paths_path_cache_speed():
     print("First batch:", t1 - t0, "Second batch:", t2 - t1)
     # The second batch should not be slower than the first (allow some noise)
     assert (t2 - t1) <= (t1 - t0) * 1.2
+
 
 def test_get_by_paths_path_cache_info():
     data = {"a": {"b": {"c": 123}}}
