@@ -316,6 +316,7 @@ def test_get_by_paths_path_cache_speed():
     # The second batch should not be slower than the first (allow some noise)
     assert (t2 - t1) <= (t1 - t0) * 1.2
 
+
 def test_get_by_paths_path_cache_info():
     data = {"a": {"b": {"c": 123}}}
     path = {"": "a.b.c"}
