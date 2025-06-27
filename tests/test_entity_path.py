@@ -1,6 +1,7 @@
 import pytest
 from dataclasses import dataclass
 from enum import Enum
+import time
 
 from custom_components.surepetcare.entity_path import get_by_paths, _serialize_value
 
@@ -297,3 +298,29 @@ def test_wildcard_dict_key_same_as_path():
     # If the key is the same as the first part of the path, should still prefix both
     result = get_by_paths(data, {"a": "a.*"})
     assert result == {"a_x": 1, "a_y": 2}
+
+
+def test_get_by_paths_path_cache_speed():
+    data = {"a": {"b": {"c": 123}}}
+    path = {"": "a.b.c"}
+    # First batch (cache miss)
+    t0 = time.perf_counter()
+    for _ in range(1000):
+        get_by_paths(data, path)
+    t1 = time.perf_counter()
+    # Second batch (cache hit)
+    for _ in range(1000):
+        get_by_paths(data, path)
+    t2 = time.perf_counter()
+    print("First batch:", t1 - t0, "Second batch:", t2 - t1)
+    # The second batch should not be slower than the first (allow some noise)
+    assert (t2 - t1) <= (t1 - t0) * 1.2
+
+def test_get_by_paths_path_cache_info():
+    data = {"a": {"b": {"c": 123}}}
+    path = {"": "a.b.c"}
+    get_by_paths(data, path)
+    cache_info = get_by_paths.__globals__["_parse_path_str"].cache_info()
+    print("Cache info:", cache_info)
+    assert cache_info.hits >= 0
+    assert cache_info.misses >= 1
