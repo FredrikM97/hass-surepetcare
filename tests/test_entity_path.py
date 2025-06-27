@@ -314,6 +314,7 @@ def test_wildcard_dict_key_same_as_path():
     result = get_by_paths(data, {"a": "a.*"})
     assert result == {"a_x": 1, "a_y": 2}
 
+
 def test_get_by_paths_path_cache_speed():
     data = {"a": {"b": {"c": 123}}}
     path = {"": "a.b.c"}
