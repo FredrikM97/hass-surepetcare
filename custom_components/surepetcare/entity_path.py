@@ -107,7 +107,7 @@ def _traverse(data, path, key_path=()):
 
 def get_by_paths(
     data: object,
-    path: list[str] | str,
+    path: dict[str, str] | str,
     **kwargs,
 ) -> Any | None:
     """Traverse and extract values from nested data structures (dicts, dataclasses, lists, objects) using dot-separated paths.
@@ -126,19 +126,34 @@ def get_by_paths(
     if options.native and options.flatten:
         raise ValueError("native and flatten cannot both be True")
 
-    if isinstance(path, str):
-        path = [path]
+    if not isinstance(path, (dict, str)):
+        raise TypeError(f"paths must be a dict or str, got {type(path).__name__}")
 
-    if not isinstance(path, list):
-        raise TypeError("path must be a list of dot-separated strings, e.g., ['a.b']")
+    if isinstance(path, str):
+        path = {path: path}
+
+    path_items = list(path.items())
 
     def parse(p):
         return PathWildcard.WILDCARD if p == WILDCARD else p
 
     pairs = []
-    for path_str in path:
+    for out_key, path_str in path_items:
+        if not isinstance(path_str, str):
+            continue  # skip non-string paths (e.g., empty list)
         keys = [parse(p) for p in path_str.split(".")]
-        pairs.extend(_traverse(data, keys))
+        is_wildcard = any(p == PathWildcard.WILDCARD for p in keys)
+        for k, v in _traverse(data, keys):
+            # If the output key is blank, use the traversal key as the output key
+            if out_key == "":
+                full_key = k
+            elif is_wildcard and k and (k.startswith(out_key) or out_key in k):
+                full_key = k
+            elif is_wildcard and k and out_key != k:
+                full_key = f"{out_key}_{k}"
+            else:
+                full_key = out_key
+            pairs.append((full_key, v))
     results = dict(pairs) if pairs else None
     if results:
 

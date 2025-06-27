@@ -73,7 +73,8 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
             return self.entity_description.extra_fn(data, self.subentry_data)
-        elif self.entity_description.extra_field is not None:
+        elif self.entity_description.extra_field:
+            # Only call get_by_paths if extra_field is not empty
             return get_by_paths(
                 self.coordinator.data,
                 self.entity_description.extra_field,

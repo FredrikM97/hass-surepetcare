@@ -280,7 +280,7 @@ def test_get_location_with_missing_inside_outside():
 def test_property_list_of_dataclass_flatten():
     device = Device()
     # Get the list as a whole
-    result = get_by_paths(device, ["bowl_targets"])
+    result = get_by_paths(device, {"": "bowl_targets"})
     assert result == {
         "bowl_targets": [
             {"food_type": "WET", "full_weight": 0},
@@ -288,7 +288,7 @@ def test_property_list_of_dataclass_flatten():
         ]
     }
     # Get each item in the list (now always dicts)
-    result = get_by_paths(device, ["bowl_targets.*"])
+    result = get_by_paths(device, {"": "bowl_targets.*"})
     assert result == {
         "bowl_targets_0": {"food_type": "WET", "full_weight": 0},
         "bowl_targets_1": {"food_type": "WET", "full_weight": 0},
