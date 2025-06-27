@@ -18,14 +18,17 @@ import sys
 from enum import Enum
 from dataclasses import dataclass
 
+
 class FoodType(Enum):
     WET = 1
     DRY = 2
+
 
 @dataclass
 class BowlTargetWeight:
     food_type: FoodType
     full_weight: int
+
 
 class Device:
     @property
@@ -35,31 +38,36 @@ class Device:
             BowlTargetWeight(food_type=FoodType.WET, full_weight=0),
         ]
 
+
 class DummyDescription:
     def __init__(self, **kwargs):
-        self.value = kwargs.get('value', None)
-        self.field_fn = kwargs.get('field_fn', None)
-        self.field = kwargs.get('field', None)
-        self.extra_field = kwargs.get('extra_field', [])
-        self.frozen = kwargs.get('frozen', False)
-        self.key = kwargs.get('key', None)
-        self.translation_key = kwargs.get('translation_key', None)
-        self.device_class = kwargs.get('device_class', None)
-        self.entity_category = kwargs.get('entity_category', None)
-        self.entity_registry_enabled_default = kwargs.get('entity_registry_enabled_default', True)
-        self.icon = kwargs.get('icon', None)
-        self.state_class = kwargs.get('state_class', None)
-        self.native_unit_of_measurement = kwargs.get('native_unit_of_measurement', None)
-        self.product_id = kwargs.get('product_id', None)
-        self.default_factory = kwargs.get('default_factory', None)
+        self.value = kwargs.get("value", None)
+        self.field_fn = kwargs.get("field_fn", None)
+        self.field = kwargs.get("field", None)
+        self.extra_field = kwargs.get("extra_field", [])
+        self.frozen = kwargs.get("frozen", False)
+        self.key = kwargs.get("key", None)
+        self.translation_key = kwargs.get("translation_key", None)
+        self.device_class = kwargs.get("device_class", None)
+        self.entity_category = kwargs.get("entity_category", None)
+        self.entity_registry_enabled_default = kwargs.get(
+            "entity_registry_enabled_default", True
+        )
+        self.icon = kwargs.get("icon", None)
+        self.state_class = kwargs.get("state_class", None)
+        self.native_unit_of_measurement = kwargs.get("native_unit_of_measurement", None)
+        self.product_id = kwargs.get("product_id", None)
+        self.default_factory = kwargs.get("default_factory", None)
         # Accept value as a callable or direct value
-        if 'value' in kwargs:
-            self.value = kwargs['value']
+        if "value" in kwargs:
+            self.value = kwargs["value"]
+
     def __getattr__(self, name):
         return None
 
-sensor_mod = sys.modules.get('custom_components.surepetcare.sensor')
-binary_sensor_mod = sys.modules.get('custom_components.surepetcare.binary_sensor')
+
+sensor_mod = sys.modules.get("custom_components.surepetcare.sensor")
+binary_sensor_mod = sys.modules.get("custom_components.surepetcare.binary_sensor")
 if sensor_mod:
     sensor_mod.SurePetCareSensorEntityDescription = DummyDescription
 if binary_sensor_mod:
@@ -69,6 +77,7 @@ if binary_sensor_mod:
 def test_get_location():
     reconfig = {"1": {"location_inside": "Home", "location_outside": "Yard"}}
     assert get_location(DummyDevice(), reconfig) in ("Home", "Yard", None)
+
 
 def test_get_location_none():
     # No movement

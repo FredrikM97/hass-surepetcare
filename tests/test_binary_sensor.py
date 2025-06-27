@@ -11,10 +11,10 @@ def test_binary_sensor_entity_refresh():
     desc = SENSORS[ProductId.FEEDER_CONNECT][0]
     # The production descriptor does not have a 'value' attribute; test field or field_fn instead
     # If field_fn exists, test it; otherwise, just check the field attribute
-    if hasattr(desc, 'field_fn') and desc.field_fn:
+    if hasattr(desc, "field_fn") and desc.field_fn:
         assert callable(desc.field_fn)
     else:
-        assert hasattr(desc, 'field')
+        assert hasattr(desc, "field")
 
 
 @pytest.mark.asyncio

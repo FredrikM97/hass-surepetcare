@@ -25,7 +25,6 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    get_by_paths,
 )
 
 logger = logging.getLogger(__name__)
