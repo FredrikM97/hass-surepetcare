@@ -197,14 +197,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field_fn=lambda device, r: sum(
+            field_fn=lambda device, r: abs(sum(
                 c
                 for c in (
                     getattr(w, "change", 0)
                     for w in getattr(getattr(device, "feeding", [])[-1], "weights", [])
                 )
                 if c < 0
-            )
+            ))
             if getattr(device, "feeding", [])
             else 0,
             extra_field={  # Multiple values might be returned but we can only use latest one right now
