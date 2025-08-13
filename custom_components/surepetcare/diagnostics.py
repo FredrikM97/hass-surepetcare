@@ -8,11 +8,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 
 from homeassistant.helpers import device_registry as dr
-from homeassistant.components.diagnostics import async_redact_data
 
 from .const import DOMAIN
-
-TO_REDACT = {}
 
 
 async def async_get_config_entry_diagnostics(
@@ -20,8 +17,8 @@ async def async_get_config_entry_diagnostics(
 ) -> dict[str, Any]:
     """Return diagnostics for a config entry."""
     return {
-        "entry_data": async_redact_data(dict(entry.data), TO_REDACT),
-        "options": async_redact_data(dict(entry.options), TO_REDACT),
+        "entry_data": dict(entry.data),
+        "options": dict(entry.options),
     }
 
 
@@ -38,4 +35,4 @@ async def async_get_device_diagnostics(
 
     raw_data = getattr(data, "raw_data", {})
 
-    return {"details": async_redact_data(raw_data, TO_REDACT)}
+    return {"details": raw_data}
