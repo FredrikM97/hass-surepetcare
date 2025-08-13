@@ -38,3 +38,5 @@ This integration supports the following Sure Petcare devices:
 - Supports configuration and setup via the Home Assistant UI
 - Works seamlessly with HACS for easy updates
 
+## Issues
+In case of issue enable debug for the integration or download diagnostics and create a issue.
