@@ -5,7 +5,7 @@ from voluptuous import Required
 
 DEVICE_CONFIG_SCHEMAS = {
     ProductId.FEEDER_CONNECT: {
-        "schema": None,
+        "schema": None
     },
     ProductId.DUAL_SCAN_PET_DOOR: {
         "schema": {

@@ -80,7 +80,7 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
             "household_id": "household_id",
             "product_id": "product_id",
             "id": "id",
-            "parent_device_id": "parent_device_id",
+            "parent_device_id": "entity_info.parent_device_id",
         },
     ),
 )
@@ -96,7 +96,7 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
             "product_id": "product_id",
             "tag": "tag",
             "id": "id",
-            "parent_device_id": "parent_device_id",
+            "parent_device_id": "entity_info.parent_device_id",
         },
     ),
 )
@@ -109,16 +109,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="bowls.0.current_weight",
+            field="status.bowl_status.0.current_weight",
             extra_field={
-                "position": "bowls.0.position",
-                "food_type": "bowls.0.food_type",
-                "substance_type": "bowls.0.substance_type",
-                "current_weight": "bowls.0.current_weight",
-                "last_filled_at": "bowls.0.last_filled_at",
-                "last_zeroed_at": "bowls.0.last_zeroed_at",
-                "last_fill_weight": "bowls.0.last_fill_weight",
-                "fill_percentage": "bowls.0.fill_percentage",
+                "position": "status.bowl_status.0.index",
+                "food_type": "status.bowl_status.0.food_type",
+                "substance_type": "status.bowl_status.0.substance_type",
+                "current_weight": "status.bowl_status.0.current_weight",
+                "last_filled_at": "status.bowl_status.0.last_filled_at",
+                "last_zeroed_at": "status.bowl_status.0.last_zeroed_at",
+                "last_fill_weight": "status.bowl_status.0.last_fill_weight",
+                "fill_percentage": "status.bowl_status.0.fill_percentage",
             },
         ),
         SurePetCareSensorEntityDescription(
@@ -127,16 +127,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="bowls.1.current_weight",
+            field="status.bowl_status.1.current_weight",
             extra_field={
-                "position": "bowls.1.position",
-                "food_type": "bowls.1.food_type",
-                "substance_type": "bowls.1.substance_type",
-                "current_weight": "bowls.1.current_weight",
-                "last_filled_at": "bowls.1.last_filled_at",
-                "last_zeroed_at": "bowls.1.last_zeroed_at",
-                "last_fill_weight": "bowls.1.last_fill_weight",
-                "fill_percentage": "bowls.1.fill_percentage",
+                "position": "status.bowl_status.1.index",
+                "food_type": "status.bowl_status.1.food_type",
+                "substance_type": "status.bowl_status.1.substance_type",
+                "current_weight": "status.bowl_status.1.current_weight",
+                "last_filled_at": "status.bowl_status.1.last_filled_at",
+                "last_zeroed_at": "status.bowl_status.1.last_zeroed_at",
+                "last_fill_weight": "status.bowl_status.1.last_fill_weight",
+                "fill_percentage": "status.bowl_status.1.fill_percentage",
             },
         ),
         SurePetCareSensorEntityDescription(
@@ -147,35 +147,35 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 w.full_weight for w in getattr(device, "bowl_targets", [])
             ),
             extra_field={
-                "food_type": "bowl_targets.0.food_type",
-                "full_weight": "bowl_targets.0.full_weight",
+                "food_type": "status.bowl_status.0.food_type",
+                "full_weight": "status.bowl_status.0.full_weight",
             },
         ),
         SurePetCareSensorEntityDescription(
             key="tare",
             translation_key="tare",
-            field="raw_data.control.tare",
+            field="control.tare",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="lid_delay",
             translation_key="lid_delay",
-            field="lid_delay",
+            field="status.lid_delay",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="training_mode",
             translation_key="training_mode",
-            field="raw_data.control.training_mode",
+            field="control.training_mode",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="rssi",
             translation_key="rssi",
-            field="raw_data.status.signal.device_rssi",
+            field="status.signal.device_rssi",
         ),
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
@@ -233,30 +233,18 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
-    for subentry_id, subentry in config_entry.subentries.items():
-        device_id = subentry.data.get("id")
-        if not device_id:
-            continue
-
-        if device_coordinator := coordinator_data[COORDINATOR_DICT].get(device_id):
-            descriptions = SENSORS.get(device_coordinator.product_id, ())
-            if not descriptions:
-                continue
-            entities = []
-            for description in descriptions:
-                entities.append(
-                    SurePetCareSensor(
-                        device_coordinator,
-                        client,
-                        description=description,
-                        subentry_data=subentry.data,
-                    )
+    entities = []
+    for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
+        descriptions = SENSORS.get(device_coordinator.product_id, ())
+        for description in descriptions:
+            entities.append(
+                SurePetCareSensor(
+                    device_coordinator,
+                    client,
+                    description=description,
                 )
-            async_add_entities(
-                entities,
-                update_before_add=True,
-                config_subentry_id=subentry_id,
             )
+    async_add_entities(entities, update_before_add=True)
 
 
 class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):

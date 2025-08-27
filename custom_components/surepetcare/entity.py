@@ -37,18 +37,21 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
         self._device: SurepyDevice = device_coordinator.data
         self._client = client
+        self._attr_unique_id = f"{self._device.id}"
 
-        device_info = {
+    @property
+    def device_info(self):
+        """Return device information about this entity."""
+        return {
             "identifiers": {(DOMAIN, f"{self._device.id}")},
             "manufacturer": "SurePetCare",
             "model": self._device.product_name,
             "model_id": self._device.product_id,
             "name": self._device.name,
+            "via_device": (DOMAIN, str(self._device.entity_info.parent_device_id))
+            if self._device.entity_info.parent_device_id is not None
+            else None,
         }
-        if self._device.parent_device_id is not None:
-            device_info["via_device"] = (DOMAIN, str(self._device.parent_device_id))
-        self._attr_device_info = DeviceInfo(**device_info)
-        self._attr_unique_id = f"{self._device.id}"
 
     @property
     def available(self) -> bool:

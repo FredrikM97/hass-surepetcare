@@ -5,6 +5,7 @@ from typing import Any
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
+from surepetcare.enums import ProductId
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
@@ -38,7 +39,17 @@ async def async_setup_entry(
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
 
     client: SurePetcareClient = SurePetcareClient()
-    await client.login(token=entry.data[TOKEN], device_id=entry.data[CLIENT_DEVICE_ID])
+    # Try login with token+device_id, else fallback to email+password
+    token = entry.data.get(TOKEN)
+    device_id = entry.data.get(CLIENT_DEVICE_ID)
+    email = entry.data.get("email")
+    password = entry.data.get("password")
+    if token and device_id:
+        await client.login(token=token, device_id=device_id)
+    elif email and password:
+        await client.login(email=email, password=password)
+    else:
+        raise Exception("No valid credentials found in config entry data")
     surepetcare_data[FACTORY] = client
 
     async def on_hass_stop(event: Event) -> None:
@@ -56,7 +67,7 @@ async def async_setup_entry(
             entities.extend(await client.api(household.get_pets()))
             entities.extend(await client.api(household.get_devices()))
             # Add each hub device to hubs list
-
+        await client.close()
     except Exception as exc:
         await client.close()
         raise Exception("Configuration not finished") from exc
@@ -67,6 +78,24 @@ async def async_setup_entry(
         KEY_API: client,
         COORDINATOR_DICT: {},
     }
+
+    for device in entities:
+        if device.product != ProductId.HUB:
+            continue
+        entities.remove(device)
+        device_id = str(device.id)
+        if device_id not in coordinator_data[COORDINATOR_DICT]:
+            coordinator = SurePetCareDeviceDataUpdateCoordinator(
+                hass=hass,
+                config_entry=entry,
+                client=client,
+                device=device,
+            )
+            await coordinator.async_config_entry_first_refresh()
+
+            coordinator_data[COORDINATOR_DICT][device_id] = coordinator
+        else:
+            logger.warning("Coordinator already exists for device %s", device_id)
 
     for device in entities:
         device_id = str(device.id)
