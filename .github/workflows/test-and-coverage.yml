@@ -20,4 +20,4 @@ jobs:
           pip install -e . && pip install -r requirements-dev.txt
       - name: Run tests with coverage
         run: |
-          pytest --snapshot-update --cov=surepetcare --cov-report=xml --cov-report=term
+          pytest --cov=surepetcare --cov-report=xml --cov-report=term
