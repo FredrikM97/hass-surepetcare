@@ -4,9 +4,7 @@ from surepetcare.enums import ProductId
 from voluptuous import Required
 
 DEVICE_CONFIG_SCHEMAS = {
-    ProductId.FEEDER_CONNECT: {
-        "schema": None
-    },
+    ProductId.FEEDER_CONNECT: {"schema": None},
     ProductId.DUAL_SCAN_PET_DOOR: {
         "schema": {
             Required("location_inside"): str,

@@ -1,7 +1,7 @@
 """TODO."""
 
 import logging
-from typing import Any
+from typing import Any, List
 
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
@@ -61,7 +61,7 @@ async def async_setup_entry(
         hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, on_hass_stop)
     )
     try:
-        households = await client.api(Household.get_households())
+        households: List[Household] = await client.api(Household.get_households())
         entities = []
         for household in households:
             entities.extend(await client.api(household.get_pets()))

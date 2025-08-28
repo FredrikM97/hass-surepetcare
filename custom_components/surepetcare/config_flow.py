@@ -1,7 +1,6 @@
 """Config flow for SurePetCare integration."""
 
 import logging
-from surepetcare.enums import ProductId
 from typing import Any
 from enum import IntEnum
 
@@ -38,19 +37,20 @@ class FlowAction(IntEnum):
     RECONFIGURE = 1
 
 
-class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore[attr-defined]
+class SurePetCareConfigFlow(config_entries.ConfigFlow):
     """Handle a config flow for SurePetCare integration."""
 
+    domain = DOMAIN
     VERSION = 1
 
     def __init__(self) -> None:
         """Initialize the config flow."""
-        self.client = None
-        self._entities = {}
-        self._device_index = None
-        self._device_config = {}
-        self._device_id = None
-        self.action = None
+        self.client: SurePetcareClient = None
+        self._entities: dict = {}
+        self._device_index: str | None = None
+        self._device_config: dict = {}
+        self._device_id: str | None = None
+        self.action: FlowAction | None = None
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Authenticate and fetch devices, then show menu for device config."""
@@ -113,10 +113,13 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             idt: e
             for idt, e in self._entities.items()
             if (
-                (DEVICE_CONFIG_SCHEMAS.get(get_device_attr(e, "product_id")) or {}).get(
-                    "schema"
+                (
+                    schema_info := DEVICE_CONFIG_SCHEMAS.get(
+                        get_device_attr(e, "product_id")
+                    )
                 )
-                not in (None, {}, [])
+                and isinstance(schema_info, dict)
+                and schema_info.get("schema") not in (None, {}, [])
             )
         }
         device_map = {
@@ -149,21 +152,22 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         """Configure the selected device using its schema."""
         entity = self._entities[self._device_id]
         schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, "product_id"))
-        schema = (
-            schema_info["schema"] if schema_info and "schema" in schema_info else None
-        )
+        schema = schema_info.get("schema", {}) if isinstance(schema_info, dict) else {}
 
         existing_config = self._device_config.get(self._device_id, {})
-        # Rework in future update - Currently works to set default value if exists
-        schema_dict = {}
-        for key, field_type in schema.items():
-            default_value = existing_config.get(key) if existing_config else None
-            if default_value is not None:
-                schema_dict[vol.Required(key.schema, default=default_value)] = (
-                    field_type
-                )
-            else:  # If no previous value, just use the field type
-                schema_dict.update({key: field_type})
+        if len(existing_config) == 0:
+            schema_dict = schema
+        else:
+            # Rework in future update - Currently works to set default value if exists
+            schema_dict = {}
+            for key, field_type in schema.items():
+                default_value = existing_config.get(key) if existing_config else None
+                if default_value is not None:
+                    schema_dict[vol.Required(key.schema, default=default_value)] = (
+                        field_type
+                    )
+                else:  # If no previous value, just use the field type
+                    schema_dict.update({key: field_type})
         schema = vol.Schema(schema_dict)
 
         if user_input is not None:
@@ -216,7 +220,8 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             ).options
         )
         return await self.async_step_select_device()
-    
+
+
 def get_device_attr(device: Any, attr: str, default: Any = None) -> Any:
     """Get attribute or dict key from device."""
     if isinstance(device, dict):

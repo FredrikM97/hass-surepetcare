@@ -229,7 +229,7 @@ async def async_setup_entry(
     config_entry: ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    """Set up SurePetCare sensors for each matching subentry device."""
+    """Set up SurePetCare sensors for each matching device."""
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
@@ -257,14 +257,12 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
         client: SurePetcareClient,
         description: SurePetCareSensorEntityDescription,
-        subentry_data: dict[str, Any] | None = None,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
             device_coordinator=device_coordinator,
             client=client,
         )
-        self.subentry_data = subentry_data
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
 

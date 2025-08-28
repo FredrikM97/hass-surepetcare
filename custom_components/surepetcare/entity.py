@@ -38,20 +38,18 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         self._device: SurepyDevice = device_coordinator.data
         self._client = client
         self._attr_unique_id = f"{self._device.id}"
-
-    @property
-    def device_info(self):
-        """Return device information about this entity."""
-        return {
-            "identifiers": {(DOMAIN, f"{self._device.id}")},
-            "manufacturer": "SurePetCare",
-            "model": self._device.product_name,
-            "model_id": self._device.product_id,
-            "name": self._device.name,
-            "via_device": (DOMAIN, str(self._device.entity_info.parent_device_id))
-            if self._device.entity_info.parent_device_id is not None
-            else None,
-        }
+        self._attr_device_info = DeviceInfo(
+            {
+                "identifiers": {(DOMAIN, f"{self._device.id}")},
+                "manufacturer": "SurePetCare",
+                "model": self._device.product_name,
+                "model_id": self._device.product_id,
+                "name": self._device.name,
+                "via_device": (DOMAIN, str(self._device.entity_info.parent_device_id))
+                if self._device.entity_info.parent_device_id is not None
+                else None,
+            }
+        )
 
     @property
     def available(self) -> bool:
@@ -63,7 +61,9 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         """Return the sensor value."""
         data = self.coordinator.data
         if self.entity_description.field_fn is not None:
-            value = self.entity_description.field_fn(data, self.subentry_data)
+            value = self.entity_description.field_fn(
+                data, self.coordinator.config_entry.data
+            )
         elif self.entity_description.field is not None:
             value = get_by_paths(data, self.entity_description.field, native=True)
         else:
@@ -75,7 +75,9 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         """Return extra state attributes."""
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
-            return self.entity_description.extra_fn(data, self.subentry_data)
+            return self.entity_description.extra_fn(
+                data, self.coordinator.config_entry.data
+            )
         elif self.entity_description.extra_field:
             # Only call get_by_paths if extra_field is not empty
             return get_by_paths(

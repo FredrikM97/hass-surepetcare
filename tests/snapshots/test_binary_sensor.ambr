@@ -1,0 +1,21 @@
+# serializer version: 1
+# name: test_sensor_snapshot_from_fixture[feeder_connect.json]
+  dict({
+    '269654-connectivity': dict({
+      'device_class': <BinarySensorDeviceClass.CONNECTIVITY: 'connectivity'>,
+      'extra_attributes': None,
+      'unit': None,
+      'value': True,
+    }),
+    '269654-learn_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': False,
+    }),
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[pet.json]
+  dict({
+  })
+# ---

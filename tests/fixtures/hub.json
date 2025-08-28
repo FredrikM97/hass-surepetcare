@@ -1,0 +1,24 @@
+{
+    "entity_info": {
+        "id": 295972,
+        "name": "Hem-hub",
+        "household_id": 222527,
+        "tag_id": null,
+        "photo": null,
+        "tag": null,
+        "parent_device_id": null
+    },
+    "status": {
+        "battery": null,
+        "learn_mode": null,
+        "signal": null,
+        "version": {
+            "device": {
+                "hardware": "3.0",
+                "firmware": "239.400"
+            }
+        },
+        "online": true
+    },
+    "control": {}
+}

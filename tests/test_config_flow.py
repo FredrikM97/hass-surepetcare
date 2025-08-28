@@ -1,127 +1,128 @@
 import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
-from custom_components.surepetcare.config_flow import (
-    SurePetCareConfigFlow,
-    SurePetCareDeviceSubentryFlowHandler,
-)
+from unittest.mock import patch
 from homeassistant.data_entry_flow import FlowResultType
-from tests.conftest import (
-    make_dummy_handler,
-    stop_dummy_handler_patches,
-    DummyClient,
-    DummyFailClient,
-)
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+from custom_components.surepetcare.config_flow import SurePetCareConfigFlow
+from custom_components.surepetcare.const import DOMAIN
+from surepetcare.household import Household
 
 
-@pytest.mark.asyncio
-async def test_user_login_success_flap_config():
-    with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", DummyClient
+class MockDevice:
+    def __init__(self, device_id="123", name="Test Device", product_id=None):
+        self.id = device_id
+        self.name = name
+        self.product_id = product_id
+
+
+class MockClient:
+    def __init__(
+        self, login_success=True, token="test_token", device_id="test_device_id"
     ):
-        flow = SurePetCareConfigFlow()
-        flow.client = DummyClient()
-        flow.client.token = "token"
-        flow.client.device_id = "deviceid"
-        flow.client.login = AsyncMock(return_value=True)
-        flow.client.close = AsyncMock()
-        # Patch _setup_subentry_data to return dummy subentries
-        flow._setup_subentry_data = AsyncMock(
-            return_value=[
-                {
-                    "title": "Device1",
-                    "data": {
-                        "id": "1",
-                        "name": "Device1",
-                        "product_id": "DUAL_SCAN_PET_DOOR",
-                    },
-                    "subentry_type": "device",
-                }
-            ]
-        )
-        result = await flow.async_step_user({"email": "a@b.com", "password": "pw"})
-        assert result["type"] == FlowResultType.CREATE_ENTRY
-        assert result["title"] == "SurePetCare Devices"
-        assert result["data"]["token"] == "token"
+        self.token = token if login_success else None
+        self.device_id = device_id
+        self._login_success = login_success
+
+    async def login(self, email, password):
+        return self._login_success
+
+    async def api(self, command):
+        if "household" in command.endpoint:
+            return [Household({"id": 1})]
+        if "device" in command.endpoint:
+            return [MockDevice(device_id=444, product_id=10)]
+        if "pet" in command.endpoint:
+            return [MockDevice(device_id=111, product_id=1)]
+
+    async def close(self):
+        pass
 
 
 @pytest.mark.asyncio
-async def test_user_login_failure():
+async def test_setup_complete_flow(hass):
+    flow = SurePetCareConfigFlow()
     with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", DummyFailClient
+        "custom_components.surepetcare.config_flow.SurePetcareClient", MockClient
     ):
-        flow = SurePetCareConfigFlow()
-        result = await flow.async_step_user({"email": "a@b.com", "password": "pw"})
-        assert result["type"] == FlowResultType.FORM
-        assert result["errors"]["base"] == "auth_failed"
-
-
-@pytest.mark.asyncio
-async def test_device_subentry_configure_user(dummy_entry, dummy_subentry):
-    handler = make_dummy_handler(
-        SurePetCareDeviceSubentryFlowHandler, dummy_entry, dummy_subentry
-    )
-    try:
-        # Test with user_input provided
-        result = await handler.async_step_configure_user(
-            {"location_inside": "A", "location_outside": "B"}
+        result = await flow.async_step_user(
+            {"email": "test@example.com", "password": "password123"}
         )
-        assert result["type"] == FlowResultType.CREATE_ENTRY
-
-        # Test with no user_input (should call async_step_select_device)
-        async def dummy_select_device():
-            return {"type": FlowResultType.FORM}
-
-        handler.async_step_select_device = dummy_select_device
-        result = await handler.async_step_configure_user(None)
         assert result["type"] == FlowResultType.FORM
-    finally:
-        stop_dummy_handler_patches(handler)
+        assert result["step_id"] == "select_device"
+        assert "device_option" in result["data_schema"].schema
+        assert (
+            result["data_schema"].schema["device_option"].container[0] == "Test Device"
+        )
+        result2 = await flow.async_step_select_device({"device_option": "Test Device"})
+
+        assert result2["type"] == FlowResultType.FORM
+        assert result2["step_id"] == "configure_device"
+        assert "location_inside" in result2["data_schema"].schema.keys()
+        assert "location_outside" in result2["data_schema"].schema.keys()
+        result3 = await flow.async_step_configure_device(
+            {"location_inside": "Kitchen", "location_outside": "Garden"}
+        )
+        assert result3["step_id"] == "select_device"
+        assert flow._device_config == {
+            "444": {"location_inside": "Kitchen", "location_outside": "Garden"}
+        }
+        result4 = await flow.async_step_select_device({"device_option": "Finish setup"})
+        assert result4["type"] == FlowResultType.CREATE_ENTRY
 
 
 @pytest.mark.asyncio
-async def test_device_subentry_reconfigure(dummy_entry, dummy_subentry):
-    handler = make_dummy_handler(
-        SurePetCareDeviceSubentryFlowHandler, dummy_entry, dummy_subentry
+async def test_reconfigure_flow(hass):
+    flow = SurePetCareConfigFlow()
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        data={"token": "existing_token"},
+        options={"444": {"location_inside": "Kitchen", "location_outside": "Garden"}},
     )
-    try:
-        handler._get_entry = MagicMock(return_value=dummy_entry)
-        handler._get_reconfigure_subentry = MagicMock(return_value=dummy_subentry)
-        # Patch DEVICE_CONFIG_SCHEMAS to provide a schema
-        with patch(
-            "custom_components.surepetcare.config_flow.DEVICE_CONFIG_SCHEMAS",
-            {
-                "DUAL_SCAN_PET_DOOR": {
-                    "schema": {"location_inside": str, "location_outside": str}
+    entry.add_to_hass(hass)
+    flow.hass = hass
+    with patch(
+        "custom_components.surepetcare.config_flow.SurePetcareClient", MockClient
+    ):
+        coordinator_data = type(
+            "Device", (), {"id": 444, "name": "Test Device", "product_id": 10}
+        )()
+        hass.data = {
+            DOMAIN: {
+                entry.entry_id: {
+                    "coordinator": {
+                        "coordinator_dict": {
+                            "Test Device": type(
+                                "Coordinator", (), {"data": coordinator_data}
+                            )()
+                        }
+                    }
                 }
-            },
-        ):
-            # Test with user_input provided
-            with patch.object(
-                handler,
-                "async_update_and_abort",
-                MagicMock(return_value={"type": FlowResultType.ABORT}),
-            ) as mock_update:
-                result = await handler.async_step_reconfigure(
-                    {"location_inside": "A", "location_outside": "B"}
-                )
-                assert result["type"] == FlowResultType.ABORT
-                mock_update.assert_called_once()
-            # Test with no user_input and schema present
-            with patch.object(
-                handler,
-                "async_show_form",
-                MagicMock(return_value={"type": FlowResultType.FORM}),
-            ) as mock_show:
-                result = await handler.async_step_reconfigure(None)
-                assert result["type"] == FlowResultType.FORM
-                mock_show.assert_called_once()
-            # Test with no user_input and schema is None
-            with patch(
-                "custom_components.surepetcare.config_flow.DEVICE_CONFIG_SCHEMAS",
-                {"DUAL_SCAN_PET_DOOR": {"schema": None}},
-            ):
-                result = await handler.async_step_reconfigure(None)
-                assert result["type"] == FlowResultType.ABORT
-                assert result["reason"] == "no_reconfigure_schema"
-    finally:
-        stop_dummy_handler_patches(handler)
+            }
+        }
+        flow.context = {"source": "reconfigure", "entry_id": entry.entry_id}
+
+        result = await flow.async_step_reconfigure()
+        assert flow._device_config == {
+            "444": {"location_inside": "Kitchen", "location_outside": "Garden"}
+        }
+
+        assert result["type"] == FlowResultType.FORM
+        assert result["step_id"] == "select_device"
+        assert "device_option" in result["data_schema"].schema
+        assert (
+            result["data_schema"].schema["device_option"].container[0] == "Test Device"
+        )
+        result1 = await flow.async_step_select_device({"device_option": "Test Device"})
+        assert result1["type"] == FlowResultType.FORM
+        assert result1["step_id"] == "configure_device"
+        assert "location_inside" in result1["data_schema"].schema.keys()
+        assert "location_outside" in result1["data_schema"].schema.keys()
+        result2 = await flow.async_step_configure_device(
+            {"location_inside": "Bedroom", "location_outside": "Garden"}
+        )
+        assert result2["step_id"] == "select_device"
+        assert flow._device_config == {
+            "444": {"location_inside": "Bedroom", "location_outside": "Garden"}
+        }
+        result3 = await flow.async_step_select_device({"device_option": "Finish setup"})
+        assert result3["type"] == FlowResultType.ABORT
+        assert result3["reason"] == "reconfigure_successful"
