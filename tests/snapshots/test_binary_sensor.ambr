@@ -15,6 +15,16 @@
     }),
   })
 # ---
+# name: test_sensor_snapshot_from_fixture[hub.json]
+  dict({
+    '295972-connectivity': dict({
+      'device_class': <BinarySensorDeviceClass.CONNECTIVITY: 'connectivity'>,
+      'extra_attributes': None,
+      'unit': None,
+      'value': True,
+    }),
+  })
+# ---
 # name: test_sensor_snapshot_from_fixture[pet.json]
   dict({
   })

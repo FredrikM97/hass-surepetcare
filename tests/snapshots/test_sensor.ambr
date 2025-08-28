@@ -80,6 +80,10 @@
     }),
   })
 # ---
+# name: test_sensor_snapshot_from_fixture[hub.json]
+  dict({
+  })
+# ---
 # name: test_sensor_snapshot_from_fixture[pet.json]
   dict({
     '472721-entity_information': dict({

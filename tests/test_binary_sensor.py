@@ -8,6 +8,7 @@ from custom_components.surepetcare.binary_sensor import (
 )
 from custom_components.surepetcare.const import DOMAIN
 from tests.conftest import (
+    FIXTURES,
     create_device_from_fixture,
     extract_sensor_outputs,
     setup_coordinator,
@@ -15,7 +16,7 @@ from tests.conftest import (
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 
-@pytest.mark.parametrize("fixture_file", ["feeder_connect.json", "pet.json"])
+@pytest.mark.parametrize("fixture_file", FIXTURES)
 @pytest.mark.asyncio
 async def test_sensor_snapshot_from_fixture(
     hass, snapshot: SnapshotAssertion, fixture_file

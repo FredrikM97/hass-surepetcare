@@ -10,6 +10,11 @@ from custom_components.surepetcare.coordinator import (
 )
 from surepetcare.devices import load_device_class
 
+FIXTURES = [
+    "feeder_connect.json",
+    "hub.json",
+    "pet.json"
+]
 
 def create_device_from_fixture(fixture_data):
     real_device = load_device_class(fixture_data["entity_info"]["product_id"])(
