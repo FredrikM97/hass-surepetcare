@@ -37,8 +37,9 @@ class FlowAction(IntEnum):
     RECONFIGURE = 1
 
 
-class SurePetCareConfigFlow(config_entries.ConfigFlow, domain = DOMAIN):
+class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Handle a config flow for SurePetCare integration."""
+
     VERSION = 1
 
     def __init__(self) -> None:
