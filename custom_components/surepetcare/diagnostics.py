@@ -33,6 +33,8 @@ async def async_get_device_diagnostics(
 
     data = integration_data["coordinator"]["coordinator_dict"][device_id].data
 
-    raw_data = getattr(data, "raw_data", {})
-
-    return {"details": raw_data}
+    return {
+        "entity_info": data.entity_info.dict(),
+        "status": data.status.dict(),
+        "control": data.control.dict(),
+    }

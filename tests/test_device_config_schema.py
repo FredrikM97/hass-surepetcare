@@ -5,18 +5,6 @@ from surepetcare.enums import ProductId
 import voluptuous as vol
 
 
-def test_feeder_connect_schema_none():
-    assert DEVICE_CONFIG_SCHEMAS[ProductId.FEEDER_CONNECT]["schema"] is None
-
-
-def test_hub_schema_none():
-    assert DEVICE_CONFIG_SCHEMAS[ProductId.HUB]["schema"] is None
-
-
-def test_pet_schema_none():
-    assert DEVICE_CONFIG_SCHEMAS[ProductId.PET]["schema"] is None
-
-
 def test_dual_scan_pet_door_schema_valid():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
     # The schema is a dict of voluptuous Required keys, so we need to build a voluptuous.Schema
@@ -125,6 +113,6 @@ def test_schema_keys_are_unique():
             assert len(keys) == len(set(keys))
 
 
-def test_other_schemas_are_none():
+def test_schemas_are_none():
     for pid in [ProductId.FEEDER_CONNECT, ProductId.HUB, ProductId.PET]:
         assert device_config_schema.DEVICE_CONFIG_SCHEMAS[pid]["schema"] is None

@@ -1,0 +1,108 @@
+# serializer version: 1
+# name: test_sensor_snapshot_from_fixture[feeder_connect.json]
+  dict({
+    '269654-battery_level': dict({
+      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+      'extra_attributes': None,
+      'unit': '%',
+      'value': 13,
+    }),
+    '269654-bowl_1_weight': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'current_weight': 32.16,
+        'food_type': 1,
+        'last_fill_weight': 32.16,
+        'last_filled_at': '2025-07-07T10:29:29+00:00',
+        'last_zeroed_at': '2025-05-23T10:25:29+00:00',
+        'position': 0,
+        'substance_type': 2,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 32.16,
+    }),
+    '269654-bowl_2_weight': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'current_weight': -27.2,
+        'food_type': 1,
+        'last_fill_weight': -27.2,
+        'last_filled_at': '2025-07-07T10:29:29+00:00',
+        'last_zeroed_at': '2025-05-23T10:25:29+00:00',
+        'position': 1,
+        'substance_type': 2,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': -27.2,
+    }),
+    '269654-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 222527,
+        'id': 269654,
+        'parent_device_id': 295972,
+        'product_id': 4,
+      }),
+      'unit': None,
+      'value': 'Maui matlåda (old) ',
+    }),
+    '269654-lid_delay': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': None,
+    }),
+    '269654-rssi': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': -81,
+    }),
+    '269654-tare': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 2,
+    }),
+    '269654-training_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 0,
+    }),
+    '269654-weight_capacity': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'food_type': 1,
+      }),
+      'unit': None,
+      'value': 0,
+    }),
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[hub.json]
+  dict({
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[pet.json]
+  dict({
+    '472721-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 222527,
+        'id': 472721,
+        'parent_device_id': None,
+        'product_id': 0,
+        'tag': 60978,
+      }),
+      'unit': None,
+      'value': 'Maui',
+    }),
+    '472721-feeding': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': None,
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 0,
+    }),
+  })
+# ---

@@ -51,7 +51,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="raw_data.status.learn_mode",
+            field="status.learn_mode",
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -71,29 +71,20 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
-    for subentry_id, subentry in config_entry.subentries.items():
-        device_id = subentry.data.get("id")
-        if not device_id:
-            continue
-        if device_coordinator := coordinator_data[COORDINATOR_DICT].get(device_id):
-            descriptions = SENSORS.get(device_coordinator.product_id, ())
-            if not descriptions:
-                continue
-            entities = []
-            for description in descriptions:
-                entities.append(
-                    SurePetCareBinarySensor(
-                        device_coordinator,
-                        client,
-                        description=description,
-                    )
+    entities = []
+    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
+        descriptions = SENSORS.get(device_coordinator.product_id, ())
+        entities.extend(
+            [
+                SurePetCareBinarySensor(
+                    device_coordinator,
+                    client,
+                    description=description,
                 )
-
-            async_add_entities(
-                entities,
-                update_before_add=True,
-                config_subentry_id=subentry_id,
-            )
+                for description in descriptions
+            ]
+        )
+    async_add_entities(entities, update_before_add=True)
 
 
 class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):

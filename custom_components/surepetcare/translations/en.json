@@ -8,6 +8,25 @@
                 "email": "Email",
                 "password": "Password"
             }
+        },
+        "select_device": {
+          "title": "Select device",
+          "description": "Choose a device to configure or finish setup.",
+          "data": {
+            "device_option": "Device"
+          }
+        },
+        "configure_device": {
+          "title": "Configure {device_name}",
+          "data": {
+            "location": "Location",
+            "location_inside": "Inside location",
+            "location_outside": "Outside location"
+          }
+        },
+        "reconfigure": {
+          "title": "Update device",
+          "description": "Update the device configuration."
         }
     },
     "error": {
@@ -17,30 +36,8 @@
         "no_devices_or_pet_found": "No devices or pets found in your account."
     },
     "abort": {
-        "already_configured": "This account is already configured."
-    }
-  },
-  "config_subentries": {
-    "device": {
-      "title": "Device",
-      "step": {
-        "user": {
-          "title": "Add device",
-          "description": "Configure the device."
-        },
-        "reconfigure": {
-          "title": "Update device",
-          "description": "Update the device configuration.",
-          "data": {
-            "location_inside": "Location Inside",
-            "location_outside": "Location Outside"
-          }
-        }
-      },
-      "error": {},
-      "abort": {
-        "no_reconfigure_schema": "There are no settings available to configure for this device."
-      }
+        "already_configured": "This account is already configured.",
+        "reconfigure_successful": "Device configuration updated successfully."
     }
   },
   "entity": {
