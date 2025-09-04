@@ -6,6 +6,7 @@ on:
     paths:
       - 'pyproject.toml'
       - 'custom_components/surepetcare/manifest.json'
+  workflow_dispatch:
 
 jobs:
   sync-manifest:
