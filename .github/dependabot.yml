@@ -3,8 +3,18 @@
 # Please see the documentation for all configuration options:
 # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
+
 version: 2
 updates:
   - package-ecosystem: "pip"
     directory: "/"
-    schedule: {interval: "daily"}
+    schedule:
+      interval: "weekly"
+    allow:
+      - dependency-type: "direct"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    post-update:
+      - run: pip install toml
+      - run: python sync_manifest.py
