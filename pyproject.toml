@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hass-surepetcare"
-version = "1.4.3"
+version = "1.4.4"
 description = "Hass component library for SurePetcare API"
 authors = [
     { name = "FredrikM97" }
@@ -28,7 +28,7 @@ asyncio_mode = "auto"
 ignore_missing_imports = true
 
 [tool.bumpversion]
-current_version = "1.4.3"
+current_version = "1.4.4"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
