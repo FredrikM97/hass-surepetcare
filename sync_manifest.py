@@ -3,10 +3,12 @@ import json
 
 manifest_path = "custom_components/surepetcare/manifest.json"
 
+
 def parse_pkg(dep):
     return dep.split("==")[0].split(">=")[0].split("<=")[0].strip()
 
-with open("pyproject.toml", "r") as py_f, open(manifest_path, "r+") as man_f:
+
+with open("pyproject.toml") as py_f, open(manifest_path, "r+") as man_f:
     pyproject = toml.load(py_f)
     deps = pyproject.get("project", {}).get("dependencies", [])
     dep_map = {parse_pkg(dep): dep for dep in deps}
