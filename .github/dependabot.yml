@@ -15,6 +15,3 @@ updates:
     commit-message:
       prefix: "deps"
       include: "scope"
-    post-update:
-      - run: pip install toml
-      - run: python sync_manifest.py

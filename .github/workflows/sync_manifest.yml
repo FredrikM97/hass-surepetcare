@@ -1,0 +1,30 @@
+name: Sync manifest requirements
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'pyproject.toml'
+      - 'custom_components/surepetcare/manifest.json'
+
+jobs:
+  sync-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install toml
+      - name: Run manifest sync
+        run: python sync_manifest.py
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add custom_components/surepetcare/manifest.json
+          git diff --cached --quiet || git commit -m "chore: sync manifest requirements"
+          git push
