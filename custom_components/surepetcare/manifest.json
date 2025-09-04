@@ -1,11 +1,15 @@
 {
-  "codeowners": ["FredrikM97"],
-  "config_flow": true,
-  "dependencies": [],
-  "documentation": "https://github.com/FredrikM97/hass-surepetcare",
-  "domain": "surepetcare",
-  "iot_class": "cloud_polling",
-  "name": "SurePetCare",
-  "requirements": ["py-surepetcare>=0.4.4"],
-  "version": "1.4.3"
+    "codeowners": [
+        "FredrikM97"
+    ],
+    "config_flow": true,
+    "dependencies": [],
+    "documentation": "https://github.com/FredrikM97/hass-surepetcare",
+    "domain": "surepetcare",
+    "iot_class": "cloud_polling",
+    "name": "SurePetCare",
+    "requirements": [
+        "py-surepetcare>=0.4.4"
+    ],
+    "version": "1.4.3"
 }
