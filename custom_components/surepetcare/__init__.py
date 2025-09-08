@@ -9,7 +9,6 @@ from surepetcare.enums import ProductId
 from .services import async_disable_debug_logging, async_enable_debug_logging
 
 
-
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
@@ -168,7 +167,7 @@ async def async_setup(hass, config):
     hass.services.async_register(
         "surepetcare", "enable_debug_logging", async_enable_debug_logging
     )
-    
+
     hass.services.async_register(
         "surepetcare", "disable_debug_logging", async_disable_debug_logging
     )
