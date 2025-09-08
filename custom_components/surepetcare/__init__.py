@@ -6,6 +6,9 @@ from typing import Any, List
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
 from surepetcare.enums import ProductId
+from .services import async_disable_debug_logging, async_enable_debug_logging
+
+
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
@@ -159,3 +162,14 @@ def remove_stale_devices(
             device_registry.async_update_device(
                 device_entry.id, remove_config_entry_id=config_entry.entry_id
             )
+
+
+async def async_setup(hass, config):
+    hass.services.async_register(
+        "surepetcare", "enable_debug_logging", async_enable_debug_logging
+    )
+    
+    hass.services.async_register(
+        "surepetcare", "disable_debug_logging", async_disable_debug_logging
+    )
+    return True

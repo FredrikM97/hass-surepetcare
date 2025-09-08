@@ -1,0 +1,9 @@
+enable_debug_logging:
+  name: Enable SurepetCare debug logging
+  description: "Enable debug logging for Sure Petcare integration"
+  fields: {}
+
+disable_debug_logging:
+  name: "Disable SurepetCare debug logging"
+  description: "Disable debug logging for Sure Petcare integration"
+  fields: {}
