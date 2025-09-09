@@ -4,7 +4,7 @@ from homeassistant.data_entry_flow import FlowResultType
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.surepetcare.config_flow import SurePetCareConfigFlow
 from custom_components.surepetcare.const import DOMAIN
-from surepetcare.household import Household
+from surepcio.household import Household
 
 
 class MockDevice:

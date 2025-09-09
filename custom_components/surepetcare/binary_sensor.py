@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import logging
 from typing import cast
 
-from surepetcare.enums import ProductId
+from surepcio.enums import ProductId
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,

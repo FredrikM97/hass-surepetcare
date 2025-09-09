@@ -3,9 +3,9 @@
 import logging
 from typing import Any, List
 
-from surepetcare.client import SurePetcareClient
-from surepetcare.household import Household
-from surepetcare.enums import ProductId
+from surepcio.client import SurePetcareClient
+from surepcio.household import Household
+from surepcio.enums import ProductId
 from .services import async_disable_debug_logging, async_enable_debug_logging
 
 
