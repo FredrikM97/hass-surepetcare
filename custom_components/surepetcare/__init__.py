@@ -3,10 +3,17 @@
 import logging
 from typing import Any, List
 
+<<<<<<< Updated upstream
 from surepetcare.client import SurePetcareClient
 from surepetcare.household import Household
 from surepetcare.enums import ProductId
 from .services import async_disable_debug_logging, async_enable_debug_logging
+=======
+from surepcio.client import SurePetcareClient
+from surepcio.household import Household
+from surepcio.enums import ProductId
+from .services import _service_registry
+>>>>>>> Stashed changes
 
 
 from homeassistant.config_entries import ConfigEntry
@@ -163,12 +170,8 @@ def remove_stale_devices(
             )
 
 
-async def async_setup(hass, config):
-    hass.services.async_register(
-        "surepetcare", "enable_debug_logging", async_enable_debug_logging
-    )
 
-    hass.services.async_register(
-        "surepetcare", "disable_debug_logging", async_disable_debug_logging
-    )
+async def async_setup(hass: HomeAssistant, config: ConfigEntry):
+    for name, func in _service_registry:
+        hass.services.async_register("surepetcare", name, func)
     return True
