@@ -7,11 +7,7 @@ from surepcio.client import SurePetcareClient
 from surepcio.household import Household
 from surepcio.enums import ProductId
 
-from surepetcare.client import SurePetcareClient
-from surepetcare.household import Household
-from surepetcare.enums import ProductId
 from .services import _service_registry
-
 
 
 from homeassistant.config_entries import ConfigEntry
