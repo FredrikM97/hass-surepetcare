@@ -7,5 +7,5 @@
   "iot_class": "cloud_polling",
   "name": "SurePetCare",
   "requirements": ["py-surepetcare>=0.4.6"],
-  "version": "1.4.4"
+  "version": "1.4.5"
 }
