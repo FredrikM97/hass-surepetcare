@@ -5,7 +5,7 @@ import custom_components.surepetcare.__init__ as surepetcare_init
 from custom_components.surepetcare.const import FACTORY
 import pytest
 from custom_components.surepetcare import remove_stale_devices, DOMAIN
-from surepetcare.enums import ProductId
+from surepcio.enums import ProductId
 
 
 class DummyEntry:

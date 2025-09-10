@@ -4,8 +4,8 @@ import logging
 from typing import Any
 from enum import IntEnum
 
-from surepetcare.client import SurePetcareClient
-from surepetcare.household import Household
+from surepcio.client import SurePetcareClient
+from surepcio.household import Household
 import voluptuous as vol
 
 from homeassistant import config_entries

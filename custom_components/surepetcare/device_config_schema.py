@@ -1,6 +1,6 @@
 """TODO."""
 
-from surepetcare.enums import ProductId
+from surepcio.enums import ProductId
 from voluptuous import Required
 
 DEVICE_CONFIG_SCHEMAS = {

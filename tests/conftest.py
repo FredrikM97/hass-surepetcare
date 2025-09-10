@@ -8,14 +8,14 @@ from custom_components.surepetcare.const import (
 from custom_components.surepetcare.coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
-from surepetcare.devices import load_device_class
+from surepcio.devices import load_device_class
 
 FIXTURES = ["feeder_connect.json", "hub.json", "pet.json"]
 
 
-def create_device_from_fixture(fixture_data):
+def create_device_from_fixture(fixture_data, timezone="Europe/Stockholm"):
     real_device = load_device_class(fixture_data["entity_info"]["product_id"])(
-        fixture_data["entity_info"]
+        fixture_data["entity_info"], timezone=timezone
     )
     refresh_command = real_device.refresh()
     parse_func = refresh_command.callback

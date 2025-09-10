@@ -1,7 +1,7 @@
 import pytest
 from custom_components.surepetcare import device_config_schema
 from custom_components.surepetcare.device_config_schema import DEVICE_CONFIG_SCHEMAS
-from surepetcare.enums import ProductId
+from surepcio.enums import ProductId
 import voluptuous as vol
 
 

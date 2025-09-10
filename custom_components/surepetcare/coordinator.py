@@ -2,8 +2,8 @@ from datetime import timedelta
 import logging
 from typing import Any
 
-from surepetcare.client import SurePetcareClient
-from surepetcare.devices.device import SurepyDevice
+from surepcio.client import SurePetcareClient
+from surepcio.devices.device import SurePetCareBase
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -24,7 +24,7 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
         hass: HomeAssistant,
         config_entry: ConfigEntry,
         client: SurePetcareClient,
-        device: SurepyDevice,
+        device: SurePetCareBase,
     ) -> None:
         """Initialize device coordinator."""
         super().__init__(
