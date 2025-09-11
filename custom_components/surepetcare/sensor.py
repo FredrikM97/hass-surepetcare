@@ -189,6 +189,28 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         ),
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        *SENSOR_DESCRIPTIONS_BATTERY,
+        SurePetCareSensorEntityDescription(
+            key="location",
+            translation_key="location",
+            field_fn=get_location,
+        ),
+        *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
+    ),
+    ProductId.PET_DOOR: (
+        *SENSOR_DESCRIPTIONS_BATTERY,
+        SurePetCareSensorEntityDescription(
+            key="location",
+            translation_key="location",
+            field_fn=get_location,
+        ),
+        *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
+    ),
+    ProductId.POSEIDON_CONNECT: (
+        *SENSOR_DESCRIPTIONS_BATTERY,
+        *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
+    ),
     ProductId.HUB: (),
     ProductId.PET: (
         SurePetCareSensorEntityDescription(
