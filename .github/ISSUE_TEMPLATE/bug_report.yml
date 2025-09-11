@@ -1,0 +1,75 @@
+name: Report an issue with Surepetcare Integration
+description: Report a bug or issue with the integration.
+labels: ["bug"]
+assignees:
+  - FredrikM97
+body:
+  - type: markdown
+      attributes:
+        value: |
+          **Note:** This form is for feature requests related to the Home Assistant integration only.
+          If your request is about the underlying IO package (API, login, etc.), please open an issue in the [py-surepetcare repository](https://github.com/FredrikM97/py-surepetcare) instead.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: >-
+        Provide a clear and concise description of what the problem is.
+    validations:
+      required: true
+  - type: input
+    id: modelname
+    attributes:
+      label: Product
+      description: Which product does it concern? (e.g. Hub, DualScanConnect, Feeder Connect)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: What version of integration?
+      placeholder: v1.2.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: debuglogs
+    attributes:
+      label: Debug logs
+      placeholder: "Upload file here not raw text info."
+      description: >-
+         Debug logs from API (enable with developer tools -> actions -> Enable SurepetCare debug logging. Dont forget to turn off again afterwards with Disable SurepetCare debug logging). Then enable debug on the integration (upper right corner in web) and let it run 10 minutes alternative reload the integration.
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostic information
+      placeholder: "Device diagnostics"
+      description: >-
+         Diagnosic information from device. (Found under device information).
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information, example stack trace, logs, etc..
+      description: >
+        If you have any additional information for us, use the field below.
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      description: |
+        Please confirm the following:
+      options:
+        - label: I am sure this is a bug or improvement, that is well enough described that it can be implemented.
+          required: true
+        - label: This is not related to missing device data ([Api requests here](https://github.com/FredrikM97/py-surepetcare))
+          required: true
+    validations:
+      required: true
