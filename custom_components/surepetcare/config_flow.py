@@ -117,11 +117,12 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                 and schema_info.get("schema") not in (None, {}, [])
             )
         }
-         
-        if (user_input is not None and user_input["device_option"] == "Finish setup") or len(devices_with_schema) == 0:
+
+        if (
+            user_input is not None and user_input["device_option"] == "Finish setup"
+        ) or len(devices_with_schema) == 0:
             return await self.async_step_create_entry()
 
-       
         device_map = {
             get_device_attr(entity, "name"): idt
             for idt, entity in devices_with_schema.items()
