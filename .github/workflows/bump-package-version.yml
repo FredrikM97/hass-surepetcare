@@ -14,26 +14,24 @@ on:
           - pre_n
           - pre_l
  
-
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  
 jobs:
   build:
+    permissions:
+        id-token: write
+        pull-requests: read
+        contents: write
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout the code
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v4          
       - name: Bump version
         id: bump
         uses: callowayproject/bump-my-version@master
         env:
           BUMPVERSION_TAG: "true"
         with:
-          args: ${{ inputs.bump-type }}
+          args: -vv ${{ inputs.bump-type }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check
