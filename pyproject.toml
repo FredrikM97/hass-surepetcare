@@ -46,15 +46,20 @@ serialize = [
 search = "{current_version}"
 replace = "{new_version}"
 regex = false
-ignore_missing_version = true
+ignore_missing_version = false
+ignore_missing_files = false
 tag = true
 sign_tags = false
 tag_name = "v{new_version}"
 tag_message = "Bump version: {current_version} → {new_version}"
 allow_dirty = true
-commit = false
+commit = true
 message = "Bump version: {current_version} → {new_version}"
-commit_args = ""
+moveable_tags = []
+commit_args = "--no-verify"
+setup_hooks = []
+pre_commit_hooks = []
+post_commit_hooks = []
 
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
