@@ -5,10 +5,10 @@ assignees:
   - FredrikM97
 body:
   - type: markdown
-      attributes:
-        value: |
-          **Note:** This form is for feature requests related to the Home Assistant integration only.
-          If your request is about the underlying IO package (API, login, etc.), please open an issue in the [py-surepetcare repository](https://github.com/FredrikM97/py-surepetcare) instead.
+    attributes:
+      value: |
+        **Note:** This form is for feature requests related to the Home Assistant integration only.
+        If your request is about the underlying IO package (API, login, etc.), please open an issue in the [py-surepetcare repository](https://github.com/FredrikM97/py-surepetcare) instead.
   - type: textarea
     id: problem
     attributes:
