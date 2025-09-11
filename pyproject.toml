@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hass-surepetcare"
-version = "1.4.6"
+version = "1.4.6-dev0"
 description = "Hass component library for SurePetcare API"
 authors = [
     { name = "FredrikM97" }
@@ -28,9 +28,21 @@ asyncio_mode = "auto"
 ignore_missing_imports = true
 
 [tool.bumpversion]
-current_version = "1.4.6"
-parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
-serialize = ["{major}.{minor}.{patch}"]
+current_version = "1.4.6-dev0"
+parse = """(?x)
+    (?P<major>0|[1-9]\\d*)\\.
+    (?P<minor>0|[1-9]\\d*)\\.
+    (?P<patch>0|[1-9]\\d*)
+    (?:
+        -                             # dash separator for pre-release section
+        (?P<pre_l>[a-zA-Z-]+)         # pre-release label
+        (?P<pre_n>0|[1-9]\\d*)        # pre-release version number
+    )?                                # pre-release section is optional
+"""
+serialize = [
+    "{major}.{minor}.{patch}-{pre_l}{pre_n}",
+    "{major}.{minor}.{patch}",
+]
 search = "{current_version}"
 replace = "{new_version}"
 regex = false
@@ -53,3 +65,7 @@ replace = 'version = "{new_version}"'
 filename = "custom_components/surepetcare/manifest.json"
 search = '"version": "{current_version}"'
 replace = '"version": "{new_version}"'
+
+[tool.bumpversion.parts.pre_l]
+values = ["dev", "final"]
+optional_value = "final"
