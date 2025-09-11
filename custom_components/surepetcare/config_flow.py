@@ -104,10 +104,6 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 
     async def async_step_select_device(self, user_input: dict[str, Any] | None = None):
         """Show a form to select a device to configure. Require all with schema."""
-
-        if user_input is not None and user_input["device_option"] == "Finish setup":
-            return await self.async_step_create_entry()
-
         devices_with_schema = {
             idt: e
             for idt, e in self._entities.items()
@@ -121,6 +117,11 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                 and schema_info.get("schema") not in (None, {}, [])
             )
         }
+         
+        if (user_input is not None and user_input["device_option"] == "Finish setup") or len(devices_with_schema) == 0:
+            return await self.async_step_create_entry()
+
+       
         device_map = {
             get_device_attr(entity, "name"): idt
             for idt, entity in devices_with_schema.items()
