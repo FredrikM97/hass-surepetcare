@@ -1,10 +1,7 @@
 import logging
 import voluptuous as vol
-from custom_components.surepetcare.const import DOMAIN
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 
-import logging
 
 logger = logging.getLogger(__name__)
 _service_registry = []
