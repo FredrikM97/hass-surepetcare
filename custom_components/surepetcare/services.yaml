@@ -1,9 +1,61 @@
-enable_debug_logging:
-  name: Enable SurepetCare debug logging
-  description: "Enable debug logging for Sure Petcare integration"
-  fields: {}
+set_debug_logging:
+  name: Set Surepetcare debug logging level
+  description: "Set the logging level for the Sure Petcare integration and library."
+  fields:
+    level:
+      description: Log level to set (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+      example: DEBUG
 
-disable_debug_logging:
-  name: "Disable SurepetCare debug logging"
-  description: "Disable debug logging for Sure Petcare integration"
-  fields: {}
+
+set_control:
+  name: Set control values
+  description: |
+    Set one or more control fields on the SurePetcare device. You can update fields such as training_mode, fast_polling, bowls, lid, tare, etc. Provide a dictionary with the fields you want to set. Example:
+    {
+        training_mode: 1
+        fast_polling: true
+        bowls:
+          settings:
+            - food_type: 1
+              target: 50
+            - food_type: 1
+              target: 30
+          type: 0
+    }
+  fields:
+    device_id:
+      description: Target device to control.
+      required: true
+      selector:
+        device:
+          integration: surepetcare
+    control:
+      description: Dictionary of control fields to set (e.g. training_mode, fast_polling, bowls, etc).
+      required: true
+      example: {"training_mode": 1, "fast_polling": true, "bowls": {"settings": [{"food_type": 1, "target": 50}], "type": 0}}
+      selector:
+        object: {}
+set_tag:
+  name: Update Pet Device access.
+  description: Set the tag for a device.
+  fields:
+    device_id:
+      description: Target device(s), entity/entities, or area(s) to control.
+      required: true
+      selector:
+        device:
+          integration: surepetcare
+    tag:
+      description: Target Pet
+      required: true
+      selector:
+        device:
+          integration: surepetcare
+    action:
+      description: Action to perform on the tag (add or remove)
+      required: true
+      selector:
+        select:
+          options:
+            - add
+            - remove
