@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from surepcio.enums import ProductId, CloseDelay, FeederTrainingMode
+from surepcio.enums import ProductId, CloseDelay, FeederTrainingMode, FlapLocking
 from config.custom_components.surepetcare.config_flow import SurePetcareClient
 from config.custom_components.surepetcare.coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
@@ -42,7 +42,15 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             options=[e.name for e in FeederTrainingMode],
             enum_class=FeederTrainingMode,
         ),
-    )
+    ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        SurePetCareSelectEntityDescription(
+            key="locking",
+            field="control.locking",
+            options=[e.name for e in FlapLocking],
+            enum_class=FlapLocking,
+        )
+    ),
 }
 
 
