@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Any, Callable, cast
 
 from surepcio.client import SurePetcareClient
-from surepcio.devices.device import SurePetCareBase
+from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
@@ -35,7 +35,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         """Initialize a device."""
         super().__init__(device_coordinator)
 
-        self._device: SurePetCareBase = device_coordinator.data
+        self._device: DeviceBase | PetBase = device_coordinator.data
         self._client = client
         self._attr_unique_id = f"{self._device.id}"
         self._attr_device_info = DeviceInfo(
@@ -60,15 +60,14 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     def native_value(self) -> Any:
         """Return the sensor value."""
         data = self.coordinator.data
-        if self.entity_description.field_fn is not None:
-            value = self.entity_description.field_fn(
-                data, self.coordinator.config_entry.data
-            )
-        elif self.entity_description.field is not None:
-            value = get_by_paths(data, self.entity_description.field, native=True)
-        else:
-            value = get_by_paths(data, self.entity_description.key, native=True)
-        return value
+        desc = self.entity_description
+        if getattr(desc, "field_fn", None) is not None:
+            return desc.field_fn(data, self.coordinator.config_entry.data)
+        if getattr(desc, "field", None):
+            return get_by_paths(data, desc.field, native=True)
+        if getattr(desc, "key", None):
+            return get_by_paths(data, desc.key, native=True)
+        return None
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -78,13 +77,12 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             return self.entity_description.extra_fn(
                 data, self.coordinator.config_entry.data
             )
-        elif self.entity_description.extra_field:
-            # Only call get_by_paths if extra_field is not empty
+        extra_field = getattr(self.entity_description, "extra_field", None)
+        if extra_field and isinstance(extra_field, (str, dict)):
             return get_by_paths(
                 self.coordinator.data,
-                self.entity_description.extra_field,
+                extra_field,
                 serialize=True,
                 flatten=True,
             )
-        else:
-            return None
+        return None
