@@ -28,7 +28,7 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
 
-PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR]
+PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SELECT, Platform.SWITCH]
 
 
 async def async_setup_entry(
