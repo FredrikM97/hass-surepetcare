@@ -86,7 +86,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
             client=client,
         )
         self.entity_description = description
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id: str = f"{self._attr_unique_id}-{description.key}"
         self._attr_options = self.entity_description.options
 
     @property
@@ -95,7 +95,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
 
     async def async_select_option(self, option: str) -> None:
         if self.entity_description.enum_class is not None:
-            option = self.entity_description.enum_class[option]
+            option = getattr(self.entity_description.enum_class, option)
 
         await self.coordinator.client.api(
             self._device.set_control(
@@ -106,9 +106,11 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
 
 
 def build_nested_dict(field_path: str, value: str) -> dict:
-    # Temporarly until better solution
+    # Temporarily until better solution
     parts = field_path.split(".")
-    d = value
+    d: dict[str, object] | object = value
     for part in reversed(parts[1:]):  # Skip 'control'
         d = {part: d}
-    return d
+    if isinstance(d, dict):
+        return d
+    return {parts[-1]: value}
