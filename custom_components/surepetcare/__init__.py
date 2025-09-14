@@ -28,7 +28,7 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
 
-PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SELECT, Platform.SWITCH]
+PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SELECT]
 
 
 async def async_setup_entry(
@@ -165,7 +165,6 @@ def remove_stale_devices(
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigEntry):
-    for name, func, schema in _service_registry:
-        hass.services.async_register("surepetcare", name, func, schema=schema)
-
+    for name, func in _service_registry:
+        hass.services.async_register("surepetcare", name, func)
     return True
