@@ -24,7 +24,7 @@
         "online": true,
         "bowl_status": [
             {
-                "index": 0,
+                "position": 0,
                 "food_type": 1,
                 "substance_type": 2,
                 "current_weight": 32.16,
@@ -34,7 +34,7 @@
                 "fill_percent": 100
             },
             {
-                "index": 1,
+                "position": 1,
                 "food_type": 1,
                 "substance_type": 2,
                 "current_weight": -27.2,
