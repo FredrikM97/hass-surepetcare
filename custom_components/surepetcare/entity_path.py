@@ -77,18 +77,14 @@ def _traverse(data, path, key_path=()):
             for i, v in enumerate(data):
                 yield from _traverse(v, rest, (*key_path, i))
             return
-        try:
-            idx = int(key)
-            if idx < 0:
-                idx += len(data)
+        idx = int(key)
+        if idx < 0:
+            idx += len(data)
+        if 0 <= idx < len(data):
             yield from _traverse(data[idx], rest, (*key_path, idx))
-        except (ValueError, IndexError, TypeError):
-            logger.error(
-                "Invalid index '%s' in list at path %s on data %s",
-                key,
-                ".".join(str(x) for x in key_path),
-                data,
-            )
+        else:
+            return
+
         return
 
     if hasattr(data, key):

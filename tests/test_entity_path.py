@@ -37,7 +37,18 @@ class Bowl:
     name: str
     weight: float
 
-
+def test_traverse_skips_out_of_bounds_index():
+    data = {"foo": ["a"]}  # Only index 0 exists
+    # Try to access index 1, which does not exist
+    result = get_by_paths(data, {"": "foo.1"})
+    assert result is None
+    
+def test_missing_index_returns_none():
+    data = {"foo": ["a"]}  # Only index 0 exists
+    # Try to access index 1, which does not exist
+    result = get_by_paths(data, {"": "foo.1"})
+    assert result is None
+    
 def test_traverse_path_dict():
     data = {"a": {"b": 42}}
     assert get_by_paths(data, {"b": "a.b"}) == {"b": 42}

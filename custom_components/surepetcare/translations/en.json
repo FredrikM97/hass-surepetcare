@@ -57,6 +57,26 @@
         }
       }
     },
+    "select":{
+      "training_mode":{
+        "name": "Training Mode",
+        "state": {
+          "DISABLED": "OFF",
+          "STEP_1": "Step 1",
+          "STEP_2": "Step 2",
+          "STEP_3": "Step 3",
+          "STEP_4": "Step 4"
+        }
+      },
+      "lid":{
+        "name": "Lid close delay",
+        "state": {
+          "FASTER": "Fast",
+          "NORMAL": "Normal",
+          "SLOWER": "Slow"
+      }
+      }
+    },
     "sensor": {
       "consumption": {
         "name": "Consumption"
