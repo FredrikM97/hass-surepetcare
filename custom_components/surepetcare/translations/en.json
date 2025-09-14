@@ -98,9 +98,9 @@
         "name": "Target Weight"
       },
       "bowl_1_weight": {
-        "name": "Bowl Left Weight"
+        "name": "Bowl One Weight"
       },"bowl_2_weight": {
-        "name": "Bowl Right Weight"
+        "name": "Bowl Two Weight"
       },
       "weight_capacity": {
         "name": "Total Weight Limit"

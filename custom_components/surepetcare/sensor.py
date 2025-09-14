@@ -111,7 +111,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field="status.bowl_status.0.current_weight",
             extra_field={
-                "position": "status.bowl_status.0.index",
+                "position": "status.bowl_status.0.position",
                 "food_type": "status.bowl_status.0.food_type",
                 "substance_type": "status.bowl_status.0.substance_type",
                 "current_weight": "status.bowl_status.0.current_weight",
