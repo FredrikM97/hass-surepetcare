@@ -1,6 +1,7 @@
 """TODO."""
 
 from dataclasses import dataclass
+from datetime import datetime
 import logging
 from typing import Any
 
@@ -36,8 +37,8 @@ def get_location(device: Any, reconfig) -> bool | None:
     Uses reconfigured values for location_inside/location_outside if available.
     """
 
-    if movement := getattr(device, "movement", []):
-        latest = movement[0] if isinstance(movement, list) else movement
+    if movement := device.status.report.movement:
+        latest = movement[-1] if isinstance(movement, list) else movement
 
         # Get the names of the locations from the reconfiguration data
         location_inside = reconfig.get(latest.device_id).get("location_inside")
@@ -48,6 +49,14 @@ def get_location(device: Any, reconfig) -> bool | None:
         return location_outside if location_outside is not None else False
     return None
 
+
+def next_enabled_future_curfew(device, r):
+    curfews = device.control.curfew
+    now = datetime.now().time()
+    for c in curfews:
+        if c.enabled and c.lock_time <= now and now <= c.unlock_time:
+            return c
+    return None
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareSensorEntityDescription(
@@ -182,29 +191,21 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (
         *SENSOR_DESCRIPTIONS_BATTERY,
-        SurePetCareSensorEntityDescription(
-            key="location",
-            translation_key="location",
-            field_fn=get_location,
-        ),
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.DUAL_SCAN_CONNECT: (
         *SENSOR_DESCRIPTIONS_BATTERY,
+        
         SurePetCareSensorEntityDescription(
-            key="location",
-            translation_key="location",
-            field_fn=get_location,
+            key="curfew",
+            translation_key="curfew",
+            field_fn=next_enabled_future_curfew,
+            extra_field={"curfew": "control.curfew"}
         ),
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.PET_DOOR: (
         *SENSOR_DESCRIPTIONS_BATTERY,
-        SurePetCareSensorEntityDescription(
-            key="location",
-            translation_key="location",
-            field_fn=get_location,
-        ),
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.POSEIDON_CONNECT: (
@@ -240,11 +241,26 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "weight_change_0": "feeding.-1.weights.0.change",
                 "weight_change_1": "feeding.-1.weights.1.change",
             },
-        ),
-        *SENSOR_DESCRIPTIONS_PET_INFORMATION,
+        ), *SENSOR_DESCRIPTIONS_PET_INFORMATION,
+       
+       
     ),
 }
-
+"""
+        SurePetCareSensorEntityDescription(
+            key="location",
+            translation_key="location",
+            field_fn=get_location,
+            extra_field={
+                    "from": "status.movement.-1.from",
+                    "to": "status.movement.-1.to",
+                    "duration": "status.movement.-1.duration",
+                    "entry_device_id": "status.movement.-1.entry_device_id",
+                    "exit_device_id": "status.movement.-1.exit_device_id",
+                    "exit_movement_id": "status.movement.-1.exit_movement_id",
+                    "entry_movement_id": "status.movement.-1.entry_movement_id",
+                }
+        ),"""
 
 async def async_setup_entry(
     hass: HomeAssistant,

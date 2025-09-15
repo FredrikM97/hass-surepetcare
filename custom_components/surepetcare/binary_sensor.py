@@ -57,6 +57,16 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        SurePetCareBinarySensorEntityDescription(
+            key="learn_mode",
+            translation_key="learn_mode",
+            field="status.learn_mode",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        *SENSOR_DESCRIPTIONS_AVAILABLE,
+    ),
     ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
     ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
 }
