@@ -33,8 +33,7 @@ def get_location(device: Pet, reconfig) -> bool | None:
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
-    if (position := getattr(device.status,"activity")) is not None:
-
+    if (position := getattr(device.status, "activity")) is not None:
         if position.where == 0:
             return reconfig.get(position.device_id).get("location_inside")
         else:
