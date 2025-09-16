@@ -142,10 +142,8 @@
         'tag_id': 2039802,
       }),
       'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': list([
-        -3.23,
-        0,
-      ]),
+      'value': -3.23,
+
     }),
     '472721-position': dict({
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,

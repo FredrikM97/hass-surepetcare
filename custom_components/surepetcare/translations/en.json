@@ -93,6 +93,14 @@
       "feeding": {
         "name": "Feeding"
       },
+
+      "position": {
+        "name": "Position"
+      },
+
+      "drinking": {
+        "name": "Drinking"
+      },
       "rssi": {
         "name": "RSSI",
         "unit_of_measurement": "dBm"

@@ -33,12 +33,12 @@ def get_location(device: Pet, reconfig) -> bool | None:
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
-
-    if position := device.status.activity:
+    if (position := getattr(device.status, "activity")) is not None:
         if position.where == 0:
             return reconfig.get(position.device_id).get("location_inside")
         else:
             return reconfig.get(position.device_id).get("location_outside")
+
     return None
 
 
@@ -195,7 +195,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="status.feeding.change",
+            field="status.feeding.change.0",
             extra_field={
                 "device_id": "status.feeding.device_id",
                 "id": "status.feeding.id",
