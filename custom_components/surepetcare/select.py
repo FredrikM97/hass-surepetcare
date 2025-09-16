@@ -106,7 +106,8 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
     async def async_select_option(self, option: str) -> None:
         if self.entity_description.enum_class is not None:
             option = getattr(self.entity_description.enum_class, option)
-
+        if self.entity_description.field is None:
+            return None
         await self.coordinator.client.api(
             self._device.set_control(
                 **build_nested_dict(self.entity_description.field, option)

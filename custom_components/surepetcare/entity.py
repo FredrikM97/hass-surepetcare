@@ -6,7 +6,6 @@ from surepcio.client import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-import dataclasses as dc
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity_path import get_by_paths
@@ -19,7 +18,7 @@ class SurePetCareBaseEntityDescription:
     field: str | None = None
     field_fn: Callable | None = None
     extra_fn: Callable | None = None
-    extra_field: dict[str, str] = None
+    extra_field: dict[str, str] | str | None = None
     frozen: bool = False
 
 
@@ -52,7 +51,6 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             }
         )
 
-    
     @property
     def available(self) -> bool:
         """Return if entity is available."""

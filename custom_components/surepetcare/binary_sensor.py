@@ -27,12 +27,14 @@ from .entity import (
 
 logger = logging.getLogger(__name__)
 
-def _next_enabled_future_curfew(device: SurePetCareBase, r:ConfigEntry) -> bool | None :
+
+def _next_enabled_future_curfew(device: SurePetCareBase, r: ConfigEntry) -> bool | None:
     curfews: Curfew = device.control.curfew
     if curfews is None:
         return None
     now = datetime.now().time()
     return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
+
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareBinarySensorEntityDescription(
@@ -73,7 +75,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew",
             field_fn=_next_enabled_future_curfew,
-            extra_field="control.curfew"
+            extra_field="control.curfew",
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
@@ -131,8 +133,4 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return cast(
-                bool,
-                self._convert_value()
-            )
-           
+        return cast(bool, self._convert_value())

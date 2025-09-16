@@ -1,5 +1,4 @@
 # Shared test helpers for config_flow tests
-from typing import TypedDict
 from custom_components.surepetcare.const import (
     COORDINATOR,
     COORDINATOR_DICT,
@@ -11,19 +10,21 @@ from custom_components.surepetcare.coordinator import (
 )
 from surepcio.devices import load_device_class
 
-FIXTURES = ["feeder_connect.json", "hub.json", "pet.json","dual_scan_connect.json"]
+FIXTURES = ["feeder_connect.json", "hub.json", "pet.json", "dual_scan_connect.json"]
 
 
 def create_device_from_fixture(fixture_data, timezone="Europe/Stockholm"):
     real_device = load_device_class(fixture_data["entity_info"]["product_id"])(
         fixture_data["entity_info"], timezone=timezone
     )
-    
-    real_device.status=real_device.statusCls(**fixture_data['status'])
-    real_device.control=real_device.controlCls(**fixture_data['control'])
-    #Status.construct(**fixture_data['status'])
-    #return parse_func(mock_response)
+
+    real_device.status = real_device.statusCls(**fixture_data["status"])
+    real_device.control = real_device.controlCls(**fixture_data["control"])
+    # Status.construct(**fixture_data['status'])
+    # return parse_func(mock_response)
     return real_device
+
+
 def setup_coordinator(hass, config_entry, device):
     coordinator = SurePetCareDeviceDataUpdateCoordinator(
         hass=hass,

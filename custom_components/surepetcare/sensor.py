@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass
 import logging
-from typing import Any
 
 from surepcio.client import SurePetcareClient
 from surepcio.enums import ProductId
@@ -38,11 +37,9 @@ def get_location(device: Pet, reconfig) -> bool | None:
     if position := device.status.activity:
         if position.where == 0:
             return reconfig.get(position.device_id).get("location_inside")
-        else: 
+        else:
             return reconfig.get(position.device_id).get("location_outside")
     return None
-
-
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -203,9 +200,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "device_id": "status.feeding.device_id",
                 "id": "status.feeding.id",
                 "at": "status.feeding.at",
-                "tag_id": "status.feeding.tag_id"
-            }
-        ), 
+                "tag_id": "status.feeding.tag_id",
+            },
+        ),
         SurePetCareSensorEntityDescription(
             key="position",
             translation_key="position",
@@ -213,11 +210,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field_fn=get_location,
-            extra_field={"device_id": "status.activity.device_id",
-                         "id": "status.activity.id",
-                         "since": "status.activity.since",
-                         "tag_id": "status.activity.tag_id"
-            }
+            extra_field={
+                "device_id": "status.activity.device_id",
+                "id": "status.activity.id",
+                "since": "status.activity.since",
+                "tag_id": "status.activity.tag_id",
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="drinking",
@@ -230,12 +228,13 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "device_id": "status.feeding.device_id",
                 "id": "status.feeding.id",
                 "at": "status.feeding.at",
-                "tag_id": "status.feeding.tag_id"
-            }
+                "tag_id": "status.feeding.tag_id",
+            },
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),
 }
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
