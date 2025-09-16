@@ -107,6 +107,20 @@
 # ---
 # name: test_sensor_snapshot_from_fixture[pet.json]
   dict({
+    '472721-drinking': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': list([
+        -3.23,
+        0,
+      ]),
+    }),
     '472721-entity_information': dict({
       'device_class': None,
       'extra_attributes': dict({
@@ -122,14 +136,27 @@
     '472721-feeding': dict({
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
       'extra_attributes': dict({
-        'device_id': 1181149,
-        'duration': 106,
-        'from': datetime.datetime(2025, 8, 28, 15, 44, 48, tzinfo=TzInfo(UTC)),
-        'weight_change_0': -77.0,
-        'weight_change_1': 0.0,
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
       }),
       'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 77.0,
+      'value': list([
+        -3.23,
+        0,
+      ]),
+    }),
+    '472721-position': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'device_id': 269654,
+        'id': 5045077041,
+        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'tag_id': 1725049,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 'Away',
     }),
   })
 # ---

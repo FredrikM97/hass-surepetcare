@@ -33,126 +33,34 @@
     "parent_device_id": null
   },
   "status": {
-    "report": {
-      "movement": [
-        {
-          "from": "2025-09-11T19:11:53+00:00",
-          "to": "2025-09-11T19:21:05+00:00",
-          "duration": 552,
-          "entry_device_id": 1334025,
-          "exit_device_id": 1334025,
-          "exit_movement_id": 0,
-          "entry_movement_id": 0
-        },
-        {
-          "from": "2025-09-12T06:58:26+00:00",
-          "to": "2025-09-12T07:20:14+00:00",
-          "duration": 1308,
-          "entry_device_id": 1334025,
-          "exit_device_id": 1334025,
-          "exit_movement_id": 0,
-          "entry_movement_id": 0
-        }
+    "activity": {
+      "id": 5045077041,
+      "pet_id": 629768,
+      "since": "2020-03-11T14:21:07+00:00",
+      "tag_id": 1725049,
+      "device_id": 269654,
+      "user_id": 9999999,
+      "where": 2
+    },
+    "feeding": {
+      "at": "2020-03-11T14:21:07+00:00",
+      "change": [
+        -3.23,
+        0
       ],
-      "feeding": [
-        {
-          "from": "2025-08-28T09:34:14+00:00",
-          "to": "2025-08-28T09:34:25+00:00",
-          "duration": 11,
-          "context": 1,
-          "bowl_count": 1,
-          "device_id": 1181149,
-          "weights": [
-            {
-              "index": 0,
-              "weight": 31.0,
-              "change": -27.0,
-              "food_type_id": 2,
-              "target_weight": 0.0
-            },
-            {
-              "index": 1,
-              "weight": 0.0,
-              "change": 0.0,
-              "food_type_id": 1,
-              "target_weight": 0.0
-            }
-          ]
-        },
-        {
-          "from": "2025-08-28T09:44:24+00:00",
-          "to": "2025-08-28T09:45:44+00:00",
-          "duration": 80,
-          "context": 1,
-          "bowl_count": 1,
-          "device_id": 1181149,
-          "weights": [
-            {
-              "index": 0,
-              "weight": -6.0,
-              "change": -85.0,
-              "food_type_id": 2,
-              "target_weight": 0.0
-            },
-            {
-              "index": 1,
-              "weight": 0.0,
-              "change": 0.0,
-              "food_type_id": 1,
-              "target_weight": 0.0
-            }
-          ]
-        },
-        {
-          "from": "2025-08-28T12:12:02+00:00",
-          "to": "2025-08-28T12:13:24+00:00",
-          "duration": 82,
-          "context": 1,
-          "bowl_count": 1,
-          "device_id": 1181149,
-          "weights": [
-            {
-              "index": 0,
-              "weight": -12.0,
-              "change": -5.0,
-              "food_type_id": 2,
-              "target_weight": 0.0
-            },
-            {
-              "index": 1,
-              "weight": 0.0,
-              "change": 0.0,
-              "food_type_id": 1,
-              "target_weight": 0.0
-            }
-          ]
-        },
-        {
-          "from": "2025-08-28T15:44:48+00:00",
-          "to": "2025-08-28T15:46:34+00:00",
-          "duration": 106,
-          "context": 1,
-          "bowl_count": 1,
-          "device_id": 1181149,
-          "weights": [
-            {
-              "index": 0,
-              "weight": -13.0,
-              "change": -77.0,
-              "food_type_id": 2,
-              "target_weight": 0.0
-            },
-            {
-              "index": 1,
-              "weight": 0.0,
-              "change": 0.0,
-              "food_type_id": 1,
-              "target_weight": 0.0
-            }
-          ]
-        }
+      "device_id": 269654,
+      "id": 1210761432,
+      "tag_id": 2039802
+    },
+    "drinking": {
+      "at": "2020-03-11T14:21:07+00:00",
+      "change": [
+        -3.23,
+        0
       ],
-      "drinking": []
+      "device_id": 269654,
+      "id": 1210761432,
+      "tag_id": 2039802
     }
   },
   "control": {}

@@ -6,7 +6,7 @@ from typing import Any
 
 from surepcio.client import SurePetcareClient
 from surepcio.enums import ProductId
-
+from surepcio.devices.pet import Pet
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -29,22 +29,17 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def get_location(device: Any, reconfig) -> bool | None:
+def get_location(device: Pet, reconfig) -> bool | None:
     """Return True if pet is inside, False if outside, or None if unknown.
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
 
-    if movement := device.status.report.movement:
-        latest = movement[-1] if isinstance(movement, list) else movement
-
-        # Get the names of the locations from the reconfiguration data
-        location_inside = reconfig.get(latest.device_id).get("location_inside")
-        location_outside = reconfig.get(latest.device_id).get("location_outside")
-
-        if getattr(latest, "active", False):
-            return location_inside if location_inside is not None else True
-        return location_outside if location_outside is not None else False
+    if position := device.status.activity:
+        if position.where == 0:
+            return reconfig.get(position.device_id).get("location_inside")
+        else: 
+            return reconfig.get(position.device_id).get("location_outside")
     return None
 
 
@@ -203,47 +198,44 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field_fn=lambda device, r: abs(
-                sum(
-                    c
-                    for c in (
-                        getattr(w, "change", 0)
-                        for w in getattr(
-                            getattr(device, "feeding", [])[-1], "weights", []
-                        )
-                    )
-                    if c < 0
-                )
-            )
-            if getattr(device, "feeding", [])
-            else 0,
-            extra_field={  # Multiple values might be returned but we can only use latest one right now
-                "device_id": "feeding.-1.device_id",
-                "duration": "feeding.-1.duration",
-                "from": "feeding.-1.from_",
-                "weight_change_0": "feeding.-1.weights.0.change",
-                "weight_change_1": "feeding.-1.weights.1.change",
-            },
-        ), *SENSOR_DESCRIPTIONS_PET_INFORMATION,
-       
-       
+            field="status.feeding.change",
+            extra_field={
+                "device_id": "status.feeding.device_id",
+                "id": "status.feeding.id",
+                "at": "status.feeding.at",
+                "tag_id": "status.feeding.tag_id"
+            }
+        ), 
+        SurePetCareSensorEntityDescription(
+            key="position",
+            translation_key="position",
+            device_class=SensorDeviceClass.WEIGHT,
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            field_fn=get_location,
+            extra_field={"device_id": "status.activity.device_id",
+                         "id": "status.activity.id",
+                         "since": "status.activity.since",
+                         "tag_id": "status.activity.tag_id"
+            }
+        ),
+        SurePetCareSensorEntityDescription(
+            key="drinking",
+            translation_key="drinking",
+            device_class=SensorDeviceClass.WEIGHT,
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            field="status.drinking.change",
+            extra_field={
+                "device_id": "status.feeding.device_id",
+                "id": "status.feeding.id",
+                "at": "status.feeding.at",
+                "tag_id": "status.feeding.tag_id"
+            }
+        ),
+        *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),
 }
-"""
-        SurePetCareSensorEntityDescription(
-            key="location",
-            translation_key="location",
-            field_fn=get_location,
-            extra_field={
-                    "from": "status.movement.-1.from",
-                    "to": "status.movement.-1.to",
-                    "duration": "status.movement.-1.duration",
-                    "entry_device_id": "status.movement.-1.entry_device_id",
-                    "exit_device_id": "status.movement.-1.exit_device_id",
-                    "exit_movement_id": "status.movement.-1.exit_movement_id",
-                    "entry_movement_id": "status.movement.-1.entry_movement_id",
-                }
-        ),"""
 
 async def async_setup_entry(
     hass: HomeAssistant,
