@@ -36,7 +36,7 @@ def get_location(device: Pet, reconfig) -> bool | None:
     if (position := getattr(device.status, "activity")) is not None:
         if position.where == 0:
             return reconfig.get(position.device_id).get("location_inside")
-        else:
+        elif position.where == 1:
             return reconfig.get(position.device_id).get("location_outside")
 
     return None
