@@ -102,7 +102,22 @@
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
       'extra_attributes': None,
       'unit': <UnitOfMass.GRAMS: 'g'>,
+<<<<<<< Updated upstream
       'value': 0,
+=======
+      'value': -3.23,
+    }),
+    '472721-position': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'device_id': 269654,
+        'id': 5045077041,
+        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'tag_id': 1725049,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 'Away',
+>>>>>>> Stashed changes
     }),
   })
 # ---

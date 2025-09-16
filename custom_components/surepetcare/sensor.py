@@ -35,6 +35,7 @@ def get_location(device: Any, reconfig) -> bool | None:
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
+<<<<<<< Updated upstream
 
     if movement := getattr(device, "movement", []):
         latest = movement[0] if isinstance(movement, list) else movement
@@ -46,6 +47,14 @@ def get_location(device: Any, reconfig) -> bool | None:
         if getattr(latest, "active", False):
             return location_inside if location_inside is not None else True
         return location_outside if location_outside is not None else False
+=======
+        
+    if (position := getattr(device.status,"activity")) is not None:
+        if position.where == 0:
+            return reconfig.get(position.device_id).get("location_inside")
+        else:
+            return reconfig.get(position.device_id).get("location_outside")
+>>>>>>> Stashed changes
     return None
 
 
@@ -219,6 +228,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
+<<<<<<< Updated upstream
             field_fn=lambda device, r: abs(
                 sum(
                     c
@@ -239,6 +249,42 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "from": "feeding.-1.from_",
                 "weight_change_0": "feeding.-1.weights.0.change",
                 "weight_change_1": "feeding.-1.weights.1.change",
+=======
+            field="status.feeding.change.0",
+            extra_field={
+                "device_id": "status.feeding.device_id",
+                "id": "status.feeding.id",
+                "at": "status.feeding.at",
+                "tag_id": "status.feeding.tag_id",
+            },
+        ),
+        SurePetCareSensorEntityDescription(
+            key="position",
+            translation_key="position",
+            device_class=SensorDeviceClass.WEIGHT,
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            field_fn=get_location,
+            extra_field={
+                "device_id": "status.activity.device_id",
+                "id": "status.activity.id",
+                "since": "status.activity.since",
+                "tag_id": "status.activity.tag_id",
+            },
+        ),
+        SurePetCareSensorEntityDescription(
+            key="drinking",
+            translation_key="drinking",
+            device_class=SensorDeviceClass.WEIGHT,
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            field="status.drinking.change",
+            extra_field={
+                "device_id": "status.feeding.device_id",
+                "id": "status.feeding.id",
+                "at": "status.feeding.at",
+                "tag_id": "status.feeding.tag_id",
+>>>>>>> Stashed changes
             },
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
