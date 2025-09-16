@@ -1,0 +1,46 @@
+{
+    "entity_info": {
+      "id": 1299453,
+      "name": "Katzenklappe",
+      "household_id": 287000,
+      "product_id": 6,
+      "tag_id": null,
+      "photo": null,
+      "tag": null,
+      "parent_device_id": 1202413
+    },
+    "status": {
+      "battery": 6.193,
+      "learn_mode": false,
+      "signal": {
+        "device_rssi": -56
+      },
+      "version": {
+        "device": {
+          "hardware": "11",
+          "firmware": "335.422"
+        }
+      },
+      "online": true,
+      "locking": {
+        "mode": 3
+      }
+    },
+    "control": {
+      "curfew": [
+        {
+          "enabled": false,
+          "lock_time":  "22:00:00",
+          "unlock_time":  "22:01:00"
+        },
+        {
+          "enabled": false,
+          "lock_time":  "22:06:00",
+          "unlock_time": "23:06:00"
+        }
+      ],
+      "locking": 3,
+      "fail_safe": 0,
+      "fast_polling": true
+    }
+  }

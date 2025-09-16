@@ -6,7 +6,6 @@ from surepcio.client import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity_path import get_by_paths
@@ -19,6 +18,7 @@ class SurePetCareBaseEntityDescription:
     field: str | None = None
     field_fn: Callable | None = None
     extra_fn: Callable | None = None
+    extra_field: dict[str, str] | str | None = None
     frozen: bool = False
 
 
@@ -59,15 +59,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def native_value(self) -> Any:
         """Return the sensor value."""
-        data = self.coordinator.data
-        desc = self.entity_description
-        if getattr(desc, "field_fn", None) is not None:
-            return desc.field_fn(data, self.coordinator.config_entry.data)
-        if getattr(desc, "field", None):
-            return get_by_paths(data, desc.field, native=True)
-        if getattr(desc, "key", None):
-            return get_by_paths(data, desc.key, native=True)
-        return None
+        return self._convert_value()
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -85,4 +77,15 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
                 serialize=True,
                 flatten=True,
             )
+        return None
+
+    def _convert_value(self) -> Any:
+        data = self.coordinator.data
+        desc = self.entity_description
+        if getattr(desc, "field_fn", None) is not None:
+            return desc.field_fn(data, self.coordinator.config_entry.data)
+        if getattr(desc, "field", None):
+            return get_by_paths(data, desc.field, native=True)
+        if getattr(desc, "key", None):
+            return get_by_paths(data, desc.key, native=True)
         return None

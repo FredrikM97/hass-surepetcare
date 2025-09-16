@@ -24,7 +24,15 @@ async def test_sensor_snapshot_from_fixture(
 ):
     fixture_data = json.loads((Path("tests/fixtures") / fixture_file).read_text())
     config_entry = MockConfigEntry(
-        domain=DOMAIN, data={"token": "abc", "device_id": "123"}
+        domain=DOMAIN,
+        data={
+            "token": "abc",
+            "device_id": "123",
+            269654: {
+                "location_inside": "Home",
+                "location_outside": "Away",
+            },
+        },
     )
     config_entry.add_to_hass(hass)
 

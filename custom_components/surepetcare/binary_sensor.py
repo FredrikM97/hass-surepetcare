@@ -1,12 +1,13 @@
 """TODO."""
 
-import dataclasses as dc
 from dataclasses import dataclass
+from datetime import datetime
 import logging
 from typing import cast
 
 from surepcio.enums import ProductId
-
+from surepcio.devices.device import SurePetCareBase
+from surepcio.devices.dual_scan_connect import Curfew
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -22,10 +23,17 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    get_by_paths,
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _next_enabled_future_curfew(device: SurePetCareBase, r: ConfigEntry) -> bool | None:
+    curfews: Curfew = device.control.curfew
+    if curfews is None:
+        return None
+    now = datetime.now().time()
+    return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -33,8 +41,6 @@ class SurePetCareBinarySensorEntityDescription(
     SurePetCareBaseEntityDescription, BinarySensorEntityDescription
 ):
     """Describes SurePetCare.binary_sensor entity."""
-
-    extra_field: list[str] = dc.field(default_factory=list)
 
 
 SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, ...] = (
@@ -54,6 +60,22 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             field="status.learn_mode",
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
+        ),
+        *SENSOR_DESCRIPTIONS_AVAILABLE,
+    ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        SurePetCareBinarySensorEntityDescription(
+            key="learn_mode",
+            translation_key="learn_mode",
+            field="status.learn_mode",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        SurePetCareBinarySensorEntityDescription(
+            key="curfew",
+            translation_key="curfew",
+            field_fn=_next_enabled_future_curfew,
+            extra_field="control.curfew",
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
@@ -111,11 +133,4 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        if self.entity_description.field is not None:
-            return cast(
-                bool,
-                get_by_paths(
-                    self.coordinator.data, self.entity_description.field, native=True
-                ),
-            )
-        return None
+        return cast(bool, self._convert_value())

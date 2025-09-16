@@ -1,4 +1,39 @@
 # serializer version: 1
+# name: test_sensor_snapshot_from_fixture[dual_scan_connect.json]
+  dict({
+    '1299453-connectivity': dict({
+      'device_class': <BinarySensorDeviceClass.CONNECTIVITY: 'connectivity'>,
+      'extra_attributes': None,
+      'unit': None,
+      'value': True,
+    }),
+    '1299453-curfew': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'control.curfew': list([
+          dict({
+            'enabled': False,
+            'lock_time': datetime.time(22, 0),
+            'unlock_time': datetime.time(22, 1),
+          }),
+          dict({
+            'enabled': False,
+            'lock_time': datetime.time(22, 6),
+            'unlock_time': datetime.time(23, 6),
+          }),
+        ]),
+      }),
+      'unit': None,
+      'value': False,
+    }),
+    '1299453-learn_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': False,
+    }),
+  })
+# ---
 # name: test_sensor_snapshot_from_fixture[feeder_connect.json]
   dict({
     '269654-connectivity': dict({

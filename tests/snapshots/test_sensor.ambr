@@ -1,4 +1,25 @@
 # serializer version: 1
+# name: test_sensor_snapshot_from_fixture[dual_scan_connect.json]
+  dict({
+    '1299453-battery_level': dict({
+      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+      'extra_attributes': None,
+      'unit': '%',
+      'value': 87,
+    }),
+    '1299453-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 287000,
+        'id': 1299453,
+        'parent_device_id': 1202413,
+        'product_id': 6,
+      }),
+      'unit': None,
+      'value': 'Katzenklappe',
+    }),
+  })
+# ---
 # name: test_sensor_snapshot_from_fixture[feeder_connect.json]
   dict({
     '269654-battery_level': dict({
@@ -86,6 +107,20 @@
 # ---
 # name: test_sensor_snapshot_from_fixture[pet.json]
   dict({
+    '472721-drinking': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': list([
+        -3.23,
+        0,
+      ]),
+    }),
     '472721-entity_information': dict({
       'device_class': None,
       'extra_attributes': dict({
@@ -100,9 +135,28 @@
     }),
     '472721-feeding': dict({
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': None,
+      'extra_attributes': dict({
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
+      }),
       'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 0,
+      'value': list([
+        -3.23,
+        0,
+      ]),
+    }),
+    '472721-position': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'device_id': 269654,
+        'id': 5045077041,
+        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'tag_id': 1725049,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 'Away',
     }),
   })
 # ---
