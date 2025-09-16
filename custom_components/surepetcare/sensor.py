@@ -1,7 +1,6 @@
 """TODO."""
 
 from dataclasses import dataclass
-from datetime import datetime
 import logging
 from typing import Any
 
@@ -14,7 +13,6 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
-import dataclasses as dc
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE, UnitOfMass
 from homeassistant.core import HomeAssistant
@@ -50,21 +48,13 @@ def get_location(device: Any, reconfig) -> bool | None:
     return None
 
 
-def next_enabled_future_curfew(device, r):
-    curfews = device.control.curfew
-    now = datetime.now().time()
-    for c in curfews:
-        if c.enabled and c.lock_time <= now and now <= c.unlock_time:
-            return c
-    return None
+
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareSensorEntityDescription(
     SurePetCareBaseEntityDescription, SensorEntityDescription
 ):
     """Describes SurePetCare sensor entity."""
-
-    extra_field: dict[str, str] = dc.field(default_factory=dict)
 
 
 SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
@@ -195,13 +185,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ),
     ProductId.DUAL_SCAN_CONNECT: (
         *SENSOR_DESCRIPTIONS_BATTERY,
-        
-        SurePetCareSensorEntityDescription(
-            key="curfew",
-            translation_key="curfew",
-            field_fn=next_enabled_future_curfew,
-            extra_field={"curfew": "control.curfew"}
-        ),
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.PET_DOOR: (

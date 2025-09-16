@@ -34,7 +34,7 @@
   },
   "status": {
     "report": {
-      "movement": {"datapoints":[
+      "movement": [
         {
           "from": "2025-09-11T19:11:53+00:00",
           "to": "2025-09-11T19:21:05+00:00",
@@ -53,8 +53,8 @@
           "exit_movement_id": 0,
           "entry_movement_id": 0
         }
-      ]},
-      "feeding": {"datapoints":[
+      ],
+      "feeding": [
         {
           "from": "2025-08-28T09:34:14+00:00",
           "to": "2025-08-28T09:34:25+00:00",
@@ -151,7 +151,7 @@
             }
           ]
         }
-      ]},
+      ],
       "drinking": []
     }
   },

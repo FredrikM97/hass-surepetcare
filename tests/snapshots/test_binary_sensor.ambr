@@ -7,6 +7,25 @@
       'unit': None,
       'value': True,
     }),
+    '1299453-curfew': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'control.curfew': list([
+          dict({
+            'enabled': False,
+            'lock_time': datetime.time(22, 0),
+            'unlock_time': datetime.time(22, 1),
+          }),
+          dict({
+            'enabled': False,
+            'lock_time': datetime.time(22, 6),
+            'unlock_time': datetime.time(23, 6),
+          }),
+        ]),
+      }),
+      'unit': None,
+      'value': False,
+    }),
     '1299453-learn_mode': dict({
       'device_class': None,
       'extra_attributes': None,
