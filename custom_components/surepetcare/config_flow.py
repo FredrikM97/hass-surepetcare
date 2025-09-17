@@ -18,10 +18,7 @@ from homeassistant.helpers.selector import selector
 from .const import (
     CONF_EMAIL,
     CONF_PASSWORD,
-    COORDINATOR,
-    COORDINATOR_DICT,
     DOMAIN,
-    ENTRY_ID,
     POLLING_SPEED,
     SCAN_INTERVAL,
 )
