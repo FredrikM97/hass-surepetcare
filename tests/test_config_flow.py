@@ -58,7 +58,7 @@ async def test_options_flow(hass):
         entry_id="test_entry_id",
         data={
             "token": "existing_token",
-            "entities": {444: {"name": "Test Device", "product_id": 6}},
+            "entities": {"444": {"name": "Test Device", "product_id": 6}},
         },
     )
 
@@ -69,7 +69,7 @@ async def test_options_flow(hass):
         flow = SurePetCareOptionsFlow(entry)
         # Mock coordinator data for the device
         coordinator_data = type(
-            "Device", (), {"id": 444, "name": "Test Device", "product_id": 6}
+            "Device", (), {"id": "444", "name": "Test Device", "product_id": 6}
         )()
         hass.data = {
             DOMAIN: {
@@ -98,7 +98,7 @@ async def test_options_flow(hass):
         )
 
         # Step 2: Select device (should show config form)
-        result = await flow.async_step_init({"device_option": 444})
+        result = await flow.async_step_init({"device_option": "444"})
         assert result["type"] == FlowResultType.FORM
         assert result["step_id"] == "configure_device"
         result1 = await flow.async_step_configure_device()
@@ -117,7 +117,7 @@ async def test_options_flow(hass):
 
         assert result2["type"] == FlowResultType.FORM
         assert result2["step_id"] == "init"
-        assert flow._options[444] == {
+        assert flow._options["444"] == {
             "location_inside": "Kitchen",
             "location_outside": "Garden",
             "polling_speed": 200,

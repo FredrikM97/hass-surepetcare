@@ -91,7 +91,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                     else:
                         # Save serializable info for each entity: entity_id, product_id, name
                         entity_info = {
-                            device.id: {
+                            str(device.id): {
                                 "product_id": getattr(device, "product_id", None),
                                 "name": getattr(device, "name", str(device.id)),
                             }
