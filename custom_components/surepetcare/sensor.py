@@ -195,7 +195,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="status.feeding.change.0",
+            field_fn=lambda device,r:  abs(change[0]) if (change := getattr(device.status.feeding, "change", [])) else None,
             extra_field={
                 "device_id": "status.feeding.device_id",
                 "id": "status.feeding.id",
@@ -223,7 +223,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="status.drinking.change",
+            field_fn=lambda device,r: abs(change[0]) if (change := getattr(device.status.drinking, "change", [])) else None,
             extra_field={
                 "device_id": "status.drinking.device_id",
                 "id": "status.drinking.id",
