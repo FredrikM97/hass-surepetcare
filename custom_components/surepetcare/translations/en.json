@@ -1,43 +1,43 @@
 {
   "config": {
     "step": {
-        "user": {
-            "title": "Sure Petcare",
-            "description": "Login with your Sure Petcare Account.",
-            "data": {
-                "email": "Email",
-                "password": "Password"
-            }
-        },
-        "select_device": {
-          "title": "Select device",
-          "description": "Choose a device to configure or finish setup.",
-          "data": {
-            "device_option": "Device"
-          }
-        },
-        "configure_device": {
-          "title": "Configure {device_name}",
-          "data": {
-            "location": "Location",
-            "location_inside": "Inside location",
-            "location_outside": "Outside location"
-          }
-        },
-        "reconfigure": {
-          "title": "Update device",
-          "description": "Update the device configuration."
+      "user": {
+        "title": "Sure Petcare",
+        "description": "Login with your Sure Petcare Account.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
         }
+      }
     },
     "error": {
-        "invalid_auth": "Authentication failed. Please check your credentials.",
-        "unknown": "Unknown error occurred.",
-        "auth_failed": "Authentication failed. Please check your credentials.",
-        "no_devices_or_pet_found": "No devices or pets found in your account."
+      "invalid_auth": "Authentication failed. Please check your credentials.",
+      "unknown": "Unknown error occurred.",
+      "auth_failed": "Authentication failed. Please check your credentials.",
+      "no_devices_or_pet_found": "No devices or pets found in your account."
     },
     "abort": {
-        "already_configured": "This account is already configured.",
-        "reconfigure_successful": "Device configuration updated successfully."
+      "already_configured": "This account is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sure Petcare Options",
+        "description": "Choose a device to configure or finish setup.",
+        "data": {
+          "device_option": "Select device to configure"
+        }
+      },
+      "configure_device": {
+        "title": "Configure {device_name}",
+        "data": {
+          "polling_speed": "Update interval (seconds)",
+          "location": "Location",
+          "location_inside": "Inside location",
+          "location_outside": "Outside location"
+        }
+      }
     }
   },
   "entity": {
@@ -49,98 +49,64 @@
           "off": "Offline"
         }
       },
-       "learn_mode": {
+      "learn_mode": {
         "name": "Learn Mode",
         "state": {
-          "on": "Enabled",
-          "off": "Disabled"
+          "on": "On",
+          "off": "Off"
         }
       }
     },
-    "select":{
-      "training_mode":{
+    "select": {
+      "training_mode": {
         "name": "Training Mode",
         "state": {
-          "DISABLED": "OFF",
+          "DISABLED": "Off",
           "STEP_1": "Step 1",
           "STEP_2": "Step 2",
           "STEP_3": "Step 3",
           "STEP_4": "Step 4"
         }
       },
-      "lid":{
+      "lid": {
         "name": "Lid close delay",
         "state": {
           "FASTER": "Fast",
           "NORMAL": "Normal",
           "SLOWER": "Slow"
-      }
+        }
       }
     },
     "sensor": {
-      "consumption": {
-        "name": "Consumption"
-      },
-      "tag": {
-        "name": "Tag"
-      },
-      "household_id": {
-        "name": "Household ID"
-      },
-      "info": {
-        "name": "Information"
-      },
-      "feeding": {
-        "name": "Feeding"
-      },
-
-      "position": {
-        "name": "Position"
-      },
-
-      "drinking": {
-        "name": "Drinking"
-      },
-      "rssi": {
-        "name": "RSSI",
-        "unit_of_measurement": "dBm"
-      },
-      "bowls": {
-        "name": "Bowls"
-      },
+      "consumption": {"name": "Consumption"},
+      "tag": {"name": "Tag"},
+      "household_id": {"name": "Household ID"},
+      "info": {"name": "Information"},
+      "feeding": {"name": "Feeding"},
+      "position": {"name": "Position"},
+      "drinking": {"name": "Drinking"},
+      "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
+      "bowls": {"name": "Bowls"},
       "lid_delay": {
         "name": "Lid Delay",
         "state": {
-          "0": "Faster",
-          "1": "Normal",
-          "2": "Slow"
+          "FASTER": "Fast",
+          "NORMAL": "Normal",
+          "SLOWER": "Slow"
         }
       },
-      "tare": {
-        "name": "Tare"
-      },
-      "current_weight": {
-        "name": "Current Weight"
-      },
-      "target_weight": {
-        "name": "Target Weight"
-      },
-      "bowl_1_weight": {
-        "name": "Bowl One Weight"
-      },"bowl_2_weight": {
-        "name": "Bowl Two Weight"
-      },
-      "weight_capacity": {
-        "name": "Total Weight Limit"
-      },
-      "entity_information": {
-        "name": "Entity Information"
-      },
-      "training_mode":{
+      "tare": {"name": "Tare"},
+      "current_weight": {"name": "Current Weight"},
+      "target_weight": {"name": "Target Weight"},
+      "bowl_1_weight": {"name": "Bowl One Weight"},
+      "bowl_2_weight": {"name": "Bowl Two Weight"},
+      "weight_capacity": {"name": "Total Weight Limit"},
+      "entity_information": {"name": "Entity Information"},
+      "training_mode": {
         "name": "Training Mode",
         "state": {
-          "1": "Enabled",
-          "0": "Disabled"
+          "1": "On",
+          "0": "Off"
         }
       }
     }

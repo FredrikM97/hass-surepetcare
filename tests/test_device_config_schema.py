@@ -6,8 +6,7 @@ import voluptuous as vol
 
 
 def test_dual_scan_pet_door_schema_valid():
-    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
-    # The schema is a dict of voluptuous Required keys, so we need to build a voluptuous.Schema
+    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     assert isinstance(schema, dict)
     valid = {"location_inside": "Hall", "location_outside": "Garden"}
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
@@ -15,36 +14,33 @@ def test_dual_scan_pet_door_schema_valid():
 
 
 def test_dual_scan_pet_door_schema_invalid():
-    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
+    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_inside": "Hall"})
+        vol_schema({"location_inside": 123})
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_outside": "Garden"})
+        vol_schema({"location_outside": 123123})
 
 
 def test_dual_scan_pet_door_schema_missing_keys():
-    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
+    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
-    # Missing both keys
-    with pytest.raises(vol.Invalid):
-        vol_schema({})
-    # Extra key should be ignored if required keys are present
+    assert vol_schema({}) == {}
+    assert vol_schema({"location_inside": "Hall"}) == {"location_inside": "Hall"}
+    assert vol_schema({"location_outside": "Garden"}) == {"location_outside": "Garden"}
     valid = {
         "location_inside": "Hall",
         "location_outside": "Garden",
         "extra": "ignored",
     }
-    # Should not raise
     assert vol_schema(
         {k: valid[k] for k in ["location_inside", "location_outside"]}
     ) == {"location_inside": "Hall", "location_outside": "Garden"}
 
 
 def test_dual_scan_pet_door_schema_extra_keys_ignored():
-    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
+    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
-    # Extra keys should be ignored in output
     valid = {
         "location_inside": "Hall",
         "location_outside": "Garden",
@@ -56,7 +52,7 @@ def test_dual_scan_pet_door_schema_extra_keys_ignored():
 
 
 def test_dual_scan_pet_door_schema_type_validation():
-    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]["schema"]
+    schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     # Both values must be str
     valid = {"location_inside": "Room", "location_outside": "Yard"}
@@ -83,9 +79,7 @@ def test_device_config_schemas_structure():
 
 
 def test_dual_scan_pet_door_schema_keys():
-    schema = device_config_schema.DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR][
-        "schema"
-    ]
+    schema = device_config_schema.DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     assert isinstance(schema, dict)
     assert "location_inside" in [k.schema for k in schema.keys()]
     assert "location_outside" in [k.schema for k in schema.keys()]
@@ -93,8 +87,7 @@ def test_dual_scan_pet_door_schema_keys():
 
 def test_schema_type_and_structure():
     # All schemas should be dict or None
-    for pid, entry in DEVICE_CONFIG_SCHEMAS.items():
-        schema = entry["schema"]
+    for pid, schema in DEVICE_CONFIG_SCHEMAS.items():
         assert schema is None or isinstance(schema, dict)
         if isinstance(schema, dict):
             for k, v in schema.items():
@@ -106,8 +99,7 @@ def test_schema_type_and_structure():
 
 def test_schema_keys_are_unique():
     # If schema is a dict, keys should be unique
-    for pid, entry in DEVICE_CONFIG_SCHEMAS.items():
-        schema = entry["schema"]
+    for pid, schema in DEVICE_CONFIG_SCHEMAS.items():
         if isinstance(schema, dict):
             keys = [k.schema for k in schema.keys()]
             assert len(keys) == len(set(keys))
@@ -115,4 +107,4 @@ def test_schema_keys_are_unique():
 
 def test_schemas_are_none():
     for pid in [ProductId.FEEDER_CONNECT, ProductId.HUB, ProductId.PET]:
-        assert device_config_schema.DEVICE_CONFIG_SCHEMAS[pid]["schema"] is None
+        assert device_config_schema.DEVICE_CONFIG_SCHEMAS[pid] is None

@@ -1,20 +1,18 @@
 """TODO."""
 
 from surepcio.enums import ProductId
-from voluptuous import Required
+from voluptuous import Optional
 
 DEVICE_CONFIG_SCHEMAS = {
-    ProductId.FEEDER_CONNECT: {"schema": None},
+    ProductId.FEEDER_CONNECT: None,
+    ProductId.DUAL_SCAN_CONNECT: {
+        Optional("location_inside"): str,
+        Optional("location_outside"): str,
+    },
     ProductId.DUAL_SCAN_PET_DOOR: {
-        "schema": {
-            Required("location_inside"): str,
-            Required("location_outside"): str,
-        },
+        Optional("location_inside"): str,
+        Optional("location_outside"): str,
     },
-    ProductId.HUB: {
-        "schema": None,
-    },
-    ProductId.PET: {
-        "schema": None,
-    },
+    ProductId.HUB: None,
+    ProductId.PET: None,
 }

@@ -14,3 +14,5 @@ COORDINATOR_LIST = "coordinator_list"
 COORDINATOR_DICT = "coordinator_dict"
 COORDINATOR = "coordinator"
 ENTRY_ID = "entry_id"
+SCAN_INTERVAL = 300
+POLLING_SPEED = "polling_speed"
