@@ -59,3 +59,25 @@ set_tag:
           options:
             - add
             - remove
+
+set_pet_access_mode:
+  name: Set Pet Access Mode
+  description: Sets a pet's profile to "indoor only" to prevent passthrough of flap.
+  fields:
+    pet_id:
+      name: Pet ID
+      description: Pet tag to modify access mode.
+      required: true
+      example: 123456
+      selector:
+        device:
+          integration: surepetcare
+        
+    device_id:
+      name: Device id (Flap or Feeder)
+      description: The id of Flap/Feeder to modify access on.
+      required: true
+      example: 123456
+      selector:
+        device:
+          integration: surepetcare
