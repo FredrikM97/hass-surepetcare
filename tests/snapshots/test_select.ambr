@@ -1,0 +1,35 @@
+# serializer version: 1
+# name: test_sensor_snapshot_from_fixture[dual_scan_connect.json]
+  dict({
+    '1299453-locking': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'LOCKED',
+    }),
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[feeder_connect.json]
+  dict({
+    '269654-lid': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'FASTER',
+    }),
+    '269654-training_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'DISABLED',
+    }),
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[hub.json]
+  dict({
+  })
+# ---
+# name: test_sensor_snapshot_from_fixture[pet.json]
+  dict({
+  })
+# ---

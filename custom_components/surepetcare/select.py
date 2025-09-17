@@ -51,7 +51,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
-        )
+        ),
     ),
 }
 
