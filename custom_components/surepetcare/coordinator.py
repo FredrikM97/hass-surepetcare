@@ -5,13 +5,14 @@ from typing import Any
 from surepcio.client import SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
 
+from .const import POLLING_SPEED, SCAN_INTERVAL
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
 
-SCAN_INTERVAL = 300
+
 
 
 class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
@@ -32,7 +33,7 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
             logger,
             config_entry=config_entry,
             name=f"Update coordinator for {device}",
-            update_interval=timedelta(seconds=SCAN_INTERVAL),
+            update_interval=timedelta(seconds=config_entry.options.get(device.id, {}).get(POLLING_SPEED, SCAN_INTERVAL))
         )
         self.product_id = device.product_id
         self.client = client
