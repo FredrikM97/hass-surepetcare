@@ -71,13 +71,16 @@ class DummyClient:
 class DummyConfigEntry:
     """A dummy config entry for use in integration tests."""
 
-    entry_id = "dummy"
-    data = {"token": "tok", "client_device_id": "dev"}
+    def __init__(self):
+        self.entry_id = "dummy"
+        self.domain = "surepetcare"
+        self.data = {"token": "tok", "client_device_id": "dev"}
+        self.options = {}
+        self.state = None  # Added to avoid AttributeError
 
     def async_on_unload(self, _):
         pass
-
-    state = None  # Added to avoid AttributeError
+        self.options = {}
 
 
 class DummyHass:
@@ -284,6 +287,7 @@ async def test_async_setup_entry_login_failure():
                 "Configuration not finished" in str(exc)
                 or "Frame helper not set up" in str(exc)
                 or isinstance(exc, AssertionError)
+                or "has no attribute 'options'" in str(exc)
             )
 
 

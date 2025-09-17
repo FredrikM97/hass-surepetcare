@@ -6,6 +6,8 @@ from custom_components.surepetcare.config_flow import SurePetCareConfigFlow
 from custom_components.surepetcare.const import DOMAIN
 from surepcio.household import Household
 
+from custom_components.surepetcare.config_flow import SurePetCareOptionsFlow
+
 
 class MockDevice:
     def __init__(self, device_id="123", name="Test Device", product_id=None):
@@ -46,44 +48,28 @@ async def test_setup_complete_flow(hass):
         result = await flow.async_step_user(
             {"email": "test@example.com", "password": "password123"}
         )
-        assert result["type"] == FlowResultType.FORM
-        assert result["step_id"] == "select_device"
-        assert "device_option" in result["data_schema"].schema
-        assert (
-            result["data_schema"].schema["device_option"].container[0] == "Test Device"
-        )
-        result2 = await flow.async_step_select_device({"device_option": "Test Device"})
-
-        assert result2["type"] == FlowResultType.FORM
-        assert result2["step_id"] == "configure_device"
-        assert "location_inside" in result2["data_schema"].schema.keys()
-        assert "location_outside" in result2["data_schema"].schema.keys()
-        result3 = await flow.async_step_configure_device(
-            {"location_inside": "Kitchen", "location_outside": "Garden"}
-        )
-        assert result3["step_id"] == "select_device"
-        assert flow._device_config == {
-            "444": {"location_inside": "Kitchen", "location_outside": "Garden"}
-        }
-        result4 = await flow.async_step_select_device({"device_option": "Finish setup"})
-        assert result4["type"] == FlowResultType.CREATE_ENTRY
+        assert result["type"] == FlowResultType.CREATE_ENTRY
 
 
 @pytest.mark.asyncio
-async def test_reconfigure_flow(hass):
-    flow = SurePetCareConfigFlow()
+async def test_options_flow(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
-        data={"token": "existing_token"},
-        options={"444": {"location_inside": "Kitchen", "location_outside": "Garden"}},
+        entry_id="test_entry_id",
+        data={
+            "token": "existing_token",
+            "entities": {444: {"name": "Test Device", "product_id": 6}},
+        },
     )
-    entry.add_to_hass(hass)
-    flow.hass = hass
+
     with patch(
         "custom_components.surepetcare.config_flow.SurePetcareClient", MockClient
     ):
+        entry.add_to_hass(hass)
+        flow = SurePetCareOptionsFlow(entry)
+        # Mock coordinator data for the device
         coordinator_data = type(
-            "Device", (), {"id": 444, "name": "Test Device", "product_id": 10}
+            "Device", (), {"id": 444, "name": "Test Device", "product_id": 6}
         )()
         hass.data = {
             DOMAIN: {
@@ -98,31 +84,44 @@ async def test_reconfigure_flow(hass):
                 }
             }
         }
+        flow.hass = hass
+        flow._config_entry = entry
         flow.context = {"source": "reconfigure", "entry_id": entry.entry_id}
-
-        result = await flow.async_step_reconfigure()
-        assert flow._device_config == {
-            "444": {"location_inside": "Kitchen", "location_outside": "Garden"}
-        }
-
+        # Step 1: Init (should show device selection form)
+        result = await flow.async_step_init()
         assert result["type"] == FlowResultType.FORM
-        assert result["step_id"] == "select_device"
+        assert result["step_id"] == "init"
         assert "device_option" in result["data_schema"].schema
         assert (
-            result["data_schema"].schema["device_option"].container[0] == "Test Device"
+            result["data_schema"].schema["device_option"].config["options"][0]["label"]
+            == "Test Device (DUAL_SCAN_CONNECT)"
         )
-        result1 = await flow.async_step_select_device({"device_option": "Test Device"})
+
+        # Step 2: Select device (should show config form)
+        result = await flow.async_step_init({"device_option": 444})
+        assert result["type"] == FlowResultType.FORM
+        assert result["step_id"] == "configure_device"
+        result1 = await flow.async_step_configure_device()
         assert result1["type"] == FlowResultType.FORM
         assert result1["step_id"] == "configure_device"
+        assert "polling_speed" in result1["data_schema"].schema
         assert "location_inside" in result1["data_schema"].schema.keys()
         assert "location_outside" in result1["data_schema"].schema.keys()
         result2 = await flow.async_step_configure_device(
-            {"location_inside": "Bedroom", "location_outside": "Garden"}
+            {
+                "polling_speed": 200,
+                "location_inside": "Kitchen",
+                "location_outside": "Garden",
+            }
         )
-        assert result2["step_id"] == "select_device"
-        assert flow._device_config == {
-            "444": {"location_inside": "Bedroom", "location_outside": "Garden"}
+
+        assert result2["type"] == FlowResultType.FORM
+        assert result2["step_id"] == "init"
+        assert flow._options[444] == {
+            "location_inside": "Kitchen",
+            "location_outside": "Garden",
+            "polling_speed": 200,
         }
-        result3 = await flow.async_step_select_device({"device_option": "Finish setup"})
-        assert result3["type"] == FlowResultType.ABORT
-        assert result3["reason"] == "reconfigure_successful"
+
+        result3 = await flow.async_step_init({"finished": True})
+        assert result3["type"] == FlowResultType.CREATE_ENTRY
