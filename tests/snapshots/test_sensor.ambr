@@ -154,3 +154,158 @@
     }),
   })
 # ---
+# name: test_snapshot_without_setting_option_flow[dual_scan_connect.json]
+  dict({
+    '1299453-battery_level': dict({
+      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+      'extra_attributes': None,
+      'unit': '%',
+      'value': 87,
+    }),
+    '1299453-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 287000,
+        'id': 1299453,
+        'parent_device_id': 1202413,
+        'product_id': 6,
+      }),
+      'unit': None,
+      'value': 'Katzenklappe',
+    }),
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[feeder_connect.json]
+  dict({
+    '269654-battery_level': dict({
+      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+      'extra_attributes': None,
+      'unit': '%',
+      'value': 13,
+    }),
+    '269654-bowl_1_weight': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'current_weight': 32.16,
+        'food_type': 'WET',
+        'last_fill_weight': 32.16,
+        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+        'position': 'LEFT',
+        'substance_type': 2,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 32.16,
+    }),
+    '269654-bowl_2_weight': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'current_weight': -27.2,
+        'food_type': 'WET',
+        'last_fill_weight': -27.2,
+        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+        'position': 'RIGHT',
+        'substance_type': 2,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': -27.2,
+    }),
+    '269654-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 222527,
+        'id': 269654,
+        'parent_device_id': 295972,
+        'product_id': 4,
+      }),
+      'unit': None,
+      'value': 'Maui matlåda (old) ',
+    }),
+    '269654-lid_delay': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': None,
+    }),
+    '269654-rssi': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': -81,
+    }),
+    '269654-tare': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 2,
+    }),
+    '269654-training_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'DISABLED',
+    }),
+    '269654-weight_capacity': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'food_type': 'WET',
+      }),
+      'unit': None,
+      'value': 0,
+    }),
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[hub.json]
+  dict({
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[pet.json]
+  dict({
+    '472721-drinking': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 3.23,
+    }),
+    '472721-entity_information': dict({
+      'device_class': None,
+      'extra_attributes': dict({
+        'household_id': 222527,
+        'id': 472721,
+        'parent_device_id': None,
+        'product_id': 0,
+        'tag': 60978,
+      }),
+      'unit': None,
+      'value': 'Maui',
+    }),
+    '472721-feeding': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'device_id': 269654,
+        'id': 1210761432,
+        'tag_id': 2039802,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 3.23,
+    }),
+    '472721-position': dict({
+      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'extra_attributes': dict({
+        'device_id': 269654,
+        'id': 5045077041,
+        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+        'tag_id': 1725049,
+      }),
+      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'value': 1,
+    }),
+  })
+# ---

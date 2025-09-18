@@ -28,16 +28,22 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def get_location(device: Pet, reconfig) -> bool | None:
-    """Return True if pet is inside, False if outside, or None if unknown.
-
-    Uses reconfigured values for location_inside/location_outside if available.
+def get_location(device: Pet, reconfig) -> bool | str | None:
+    """Return bool (false=inside, true=outside) Enum or None if unknown.
+    If OptionFlow ( location_inside/location_outside ) is configured then return instead of bool.
     """
     if (position := getattr(device.status, "activity")) is not None:
+        logger.debug(
+            f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}"
+        )
         if position.where == 0:
-            return reconfig.get(position.device_id).get("location_inside")
+            return reconfig.get(position.device_id, {}).get(
+                "location_inside", position.where
+            )
         elif position.where == 1:
-            return reconfig.get(position.device_id).get("location_outside")
+            return reconfig.get(position.device_id, {}).get(
+                "location_outside", position.where
+            )
 
     return None
 
