@@ -71,7 +71,7 @@
       'device_class': None,
       'extra_attributes': None,
       'unit': None,
-      'value': None,
+      'value': 'FASTER',
     }),
     '269654-rssi': dict({
       'device_class': None,
@@ -94,7 +94,10 @@
     '269654-weight_capacity': dict({
       'device_class': None,
       'extra_attributes': dict({
-        'food_type': 'WET',
+        'control_bowls_settings_0_food_type': 'WET',
+        'control_bowls_settings_0_target': 0,
+        'control_bowls_settings_1_food_type': 'WET',
+        'control_bowls_settings_1_target': 0,
       }),
       'unit': None,
       'value': 0,
@@ -148,14 +151,14 @@
       'value': 3.23,
     }),
     '472721-position': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'device_class': None,
       'extra_attributes': dict({
         'device_id': 269654,
         'id': 5045077041,
         'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
         'tag_id': 1725049,
       }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'unit': None,
       'value': 'Away',
     }),
   })
@@ -232,7 +235,7 @@
       'device_class': None,
       'extra_attributes': None,
       'unit': None,
-      'value': None,
+      'value': 'FASTER',
     }),
     '269654-rssi': dict({
       'device_class': None,
@@ -255,7 +258,10 @@
     '269654-weight_capacity': dict({
       'device_class': None,
       'extra_attributes': dict({
-        'food_type': 'WET',
+        'control_bowls_settings_0_food_type': 'WET',
+        'control_bowls_settings_0_target': 0,
+        'control_bowls_settings_1_food_type': 'WET',
+        'control_bowls_settings_1_target': 0,
       }),
       'unit': None,
       'value': 0,
@@ -309,14 +315,14 @@
       'value': 3.23,
     }),
     '472721-position': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+      'device_class': None,
       'extra_attributes': dict({
         'device_id': 269654,
         'id': 5045077041,
         'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
         'tag_id': 1725049,
       }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
+      'unit': None,
       'value': <PetLocation.OUTSIDE: 1>,
     }),
   })

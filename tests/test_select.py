@@ -28,7 +28,7 @@ async def test_sensor_snapshot_from_fixture(
         data={
             "token": "abc",
             "device_id": "123",
-            269654: {
+            "269654": {
                 "location_inside": "Home",
                 "location_outside": "Away",
             },

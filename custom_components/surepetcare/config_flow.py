@@ -65,6 +65,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             if error:
                 errors["base"] = error
             else:
+                logger.debug(
+                    "Configuration complete, updated entities: %s", entity_info
+                )
                 return self.async_create_entry(
                     title="SurePetCare Devices",
                     data={
@@ -140,7 +143,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                 "entities": entity_info,
             },
         )
-
+        logger.debug("Reconfiguration complete, updated entities: %s", entity_info)
         return self.async_abort(reason="entities_reconfigured")
 
     @staticmethod
@@ -164,6 +167,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         if user_input is not None:
             if user_input.get("finished"):
                 # End the flow and save current options
+                logger.debug("OptionFlow complete, updated entities: %s", self._options)
                 return self.async_create_entry(data=self._options)
             self._device_id = user_input["device_option"]
             return await self.async_step_configure_device()

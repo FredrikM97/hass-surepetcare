@@ -16,3 +16,5 @@ COORDINATOR = "coordinator"
 ENTRY_ID = "entry_id"
 SCAN_INTERVAL = 300
 POLLING_SPEED = "polling_speed"
+LOCATION_INSIDE = "location_inside"
+LOCATION_OUTSIDE = "location_outside"

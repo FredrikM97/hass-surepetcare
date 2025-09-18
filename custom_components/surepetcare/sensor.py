@@ -6,6 +6,7 @@ import logging
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId, PetLocation
 from surepcio.devices import Pet
+from surepcio.devices.pet import PetPositionResource
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -18,7 +19,14 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
+from .const import (
+    COORDINATOR,
+    COORDINATOR_DICT,
+    DOMAIN,
+    KEY_API,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+)
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
@@ -33,17 +41,19 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
 
     Uses reconfigured values for location_inside/location_outside if available.
     """
-    if (position := getattr(device.status, "activity")) is not None:
+    position: PetPositionResource = getattr(device.status, "activity", None)
+
+    if position is not None:
         logger.debug(
-            f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}"
+            f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}. Value: {reconfig.get(position.device_id, {})}"
         )
-        if position.where == 0:
-            return reconfig.get(position.device_id, {}).get(
-                "location_inside", position.where
+        if position.where == PetLocation.INSIDE:
+            return reconfig.get(str(position.device_id), {}).get(
+                LOCATION_INSIDE, position.where
             )
-        elif position.where == 1:
-            return reconfig.get(position.device_id, {}).get(
-                "location_outside", position.where
+        elif position.where == PetLocation.OUTSIDE:
+            return reconfig.get(str(position.device_id), {}).get(
+                LOCATION_OUTSIDE, position.where
             )
 
     return None
@@ -142,12 +152,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
             field_fn=lambda device, r: sum(
-                w.full_weight for w in getattr(device, "bowl_targets", [])
+                w.target
+                for w in getattr(
+                    getattr(getattr(device, "control"), "bowls"), "settings", []
+                )
             ),
-            extra_field={
-                "food_type": "status.bowl_status.0.food_type",
-                "full_weight": "status.bowl_status.0.full_weight",
-            },
+            extra_field={"bowls": "control.bowls.settings.*"},
         ),
         SurePetCareSensorEntityDescription(
             key="tare",
@@ -159,7 +169,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="lid_delay",
             translation_key="lid_delay",
-            field="status.lid_delay",
+            field="control.lid.close_delay",
             entity_registry_enabled_default=False,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
@@ -215,9 +225,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="position",
             translation_key="position",
-            device_class=SensorDeviceClass.WEIGHT,
-            state_class=SensorStateClass.MEASUREMENT,
-            native_unit_of_measurement=UnitOfMass.GRAMS,
             field_fn=get_location,
             extra_field={
                 "device_id": "status.activity.device_id",
