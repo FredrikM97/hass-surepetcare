@@ -1,5 +1,6 @@
 import pytest
 from custom_components.surepetcare import device_config_schema
+from custom_components.surepetcare.const import LOCATION_INSIDE, LOCATION_OUTSIDE
 from custom_components.surepetcare.device_config_schema import DEVICE_CONFIG_SCHEMAS
 from surepcio.enums import ProductId
 import voluptuous as vol
@@ -8,7 +9,7 @@ import voluptuous as vol
 def test_dual_scan_pet_door_schema_valid():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     assert isinstance(schema, dict)
-    valid = {"location_inside": "Hall", "location_outside": "Garden"}
+    valid = {LOCATION_INSIDE: "Hall", LOCATION_OUTSIDE: "Garden"}
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     assert vol_schema(valid) == valid
 
@@ -17,52 +18,53 @@ def test_dual_scan_pet_door_schema_invalid():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_inside": 123})
+        vol_schema({LOCATION_INSIDE: 123})
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_outside": 123123})
+        vol_schema({LOCATION_OUTSIDE: 123123})
 
 
 def test_dual_scan_pet_door_schema_missing_keys():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     assert vol_schema({}) == {}
-    assert vol_schema({"location_inside": "Hall"}) == {"location_inside": "Hall"}
-    assert vol_schema({"location_outside": "Garden"}) == {"location_outside": "Garden"}
+    assert vol_schema({LOCATION_INSIDE: "Hall"}) == {LOCATION_INSIDE: "Hall"}
+    assert vol_schema({LOCATION_OUTSIDE: "Garden"}) == {LOCATION_OUTSIDE: "Garden"}
     valid = {
-        "location_inside": "Hall",
-        "location_outside": "Garden",
+        LOCATION_INSIDE: "Hall",
+        LOCATION_OUTSIDE: "Garden",
         "extra": "ignored",
     }
-    assert vol_schema(
-        {k: valid[k] for k in ["location_inside", "location_outside"]}
-    ) == {"location_inside": "Hall", "location_outside": "Garden"}
+    assert vol_schema({k: valid[k] for k in [LOCATION_INSIDE, LOCATION_OUTSIDE]}) == {
+        LOCATION_INSIDE: "Hall",
+        LOCATION_OUTSIDE: "Garden",
+    }
 
 
 def test_dual_scan_pet_door_schema_extra_keys_ignored():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     valid = {
-        "location_inside": "Hall",
-        "location_outside": "Garden",
+        LOCATION_INSIDE: "Hall",
+        LOCATION_OUTSIDE: "Garden",
         "extra": "ignored",
     }
     result = vol_schema(valid)
     assert "extra" not in result
-    assert result == {"location_inside": "Hall", "location_outside": "Garden"}
+    assert result == {LOCATION_INSIDE: "Hall", LOCATION_OUTSIDE: "Garden"}
 
 
 def test_dual_scan_pet_door_schema_type_validation():
     schema = DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
     # Both values must be str
-    valid = {"location_inside": "Room", "location_outside": "Yard"}
+    valid = {LOCATION_INSIDE: "Room", LOCATION_OUTSIDE: "Yard"}
     assert vol_schema(valid) == valid
     # Wrong type for location_inside
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_inside": 123, "location_outside": "Yard"})
+        vol_schema({LOCATION_INSIDE: 123, LOCATION_OUTSIDE: "Yard"})
     # Wrong type for location_outside
     with pytest.raises(vol.Invalid):
-        vol_schema({"location_inside": "Room", "location_outside": 456})
+        vol_schema({LOCATION_INSIDE: "Room", LOCATION_OUTSIDE: 456})
 
 
 def test_device_config_schemas_structure():
@@ -81,8 +83,8 @@ def test_device_config_schemas_structure():
 def test_dual_scan_pet_door_schema_keys():
     schema = device_config_schema.DEVICE_CONFIG_SCHEMAS[ProductId.DUAL_SCAN_PET_DOOR]
     assert isinstance(schema, dict)
-    assert "location_inside" in [k.schema for k in schema.keys()]
-    assert "location_outside" in [k.schema for k in schema.keys()]
+    assert LOCATION_INSIDE in [k.schema for k in schema.keys()]
+    assert LOCATION_OUTSIDE in [k.schema for k in schema.keys()]
 
 
 def test_schema_type_and_structure():

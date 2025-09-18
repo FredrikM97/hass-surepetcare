@@ -6,7 +6,7 @@ from custom_components.surepetcare.diagnostics import (
     async_get_config_entry_diagnostics,
     async_get_device_diagnostics,
 )
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepetcare.const import DOMAIN, LOCATION_INSIDE
 
 
 @pytest.mark.asyncio
@@ -15,14 +15,14 @@ async def test_async_get_config_entry_diagnostics():
     entry = MockConfigEntry(
         domain=DOMAIN,
         data={"token": "test_token", "client_device_id": "device123"},
-        options={"device1": {"location_inside": "kitchen"}},
+        options={"device1": {LOCATION_INSIDE: "kitchen"}},
     )
 
     result = await async_get_config_entry_diagnostics(hass, entry)
 
     assert result["entry_data"]["token"] == "test_token"
     assert result["entry_data"]["client_device_id"] == "device123"
-    assert result["options"]["device1"]["location_inside"] == "kitchen"
+    assert result["options"]["device1"][LOCATION_INSIDE] == "kitchen"
 
 
 @pytest.mark.asyncio

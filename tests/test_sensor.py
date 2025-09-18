@@ -3,7 +3,11 @@ from pathlib import Path
 import pytest
 from syrupy.assertion import SnapshotAssertion
 from unittest.mock import MagicMock
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepetcare.const import (
+    DOMAIN,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+)
 from custom_components.surepetcare.sensor import (
     async_setup_entry,
 )
@@ -29,8 +33,8 @@ async def test_sensor_snapshot_from_fixture(
             "token": "abc",
             "device_id": "123",
             "269654": {
-                "location_inside": "Home",
-                "location_outside": "Away",
+                LOCATION_INSIDE: "Home",
+                LOCATION_OUTSIDE: "Away",
             },
         },
     )

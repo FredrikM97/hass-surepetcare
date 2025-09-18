@@ -3,7 +3,11 @@ from unittest.mock import patch
 from homeassistant.data_entry_flow import FlowResultType
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.surepetcare.config_flow import SurePetCareConfigFlow
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepetcare.const import (
+    DOMAIN,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+)
 from surepcio import Household
 
 from custom_components.surepetcare.config_flow import SurePetCareOptionsFlow
@@ -107,21 +111,21 @@ async def test_options_flow(hass):
         assert result1["type"] == FlowResultType.FORM
         assert result1["step_id"] == "configure_device"
         assert "polling_speed" in result1["data_schema"].schema
-        assert "location_inside" in result1["data_schema"].schema.keys()
-        assert "location_outside" in result1["data_schema"].schema.keys()
+        assert LOCATION_INSIDE in result1["data_schema"].schema.keys()
+        assert LOCATION_OUTSIDE in result1["data_schema"].schema.keys()
         result2 = await flow.async_step_configure_device(
             {
                 "polling_speed": 200,
-                "location_inside": "Kitchen",
-                "location_outside": "Garden",
+                LOCATION_INSIDE: "Kitchen",
+                LOCATION_OUTSIDE: "Garden",
             }
         )
 
         assert result2["type"] == FlowResultType.FORM
         assert result2["step_id"] == "init"
         assert flow._options["444"] == {
-            "location_inside": "Kitchen",
-            "location_outside": "Garden",
+            LOCATION_INSIDE: "Kitchen",
+            LOCATION_OUTSIDE: "Garden",
             "polling_speed": 200,
         }
 

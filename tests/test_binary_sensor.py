@@ -6,7 +6,11 @@ from syrupy import SnapshotAssertion
 from custom_components.surepetcare.binary_sensor import (
     async_setup_entry,
 )
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepetcare.const import (
+    DOMAIN,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+)
 from tests.conftest import (
     FIXTURES,
     create_device_from_fixture,
@@ -28,8 +32,8 @@ async def test_sensor_snapshot_from_fixture(
             "token": "abc",
             "device_id": "123",
             "269654": {
-                "location_inside": "Home",
-                "location_outside": "Away",
+                LOCATION_INSIDE: "Home",
+                LOCATION_OUTSIDE: "Away",
             },
         },
     )
