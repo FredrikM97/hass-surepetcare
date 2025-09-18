@@ -1,7 +1,10 @@
 import logging
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+
 logger = logging.getLogger(__name__)
+from surepcio.enums import PetDeviceLocationProfile
+
 _service_registry = []
 
 
@@ -66,24 +69,36 @@ async def async_set_tag(call):
     pet_coordinator = get_coordinator(call.hass, call.data.get("tag"))
     if call.data.get("action") == "add":
         await device_coordinator.client.api(
-            device_coordinator._device.add_tag(
-                pet_coordinator._device.tag
-            )
+            device_coordinator._device.add_tag(pet_coordinator._device.tag)
         )
     elif call.data.get("action") == "remove":
         await device_coordinator.client.api(
-            device_coordinator._device.remove_tag(
-                pet_coordinator._device.tag
-            )
+            device_coordinator._device.remove_tag(pet_coordinator._device.tag)
         )
 
+
+@global_service(
+    "set_pet_access_mode",
+    schema=vol.Schema(
+        {
+            vol.Required("device_id"): str,
+            vol.Required("tag"): str,
+            vol.Required("profile"): vol.In(list(PetDeviceLocationProfile)),
+        }
+    ),
+)
 async def set_pet_access_mode(call) -> None:
-        """Set pet access mode to indoor or outdoor """
-        pet_coordinator = get_coordinator(call.hass, call.data.get("tag"))
-        await pet_coordinator.client.api(
-            pet_coordinator._device.set_profile(call.data.get("device_id"),pet_coordinator._device.tag,call.data.get("profile"))
+    """Set pet access mode to indoor or outdoor"""
+    pet_coordinator = get_coordinator(call.hass, call.data.get("tag"))
+    await pet_coordinator.client.api(
+        pet_coordinator._device.set_profile(
+            call.data.get("device_id"),
+            pet_coordinator._device.tag,
+            call.data.get("profile"),
         )
-        
+    )
+
+
 def get_coordinator(hass, device_id):
     device_registry = async_get_device_registry(hass)
     device = device_registry.async_get(device_id)
