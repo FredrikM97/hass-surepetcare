@@ -3,8 +3,8 @@
 import logging
 from typing import Any, List
 
-from surepcio.client import SurePetcareClient
-from surepcio.household import Household
+from surepcio import SurePetcareClient
+from surepcio import Household
 from surepcio.enums import ProductId
 
 from .services import _service_registry

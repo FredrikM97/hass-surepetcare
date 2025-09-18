@@ -2,7 +2,7 @@ from datetime import timedelta
 import logging
 from typing import Any
 
-from surepcio.client import SurePetcareClient
+from surepcio import SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
 
 from .const import POLLING_SPEED, SCAN_INTERVAL

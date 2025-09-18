@@ -3,7 +3,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from surepcio.enums import ProductId, CloseDelay, FeederTrainingMode, FlapLocking
-from surepcio.client import SurePetcareClient
+from surepcio import SurePetcareClient
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )

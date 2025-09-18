@@ -3,9 +3,9 @@
 from dataclasses import dataclass
 import logging
 
-from surepcio.client import SurePetcareClient
-from surepcio.enums import ProductId
-from surepcio.devices.pet import Pet
+from surepcio import SurePetcareClient
+from surepcio.enums import ProductId, PetLocation
+from surepcio.devices import Pet
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -28,9 +28,10 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def get_location(device: Pet, reconfig) -> bool | str | None:
-    """Return bool (false=inside, true=outside) Enum or None if unknown.
-    If OptionFlow ( location_inside/location_outside ) is configured then return instead of bool.
+def get_location(device: Pet, reconfig) -> PetLocation | str | None:
+    """Return PetLocation, or None if unknown.
+
+    Uses reconfigured values for location_inside/location_outside if available.
     """
     if (position := getattr(device.status, "activity")) is not None:
         logger.debug(

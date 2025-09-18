@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable, cast
 
-from surepcio.client import SurePetcareClient
+from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity

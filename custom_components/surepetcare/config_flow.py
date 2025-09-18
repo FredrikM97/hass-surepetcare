@@ -5,8 +5,8 @@ import logging
 from typing import Any
 from enum import IntEnum
 
-from surepcio.client import SurePetcareClient
-from surepcio.household import Household
+from surepcio import SurePetcareClient
+from surepcio import Household
 
 from surepcio.enums import ProductId
 import voluptuous as vol
@@ -51,65 +51,79 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         self._entities: dict[str, Any] = {}
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
-        """Authenticate and fetch devices, then show menu for device config."""
+        """Handle the initial step to login the user"""
         errors = {}
         if user_input is not None:
             email = user_input.get(CONF_EMAIL)
             password = user_input.get(CONF_PASSWORD)
-            self.client = SurePetcareClient()
-            logged_in = await self.client.login(email=email, password=password)
-            if not logged_in:
-                errors["base"] = "auth_failed"
+            token, client_device_id, entity_info, error = await self._async_fetch_entities(email=email, password=password)
+            if error:
+                errors["base"] = error
             else:
-                token = getattr(self.client, "token", None)
-                if not token:
-                    errors["base"] = "cannot_connect"
-                else:
-                    households = await self.client.api(Household.get_households())
-                    self._entities = {}
-                    for household in households:
-                        self._entities.update(
-                            {
-                                str(device.id): device
-                                for device in await self.client.api(
-                                    household.get_devices()
-                                )
-                            }
-                        )
-                        self._entities.update(
-                            {
-                                str(device.id): device
-                                for device in await self.client.api(
-                                    household.get_pets()
-                                )
-                            }
-                        )
-                    await self.client.close()
-
-                    if not self._entities:
-                        errors["base"] = "no_devices_or_pet_found"
-                    else:
-                        # Save serializable info for each entity: entity_id, product_id, name
-                        entity_info = {
-                            str(device.id): {
-                                "product_id": getattr(device, "product_id", None),
-                                "name": getattr(device, "name", str(device.id)),
-                            }
-                            for device in self._entities.values()
-                        }
-                        return self.async_create_entry(
-                            title="SurePetCare Devices",
-                            data={
-                                "token": token,
-                                "client_device_id": self.client.device_id,
-                                "entities": entity_info,
-                            },
-                        )
+                return self.async_create_entry(
+                    title="SurePetCare Devices",
+                    data={
+                        "token": token,
+                        "client_device_id": client_device_id,
+                        "entities": entity_info,
+                    },
+                )
         return self.async_show_form(
             step_id="user",
             data_schema=STEP_USER_DATA_SCHEMA,
             errors=errors,
         )
+
+    async def _async_fetch_entities(self, email: str = None, password: str=None, token:str=None, device_id:str=None):
+        """Authenticate and fetch devices/pets, return (token, client_device_id, entity_info, error)."""
+        self.client = SurePetcareClient()
+        logged_in = await self.client.login(email=email, password=password, token=token, device_id=device_id)
+        if not logged_in:
+            return None, None, None, "auth_failed"
+        token = getattr(self.client, "token", None)
+        if not token:
+            return None, None, None, "cannot_connect"
+        households = await self.client.api(Household.get_households())
+        self._entities = {}
+        for household in households:
+            self._entities.update({
+                str(device.id): device
+                for device in await self.client.api(household.get_devices())
+            })
+            self._entities.update({
+                str(device.id): device
+                for device in await self.client.api(household.get_pets())
+            })
+        await self.client.close()
+        if not self._entities:
+            return None, None, None, "no_devices_or_pet_found"
+        entity_info = {
+            str(device.id): {
+                "product_id": getattr(device, "product_id", None),
+                "name": getattr(device, "name", str(device.id)),
+            }
+            for device in self._entities.values()
+        }
+        return token, self.client.device_id, entity_info, None
+
+    async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
+        """Migration step in case entities not populated/new device added."""
+        entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
+        token = entry.data["token"]
+        device_id = entry.data["client_device_id"]
+
+        _, _, entity_info, _ = await self._async_fetch_entities(token=token, device_id=device_id)
+
+
+        success = self.hass.config_entries.async_update_entry(
+            entry,
+            data={
+                **entry.data,
+                "entities": entity_info,
+            },
+        )
+
+        return self.async_abort(reason="entities_reconfigured")
 
     @staticmethod
     @callback
