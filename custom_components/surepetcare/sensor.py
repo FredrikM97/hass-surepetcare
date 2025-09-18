@@ -28,8 +28,8 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def get_location(device: Pet, reconfig) -> PetLocation | str | None:
-    """Return PetLocation Enum or None if unknown.
+def get_location(device: Pet, reconfig) -> bool | str | None:
+    """Return bool (false=inside, true=outside) Enum or None if unknown.
     If OptionFlow ( location_inside/location_outside ) is configured then return instead of bool.
     """
     if (position := getattr(device.status, "activity")) is not None:
