@@ -112,6 +112,9 @@
           "1": "On",
           "0": "Off"
         }
+      },
+      "devices": {
+        "name": "Assigned devices"
       }
     }
   }

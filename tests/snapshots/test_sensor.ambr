@@ -107,6 +107,12 @@
 # ---
 # name: test_sensor_snapshot_from_fixture[pet.json]
   dict({
+    '472721-devices': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 0,
+    }),
     '472721-drinking': dict({
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
       'extra_attributes': dict({
@@ -262,6 +268,12 @@
 # ---
 # name: test_snapshot_without_setting_option_flow[pet.json]
   dict({
+    '472721-devices': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 0,
+    }),
     '472721-drinking': dict({
       'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
       'extra_attributes': dict({
@@ -305,7 +317,7 @@
         'tag_id': 1725049,
       }),
       'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 1,
+      'value': <PetLocation.OUTSIDE: 1>,
     }),
   })
 # ---
