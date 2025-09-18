@@ -44,6 +44,7 @@ async def test_sensor_snapshot_from_fixture(
 
     assert extract_sensor_outputs(async_add_entities) == snapshot
 
+
 @pytest.mark.parametrize("fixture_file", FIXTURES)
 @pytest.mark.asyncio
 async def test_snapshot_without_setting_option_flow(
