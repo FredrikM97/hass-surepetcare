@@ -1,5 +1,5 @@
 set_debug_logging:
-  name: Set Surepetcare debug logging level
+  name: Set logging level
   description: "Set the logging level for the Sure Petcare integration and library."
   fields:
     level:
@@ -59,3 +59,34 @@ set_tag:
           options:
             - add
             - remove
+
+set_pet_access_mode:
+  name: Set Pet Access Mode
+  description: Sets a pet's profile to "indoor only" to prevent passthrough of flap.
+  fields:
+    pet_id:
+      name: Pet ID
+      description: Pet tag to modify access mode.
+      required: true
+      example: 123456
+      selector:
+        device:
+          integration: surepetcare
+
+    device_id:
+      name: Device id (Flap or Feeder)
+      description: The id of Flap/Feeder to modify access on.
+      required: true
+      example: 123456
+      selector:
+        device:
+          integration: surepetcare
+    profile:
+      name: Profile
+      description: Pet access profile (e.g. indoor, outdoor, etc.). Part of PetDeviceLocationProfile. Use with care.
+      required: true
+      selector:
+        select:
+          options:
+            - NO_RESTRICTION
+            - INDOOR_ONLY
