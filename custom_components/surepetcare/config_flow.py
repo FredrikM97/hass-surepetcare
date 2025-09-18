@@ -56,7 +56,12 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         if user_input is not None:
             email = user_input.get(CONF_EMAIL)
             password = user_input.get(CONF_PASSWORD)
-            token, client_device_id, entity_info, error = await self._async_fetch_entities(email=email, password=password)
+            (
+                token,
+                client_device_id,
+                entity_info,
+                error,
+            ) = await self._async_fetch_entities(email=email, password=password)
             if error:
                 errors["base"] = error
             else:
@@ -74,10 +79,18 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             errors=errors,
         )
 
-    async def _async_fetch_entities(self, email: str = None, password: str=None, token:str=None, device_id:str=None):
+    async def _async_fetch_entities(
+        self,
+        email: str | None = None,
+        password: str | None = None,
+        token: str | None = None,
+        device_id: str | None = None,
+    ):
         """Authenticate and fetch devices/pets, return (token, client_device_id, entity_info, error)."""
         self.client = SurePetcareClient()
-        logged_in = await self.client.login(email=email, password=password, token=token, device_id=device_id)
+        logged_in = await self.client.login(
+            email=email, password=password, token=token, device_id=device_id
+        )
         if not logged_in:
             return None, None, None, "auth_failed"
         token = getattr(self.client, "token", None)
@@ -86,14 +99,18 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         households = await self.client.api(Household.get_households())
         self._entities = {}
         for household in households:
-            self._entities.update({
-                str(device.id): device
-                for device in await self.client.api(household.get_devices())
-            })
-            self._entities.update({
-                str(device.id): device
-                for device in await self.client.api(household.get_pets())
-            })
+            self._entities.update(
+                {
+                    str(device.id): device
+                    for device in await self.client.api(household.get_devices())
+                }
+            )
+            self._entities.update(
+                {
+                    str(device.id): device
+                    for device in await self.client.api(household.get_pets())
+                }
+            )
         await self.client.close()
         if not self._entities:
             return None, None, None, "no_devices_or_pet_found"
@@ -112,10 +129,11 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         token = entry.data["token"]
         device_id = entry.data["client_device_id"]
 
-        _, _, entity_info, _ = await self._async_fetch_entities(token=token, device_id=device_id)
+        _, _, entity_info, _ = await self._async_fetch_entities(
+            token=token, device_id=device_id
+        )
 
-
-        success = self.hass.config_entries.async_update_entry(
+        self.hass.config_entries.async_update_entry(
             entry,
             data={
                 **entry.data,

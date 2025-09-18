@@ -1,9 +1,9 @@
 import logging
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+from surepcio.enums import PetDeviceLocationProfile
 
 logger = logging.getLogger(__name__)
-from surepcio.enums import PetDeviceLocationProfile
 
 _service_registry = []
 

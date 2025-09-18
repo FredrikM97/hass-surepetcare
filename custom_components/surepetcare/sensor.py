@@ -246,7 +246,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="devices",
             translation_key="devices",
             field_fn=lambda device, r: len(getattr(device.status, "devices", []) or []),
-            extra_field={"devices":"status.devices.*"},
+            extra_field={"devices": "status.devices.*"},
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),

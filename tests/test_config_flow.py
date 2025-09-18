@@ -24,7 +24,9 @@ class MockClient:
         self.device_id = device_id
         self._login_success = login_success
 
-    async def login(self, email, password):
+    async def login(
+        self, email: str = None, password: str = None, token=None, device_id: str = None
+    ):
         return self._login_success
 
     async def api(self, command):
