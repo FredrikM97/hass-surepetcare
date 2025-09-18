@@ -53,10 +53,7 @@ async def test_snapshot_without_setting_option_flow(
     fixture_data = json.loads((Path("tests/fixtures") / fixture_file).read_text())
     config_entry = MockConfigEntry(
         domain=DOMAIN,
-        data={
-            "token": "abc",
-            "device_id": "123"
-        },
+        data={"token": "abc", "device_id": "123"},
     )
     config_entry.add_to_hass(hass)
 

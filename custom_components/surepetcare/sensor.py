@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import logging
 
 from surepcio.client import SurePetcareClient
-from surepcio.enums import ProductId,PetLocation
+from surepcio.enums import ProductId, PetLocation
 from surepcio.devices.pet import Pet
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -33,11 +33,17 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
     If OptionFlow ( location_inside/location_outside ) is configured then return instead of bool.
     """
     if (position := getattr(device.status, "activity")) is not None:
-        logger.debug(f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}")
+        logger.debug(
+            f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}"
+        )
         if position.where == 0:
-            return reconfig.get(position.device_id, {}).get("location_inside", position.where)
+            return reconfig.get(position.device_id, {}).get(
+                "location_inside", position.where
+            )
         elif position.where == 1:
-            return reconfig.get(position.device_id, {}).get("location_outside", position.where)
+            return reconfig.get(position.device_id, {}).get(
+                "location_outside", position.where
+            )
 
     return None
 
