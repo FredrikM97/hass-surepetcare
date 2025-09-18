@@ -33,3 +33,37 @@
   dict({
   })
 # ---
+# name: test_snapshot_without_setting_option_flow[dual_scan_connect.json]
+  dict({
+    '1299453-locking': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'LOCKED',
+    }),
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[feeder_connect.json]
+  dict({
+    '269654-lid': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'FASTER',
+    }),
+    '269654-training_mode': dict({
+      'device_class': None,
+      'extra_attributes': None,
+      'unit': None,
+      'value': 'DISABLED',
+    }),
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[hub.json]
+  dict({
+  })
+# ---
+# name: test_snapshot_without_setting_option_flow[pet.json]
+  dict({
+  })
+# ---

@@ -305,7 +305,7 @@
         'tag_id': 1725049,
       }),
       'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': <PetLocation.OUTSIDE: 1>,
+      'value': 1,
     }),
   })
 # ---
