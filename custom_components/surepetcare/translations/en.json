@@ -38,6 +38,9 @@
           "location_outside": "Outside location"
         }
       }
+    },
+    "error": {
+      "no_devices_or_pet_found": "The OptionFlow cant find any configurable devices or pets."
     }
   },
   "entity": {
