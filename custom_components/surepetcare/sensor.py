@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import logging
 
 from surepcio.client import SurePetcareClient
-from surepcio.enums import ProductId, PetLocation
+from surepcio.enums import ProductId
 from surepcio.devices.pet import Pet
 from homeassistant.components.sensor import (
     SensorDeviceClass,
