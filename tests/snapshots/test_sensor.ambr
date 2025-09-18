@@ -159,7 +159,7 @@
         'tag_id': 1725049,
       }),
       'unit': None,
-      'value': 'Away',
+      'value': 'Home',
     }),
   })
 # ---
@@ -323,7 +323,7 @@
         'tag_id': 1725049,
       }),
       'unit': None,
-      'value': <PetLocation.OUTSIDE: 1>,
+      'value': <PetLocation.INSIDE: 1>,
     }),
   })
 # ---
