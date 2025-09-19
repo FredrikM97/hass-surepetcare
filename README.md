@@ -21,12 +21,9 @@ Built upon py-surepetcare to integrate with home assistant. Allow fine control t
 
 ## What does this integration do?
 - Adds sensors and binary sensors for each supported device (e.g., door status, battery, feeding events, water level, connectivity)
-- Shows device information in Home Assistant’s Device Info panel
-- Lets you automate based on pet location, feeder usage, battery status, and more
-- Custom name for location indoor/outdoor. 
-- Supports configuration and setup via the Home Assistant UI
-- Works seamlessly with HACS for easy updates
-
+- Custom name for position indoor/outdoor.
+- Keep track of number of devices connected to a pet
+- Allow Service updates for tags, device control and pet indoor/outdoor per pet
 
 ## Issues
 In case that you have problem with the integration enable the debug service in development tools for the integration and review the raw logs for home assistant core or download diagnostics and create a issue.
