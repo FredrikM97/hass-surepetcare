@@ -79,7 +79,17 @@
           "NORMAL": "Normal",
           "SLOWER": "Slow"
         }
+      },
+      "locking": {
+        "name": "Locking Mode",
+        "options": {
+          "LOCKED": "Locked",
+          "UNLOCKED": "Unlocked",
+          "ALLOW_IN": "Entry Only",
+          "ALLOW_OUT": "Exit Only"
+        }
       }
+    }
     },
     "sensor": {
       "consumption": {"name": "Consumption"},
