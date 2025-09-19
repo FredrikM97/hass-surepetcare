@@ -30,7 +30,7 @@ jobs:
         id: bump
         uses: callowayproject/bump-my-version@master
         with:
-          args: -vv ${{ inputs.bump-type }}
+          args: -vv ${{ inputs.bump-type }} --config-file pyproject.toml
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check
