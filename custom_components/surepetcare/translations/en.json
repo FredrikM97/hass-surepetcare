@@ -89,7 +89,6 @@
           "ALLOW_OUT": "Exit Only"
         }
       }
-    }
     },
     "sensor": {
       "consumption": {"name": "Consumption"},
