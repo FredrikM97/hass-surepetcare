@@ -3,9 +3,13 @@ set_debug_logging:
   description: "Set the logging level for the Sure Petcare integration and library."
   fields:
     level:
-      description: Log level to set (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-      example: DEBUG
-
+      description: Log level to set
+      required: true
+      selector:
+        select:
+          options:
+            - DEBUG
+            - INFO
 
 set_control:
   name: Set control values
