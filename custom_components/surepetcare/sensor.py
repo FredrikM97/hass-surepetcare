@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import logging
+from typing import Any
 
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId, PetLocation
@@ -61,6 +62,22 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
             )
 
     return None
+
+
+def get_last_activity(device) -> Any | None:
+    activities = [
+        getattr(device.status, "feeding", None),
+        getattr(device.status, "drinking", None),
+        getattr(device.status, "activity", None),
+    ]
+    valid = [
+        (at, device_id)
+        for s in activities
+        if s
+        and (at := getattr(s, "at", None)) is not None
+        and (device_id := getattr(s, "device_id", None)) is not None
+    ]
+    return max(valid, default=(None, None), key=lambda x: x[0])[1]
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -258,6 +275,13 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="devices",
             field_fn=lambda device, r: len(getattr(device.status, "devices", []) or []),
             extra_field={"devices": "status.devices.*"},
+        ),
+        SurePetCareSensorEntityDescription(
+            key="last_activity",
+            translation_key="last_activity",
+            field_fn=lambda device, r: r["entities"]
+            .get(str(get_last_activity(device)), {})
+            .get("name"),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),
