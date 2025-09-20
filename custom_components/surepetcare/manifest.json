@@ -1,6 +1,7 @@
 {
   "codeowners": ["FredrikM97"],
   "config_flow": true,
+  "integration_type": "hub",
   "dependencies": [],
   "documentation": "https://github.com/FredrikM97/hass-surepetcare",
   "issue_tracker": "https://github.com/FredrikM97/hass-surepetcare/issues",
