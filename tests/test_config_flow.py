@@ -1,16 +1,22 @@
 import pytest
-from unittest.mock import patch
-from homeassistant.data_entry_flow import FlowResultType
-from pytest_homeassistant_custom_component.common import MockConfigEntry
-from custom_components.surepetcare.config_flow import SurePetCareConfigFlow
+from syrupy.assertion import SnapshotAssertion
+from homeassistant.core import HomeAssistant
 from custom_components.surepetcare.const import (
     DOMAIN,
+    CONF_EMAIL,
+    CONF_PASSWORD,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
 )
-from surepcio import Household
+from custom_components.surepetcare.config_flow import (
+    SurePetCareConfigFlow,
+    SurePetCareOptionsFlow,
+)
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.surepetcare.config_flow import SurePetCareOptionsFlow
+from unittest.mock import patch
+from homeassistant.data_entry_flow import FlowResultType
+from surepcio import Household
 
 
 class MockDevice:
@@ -131,3 +137,88 @@ async def test_options_flow(hass):
 
         result3 = await flow.async_step_init({"finished": True})
         assert result3["type"] == FlowResultType.CREATE_ENTRY
+
+
+@pytest.mark.usefixtures("mock_surepetcare_login_control")
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_user_flow(
+    hass: HomeAssistant,
+    snapshot: SnapshotAssertion,
+) -> None:
+    """Test the expected path user flow from start to finish."""
+
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN,
+        context={"source": "user"},
+    )
+
+    assert result.get("type") is FlowResultType.FORM
+    assert result.get("step_id") == "user"
+
+    result2 = await hass.config_entries.flow.async_configure(
+        result["flow_id"],
+        user_input={CONF_EMAIL: "test@example.com", CONF_PASSWORD: "password123"},
+    )
+
+    assert result2.get("type") is FlowResultType.CREATE_ENTRY
+
+    assert result2 == snapshot
+
+
+@pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
+async def test_reconfiguration_flow(
+    hass: HomeAssistant, mock_config_entry, snapshot: SnapshotAssertion
+):
+    """Test the reconfiguration step updates entities correctly."""
+
+    original_entities = dict(mock_config_entry.data["entities"])
+
+    mock_config_entry.add_to_hass(hass)
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    flow._config_entry = mock_config_entry
+    flow.context = {"entry_id": mock_config_entry.entry_id}
+    result = await flow.async_step_reconfigure()
+
+    new_entities = flow._config_entry.data["entities"]
+
+    diff_keys = set(original_entities.keys()) ^ set(new_entities.keys())
+
+    assert result.get("type") is FlowResultType.ABORT
+    assert result.get("reason") == "entities_reconfigured"
+
+    assert diff_keys or original_entities != new_entities
+    assert mock_config_entry == snapshot
+
+
+@pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
+async def test_options_flow_full(
+    mock_config_entry, hass: HomeAssistant, snapshot: SnapshotAssertion
+):
+    """Test the full options flow for device selection and configuration."""
+    mock_config_entry.add_to_hass(hass)
+    flow = SurePetCareOptionsFlow(mock_config_entry)
+    flow.hass = hass
+    flow._config_entry = mock_config_entry
+
+    result = await flow.async_step_init()
+    assert result["type"] == "form"
+    assert result["step_id"] == "init"
+
+    result2 = await flow.async_step_init({"device_option": "1299453"})
+    assert result2["type"] == "form"
+    assert result2["step_id"] == "configure_device"
+
+    result3 = await flow.async_step_configure_device(
+        {
+            LOCATION_INSIDE: "Washington DC",
+            LOCATION_OUTSIDE: "Space",
+            "polling_speed": 120,
+        }
+    )
+    assert result3["type"] == "form"
+    assert result3["step_id"] == "init"
+
+    result4 = await flow.async_step_init({"finished": True})
+    assert result4["type"] == "create_entry"
+    assert result4 == snapshot

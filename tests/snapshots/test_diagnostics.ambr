@@ -76,10 +76,11 @@
     'entry_data': dict({
       'client_device_id': '123',
       'entities': dict({
-        '269654': dict({
+        '1299453': dict({
           'location_inside': 'Home',
           'location_outside': 'Away',
           'name': 'Pet Door',
+          'product_id': 6,
         }),
       }),
       'token': 'abc',

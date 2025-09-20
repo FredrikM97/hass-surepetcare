@@ -1,5 +1,5 @@
 from collections.abc import Generator
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from custom_components.surepetcare.const import (
     DOMAIN,
@@ -8,6 +8,7 @@ from custom_components.surepetcare.const import (
 )
 from . import DEVICE_MOCKS, PET_MOCKS
 from surepcio import SurePetcareClient
+from surepcio.enums import ProductId
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.core import HomeAssistant
 from surepcio.devices import load_device_class
@@ -26,7 +27,7 @@ def snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
 
 
 @pytest.fixture
-def mock_client(mock_devices: DeviceBase, mock_pets: PetBase):
+def mock_client():
     """Mock SurePetcareClient. Workaround is to use side_effect to return different data based on cmd.endpoint."""
     """Caused by the __init__ which calls multiple endpoints."""
     client = SurePetcareClient()
@@ -95,8 +96,9 @@ def mock_config_entry() -> MockConfigEntry:
             "token": "abc",
             "client_device_id": "123",
             "entities": {
-                "269654": {
+                "1299453": {
                     "name": "Pet Door",
+                    "product_id": ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
                 }
@@ -165,3 +167,32 @@ def mock_device_name() -> str:
     @pytest.mark.parametrize("mock_device_name", ["device_name_1", "device_name_2"])
     """
     return None
+
+
+@pytest.fixture
+async def mock_surepetcare_login_control(
+    mock_pets,
+    mock_devices,
+) -> Generator[MagicMock, None, None]:
+    """Return a mocked SurePetcareClient for config_flow login."""
+    with patch(
+        "custom_components.surepetcare.config_flow.SurePetcareClient", autospec=True
+    ) as client_mock:
+        instance = client_mock.return_value
+        instance.login = AsyncMock(return_value=True)
+        # Mock token and device_id attributes
+        instance.token = "mocked_token"
+        instance.device_id = "mocked_device_id"
+        instance.api = AsyncMock(return_value=[])
+
+        def api_side_effect(cmd):
+            """Return different data based on cmd.endpoint."""
+            if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
+                household = MagicMock()
+                household.get_devices.return_value = mock_devices
+                household.get_pets.return_value = mock_pets
+                return [household]
+            return cmd
+
+        instance.api = AsyncMock(side_effect=api_side_effect)
+        yield client_mock
