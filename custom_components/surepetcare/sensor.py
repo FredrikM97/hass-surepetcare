@@ -48,12 +48,16 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
             f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}. Value: {reconfig.get(position.device_id, {})}"
         )
         if position.where == PetLocation.INSIDE:
-            return reconfig.get(str(position.device_id), {}).get(
-                LOCATION_INSIDE, position.where
+            return (
+                reconfig["entities"]
+                .get(str(position.device_id), {})
+                .get(LOCATION_INSIDE, position.where)
             )
         elif position.where == PetLocation.OUTSIDE:
-            return reconfig.get(str(position.device_id), {}).get(
-                LOCATION_OUTSIDE, position.where
+            return (
+                reconfig["entities"]
+                .get(str(position.device_id), {})
+                .get(LOCATION_OUTSIDE, position.where)
             )
 
     return None
