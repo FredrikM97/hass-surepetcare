@@ -1,70 +1,54 @@
-import json
-from pathlib import Path
 import pytest
+from unittest.mock import patch
 from syrupy.assertion import SnapshotAssertion
-from unittest.mock import MagicMock
-from custom_components.surepetcare.const import (
-    DOMAIN,
-    LOCATION_INSIDE,
-    LOCATION_OUTSIDE,
-)
-from custom_components.surepetcare.select import (
-    async_setup_entry,
-)
-from tests.conftest import (
-    FIXTURES,
-    create_device_from_fixture,
-    extract_sensor_outputs,
-    setup_coordinator,
+
+from homeassistant.const import Platform
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
+
+from . import initialize_entry
+
+from pytest_homeassistant_custom_component.common import (
+    MockConfigEntry,
+    snapshot_platform,
 )
 
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-
-@pytest.mark.parametrize("fixture_file", FIXTURES)
+@patch("custom_components.surepetcare.PLATFORMS", [Platform.SELECT])
+@pytest.mark.usefixtures("enable_custom_integrations")
+@pytest.mark.usefixtures("entity_registry_enabled_default")
 @pytest.mark.asyncio
-async def test_sensor_snapshot_from_fixture(
-    hass, snapshot: SnapshotAssertion, fixture_file
-):
-    fixture_data = json.loads((Path("tests/fixtures") / fixture_file).read_text())
-    config_entry = MockConfigEntry(
-        domain=DOMAIN,
-        data={
-            "token": "abc",
-            "device_id": "123",
-            "269654": {
-                LOCATION_INSIDE: "Home",
-                LOCATION_OUTSIDE: "Away",
-            },
-        },
+async def test_platform_setup_and_discovery(
+    hass: HomeAssistant,
+    mock_client,
+    mock_config_entry: MockConfigEntry,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    mock_devices,
+    mock_pets,
+) -> None:
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
-    config_entry.add_to_hass(hass)
-
-    device = create_device_from_fixture(fixture_data)
-    setup_coordinator(hass, config_entry, device)
-
-    async_add_entities = MagicMock()
-    await async_setup_entry(hass, config_entry, async_add_entities)
-
-    assert extract_sensor_outputs(async_add_entities) == snapshot
+    await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
 
 
-@pytest.mark.parametrize("fixture_file", FIXTURES)
+@patch("custom_components.surepetcare.PLATFORMS", [Platform.SELECT])
+@pytest.mark.usefixtures("enable_custom_integrations")
+@pytest.mark.usefixtures("entity_registry_enabled_default")
 @pytest.mark.asyncio
-async def test_snapshot_without_setting_option_flow(
-    hass, snapshot: SnapshotAssertion, fixture_file
-):
-    fixture_data = json.loads((Path("tests/fixtures") / fixture_file).read_text())
-    config_entry = MockConfigEntry(
-        domain=DOMAIN,
-        data={"token": "abc", "device_id": "123"},
+async def test_platform_setup_and_discovery_missing_entities(
+    hass: HomeAssistant,
+    mock_client,
+    mock_config_entry_missing_entities: MockConfigEntry,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    mock_devices,
+    mock_pets,
+) -> None:
+    await initialize_entry(
+        hass, mock_client, mock_config_entry_missing_entities, mock_devices, mock_pets
     )
-    config_entry.add_to_hass(hass)
-
-    device = create_device_from_fixture(fixture_data)
-    setup_coordinator(hass, config_entry, device)
-
-    async_add_entities = MagicMock()
-    await async_setup_entry(hass, config_entry, async_add_entities)
-
-    assert extract_sensor_outputs(async_add_entities) == snapshot
+    await snapshot_platform(
+        hass, entity_registry, snapshot, mock_config_entry_missing_entities.entry_id
+    )

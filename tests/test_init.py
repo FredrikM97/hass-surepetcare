@@ -6,6 +6,17 @@ from custom_components.surepetcare.const import FACTORY
 import pytest
 from custom_components.surepetcare import remove_stale_devices, DOMAIN
 from surepcio.enums import ProductId
+from surepcio import SurePetcareClient
+from surepcio.devices.device import SurePetCareBase
+from . import DEVICE_MOCKS, PET_MOCKS
+
+from syrupy.assertion import SnapshotAssertion
+
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers import device_registry as dr, entity_registry as er
+
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+from . import initialize_entry
 
 
 class DummyEntry:
@@ -368,4 +379,43 @@ def test_remove_stale_devices_logic():
         # Should call async_update_device for stale_entry only
         device_registry.async_update_device.assert_called_once_with(
             stale_entry.id, remove_config_entry_id="dummy_entry_id"
+        )
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_device_registry(
+    hass: HomeAssistant,
+    mock_client: SurePetcareClient,
+    mock_config_entry: MockConfigEntry,
+    device_registry: dr.DeviceRegistry,
+    entity_registry: er.EntityRegistry,
+    snapshot: SnapshotAssertion,
+    mock_devices: SurePetCareBase,
+    mock_pets,
+) -> None:
+    """Validate device registry snapshots for all devices, including unsupported ones."""
+
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+    )
+
+    device_registry_entries = dr.async_entries_for_config_entry(
+        device_registry, mock_config_entry.entry_id
+    )
+
+    # Ensure the device registry contains same amount as DEVICE_MOCKS
+    assert len(device_registry_entries) == (len(DEVICE_MOCKS) + len(PET_MOCKS))
+
+    for device_registry_entry in device_registry_entries:
+        assert device_registry_entry == snapshot(
+            name=list(device_registry_entry.identifiers)[0][1]
+        )
+
+        # Ensure model is suffixed with "(unsupported)" when no entities are generated
+        assert (" (unsupported)" in device_registry_entry.model) == (
+            not er.async_entries_for_device(
+                entity_registry,
+                device_registry_entry.id,
+                include_disabled_entities=True,
+            )
         )

@@ -1,329 +1,1725 @@
 # serializer version: 1
-# name: test_sensor_snapshot_from_fixture[dual_scan_connect.json]
-  dict({
-    '1299453-battery_level': dict({
-      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-      'extra_attributes': None,
-      'unit': '%',
-      'value': 87,
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
     }),
-    '1299453-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 287000,
-        'id': 1299453,
-        'parent_device_id': 1202413,
-        'product_id': 6,
-      }),
-      'unit': None,
-      'value': 'Katzenklappe',
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.katzenklappe_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '1299453-battery_level',
+    'unit_of_measurement': '%',
   })
 # ---
-# name: test_sensor_snapshot_from_fixture[feeder_connect.json]
-  dict({
-    '269654-battery_level': dict({
-      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-      'extra_attributes': None,
-      'unit': '%',
-      'value': 13,
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Katzenklappe Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
-    '269654-bowl_1_weight': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'current_weight': 32.16,
-        'food_type': 'WET',
-        'last_fill_weight': 32.16,
-        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
-        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
-        'position': 'LEFT',
-        'substance_type': 2,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 32.16,
-    }),
-    '269654-bowl_2_weight': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'current_weight': -27.2,
-        'food_type': 'WET',
-        'last_fill_weight': -27.2,
-        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
-        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
-        'position': 'RIGHT',
-        'substance_type': 2,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': -27.2,
-    }),
-    '269654-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 222527,
-        'id': 269654,
-        'parent_device_id': 295972,
-        'product_id': 4,
-      }),
-      'unit': None,
-      'value': 'Maui matlåda (old) ',
-    }),
-    '269654-lid_delay': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 'FASTER',
-    }),
-    '269654-rssi': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': -81,
-    }),
-    '269654-tare': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 2,
-    }),
-    '269654-training_mode': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 'DISABLED',
-    }),
-    '269654-weight_capacity': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'control_bowls_settings_0_food_type': 'WET',
-        'control_bowls_settings_0_target': 0,
-        'control_bowls_settings_1_food_type': 'WET',
-        'control_bowls_settings_1_target': 0,
-      }),
-      'unit': None,
-      'value': 0,
-    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '87',
   })
 # ---
-# name: test_sensor_snapshot_from_fixture[hub.json]
-  dict({
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.katzenklappe_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '1299453-entity_information',
+    'unit_of_measurement': None,
   })
 # ---
-# name: test_sensor_snapshot_from_fixture[pet.json]
-  dict({
-    '472721-devices': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 0,
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Entity Information',
+      'household_id': 287000,
+      'icon': 'mdi:information',
+      'id': 1299453,
+      'parent_device_id': 1202413,
+      'product_id': 6,
     }),
-    '472721-drinking': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'device_id': 269654,
-        'id': 1210761432,
-        'tag_id': 2039802,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 3.23,
-    }),
-    '472721-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 222527,
-        'id': 472721,
-        'parent_device_id': None,
-        'product_id': 0,
-        'tag': 60978,
-      }),
-      'unit': None,
-      'value': 'Maui',
-    }),
-    '472721-feeding': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'device_id': 269654,
-        'id': 1210761432,
-        'tag_id': 2039802,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 3.23,
-    }),
-    '472721-position': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'device_id': 269654,
-        'id': 5045077041,
-        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'tag_id': 1725049,
-      }),
-      'unit': None,
-      'value': 'Home',
-    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Katzenklappe',
   })
 # ---
-# name: test_snapshot_without_setting_option_flow[dual_scan_connect.json]
-  dict({
-    '1299453-battery_level': dict({
-      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-      'extra_attributes': None,
-      'unit': '%',
-      'value': 87,
+# name: test_platform_setup_and_discovery[sensor.maui_assigned_devices-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
     }),
-    '1299453-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 287000,
-        'id': 1299453,
-        'parent_device_id': 1202413,
-        'product_id': 6,
-      }),
-      'unit': None,
-      'value': 'Katzenklappe',
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_assigned_devices',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
     }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Assigned devices',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'devices',
+    'unique_id': '472721-devices',
+    'unit_of_measurement': None,
   })
 # ---
-# name: test_snapshot_without_setting_option_flow[feeder_connect.json]
-  dict({
-    '269654-battery_level': dict({
-      'device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-      'extra_attributes': None,
-      'unit': '%',
-      'value': 13,
+# name: test_platform_setup_and_discovery[sensor.maui_assigned_devices-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Assigned devices',
     }),
-    '269654-bowl_1_weight': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'current_weight': 32.16,
-        'food_type': 'WET',
-        'last_fill_weight': 32.16,
-        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
-        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
-        'position': 'LEFT',
-        'substance_type': 2,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 32.16,
-    }),
-    '269654-bowl_2_weight': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'current_weight': -27.2,
-        'food_type': 'WET',
-        'last_fill_weight': -27.2,
-        'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
-        'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
-        'position': 'RIGHT',
-        'substance_type': 2,
-      }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': -27.2,
-    }),
-    '269654-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 222527,
-        'id': 269654,
-        'parent_device_id': 295972,
-        'product_id': 4,
-      }),
-      'unit': None,
-      'value': 'Maui matlåda (old) ',
-    }),
-    '269654-lid_delay': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 'FASTER',
-    }),
-    '269654-rssi': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': -81,
-    }),
-    '269654-tare': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 2,
-    }),
-    '269654-training_mode': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 'DISABLED',
-    }),
-    '269654-weight_capacity': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'control_bowls_settings_0_food_type': 'WET',
-        'control_bowls_settings_0_target': 0,
-        'control_bowls_settings_1_food_type': 'WET',
-        'control_bowls_settings_1_target': 0,
-      }),
-      'unit': None,
-      'value': 0,
-    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_assigned_devices',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
   })
 # ---
-# name: test_snapshot_without_setting_option_flow[hub.json]
-  dict({
+# name: test_platform_setup_and_discovery[sensor.maui_drinking-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_drinking',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Drinking',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'drinking',
+    'unique_id': '472721-drinking',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
   })
 # ---
-# name: test_snapshot_without_setting_option_flow[pet.json]
-  dict({
-    '472721-devices': dict({
-      'device_class': None,
-      'extra_attributes': None,
-      'unit': None,
-      'value': 0,
+# name: test_platform_setup_and_discovery[sensor.maui_drinking-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'device_class': 'weight',
+      'device_id': 269654,
+      'friendly_name': 'Maui Drinking',
+      'id': 1210761432,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'tag_id': 2039802,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
-    '472721-drinking': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'device_id': 269654,
-        'id': 1210761432,
-        'tag_id': 2039802,
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_drinking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '3.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '472721-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'friendly_name': 'Maui Entity Information',
+      'household_id': 222527,
+      'icon': 'mdi:information',
+      'id': 472721,
+      'parent_device_id': None,
+      'product_id': 0,
+      'tag': 60978,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Maui',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_feeding-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_feeding',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
       }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 3.23,
     }),
-    '472721-entity_information': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'household_id': 222527,
-        'id': 472721,
-        'parent_device_id': None,
-        'product_id': 0,
-        'tag': 60978,
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Feeding',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feeding',
+    'unique_id': '472721-feeding',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_feeding-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'device_class': 'weight',
+      'device_id': 269654,
+      'friendly_name': 'Maui Feeding',
+      'id': 1210761432,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'tag_id': 2039802,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_feeding',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '3.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '269654-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Maui matlåda (old)  Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '13',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_one_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
       }),
-      'unit': None,
-      'value': 'Maui',
     }),
-    '472721-feeding': dict({
-      'device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-      'extra_attributes': dict({
-        'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'device_id': 269654,
-        'id': 1210761432,
-        'tag_id': 2039802,
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl One Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_1_weight',
+    'unique_id': '269654-bowl_1_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_one_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_weight': 32.16,
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
+      'last_fill_weight': 32.16,
+      'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+      'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+      'position': 'LEFT',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 2,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '32.16',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
       }),
-      'unit': <UnitOfMass.GRAMS: 'g'>,
-      'value': 3.23,
     }),
-    '472721-position': dict({
-      'device_class': None,
-      'extra_attributes': dict({
-        'device_id': 269654,
-        'id': 5045077041,
-        'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
-        'tag_id': 1725049,
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl Two Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_2_weight',
+    'unique_id': '269654-bowl_2_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_weight': -27.2,
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
+      'last_fill_weight': -27.2,
+      'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+      'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+      'position': 'RIGHT',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 2,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-27.2',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '269654-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      'friendly_name': 'Maui matlåda (old)  Entity Information',
+      'household_id': 222527,
+      'icon': 'mdi:information',
+      'id': 269654,
+      'parent_device_id': 295972,
+      'product_id': 4,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Maui matlåda (old) ',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_lid_delay-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_lid_delay',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Lid Delay',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lid_delay',
+    'unique_id': '269654-lid_delay',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_lid_delay-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Lid Delay',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_lid_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'FASTER',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '269654-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-81',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_tare-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_tare',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Tare',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '269654-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_tare-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Tare',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_tare',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '2',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Total Weight Limit',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'weight_capacity',
+    'unique_id': '269654-weight_capacity',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'control_bowls_settings_0_food_type': 'WET',
+      'control_bowls_settings_0_target': 0,
+      'control_bowls_settings_1_food_type': 'WET',
+      'control_bowls_settings_1_target': 0,
+      'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_training_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_training_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Training Mode',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'training_mode',
+    'unique_id': '269654-training_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_training_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Position',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '472721-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_id': 269654,
+      'friendly_name': 'Maui Position',
+      'id': 5045077041,
+      'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'tag_id': 1725049,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Inside',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.katzenklappe_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '1299453-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Katzenklappe Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '87',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.katzenklappe_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '1299453-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Entity Information',
+      'household_id': 287000,
+      'icon': 'mdi:information',
+      'id': 1299453,
+      'parent_device_id': 1202413,
+      'product_id': 6,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Katzenklappe',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_assigned_devices-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_assigned_devices',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Assigned devices',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'devices',
+    'unique_id': '472721-devices',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_assigned_devices-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Assigned devices',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_assigned_devices',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_drinking-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_drinking',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
       }),
-      'unit': None,
-      'value': <PetLocation.INSIDE: 1>,
     }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Drinking',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'drinking',
+    'unique_id': '472721-drinking',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_drinking-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'device_class': 'weight',
+      'device_id': 269654,
+      'friendly_name': 'Maui Drinking',
+      'id': 1210761432,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'tag_id': 2039802,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_drinking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '3.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '472721-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'friendly_name': 'Maui Entity Information',
+      'household_id': 222527,
+      'icon': 'mdi:information',
+      'id': 472721,
+      'parent_device_id': None,
+      'product_id': 0,
+      'tag': 60978,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Maui',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feeding-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_feeding',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Feeding',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feeding',
+    'unique_id': '472721-feeding',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feeding-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'at': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'device_class': 'weight',
+      'device_id': 269654,
+      'friendly_name': 'Maui Feeding',
+      'id': 1210761432,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'tag_id': 2039802,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_feeding',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '3.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '269654-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Maui matlåda (old)  Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '13',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_one_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl One Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_1_weight',
+    'unique_id': '269654-bowl_1_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_one_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_weight': 32.16,
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
+      'last_fill_weight': 32.16,
+      'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+      'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+      'position': 'LEFT',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 2,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '32.16',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl Two Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_2_weight',
+    'unique_id': '269654-bowl_2_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'current_weight': -27.2,
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
+      'last_fill_weight': -27.2,
+      'last_filled_at': datetime.datetime(2025, 7, 7, 10, 29, 29, tzinfo=TzInfo(UTC)),
+      'last_zeroed_at': datetime.datetime(2025, 5, 23, 10, 25, 29, tzinfo=TzInfo(UTC)),
+      'position': 'RIGHT',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 2,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-27.2',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '269654-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      'friendly_name': 'Maui matlåda (old)  Entity Information',
+      'household_id': 222527,
+      'icon': 'mdi:information',
+      'id': 269654,
+      'parent_device_id': 295972,
+      'product_id': 4,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Maui matlåda (old) ',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_lid_delay-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_lid_delay',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Lid Delay',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lid_delay',
+    'unique_id': '269654-lid_delay',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_lid_delay-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Lid Delay',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_lid_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'FASTER',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '269654-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-81',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_tare-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_tare',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Tare',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '269654-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_tare-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Tare',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_tare',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '2',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Total Weight Limit',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'weight_capacity',
+    'unique_id': '269654-weight_capacity',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'control_bowls_settings_0_food_type': 'WET',
+      'control_bowls_settings_0_target': 0,
+      'control_bowls_settings_1_food_type': 'WET',
+      'control_bowls_settings_1_target': 0,
+      'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_training_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.maui_matlada_old_training_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Training Mode',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'training_mode',
+    'unique_id': '269654-training_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_training_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Position',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '472721-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_id': 269654,
+      'friendly_name': 'Maui Position',
+      'id': 5045077041,
+      'since': datetime.datetime(2020, 3, 11, 14, 21, 7, tzinfo=TzInfo(UTC)),
+      'tag_id': 1725049,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Inside',
   })
 # ---
