@@ -95,7 +95,7 @@ def _traverse(data, path, key_path=()):
 
         yield from _traverse(getattr(data, key, object()), rest, (*key_path, key))
         return
-    logger.warning(
+    logger.debug(
         "Key '%s' not found in data structure at path %s",
         key,
         ".".join(str(x) for x in key_path),
