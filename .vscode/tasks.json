@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Dev Requirements",
+      "type": "shell",
+      "command": "pip install -r requirements.txt -r requirements-dev.txt",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Run Pytest",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m pytest tests",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Update Syrupy Snapshots",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m pytest --snapshot-update tests",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Lint (Ruff)",
+      "type": "shell",
+      "command": "ruff .",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Lint (Pylint)",
+      "type": "shell",
+      "command": "pylint custom_components/surepetcare tests",
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    }
+  ]
+}
