@@ -1,6 +1,7 @@
 name: Feature Request
 description: Suggest a new feature or improvement for the Surepetcare Integration.
 labels: ["enhancement"]
+projects: ["FredrikM97/7"]
 assignees:
   - FredrikM97
 body:
@@ -17,26 +18,26 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: motivation
+  - type: input
+    id: modelname
     attributes:
-      label: Motivation and use case
-      description: Why do you want this feature? What problem does it solve or what value does it add?
+      label: Product
+      description: Which product does it concern? (e.g. Hub, DualScanConnect, Feeder Connect)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: information
+    attributes:
+      label: Relevant information (e.g diagnostics, logs etc.)
+      description: ´Please provide any relevant information that can help us understand the context of your request.
     validations:
       required: true
 
   - type: textarea
-    id: alternatives
+    id: other
     attributes:
-      label: Alternatives considered
-      description: Have you considered any alternative solutions or workarounds?
-    validations:
-      required: false
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: Additional context
+      label: Other
       description: Add any other context, screenshots, or examples here.
       placeholder: "Related issues, links, or screenshots."
 

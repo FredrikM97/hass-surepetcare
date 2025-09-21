@@ -1,6 +1,7 @@
 name: Report an issue with Surepetcare Integration
 description: Report a bug or issue with the integration.
 labels: ["bug"]
+projects: ["FredrikM97/7"]
 assignees:
   - FredrikM97
 body:
