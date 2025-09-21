@@ -64,6 +64,8 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return extra state attributes."""
+        if self.native_value is None:
+            return None
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
             return self.entity_description.extra_fn(
