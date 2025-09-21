@@ -1,0 +1,43 @@
+ {
+    "entity_info": {
+      "household_id": 7777,
+      "id": 727608,
+      "name": "Laundry Door",
+      "product_id": 3
+    },
+    "control": {
+      "curfew": {
+        "enabled": false,
+        "lock_time": "08:00",
+        "unlock_time": "17:00"
+      },
+      "fast_polling": true,
+      "locking":  0
+    },
+    "status": {
+      "battery": 6.0,
+      "learn_mode": false,
+      "locking": {
+        "mode": 0
+      },
+      "online": true,
+      "signal": {
+        "device_rssi": -88
+      },
+      "version": {
+        "device": {
+          "firmware": "1.1",
+          "hardware": "1.2"
+        },
+        "lcd": {
+          "firmware": "1.0",
+          "hardware": "1.0"
+        },
+        "rf": {
+          "firmware": "0.16",
+          "hardware": "4.0"
+        }
+      }
+    },
+    "timezone": "Europe/Stockholm"
+}

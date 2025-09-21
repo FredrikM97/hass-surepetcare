@@ -79,6 +79,10 @@
           'name': 'Maui',
           'product_id': 0,
         }),
+        727608: dict({
+          'name': 'Laundry Door',
+          'product_id': 3,
+        }),
         1299453: dict({
           'name': 'Katzenklappe',
           'product_id': 6,
@@ -123,6 +127,10 @@
           'name': 'Maui',
           'product_id': 0,
         }),
+        727608: dict({
+          'name': 'Laundry Door',
+          'product_id': 3,
+        }),
         1299453: dict({
           'name': 'Katzenklappe',
           'product_id': 6,
@@ -153,6 +161,10 @@
           472721: dict({
             'name': 'Maui',
             'product_id': 0,
+          }),
+          727608: dict({
+            'name': 'Laundry Door',
+            'product_id': 3,
           }),
           1299453: dict({
             'name': 'Katzenklappe',
