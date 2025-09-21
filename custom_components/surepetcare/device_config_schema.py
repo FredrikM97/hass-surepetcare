@@ -1,22 +1,32 @@
-"""TODO."""
+"""Device configuration schemas for Sure Petcare devices."""
 
-from surepcio.enums import ProductId
-from voluptuous import Optional
-
-from custom_components.surepetcare.const import LOCATION_INSIDE, LOCATION_OUTSIDE
-
-# Add default values in case new ProductIds are added in the library
-DEVICE_CONFIG_SCHEMAS = {pid: None for pid in ProductId}
-
-DEVICE_CONFIG_SCHEMAS.update(
-    {
-        ProductId.DUAL_SCAN_CONNECT: {
-            Optional(LOCATION_INSIDE): str,
-            Optional(LOCATION_OUTSIDE): str,
-        },
-        ProductId.DUAL_SCAN_PET_DOOR: {
-            Optional(LOCATION_INSIDE): str,
-            Optional(LOCATION_OUTSIDE): str,
-        },
-    }
+from custom_components.surepetcare.const import (
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+    POLLING_SPEED,
+    SCAN_INTERVAL,
 )
+from surepcio.enums import ProductId
+from voluptuous import Optional, Range, All
+
+DEVICE_CONFIG_SCHEMAS = {
+    ProductId.DUAL_SCAN_CONNECT: {
+        Optional(LOCATION_INSIDE): str,
+        Optional(LOCATION_OUTSIDE): str,
+    },
+    ProductId.DUAL_SCAN_PET_DOOR: {
+        Optional(LOCATION_INSIDE): str,
+        Optional(LOCATION_OUTSIDE): str,
+    },
+    ProductId.PET_DOOR: {
+        Optional(LOCATION_INSIDE): str,
+        Optional(LOCATION_OUTSIDE): str,
+    },
+}
+
+# Ensure every schema includes the polling speed range
+for pid in ProductId:
+    schema = DEVICE_CONFIG_SCHEMAS.setdefault(pid, {})
+    schema[Optional(POLLING_SPEED, default=SCAN_INTERVAL)] = All(
+        int, Range(min=5, max=86400)
+    )

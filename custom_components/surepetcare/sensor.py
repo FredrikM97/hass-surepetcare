@@ -1,4 +1,4 @@
-"""TODO."""
+"""Support for Sure Petcare sensors."""
 
 from dataclasses import dataclass
 import logging
@@ -27,6 +27,7 @@ from .const import (
     KEY_API,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    OPTION_DEVICES,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -45,18 +46,15 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
     position: PetPositionResource = getattr(device.status, "activity", None)
 
     if position is not None:
-        logger.debug(
-            f"OptionFlow Configured for device {position.device_id}: {position.device_id in reconfig}. Value: {reconfig.get(position.device_id, {})}"
-        )
         if position.where == PetLocation.INSIDE:
             return (
-                reconfig["entities"]
+                reconfig[OPTION_DEVICES]
                 .get(str(position.device_id), {})
                 .get(LOCATION_INSIDE, position.where)
             )
         elif position.where == PetLocation.OUTSIDE:
             return (
-                reconfig["entities"]
+                reconfig[OPTION_DEVICES]
                 .get(str(position.device_id), {})
                 .get(LOCATION_OUTSIDE, position.where)
             )
@@ -279,7 +277,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="last_activity",
             translation_key="last_activity",
-            field_fn=lambda device, r: r["entities"]
+            field_fn=lambda device, r: r[OPTION_DEVICES]
             .get(str(get_last_activity(device)), {})
             .get("name"),
         ),

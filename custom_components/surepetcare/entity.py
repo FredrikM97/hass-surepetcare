@@ -67,7 +67,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
             return self.entity_description.extra_fn(
-                data, self.coordinator.config_entry.data
+                data, self.coordinator.config_entry.options
             )
         extra_field = getattr(self.entity_description, "extra_field", None)
         if extra_field and isinstance(extra_field, (str, dict)):
@@ -83,7 +83,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         data = self.coordinator.data
         desc = self.entity_description
         if getattr(desc, "field_fn", None) is not None:
-            return desc.field_fn(data, self.coordinator.config_entry.data)
+            return desc.field_fn(data, self.coordinator.config_entry.options)
         if getattr(desc, "field", None):
             return get_by_paths(data, desc.field, native=True)
         if getattr(desc, "key", None):

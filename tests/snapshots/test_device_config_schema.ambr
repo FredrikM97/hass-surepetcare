@@ -1,0 +1,93 @@
+# serializer version: 1
+# name: test_snapshot_schema
+  dict({
+    <ProductId.PET: 0>: dict({
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.HUB: 1>: dict({
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.PET_DOOR: 3>: dict({
+      'location_inside': <class 'str'>,
+      'location_outside': <class 'str'>,
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.FEEDER_CONNECT: 4>: dict({
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.DUAL_SCAN_CONNECT: 6>: dict({
+      'location_inside': <class 'str'>,
+      'location_outside': <class 'str'>,
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.POSEIDON_CONNECT: 8>: dict({
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.DUAL_SCAN_PET_DOOR: 10>: dict({
+      'location_inside': <class 'str'>,
+      'location_outside': <class 'str'>,
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+    <ProductId.NO_ID_DOG_BOWL_CONNECT: 32>: dict({
+      'polling_speed': All(<class 'int'>, Range(min=5, max=86400, min_included=True, max_included=True, msg=None), msg=None),
+    }),
+  })
+# ---
+# name: test_snapshot_schema_with_example_values
+  dict({
+    <ProductId.PET: 0>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.HUB: 1>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.PET_DOOR: 3>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.FEEDER_CONNECT: 4>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.DUAL_SCAN_CONNECT: 6>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.POSEIDON_CONNECT: 8>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.DUAL_SCAN_PET_DOOR: 10>: dict({
+      'location_inside': 'Hall',
+      'location_outside': 'Garden',
+      'polling_speed': 300,
+    }),
+    <ProductId.NO_ID_DOG_BOWL_CONNECT: 32>: dict({
+      'polling_speed': 300,
+    }),
+  })
+# ---
+# name: test_snapshot_schema_with_missing_values
+  dict({
+    <ProductId.PET: 0>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.HUB: 1>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.PET_DOOR: 3>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.FEEDER_CONNECT: 4>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.DUAL_SCAN_CONNECT: 6>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.POSEIDON_CONNECT: 8>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.DUAL_SCAN_PET_DOOR: 10>: dict({
+      'polling_speed': 300,
+    }),
+    <ProductId.NO_ID_DOG_BOWL_CONNECT: 32>: dict({
+      'polling_speed': 300,
+    }),
+  })
+# ---

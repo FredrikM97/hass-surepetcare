@@ -75,7 +75,10 @@
   dict({
     'entry_data': dict({
       'client_device_id': '123',
-      'entities': dict({
+      'token': 'abc',
+    }),
+    'options': dict({
+      'devices': dict({
         '1299453': dict({
           'location_inside': 'Home',
           'location_outside': 'Away',
@@ -83,9 +86,6 @@
           'product_id': 6,
         }),
       }),
-      'token': 'abc',
-    }),
-    'options': dict({
     }),
   })
 # ---

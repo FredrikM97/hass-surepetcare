@@ -17,7 +17,6 @@
         '1299453',
       ),
     }),
-    'is_new': False,
     'labels': set({
     }),
     'manufacturer': 'SurePetCare',
@@ -49,7 +48,6 @@
         '269654',
       ),
     }),
-    'is_new': False,
     'labels': set({
     }),
     'manufacturer': 'SurePetCare',
@@ -81,7 +79,6 @@
         '295972',
       ),
     }),
-    'is_new': False,
     'labels': set({
     }),
     'manufacturer': 'SurePetCare',
@@ -113,7 +110,6 @@
         '472721',
       ),
     }),
-    'is_new': False,
     'labels': set({
     }),
     'manufacturer': 'SurePetCare',

@@ -18,9 +18,10 @@ from homeassistant.helpers.selector import selector
 from .const import (
     CONF_EMAIL,
     CONF_PASSWORD,
+    DEVICE_OPTION,
     DOMAIN,
-    POLLING_SPEED,
-    SCAN_INTERVAL,
+    OPTION_DEVICES,
+    OPTIONS_FINISHED,
 )
 from .device_config_schema import DEVICE_CONFIG_SCHEMAS
 
@@ -48,7 +49,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 
     def __init__(self) -> None:
         self.client: SurePetcareClient | None = None
-        self._entities: dict[str, Any] = {}
+        self._devices: dict[str, Any] = {}
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user"""
@@ -73,7 +74,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                     data={
                         "token": token,
                         "client_device_id": client_device_id,
-                        "entities": entity_info,
+                    },
+                    options={
+                        OPTION_DEVICES: entity_info,
                     },
                 )
         return self.async_show_form(
@@ -100,29 +103,29 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         if not token:
             return None, None, None, "cannot_connect"
         households = await self.client.api(Household.get_households())
-        self._entities = {}
+        self._devices = {}
         for household in households:
-            self._entities.update(
+            self._devices.update(
                 {
                     str(device.id): device
                     for device in await self.client.api(household.get_devices())
                 }
             )
-            self._entities.update(
+            self._devices.update(
                 {
                     str(device.id): device
                     for device in await self.client.api(household.get_pets())
                 }
             )
         await self.client.close()
-        if not self._entities:
+        if not self._devices:
             return None, None, None, "no_devices_or_pet_found"
         entity_info = {
-            str(device.id): {
+            device.id: {
                 "product_id": getattr(device, "product_id", None),
-                "name": getattr(device, "name", str(device.id)),
+                "name": getattr(device, "name", device.id),
             }
-            for device in self._entities.values()
+            for device in self._devices.values()
         }
         return token, self.client.device_id, entity_info, None
 
@@ -137,11 +140,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         )
 
         self.hass.config_entries.async_update_entry(
-            entry,
-            data={
-                **entry.data,
-                "entities": entity_info,
-            },
+            entry, options={OPTION_DEVICES: entity_info}
         )
         logger.debug("Reconfiguration complete, updated entities: %s", entity_info)
         return self.async_abort(reason="entities_reconfigured")
@@ -160,24 +159,24 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         self._options = deepcopy(dict(config_entry.options))
+        self._devices = self._options.get(OPTION_DEVICES, {})
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Show device selection menu."""
 
         if user_input is not None:
-            if user_input.get("finished"):
+            if user_input.get(OPTIONS_FINISHED):
                 # End the flow and save current options
                 logger.debug("OptionFlow complete, updated entities: %s", self._options)
                 return self.async_create_entry(data=self._options)
-            self._device_id = user_input["device_option"]
+            self._device_id = user_input[DEVICE_OPTION]
             return await self.async_step_configure_device()
 
-        entities = self.config_entry.data.get("entities", {})
-        if not entities:
+        if not self._devices:
             return self.async_abort(reason="no_devices_or_pet_found")
 
-        sorted_entities = sorted(
-            entities.items(), key=lambda item: item[1].get("product_id", 0)
+        sorted_devices = sorted(
+            self._devices.items(), key=lambda item: item[1].get("product_id", 0)
         )
         select_options = [
             {
@@ -185,14 +184,14 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
                 "label": get_device_attr(v, "name", str(k))
                 + f" ({ProductId(v['product_id']).name})",
             }
-            for k, v in sorted_entities
+            for k, v in sorted_devices
         ]
         schema = vol.Schema(
             {
-                vol.Required("device_option"): selector(
+                vol.Required(DEVICE_OPTION): selector(
                     {"select": {"options": select_options}}
                 ),
-                vol.Optional("finished", default=False): bool,
+                vol.Optional(OPTIONS_FINISHED, default=False): bool,
             }
         )
 
@@ -207,36 +206,15 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         """Configure the selected device."""
 
         if user_input is not None:
-            self._options[self._device_id] = user_input
+            self._devices[self._device_id].update(user_input)
             return await self.async_step_init()
 
-        entity = self.config_entry.data.get("entities", {})[self._device_id]
-        schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, "product_id"))
-        existing_config = self._options.get(self._device_id, {})
-        schema_dict = {}
-
-        if schema_info:
-            for key, field_type in schema_info.items():
-                default_value = existing_config.get(key) if existing_config else None
-                if default_value is not None:
-                    schema_dict[type(key)(key.schema, default=default_value)] = (
-                        field_type
-                    )
-                else:
-                    schema_dict[key] = field_type
-
-        # Add polling speed option (in seconds), default SCAN_INTERVAL
-        polling_default = existing_config.get(POLLING_SPEED, SCAN_INTERVAL)
-        schema_dict[vol.Optional(POLLING_SPEED, default=polling_default)] = vol.All(
-            int, vol.Range(min=5, max=86400)
-        )
-
-        schema = vol.Schema(schema_dict)
-
+        device = self._devices.get(self._device_id, {})
+        schema_dict = _build_device_schema(device)
         return self.async_show_form(
             step_id="configure_device",
-            data_schema=schema,
-            description_placeholders={"device_name": entity["name"]},
+            data_schema=vol.Schema(schema_dict),
+            description_placeholders={"device_name": device["name"]},
         )
 
 
@@ -245,3 +223,17 @@ def get_device_attr(device: Any, attr: str, default: Any = None) -> Any:
     if isinstance(device, dict):
         return device.get(attr, default)
     return getattr(device, attr, default)
+
+
+def _build_device_schema(entity: dict) -> dict:
+    """Build the voluptuous schema dict for the selected device."""
+    schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, "product_id"))
+    schema_dict = {}
+    if schema_info:
+        for key, field_type in schema_info.items():
+            default_value = entity.get(key) if entity else None
+            if default_value is not None:
+                schema_dict[type(key)(key.schema, default=default_value)] = field_type
+            else:
+                schema_dict[key] = field_type
+    return schema_dict

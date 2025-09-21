@@ -4,10 +4,14 @@
     'context': mappingproxy({
     }),
     'data': dict({
-      '1299453': dict({
-        'location_inside': 'Washington DC',
-        'location_outside': 'Space',
-        'polling_speed': 120,
+      'devices': dict({
+        '1299453': dict({
+          'location_inside': 'Washington DC',
+          'location_outside': 'Space',
+          'name': 'Pet Door',
+          'polling_speed': 120,
+          'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
+        }),
       }),
     }),
     'description': None,
@@ -17,28 +21,10 @@
     'type': <FlowResultType.CREATE_ENTRY: 'create_entry'>,
   })
 # ---
-# name: test_reconfiguration_flow
+# name: test_options_flow_full.1
   ConfigEntrySnapshot({
     'data': dict({
       'client_device_id': '123',
-      'entities': dict({
-        '1299453': dict({
-          'name': 'Katzenklappe',
-          'product_id': 6,
-        }),
-        '269654': dict({
-          'name': 'Maui matlåda (old) ',
-          'product_id': 4,
-        }),
-        '295972': dict({
-          'name': 'Hem-hub',
-          'product_id': 1,
-        }),
-        '472721': dict({
-          'name': 'Maui',
-          'product_id': 0,
-        }),
-      }),
       'token': 'abc',
     }),
     'disabled_by': None,
@@ -48,6 +34,56 @@
     'entry_id': <ANY>,
     'minor_version': 1,
     'options': dict({
+      'devices': dict({
+        '1299453': dict({
+          'location_inside': 'Home',
+          'location_outside': 'Away',
+          'name': 'Pet Door',
+          'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
+        }),
+      }),
+    }),
+    'pref_disable_new_entities': False,
+    'pref_disable_polling': False,
+    'source': 'user',
+    'subentries': list([
+    ]),
+    'title': 'Test SurePetCare entry',
+    'unique_id': '12345',
+    'version': 1,
+  })
+# ---
+# name: test_reconfiguration_flow
+  ConfigEntrySnapshot({
+    'data': dict({
+      'client_device_id': '123',
+      'token': 'abc',
+    }),
+    'disabled_by': None,
+    'discovery_keys': dict({
+    }),
+    'domain': 'surepetcare',
+    'entry_id': <ANY>,
+    'minor_version': 1,
+    'options': dict({
+      'devices': dict({
+        269654: dict({
+          'name': 'Maui matlåda (old) ',
+          'product_id': 4,
+        }),
+        295972: dict({
+          'name': 'Hem-hub',
+          'product_id': 1,
+        }),
+        472721: dict({
+          'name': 'Maui',
+          'product_id': 0,
+        }),
+        1299453: dict({
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+      }),
     }),
     'pref_disable_new_entities': False,
     'pref_disable_polling': False,
@@ -66,24 +102,6 @@
     }),
     'data': dict({
       'client_device_id': 'mocked_device_id',
-      'entities': dict({
-        '1299453': dict({
-          'name': 'Katzenklappe',
-          'product_id': 6,
-        }),
-        '269654': dict({
-          'name': 'Maui matlåda (old) ',
-          'product_id': 4,
-        }),
-        '295972': dict({
-          'name': 'Hem-hub',
-          'product_id': 1,
-        }),
-        '472721': dict({
-          'name': 'Maui',
-          'product_id': 0,
-        }),
-      }),
       'token': 'mocked_token',
     }),
     'description': None,
@@ -92,28 +110,28 @@
     'handler': 'surepetcare',
     'minor_version': 1,
     'options': dict({
+      'devices': dict({
+        269654: dict({
+          'name': 'Maui matlåda (old) ',
+          'product_id': 4,
+        }),
+        295972: dict({
+          'name': 'Hem-hub',
+          'product_id': 1,
+        }),
+        472721: dict({
+          'name': 'Maui',
+          'product_id': 0,
+        }),
+        1299453: dict({
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+      }),
     }),
     'result': ConfigEntrySnapshot({
       'data': dict({
         'client_device_id': 'mocked_device_id',
-        'entities': dict({
-          '1299453': dict({
-            'name': 'Katzenklappe',
-            'product_id': 6,
-          }),
-          '269654': dict({
-            'name': 'Maui matlåda (old) ',
-            'product_id': 4,
-          }),
-          '295972': dict({
-            'name': 'Hem-hub',
-            'product_id': 1,
-          }),
-          '472721': dict({
-            'name': 'Maui',
-            'product_id': 0,
-          }),
-        }),
         'token': 'mocked_token',
       }),
       'disabled_by': None,
@@ -123,6 +141,24 @@
       'entry_id': <ANY>,
       'minor_version': 1,
       'options': dict({
+        'devices': dict({
+          269654: dict({
+            'name': 'Maui matlåda (old) ',
+            'product_id': 4,
+          }),
+          295972: dict({
+            'name': 'Hem-hub',
+            'product_id': 1,
+          }),
+          472721: dict({
+            'name': 'Maui',
+            'product_id': 0,
+          }),
+          1299453: dict({
+            'name': 'Katzenklappe',
+            'product_id': 6,
+          }),
+        }),
       }),
       'pref_disable_new_entities': False,
       'pref_disable_polling': False,

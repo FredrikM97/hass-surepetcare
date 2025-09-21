@@ -18,3 +18,6 @@ SCAN_INTERVAL = 300
 POLLING_SPEED = "polling_speed"
 LOCATION_INSIDE = "location_inside"
 LOCATION_OUTSIDE = "location_outside"
+OPTION_DEVICES = "devices"
+DEVICE_OPTION = "device_option"
+OPTIONS_FINISHED = "finished"

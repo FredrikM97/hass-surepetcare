@@ -2,11 +2,15 @@ import pytest
 from syrupy.assertion import SnapshotAssertion
 from homeassistant.core import HomeAssistant
 from custom_components.surepetcare.const import (
+    DEVICE_OPTION,
     DOMAIN,
     CONF_EMAIL,
     CONF_PASSWORD,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    OPTION_DEVICES,
+    OPTIONS_FINISHED,
+    POLLING_SPEED,
 )
 from custom_components.surepetcare.config_flow import (
     SurePetCareConfigFlow,
@@ -68,10 +72,8 @@ async def test_options_flow(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
         entry_id="test_entry_id",
-        data={
-            "token": "existing_token",
-            "entities": {"444": {"name": "Test Device", "product_id": 6}},
-        },
+        data={"token": "existing_token"},
+        options={OPTION_DEVICES: {"444": {"name": "Test Device", "product_id": 6}}},
     )
 
     with patch(
@@ -80,9 +82,10 @@ async def test_options_flow(hass):
         entry.add_to_hass(hass)
         flow = SurePetCareOptionsFlow(entry)
         # Mock coordinator data for the device
-        coordinator_data = type(
-            "Device", (), {"id": "444", "name": "Test Device", "product_id": 6}
-        )()
+        # coordinator_data = type(
+        #    "Device", (), {"id": "444", "name": "Test Device", "product_id": 6}
+        # )()
+        """
         hass.data = {
             DOMAIN: {
                 entry.entry_id: {
@@ -96,6 +99,7 @@ async def test_options_flow(hass):
                 }
             }
         }
+        """
         flow.hass = hass
         flow._config_entry = entry
         flow.context = {"source": "reconfigure", "entry_id": entry.entry_id}
@@ -103,25 +107,25 @@ async def test_options_flow(hass):
         result = await flow.async_step_init()
         assert result["type"] == FlowResultType.FORM
         assert result["step_id"] == "init"
-        assert "device_option" in result["data_schema"].schema
+        assert DEVICE_OPTION in result["data_schema"].schema
         assert (
-            result["data_schema"].schema["device_option"].config["options"][0]["label"]
+            result["data_schema"].schema[DEVICE_OPTION].config["options"][0]["label"]
             == "Test Device (DUAL_SCAN_CONNECT)"
         )
 
         # Step 2: Select device (should show config form)
-        result = await flow.async_step_init({"device_option": "444"})
+        result = await flow.async_step_init({DEVICE_OPTION: "444"})
         assert result["type"] == FlowResultType.FORM
         assert result["step_id"] == "configure_device"
         result1 = await flow.async_step_configure_device()
         assert result1["type"] == FlowResultType.FORM
         assert result1["step_id"] == "configure_device"
-        assert "polling_speed" in result1["data_schema"].schema
+        assert POLLING_SPEED in result1["data_schema"].schema
         assert LOCATION_INSIDE in result1["data_schema"].schema.keys()
         assert LOCATION_OUTSIDE in result1["data_schema"].schema.keys()
         result2 = await flow.async_step_configure_device(
             {
-                "polling_speed": 200,
+                POLLING_SPEED: 200,
                 LOCATION_INSIDE: "Kitchen",
                 LOCATION_OUTSIDE: "Garden",
             }
@@ -129,13 +133,15 @@ async def test_options_flow(hass):
 
         assert result2["type"] == FlowResultType.FORM
         assert result2["step_id"] == "init"
-        assert flow._options["444"] == {
+        assert flow._options[OPTION_DEVICES]["444"] == {
+            "name": "Test Device",
+            "product_id": 6,
             LOCATION_INSIDE: "Kitchen",
             LOCATION_OUTSIDE: "Garden",
-            "polling_speed": 200,
+            POLLING_SPEED: 200,
         }
 
-        result3 = await flow.async_step_init({"finished": True})
+        result3 = await flow.async_step_init({OPTIONS_FINISHED: True})
         assert result3["type"] == FlowResultType.CREATE_ENTRY
 
 
@@ -171,7 +177,7 @@ async def test_reconfiguration_flow(
 ):
     """Test the reconfiguration step updates entities correctly."""
 
-    original_entities = dict(mock_config_entry.data["entities"])
+    original_devices = dict(mock_config_entry.options[OPTION_DEVICES])
 
     mock_config_entry.add_to_hass(hass)
     flow = SurePetCareConfigFlow()
@@ -180,14 +186,14 @@ async def test_reconfiguration_flow(
     flow.context = {"entry_id": mock_config_entry.entry_id}
     result = await flow.async_step_reconfigure()
 
-    new_entities = flow._config_entry.data["entities"]
+    new_devices = flow._config_entry.options[OPTION_DEVICES]
 
-    diff_keys = set(original_entities.keys()) ^ set(new_entities.keys())
+    diff_keys = set(original_devices.keys()) ^ set(new_devices.keys())
 
     assert result.get("type") is FlowResultType.ABORT
     assert result.get("reason") == "entities_reconfigured"
 
-    assert diff_keys or original_entities != new_entities
+    assert diff_keys or original_devices != new_devices
     assert mock_config_entry == snapshot
 
 
@@ -199,13 +205,12 @@ async def test_options_flow_full(
     mock_config_entry.add_to_hass(hass)
     flow = SurePetCareOptionsFlow(mock_config_entry)
     flow.hass = hass
-    flow._config_entry = mock_config_entry
 
     result = await flow.async_step_init()
     assert result["type"] == "form"
     assert result["step_id"] == "init"
 
-    result2 = await flow.async_step_init({"device_option": "1299453"})
+    result2 = await flow.async_step_init({DEVICE_OPTION: "1299453"})
     assert result2["type"] == "form"
     assert result2["step_id"] == "configure_device"
 
@@ -213,7 +218,7 @@ async def test_options_flow_full(
         {
             LOCATION_INSIDE: "Washington DC",
             LOCATION_OUTSIDE: "Space",
-            "polling_speed": 120,
+            POLLING_SPEED: 120,
         }
     )
     assert result3["type"] == "form"
@@ -222,3 +227,4 @@ async def test_options_flow_full(
     result4 = await flow.async_step_init({"finished": True})
     assert result4["type"] == "create_entry"
     assert result4 == snapshot
+    assert mock_config_entry == snapshot

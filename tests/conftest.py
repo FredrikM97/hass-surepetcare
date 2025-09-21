@@ -5,6 +5,7 @@ from custom_components.surepetcare.const import (
     DOMAIN,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    OPTION_DEVICES,
 )
 from . import DEVICE_MOCKS, PET_MOCKS
 from surepcio import SurePetcareClient
@@ -92,17 +93,16 @@ def mock_config_entry() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={
-            "token": "abc",
-            "client_device_id": "123",
-            "entities": {
+        data={"token": "abc", "client_device_id": "123"},
+        options={
+            OPTION_DEVICES: {
                 "1299453": {
                     "name": "Pet Door",
                     "product_id": ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
                 }
-            },
+            }
         },
         unique_id="12345",
     )
@@ -114,7 +114,8 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={"token": "abc", "client_device_id": "123", "entities": {}},
+        data={"token": "abc", "client_device_id": "123"},
+        options={OPTION_DEVICES: {}},
         unique_id="12345",
     )
 

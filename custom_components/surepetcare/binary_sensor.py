@@ -1,4 +1,4 @@
-"""TODO."""
+"""Support for Sure Petcare binary sensors."""
 
 from dataclasses import dataclass
 from datetime import datetime
