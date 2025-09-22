@@ -62,7 +62,14 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
         ),
-    ),
+    ), 
+    ProductId.PET_DOOR: (
+        SurePetCareSelectEntityDescription(
+            key="curfew_enabled",
+            field="control.curfew.enabled",
+            options=[True, False]
+        ),
+    )  
 }
 
 
