@@ -12,14 +12,6 @@
           'polling_speed': 120,
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
         }),
-      'devices': dict({
-        '1299453': dict({
-          'location_inside': 'Washington DC',
-          'location_outside': 'Space',
-          'name': 'Pet Door',
-          'polling_speed': 120,
-          'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
-        }),
       }),
     }),
     'description': None,
@@ -30,20 +22,9 @@
   })
 # ---
 # name: test_options_flow_full.1
-# name: test_options_flow_full.1
   ConfigEntrySnapshot({
     'data': dict({
       'client_device_id': '123',
-      'token': 'abc',
-    }),
-    'disabled_by': None,
-    'discovery_keys': dict({
-    }),
-    'domain': 'surepetcare',
-    'entry_id': <ANY>,
-    'minor_version': 1,
-    'options': dict({
-      'devices': dict({
       'token': 'abc',
     }),
     'disabled_by': None,
@@ -59,27 +40,8 @@
           'location_outside': 'Away',
           'name': 'Pet Door',
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
-          'location_inside': 'Home',
-          'location_outside': 'Away',
-          'name': 'Pet Door',
-          'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
         }),
       }),
-    }),
-    'pref_disable_new_entities': False,
-    'pref_disable_polling': False,
-    'source': 'user',
-    'subentries': list([
-    ]),
-    'title': 'Test SurePetCare entry',
-    'unique_id': '12345',
-    'version': 1,
-  })
-# ---
-# name: test_reconfiguration_flow
-  ConfigEntrySnapshot({
-    'data': dict({
-      'client_device_id': '123',
     }),
     'pref_disable_new_entities': False,
     'pref_disable_polling': False,
@@ -116,6 +78,10 @@
         472721: dict({
           'name': 'Maui',
           'product_id': 0,
+        }),
+        727608: dict({
+          'name': 'Laundry Door',
+          'product_id': 3,
         }),
         1299453: dict({
           'name': 'Katzenklappe',
@@ -161,6 +127,10 @@
           'name': 'Maui',
           'product_id': 0,
         }),
+        727608: dict({
+          'name': 'Laundry Door',
+          'product_id': 3,
+        }),
         1299453: dict({
           'name': 'Katzenklappe',
           'product_id': 6,
@@ -191,6 +161,10 @@
           472721: dict({
             'name': 'Maui',
             'product_id': 0,
+          }),
+          727608: dict({
+            'name': 'Laundry Door',
+            'product_id': 3,
           }),
           1299453: dict({
             'name': 'Katzenklappe',

@@ -25,7 +25,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
+from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -44,7 +44,7 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
     return next(
         (
             entity_id
-            for entity_id, entity in entry_data.get("entities", {}).items()
+            for entity_id, entity in entry_data.get(OPTION_DEVICES, {}).items()
             if entity.get("name") == name
         ),
         None,
@@ -92,7 +92,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
             options_fn=lambda device, r: [
-                r["entities"].get(str(d.id))["name"]
+                r[OPTION_DEVICES].get(str(d.id))["name"]
                 for d in getattr(device.status, "devices", []) or []
             ],
             command_fn=device_tag_command(ModifyDeviceTag.REMOVE),
@@ -102,7 +102,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="add_assigned_device",
             options_fn=lambda device, r: [
                 v.get("name")
-                for v in r["entities"].values()
+                for v in r[OPTION_DEVICES].values()
                 if v.get("product_id") not in (ProductId.PET, ProductId.HUB)
             ],
             command_fn=device_tag_command(ModifyDeviceTag.ADD),
