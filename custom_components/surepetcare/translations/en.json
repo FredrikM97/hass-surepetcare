@@ -59,6 +59,13 @@
           "on": "On",
           "off": "Off"
         }
+      },
+      "curfew":{
+        "name": "Curfew active",
+        "state":{
+          "on": "On",
+          "off": "Off"
+        }
       }
     },
     "select": {

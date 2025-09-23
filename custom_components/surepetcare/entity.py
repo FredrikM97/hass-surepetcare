@@ -38,17 +38,19 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         self._device: DeviceBase | PetBase = device_coordinator.data
         self._client = client
         self._attr_unique_id = f"{self._device.id}"
-        self._attr_device_info = DeviceInfo(
-            {
-                "identifiers": {(DOMAIN, f"{self._device.id}")},
-                "manufacturer": "SurePetCare",
-                "model": self._device.product_name,
-                "model_id": self._device.product_id,
-                "name": self._device.name,
-                "via_device": (DOMAIN, str(self._device.entity_info.parent_device_id))
-                if self._device.entity_info.parent_device_id is not None
-                else None,
-            }
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return a device description for device registry."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, f"{self._device.id}")},
+            manufacturer="SurePetCare",
+            model=self._device.product_name,
+            model_id=self._device.product_id,
+            name=self._device.name,
+            via_device=(DOMAIN, str(self._device.entity_info.parent_device_id))
+            if self._device.entity_info.parent_device_id is not None
+            else None,
         )
 
     @property

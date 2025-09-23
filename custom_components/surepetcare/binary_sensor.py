@@ -29,9 +29,14 @@ logger = logging.getLogger(__name__)
 
 
 def _next_enabled_future_curfew(device: SurePetCareBase, r: ConfigEntry) -> bool | None:
-    curfews: Curfew = device.control.curfew
+    curfews: list[Curfew] | Curfew = device.control.curfew
+
     if curfews is None:
         return None
+
+    if not isinstance(curfews, list):
+        curfews = [curfews]
+
     now = datetime.now().time()
     return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
 
@@ -78,6 +83,21 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             extra_field="control.curfew",
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
+    ),
+    ProductId.PET_DOOR: (
+        SurePetCareBinarySensorEntityDescription(
+            key="learn_mode",
+            translation_key="learn_mode",
+            field="status.learn_mode",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_enabled_default=False,
+        ),
+        SurePetCareBinarySensorEntityDescription(
+            key="curfew",
+            translation_key="curfew",
+            field_fn=_next_enabled_future_curfew,
+            extra_field="control.curfew",
+        ),
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
     ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
