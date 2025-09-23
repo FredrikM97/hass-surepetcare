@@ -394,7 +394,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-entry]
@@ -816,7 +816,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'control_bowls_settings_0_food_type': 'WET',
-      'control_bowls_settings_0_target': 0,
+      'control_bowls_settings_0_target': 50,
       'control_bowls_settings_1_food_type': 'WET',
       'control_bowls_settings_1_target': 0,
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
@@ -827,7 +827,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '50',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_training_mode-entry]
@@ -1325,7 +1325,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-entry]
@@ -1747,7 +1747,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'control_bowls_settings_0_food_type': 'WET',
-      'control_bowls_settings_0_target': 0,
+      'control_bowls_settings_0_target': 50,
       'control_bowls_settings_1_food_type': 'WET',
       'control_bowls_settings_1_target': 0,
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
@@ -1758,7 +1758,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '50',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_training_mode-entry]

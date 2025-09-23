@@ -54,7 +54,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return cast(bool, self._device.available) and super().available
+        return (
+            cast(bool, self._device.available)
+            and self._convert_value() is not None
+            and super().available
+        )
 
     @property
     def native_value(self) -> Any:

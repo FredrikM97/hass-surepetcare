@@ -6,7 +6,7 @@
         'settings': list([
           dict({
             'food_type': 1,
-            'target': 0,
+            'target': 50,
           }),
           dict({
             'food_type': 1,

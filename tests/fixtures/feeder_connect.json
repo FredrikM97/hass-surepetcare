@@ -52,7 +52,7 @@
             "settings": [
                 {
                     "food_type": 1,
-                    "target": 0
+                    "target": 50
                 },
                 {
                     "food_type": 1,
