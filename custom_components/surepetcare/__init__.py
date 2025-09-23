@@ -1,20 +1,24 @@
 """TODO."""
 
 import logging
-from typing import Any, List
-
+from typing import Any
+from homeassistant import loader
 from surepcio import SurePetcareClient
 from surepcio import Household
 from surepcio.enums import ProductId
 
 from .services import _service_registry
-
+from homeassistant.components.schedule import (
+    Schedule,
+    DOMAIN as SCHEDULE_DOMAIN,
+    LOGGER as SCHEDULE_LOGGER,
+)
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers import device_registry as dr
-
+from homeassistant.helpers.entity_component import EntityComponent
 from .const import (
     CLIENT_DEVICE_ID,
     COORDINATOR,
@@ -28,7 +32,19 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
 
-PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SELECT]
+PLATFORMS = [Platform.BINARY_SENSOR, Platform.SENSOR, Platform.SELECT, SCHEDULE_DOMAIN]
+
+
+async def schedule_async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Setup a config entry."""
+    component: EntityComponent[Schedule] = hass.data[SCHEDULE_DOMAIN]
+    return await component.async_setup_entry(entry)
+
+
+async def schedule_async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Setup a config entry."""
+    component: EntityComponent[Schedule] = hass.data[SCHEDULE_DOMAIN]
+    return await component.async_unload_entry(entry)
 
 
 async def async_setup_entry(
@@ -64,7 +80,7 @@ async def async_setup_entry(
         hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, on_hass_stop)
     )
     try:
-        households: List[Household] = await client.api(Household.get_households())
+        households: list[Household] = await client.api(Household.get_households())
         entities = []
         for household in households:
             entities.extend(await client.api(household.get_pets()))
@@ -164,7 +180,31 @@ def remove_stale_devices(
             )
 
 
+async def setup_custom_platforms(hass: HomeAssistant, config: ConfigEntry) -> bool:
+    hass.data.setdefault(DOMAIN, {})
+
+    # Schedule entity is not natively supported as entity type. Hack to add support
+    if SCHEDULE_DOMAIN not in hass.data:
+        schedule_component = hass.data[SCHEDULE_DOMAIN] = EntityComponent[Schedule](
+            SCHEDULE_LOGGER, SCHEDULE_DOMAIN, hass
+        )
+        await schedule_component.async_setup({})
+
+    integration = await loader.async_get_integration(hass, SCHEDULE_DOMAIN)
+    if integration:
+        schedule_component = integration.get_component()
+        if schedule_component:
+            if not hasattr(schedule_component, "async_setup_entry"):
+                schedule_component.async_setup_entry = schedule_async_setup_entry
+            if not hasattr(schedule_component, "async_unload_entry"):
+                schedule_component.async_unload_entry = schedule_async_unload_entry
+
+    return True
+
+
 async def async_setup(hass: HomeAssistant, config: ConfigEntry):
     for name, func, schema in _service_registry:
         hass.services.async_register("surepetcare", name, func, schema=schema)
+
+    await setup_custom_platforms(hass, config)
     return True
