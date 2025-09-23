@@ -48,6 +48,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
     ProductId.DUAL_SCAN_CONNECT: (
         SurePetCareSelectEntityDescription(
             key="locking",
+            translation_key="locking",
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
@@ -56,6 +57,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
     ProductId.PET_DOOR: (
         SurePetCareSelectEntityDescription(
             key="locking",
+            translation_key="locking",
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,

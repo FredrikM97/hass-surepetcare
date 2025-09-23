@@ -97,6 +97,66 @@
     'state': 'on',
   })
 # ---
+# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.katzenklappe_curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew',
+    'unique_id': '1299453-curfew',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'control.curfew': list([
+        dict({
+          'enabled': False,
+          'lock_time': datetime.time(22, 0),
+          'unlock_time': datetime.time(22, 1),
+        }),
+        dict({
+          'enabled': False,
+          'lock_time': datetime.time(22, 6),
+          'unlock_time': datetime.time(23, 6),
+        }),
+      ]),
+      'friendly_name': 'Katzenklappe Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.katzenklappe_curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_learn_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -145,7 +205,7 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_none-entry]
+# name: test_platform_setup_and_discovery[binary_sensor.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -158,7 +218,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.katzenklappe_none',
+    'entity_id': 'binary_sensor.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -170,35 +230,26 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': 'curfew',
-    'unique_id': '1299453-curfew',
+    'unique_id': '727608-curfew',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_none-state]
+# name: test_platform_setup_and_discovery[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'control.curfew': list([
-        dict({
-          'enabled': False,
-          'lock_time': datetime.time(22, 0),
-          'unlock_time': datetime.time(22, 1),
-        }),
-        dict({
-          'enabled': False,
-          'lock_time': datetime.time(22, 6),
-          'unlock_time': datetime.time(23, 6),
-        }),
-      ]),
-      'friendly_name': 'Katzenklappe None',
+      'control.curfew_enabled': False,
+      'control.curfew_lock_time': datetime.time(8, 0),
+      'control.curfew_unlock_time': datetime.time(17, 0),
+      'friendly_name': 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.katzenklappe_none',
+    'entity_id': 'binary_sensor.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -251,41 +302,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.laundry_door_none-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.laundry_door_none',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': None,
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew',
-    'unique_id': '727608-curfew',
-    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[binary_sensor.maui_matlada_old_connectivity-entry]
@@ -483,6 +499,66 @@
     'state': 'on',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.katzenklappe_curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew',
+    'unique_id': '1299453-curfew',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'control.curfew': list([
+        dict({
+          'enabled': False,
+          'lock_time': datetime.time(22, 0),
+          'unlock_time': datetime.time(22, 1),
+        }),
+        dict({
+          'enabled': False,
+          'lock_time': datetime.time(22, 6),
+          'unlock_time': datetime.time(23, 6),
+        }),
+      ]),
+      'friendly_name': 'Katzenklappe Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.katzenklappe_curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_learn_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -531,7 +607,7 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_none-entry]
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -544,7 +620,7 @@
     'disabled_by': None,
     'domain': 'binary_sensor',
     'entity_category': None,
-    'entity_id': 'binary_sensor.katzenklappe_none',
+    'entity_id': 'binary_sensor.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -556,35 +632,26 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
     'translation_key': 'curfew',
-    'unique_id': '1299453-curfew',
+    'unique_id': '727608-curfew',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_none-state]
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'control.curfew': list([
-        dict({
-          'enabled': False,
-          'lock_time': datetime.time(22, 0),
-          'unlock_time': datetime.time(22, 1),
-        }),
-        dict({
-          'enabled': False,
-          'lock_time': datetime.time(22, 6),
-          'unlock_time': datetime.time(23, 6),
-        }),
-      ]),
-      'friendly_name': 'Katzenklappe None',
+      'control.curfew_enabled': False,
+      'control.curfew_lock_time': datetime.time(8, 0),
+      'control.curfew_unlock_time': datetime.time(17, 0),
+      'friendly_name': 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
-    'entity_id': 'binary_sensor.katzenklappe_none',
+    'entity_id': 'binary_sensor.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -637,41 +704,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_none-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.laundry_door_none',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': None,
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew',
-    'unique_id': '727608-curfew',
-    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_matlada_old_connectivity-entry]
