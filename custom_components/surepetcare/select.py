@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
+from typing import Callable
 from surepcio.enums import (
     ProductId,
     CloseDelay,
@@ -9,6 +10,7 @@ from surepcio.enums import (
     FlapLocking,
     HubLedMode,
     HubPairMode,
+    ModifyDeviceTag,
 )
 from surepcio import SurePetcareClient
 from .coordinator import (
@@ -23,7 +25,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
+from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -33,6 +35,30 @@ class SurePetCareSelectEntityDescription(
     """Describes SurePetCare select entity."""
 
     enum_class: type | None = None
+    options_fn: Callable | None = None
+    command_fn: Callable | None = None  # Add this line
+
+
+def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
+    """Find the entity ID by its name in entry_data['entities']."""
+    return next(
+        (
+            entity_id
+            for entity_id, entity in entry_data.get(OPTION_DEVICES, {}).items()
+            if entity.get("name") == name
+        ),
+        None,
+    )
+
+
+def device_tag_command(action: ModifyDeviceTag):
+    """Return a command function for modifying device tags."""
+
+    def command(pet, option: str, entry_data: dict) -> object | None:
+        entity_id = find_entity_id_by_name(entry_data, option)
+        return pet.set_tag(entity_id, action=action) if entity_id else None
+
+    return command
 
 
 SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
@@ -59,6 +85,27 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
+        ),
+    ),
+    ProductId.PET: (
+        SurePetCareSelectEntityDescription(
+            key="remove_assigned_device",
+            translation_key="remove_assigned_device",
+            options_fn=lambda device, r: [
+                r[OPTION_DEVICES].get(str(d.id))["name"]
+                for d in getattr(device.status, "devices", []) or []
+            ],
+            command_fn=device_tag_command(ModifyDeviceTag.REMOVE),
+        ),
+        SurePetCareSelectEntityDescription(
+            key="add_assigned_device",
+            translation_key="add_assigned_device",
+            options_fn=lambda device, r: [
+                v.get("name")
+                for v in r[OPTION_DEVICES].values()
+                if v.get("product_id") not in (ProductId.PET, ProductId.HUB)
+            ],
+            command_fn=device_tag_command(ModifyDeviceTag.ADD),
         ),
     ),
     ProductId.HUB: (
@@ -145,17 +192,42 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
     async def async_select_option(self, option: str) -> None:
         if self.entity_description.enum_class is not None:
             option = getattr(self.entity_description.enum_class, option)
-        if self.entity_description.field is None:
-            return None
-        await self.coordinator.client.api(
-            self._device.set_control(
-                **build_nested_dict(self.entity_description.field, option)
+        if self.entity_description.command_fn is not None:
+            command = self.entity_description.command_fn(
+                self._device, option, self.coordinator.config_entry.options
             )
-        )
+            if command is None:
+                return None
+            await self.coordinator.client.api(command)
+        elif self.entity_description.field:
+            await self.coordinator.client.api(
+                self._device.set_control(
+                    **build_nested_dict(self.entity_description.field, option)
+                )
+            )
+        else:
+            return None
         await self.coordinator.async_request_refresh()
+
+    @property
+    def options(self) -> list[str]:
+        """Return a set of selectable options."""
+        desc = self.entity_description
+        # Use options_fn if present, passing device and config entry data
+        if desc.options_fn is not None:
+            return (
+                desc.options_fn(self._device, self.coordinator.config_entry.options)
+                or []
+            )
+
+        # Fallback to static options if present
+        if desc.options is not None:
+            return desc.options
+        return []
 
 
 def build_nested_dict(field_path: str, value: str) -> dict:
+    """Build nested dictionary from dot-separated field path."""
     # Temporarily until better solution
     parts = field_path.split(".")
     d: dict[str, object] | object = value

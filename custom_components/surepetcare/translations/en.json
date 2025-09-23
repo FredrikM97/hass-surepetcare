@@ -98,6 +98,12 @@
       },
       "curfew_enabled":{
         "name": "Curfew active"
+      },
+      "add_assigned_device": {
+        "name": "Add assigned device"
+      },
+      "remove_assigned_device": {
+        "name": "Remove assigned device"
       }
     },
     "sensor": {
