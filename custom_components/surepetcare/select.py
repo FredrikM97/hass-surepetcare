@@ -194,7 +194,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
             option = getattr(self.entity_description.enum_class, option)
         if self.entity_description.command_fn is not None:
             command = self.entity_description.command_fn(
-                self._device, option, self.coordinator.config_entry.data
+                self._device, option, self.coordinator.config_entry.options
             )
             if command is None:
                 return None
@@ -216,7 +216,8 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         # Use options_fn if present, passing device and config entry data
         if desc.options_fn is not None:
             return (
-                desc.options_fn(self._device, self.coordinator.config_entry.data) or []
+                desc.options_fn(self._device, self.coordinator.config_entry.options)
+                or []
             )
 
         # Fallback to static options if present

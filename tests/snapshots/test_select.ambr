@@ -294,6 +294,61 @@
     'state': 'UNLOCKED',
   })
 # ---
+# name: test_platform_setup_and_discovery[select.maui_add_assigned_device-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'Pet Door',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': None,
+    'entity_id': 'select.maui_add_assigned_device',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Add assigned device',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'add_assigned_device',
+    'unique_id': '472721-add_assigned_device',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.maui_add_assigned_device-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Add assigned device',
+      'options': list([
+        'Pet Door',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -709,6 +764,59 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'UNLOCKED',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': None,
+    'entity_id': 'select.maui_add_assigned_device',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Add assigned device',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'add_assigned_device',
+    'unique_id': '472721-add_assigned_device',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Add assigned device',
+      'options': list([
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]
