@@ -60,6 +60,63 @@
     'state': 'LOCKED',
   })
 # ---
+# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        True,
+        False,
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': None,
+    'entity_id': 'select.laundry_door_curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Curfew active',
+      'options': list([
+        True,
+        False,
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'False',
+  })
+# ---
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -302,6 +359,63 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'LOCKED',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        True,
+        False,
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': None,
+    'entity_id': 'select.laundry_door_curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Curfew active',
+      'options': list([
+        True,
+        False,
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'False',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-entry]

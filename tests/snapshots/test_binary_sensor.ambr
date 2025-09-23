@@ -127,7 +127,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'curfew',
+    'translation_key': 'curfew_active',
     'unique_id': '1299453-curfew',
     'unit_of_measurement': None,
   })
@@ -235,7 +235,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'curfew',
+    'translation_key': 'curfew_active',
     'unique_id': '727608-curfew',
     'unit_of_measurement': None,
   })
@@ -529,7 +529,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'curfew',
+    'translation_key': 'curfew_active',
     'unique_id': '1299453-curfew',
     'unit_of_measurement': None,
   })
@@ -637,7 +637,7 @@
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'curfew',
+    'translation_key': 'curfew_active',
     'unique_id': '727608-curfew',
     'unit_of_measurement': None,
   })
