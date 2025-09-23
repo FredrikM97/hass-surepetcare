@@ -59,14 +59,14 @@ async def async_set_control(call):
     schema=vol.Schema(
         {
             vol.Required("device_id"): str,
-            vol.Required("tag"): str,
+            vol.Required("pet_id"): str,
             vol.Required("action"): vol.In(["add", "remove"]),
         }
     ),
 )
 async def async_set_tag(call):
     device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
-    pet_coordinator = get_coordinator(call.hass, call.data.get("tag"))
+    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
     if call.data.get("action") == "add":
         await device_coordinator.client.api(
             device_coordinator._device.add_tag(pet_coordinator._device.tag)
@@ -82,14 +82,14 @@ async def async_set_tag(call):
     schema=vol.Schema(
         {
             vol.Required("device_id"): str,
-            vol.Required("tag"): str,
+            vol.Required("pet_id"): str,
             vol.Required("profile"): vol.In(list(PetDeviceLocationProfile)),
         }
     ),
 )
 async def set_pet_access_mode(call) -> None:
     """Set pet access mode to indoor or outdoor"""
-    pet_coordinator = get_coordinator(call.hass, call.data.get("tag"))
+    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
     await pet_coordinator.client.api(
         pet_coordinator._device.set_profile(
             call.data.get("device_id"),
