@@ -49,8 +49,9 @@ set_tag:
       selector:
         device:
           integration: surepetcare
-    tag:
-      description: Target Pet
+    pet_id:
+      name: Pet ID
+      description: Target Pet ID to update
       required: true
       selector:
         device:
@@ -70,7 +71,7 @@ set_pet_access_mode:
   fields:
     pet_id:
       name: Pet ID
-      description: Pet tag to modify access mode.
+      description: Pet ID to modify access mode.
       required: true
       example: 123456
       selector:
