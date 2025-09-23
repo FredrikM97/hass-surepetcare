@@ -60,17 +60,15 @@
     'state': 'LOCKED',
   })
 # ---
-# name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-entry]
+# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        True,
+        False,
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -80,7 +78,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -92,33 +90,31 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Locking Mode',
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'locking',
-    'unique_id': '727608-locking',
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-state]
+# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Laundry Door Curfew active',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        True,
+        False,
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'False',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
@@ -304,17 +300,15 @@
     'state': 'LOCKED',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-entry]
+# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        True,
+        False,
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -324,7 +318,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -336,33 +330,31 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Locking Mode',
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'locking',
-    'unique_id': '727608-locking',
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-state]
+# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Laundry Door Curfew active',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        True,
+        False,
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'False',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]

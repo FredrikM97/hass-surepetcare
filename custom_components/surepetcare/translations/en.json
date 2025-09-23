@@ -60,7 +60,7 @@
           "off": "Off"
         }
       },
-      "curfew":{
+      "curfew_active":{
         "name": "Curfew active",
         "state":{
           "on": "On",
@@ -95,6 +95,9 @@
           "ALLOW_IN": "Entry Only",
           "ALLOW_OUT": "Exit Only"
         }
+      },
+      "curfew_enabled":{
+        "name": "Curfew active"
       }
     },
     "sensor": {

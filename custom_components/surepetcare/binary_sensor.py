@@ -78,7 +78,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         ),
         SurePetCareBinarySensorEntityDescription(
             key="curfew",
-            translation_key="curfew",
+            translation_key="curfew_active",
             field_fn=_next_enabled_future_curfew,
             extra_field="control.curfew",
         ),
@@ -94,7 +94,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         ),
         SurePetCareBinarySensorEntityDescription(
             key="curfew",
-            translation_key="curfew",
+            translation_key="curfew_active",
             field_fn=_next_enabled_future_curfew,
             extra_field="control.curfew",
         ),

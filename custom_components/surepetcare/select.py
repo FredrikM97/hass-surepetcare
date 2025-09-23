@@ -65,7 +65,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
     ),
     ProductId.PET_DOOR: (
         SurePetCareSelectEntityDescription(
-            key="curfew_enabled", field="control.curfew.enabled", options=[True, False]
+            key="curfew_enabled",
+            translation_key="curfew_enabled",
+            field="control.curfew.enabled",
+            options=[True, False],
         ),
     ),
 }
