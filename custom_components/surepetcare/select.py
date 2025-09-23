@@ -2,7 +2,14 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from surepcio.enums import ProductId, CloseDelay, FeederTrainingMode, FlapLocking
+from surepcio.enums import (
+    ProductId,
+    CloseDelay,
+    FeederTrainingMode,
+    FlapLocking,
+    HubLedMode,
+    HubPairMode,
+)
 from surepcio import SurePetcareClient
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
@@ -52,6 +59,22 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
+        ),
+    ),
+    ProductId.HUB: (
+        SurePetCareSelectEntityDescription(
+            key="led_mode",
+            translation_key="led_mode",
+            field="control.led_mode",
+            options=[e.name for e in HubLedMode],
+            enum_class=HubLedMode,
+        ),
+        SurePetCareSelectEntityDescription(
+            key="pairing_mode",
+            translation_key="pairing_mode",
+            field="control.pairing_mode",
+            options=[e.name for e in HubPairMode],
+            enum_class=HubPairMode,
         ),
     ),
     ProductId.PET_DOOR: (
