@@ -28,7 +28,7 @@ set_control:
     }
   fields:
     device_id:
-      description: Target device to control.
+      description: Target device registry id to control.
       required: true
       selector:
         device:
@@ -44,14 +44,14 @@ set_tag:
   description: Set the tag for a device.
   fields:
     device_id:
-      description: Target device(s), entity/entities, or area(s) to control.
+      description: Target device registry id.
       required: true
       selector:
         device:
           integration: surepetcare
     pet_id:
       name: Pet ID
-      description: Target Pet ID to update
+      description: Target Pet registry id to update
       required: true
       selector:
         device:
@@ -62,16 +62,16 @@ set_tag:
       selector:
         select:
           options:
-            - add
-            - remove
+            - ADD
+            - REMOVE
 
 set_pet_access_mode:
   name: Set Pet Access Mode
   description: Sets a pet's profile to "indoor only" to prevent passthrough of flap.
   fields:
     pet_id:
-      name: Pet ID
-      description: Pet ID to modify access mode.
+      name: Pet
+      description: Pet registry id to modify access mode.
       required: true
       example: 123456
       selector:
@@ -79,8 +79,8 @@ set_pet_access_mode:
           integration: surepetcare
 
     device_id:
-      name: Device id (Flap or Feeder)
-      description: The id of Flap/Feeder to modify access on.
+      name: Device (Flap or Feeder)
+      description: The device registry id of Flap/Feeder to modify access on.
       required: true
       example: 123456
       selector:

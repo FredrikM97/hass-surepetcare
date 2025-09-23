@@ -2,6 +2,7 @@ import logging
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from surepcio.enums import PetDeviceLocationProfile
+from surepcio.enums import ModifyDeviceTag
 
 logger = logging.getLogger(__name__)
 
@@ -60,21 +61,18 @@ async def async_set_control(call):
         {
             vol.Required("device_id"): str,
             vol.Required("pet_id"): str,
-            vol.Required("action"): vol.In(["add", "remove"]),
+            vol.Required("action"): vol.In([e.name for e in ModifyDeviceTag]),
         }
     ),
 )
 async def async_set_tag(call):
     device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
     pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
-    if call.data.get("action") == "add":
-        await device_coordinator.client.api(
-            device_coordinator._device.add_tag(pet_coordinator._device.tag)
+    await device_coordinator.client.api(
+        device_coordinator._device.set_tag(
+            pet_coordinator._device.tag, ModifyDeviceTag[call.data.get("action")]
         )
-    elif call.data.get("action") == "remove":
-        await device_coordinator.client.api(
-            device_coordinator._device.remove_tag(pet_coordinator._device.tag)
-        )
+    )
 
 
 @global_service(
@@ -83,18 +81,18 @@ async def async_set_tag(call):
         {
             vol.Required("device_id"): str,
             vol.Required("pet_id"): str,
-            vol.Required("profile"): vol.In(list(PetDeviceLocationProfile)),
+            vol.Required("profile"): vol.In([e.name for e in PetDeviceLocationProfile]),
         }
     ),
 )
 async def set_pet_access_mode(call) -> None:
     """Set pet access mode to indoor or outdoor"""
+    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
     pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
     await pet_coordinator.client.api(
         pet_coordinator._device.set_profile(
-            call.data.get("device_id"),
-            pet_coordinator._device.tag,
-            call.data.get("profile"),
+            device_coordinator._device.id,
+            PetDeviceLocationProfile[call.data.get("profile")],
         )
     )
 
