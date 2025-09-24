@@ -104,8 +104,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="add_assigned_device",
             options_fn=lambda device, r: [
                 v.get("name")
-                for v in r[OPTION_DEVICES].values()
+                for k, v in r[OPTION_DEVICES].items()
                 if v.get("product_id") not in (ProductId.PET, ProductId.HUB)
+                and k
+                not in {str(d.id) for d in getattr(device.status, "devices", []) or []}
             ],
             command_fn=device_tag_command(ModifyDeviceTag.ADD),
         ),
