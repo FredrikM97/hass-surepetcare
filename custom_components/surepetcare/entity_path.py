@@ -185,3 +185,24 @@ def get_by_paths(
     if options.native and results:
         return next(iter(results.values()))
     return results
+
+
+def build_nested_dict(field_path: str, value: float | int | str) -> dict:
+    """Build a nested dict/list structure from a dotted field path, handling list indices.
+    Skips the top-level 'control' key.
+    """
+    parts = field_path.split(".")
+    if parts and parts[0] == "control":
+        parts = parts[1:]
+    result: object = value
+    for part in reversed(parts):
+        if part.isdigit():
+            idx = int(part)
+            lst: list = []
+            while len(lst) <= idx:
+                lst.append(None)
+            lst[idx] = result
+            result = lst
+        else:
+            result = {part: result}
+    return result if isinstance(result, dict) else {parts[0]: result}

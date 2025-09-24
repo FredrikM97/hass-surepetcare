@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Callable, cast
+from typing import Callable
 from surepcio.enums import (
     ProductId,
     CloseDelay,
@@ -13,6 +13,8 @@ from surepcio.enums import (
     ModifyDeviceTag,
 )
 from surepcio import SurePetcareClient
+
+from custom_components.surepetcare.entity_path import build_nested_dict
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
@@ -224,20 +226,3 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         if desc.options is not None:
             return desc.options
         return []
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return cast(bool, self._device.available) and self.options is not None
-
-
-def build_nested_dict(field_path: str, value: str) -> dict:
-    """Build nested dictionary from dot-separated field path."""
-    # Temporarily until better solution
-    parts = field_path.split(".")
-    d: dict[str, object] | object = value
-    for part in reversed(parts[1:]):  # Skip 'control'
-        d = {part: d}
-    if isinstance(d, dict):
-        return d
-    return {parts[-1]: value}

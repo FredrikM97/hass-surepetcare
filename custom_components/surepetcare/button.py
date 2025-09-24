@@ -1,14 +1,10 @@
-"""Support for Sure Petcare number entity."""
+"""Support for Sure Petcare Button."""
 
 from dataclasses import dataclass
 import logging
-
 from surepcio.enums import ProductId
 from surepcio import SurePetcareClient
-from homeassistant.components.number import (
-    NumberEntity,
-    NumberEntityDescription,
-)
+from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -31,27 +27,21 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)
-class SurePetCareNumberEntityDescription(
-    SurePetCareBaseEntityDescription, NumberEntityDescription
+class SurePetCareButtonEntityDescription(
+    SurePetCareBaseEntityDescription, ButtonEntityDescription
 ):
-    """Describes SurePetCare number entity."""
+    """Describes SurePetCare button entity."""
 
 
-SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
+BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
-        SurePetCareNumberEntityDescription(
-            key="bowl_0_target_weight",
-            translation_key="target_weight",
-            translation_placeholders={"bowl": "One"},
-            field="control.bowls.settings.0.target",
+        SurePetCareButtonEntityDescription(
+            key="tare",
+            translation_key="tare",
+            field="control.tare",
+            icon="mdi:scale",
         ),
-        SurePetCareNumberEntityDescription(
-            key="bowl_1_target_weight",
-            translation_key="target_weight",
-            translation_placeholders={"bowl": "Two"},
-            field="control.bowls.settings.1.target",
-        ),
-    )
+    ),
 }
 
 
@@ -66,10 +56,10 @@ async def async_setup_entry(
 
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
-        descriptions = SENSORS.get(device_coordinator.product_id, ())
+        descriptions = BUTTONS.get(device_coordinator.product_id, ())
         for description in descriptions:
             entities.append(
-                SurePetCareNumber(
+                SurePetCareButton(
                     device_coordinator,
                     client,
                     description=description,
@@ -78,40 +68,32 @@ async def async_setup_entry(
     async_add_entities(entities, update_before_add=True)
 
 
-class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
+class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
     """The platform class required by Home Assistant."""
 
-    entity_description: SurePetCareNumberEntityDescription
+    entity_description: SurePetCareButtonEntityDescription
 
     def __init__(
         self,
         device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
         client: SurePetcareClient,
-        description: SurePetCareNumberEntityDescription,
+        description: SurePetCareButtonEntityDescription,
     ) -> None:
-        """Initialize a Surepetcare Number Entity."""
+        """Initialize a Surepetcare sensor."""
         super().__init__(
             device_coordinator=device_coordinator,
             client=client,
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
-        self._attr_native_unit_of_measurement = description.native_unit_of_measurement
-        self._attr_min_value = (
-            description.min_value if hasattr(description, "min_value") else None
-        )
-        self._attr_max_value = (
-            description.max_value if hasattr(description, "max_value") else None
-        )
-        self._attr_step = description.step if hasattr(description, "step") else None
 
-    async def async_set_native_value(self, value: float) -> None:  # type: ignore[override]
-        """Set new value for the number (target weight)."""
+    async def async_press(self) -> None:
+        """Press the button."""
         if self.entity_description.field is None:
-            return None
+            return
         await self.coordinator.client.api(
             self._device.set_control(
-                **build_nested_dict(self.entity_description.field, value)
+                **build_nested_dict(self.entity_description.field, 1)
             )
         )
         await self.coordinator.async_request_refresh()

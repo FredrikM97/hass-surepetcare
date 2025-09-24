@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import logging
+from typing import cast
 
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId, PetLocation
@@ -16,7 +17,6 @@ from homeassistant.components.sensor import (
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE, UnitOfMass
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
 from .const import (
@@ -114,7 +114,7 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
 SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareSensorEntityDescription(
-            key="bowl_1_weight",
+            key="bowl_0_weight",
             translation_key="bowl_weight",
             translation_placeholders={"bowl": "One"},
             state_class=SensorStateClass.MEASUREMENT,
@@ -133,8 +133,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             },
         ),
         SurePetCareSensorEntityDescription(
-            key="bowl_2_weight",
-            translation_key="bowl_2_weight",
+            key="bowl_1_weight",
+            translation_key="bowl_weight",
+            translation_placeholders={"bowl": "Two"},
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
@@ -161,27 +162,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 )
             ),
             extra_field={"bowls": "control.bowls.settings.*"},
-        ),
-        SurePetCareSensorEntityDescription(
-            key="tare",
-            translation_key="tare",
-            field="control.tare",
-            entity_registry_enabled_default=False,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        SurePetCareSensorEntityDescription(
-            key="lid_delay",
-            translation_key="lid_delay",
-            field="control.lid.close_delay",
-            entity_registry_enabled_default=False,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
-        SurePetCareSensorEntityDescription(
-            key="training_mode",
-            translation_key="training_mode",
-            field="control.training_mode",
-            entity_registry_enabled_default=False,
-            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         SurePetCareSensorEntityDescription(
             key="rssi",
@@ -318,3 +298,12 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         if self.entity_description.icon:
             return self.coordinator.data.photo
         return None
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return (
+            cast(bool, self._device.available)
+            and self._convert_value() is not None
+            and super().available
+        )

@@ -121,6 +121,9 @@
         }
       }
     },
+    "button":{
+        "tare": {"name": "Reset bowl weight"}
+    },
     "number":{
       "target_weight":{
         "name": "Target weight Bowl {bowl}"
@@ -137,15 +140,6 @@
       "drinking": {"name": "Drinking"},
       "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
       "bowls": {"name": "Bowls"},
-      "lid_delay": {
-        "name": "Lid Delay",
-        "state": {
-          "FASTER": "Fast",
-          "NORMAL": "Normal",
-          "SLOWER": "Slow"
-        }
-      },
-      "tare": {"name": "Tare"},
       "current_weight": {"name": "Current Weight"},
       "target_weight": {"name": "Target Weight"},
       "bowl_weight": {"name": "Bowl {bowl} Weight"},
@@ -166,13 +160,6 @@
         }
       },
       "entity_information": {"name": "Entity Information"},
-      "training_mode": {
-        "name": "Training Mode",
-        "state": {
-          "1": "On",
-          "0": "Off"
-        }
-      },
       "devices": {
         "name": "Assigned devices"
       }
