@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 
 dependencies = [
-    "py-surepetcare>=0.5.6",
+    "py-surepetcare>=0.5.7-dev0",
     "homeassistant>=2024.0.0",
 ]
 
