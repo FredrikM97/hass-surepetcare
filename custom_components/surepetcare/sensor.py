@@ -115,7 +115,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareSensorEntityDescription(
             key="bowl_1_weight",
-            translation_key="bowl_1_weight",
+            translation_key="bowl_weight",
+            translation_placeholders={"bowl": "One"},
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,

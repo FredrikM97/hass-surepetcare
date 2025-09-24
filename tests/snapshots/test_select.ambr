@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_platform_setup_and_discovery[select.hem_hub_none-entry]
+# name: test_platform_setup_and_discovery[select.hem_hub_led_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -18,7 +18,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.hem_hub_none',
+    'entity_id': 'select.hem_hub_led_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -30,7 +30,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'LED Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -40,10 +40,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[select.hem_hub_none-state]
+# name: test_platform_setup_and_discovery[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
         'WEAK',
@@ -51,14 +51,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.hem_hub_none',
+    'entity_id': 'select.hem_hub_led_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_platform_setup_and_discovery[select.hem_hub_none_2-entry]
+# name: test_platform_setup_and_discovery[select.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -76,7 +76,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.hem_hub_none_2',
+    'entity_id': 'select.hem_hub_pairing_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -88,7 +88,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Pairing Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -98,21 +98,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[select.hem_hub_none_2-state]
+# name: test_platform_setup_and_discovery[select.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub Pairing Mode',
       'options': list([
         'OFF',
         'ON',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.hem_hub_none_2',
+    'entity_id': 'select.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
@@ -346,7 +346,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
@@ -471,7 +471,7 @@
     'state': 'DISABLED',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_none-entry]
+# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -490,7 +490,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.hem_hub_none',
+    'entity_id': 'select.hem_hub_led_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -502,7 +502,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'LED Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -512,10 +512,10 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_none-state]
+# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
         'WEAK',
@@ -523,14 +523,14 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.hem_hub_none',
+    'entity_id': 'select.hem_hub_led_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_none_2-entry]
+# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -548,7 +548,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': None,
-    'entity_id': 'select.hem_hub_none_2',
+    'entity_id': 'select.hem_hub_pairing_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -560,7 +560,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Pairing Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -570,21 +570,21 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_none_2-state]
+# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub Pairing Mode',
       'options': list([
         'OFF',
         'ON',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.hem_hub_none_2',
+    'entity_id': 'select.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
@@ -816,7 +816,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]

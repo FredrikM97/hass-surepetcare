@@ -38,10 +38,16 @@ class SurePetCareNumberEntityDescription(
 SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareNumberEntityDescription(
-            key="bowl_1_target_weight", field="control.bowls.settings.0.target"
+            key="bowl_0_target_weight",
+            translation_key="target_weight",
+            translation_placeholders={"bowl": "One"},
+            field="control.bowls.settings.0.target",
         ),
         SurePetCareNumberEntityDescription(
-            key="bowl_2_target_weight", field="control.bowls.settings.1.target"
+            key="bowl_1_target_weight",
+            translation_key="target_weight",
+            translation_placeholders={"bowl": "Two"},
+            field="control.bowls.settings.1.target",
         ),
     )
 }
@@ -87,7 +93,6 @@ class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
             client=client,
         )
         self.entity_description = description
-        self._attr_name = description.name
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
         self._attr_native_unit_of_measurement = description.native_unit_of_measurement
         self._attr_min_value = (

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Callable
+from typing import Callable, cast
 from surepcio.enums import (
     ProductId,
     CloseDelay,
@@ -224,6 +224,11 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         if desc.options is not None:
             return desc.options
         return []
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return cast(bool, self._device.available) and self.options is not None
 
 
 def build_nested_dict(field_path: str, value: str) -> dict:
