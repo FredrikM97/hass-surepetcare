@@ -67,25 +67,25 @@
     'minor_version': 1,
     'options': dict({
       'devices': dict({
-        269654: dict({
+        '1299453': dict({
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+        '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
         }),
-        295972: dict({
+        '295972': dict({
           'name': 'Hem-hub',
           'product_id': 1,
         }),
-        472721: dict({
+        '472721': dict({
           'name': 'Maui',
           'product_id': 0,
         }),
-        727608: dict({
+        '727608': dict({
           'name': 'Laundry Door',
           'product_id': 3,
-        }),
-        1299453: dict({
-          'name': 'Katzenklappe',
-          'product_id': 6,
         }),
       }),
     }),
@@ -115,25 +115,25 @@
     'minor_version': 1,
     'options': dict({
       'devices': dict({
-        269654: dict({
+        '1299453': dict({
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+        '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
         }),
-        295972: dict({
+        '295972': dict({
           'name': 'Hem-hub',
           'product_id': 1,
         }),
-        472721: dict({
+        '472721': dict({
           'name': 'Maui',
           'product_id': 0,
         }),
-        727608: dict({
+        '727608': dict({
           'name': 'Laundry Door',
           'product_id': 3,
-        }),
-        1299453: dict({
-          'name': 'Katzenklappe',
-          'product_id': 6,
         }),
       }),
     }),
@@ -150,25 +150,25 @@
       'minor_version': 1,
       'options': dict({
         'devices': dict({
-          269654: dict({
+          '1299453': dict({
+            'name': 'Katzenklappe',
+            'product_id': 6,
+          }),
+          '269654': dict({
             'name': 'Maui matlåda (old) ',
             'product_id': 4,
           }),
-          295972: dict({
+          '295972': dict({
             'name': 'Hem-hub',
             'product_id': 1,
           }),
-          472721: dict({
+          '472721': dict({
             'name': 'Maui',
             'product_id': 0,
           }),
-          727608: dict({
+          '727608': dict({
             'name': 'Laundry Door',
             'product_id': 3,
-          }),
-          1299453: dict({
-            'name': 'Katzenklappe',
-            'product_id': 6,
           }),
         }),
       }),
