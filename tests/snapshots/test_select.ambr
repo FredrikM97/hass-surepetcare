@@ -356,8 +356,12 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'LARGE_BOWL',
-        'TWO_SMALL',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_dry_wet',
+        'two_small_wet_dry',
+        'two_small_dry_dry',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -394,8 +398,12 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_BOWL',
-        'TWO_SMALL',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_dry_wet',
+        'two_small_wet_dry',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -403,7 +411,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
@@ -883,8 +891,12 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'LARGE_BOWL',
-        'TWO_SMALL',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_dry_wet',
+        'two_small_wet_dry',
+        'two_small_dry_dry',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -921,8 +933,12 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_BOWL',
-        'TWO_SMALL',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_dry_wet',
+        'two_small_wet_dry',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -930,7 +946,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]

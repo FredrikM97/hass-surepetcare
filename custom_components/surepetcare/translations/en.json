@@ -72,8 +72,12 @@
       "bowls_type": {
         "name": "Bowls Type",
         "state": {
-            "LARGE_BOWL": "Large",
-            "TWO_SMALL": "Two Small"
+            "large_wet": "Large (Wet)",
+            "large_dry":"Large (Dry)",
+            "two_small_wet_wet": "Two small (Wet/Wet)",
+            "two_small_dry_wet": "Two small (Dry/Wet)",
+            "two_small_wet_dry": "Two small (Wet/Dry)",
+            "two_small_dry_dry": "Two small (Dry/Dry)"
         }
       },
       "training_mode": {

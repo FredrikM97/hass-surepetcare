@@ -12,6 +12,7 @@ from surepcio.enums import (
     HubPairMode,
     ModifyDeviceTag,
     BowlType,
+    FoodType,
 )
 from surepcio import SurePetcareClient
 
@@ -54,6 +55,65 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
     )
 
 
+BOWL_OPTION_MAP = {
+    "large_wet": {"bowl_type": BowlType.LARGE_BOWL, "food_types": [FoodType.WET]},
+    "large_dry": {"bowl_type": BowlType.LARGE_BOWL, "food_types": [FoodType.DRY]},
+    "two_small_wet_wet": {
+        "bowl_type": BowlType.TWO_SMALL,
+        "food_types": [FoodType.WET, FoodType.WET],
+    },
+    "two_small_dry_wet": {
+        "bowl_type": BowlType.TWO_SMALL,
+        "food_types": [FoodType.DRY, FoodType.WET],
+    },
+    "two_small_wet_dry": {
+        "bowl_type": BowlType.TWO_SMALL,
+        "food_types": [FoodType.WET, FoodType.DRY],
+    },
+    "two_small_dry_dry": {
+        "bowl_type": BowlType.TWO_SMALL,
+        "food_types": [FoodType.DRY, FoodType.DRY],
+    },
+}
+
+
+def bowls_type_command_fn(device, option: str, _entry_data: dict) -> object:
+    """Build and send the correct bowls type/settings payload based on selected display string."""
+    context = BOWL_OPTION_MAP.get(option)
+    if not context:
+        return None
+    bowl_type = context["bowl_type"]
+    food_types = context["food_types"]
+    settings = [{"food_type": ft.value, "target": 0} for ft in food_types]
+    return device.set_control(
+        bowls={
+            "type": bowl_type.value,
+            "settings": settings,
+        }
+    )
+
+
+def bowls_type_field_fn(device, _options=None) -> str | None:
+    """Map control.bowls.settings to the correct display string from BOWL_OPTION_MAP."""
+    bowls = getattr(device.control, "bowls", None)
+    if not bowls:
+        return None
+    # Use attribute access for Pydantic/model objects
+    bowl_type = getattr(bowls, "type", None)
+    settings = getattr(bowls, "settings", [])
+    # If settings is not a list, convert to list
+    if not isinstance(settings, list):
+        settings = list(settings)
+    food_types = tuple(getattr(s, "food_type", None) for s in settings)
+    for option, context in BOWL_OPTION_MAP.items():
+        if (
+            context["bowl_type"].value == bowl_type
+            and tuple(ft.value for ft in context["food_types"]) == food_types
+        ):
+            return option
+    return None
+
+
 def device_tag_command(action: ModifyDeviceTag):
     """Return a command function for modifying device tags."""
 
@@ -83,9 +143,9 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="bowls_type",
             translation_key="bowls_type",
-            field="control.bowls.type",
-            options=[e.name for e in BowlType],
-            enum_class=BowlType,
+            field_fn=bowls_type_field_fn,
+            options=list(BOWL_OPTION_MAP.keys()),
+            command_fn=bowls_type_command_fn,
         ),
     ),
     ProductId.DUAL_SCAN_CONNECT: (
