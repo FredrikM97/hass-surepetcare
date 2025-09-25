@@ -101,7 +101,11 @@ def mock_config_entry() -> MockConfigEntry:
                     "product_id": ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
-                }
+                },
+                "269654": {
+                    "name": "Feeder",
+                    "product_id": ProductId.FEEDER_CONNECT,
+                },
             }
         },
         unique_id="12345",

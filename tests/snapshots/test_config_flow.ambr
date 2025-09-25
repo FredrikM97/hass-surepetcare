@@ -12,6 +12,10 @@
           'polling_speed': 120,
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
         }),
+        '269654': dict({
+          'name': 'Feeder',
+          'product_id': <ProductId.FEEDER_CONNECT: 4>,
+        }),
       }),
     }),
     'description': None,
@@ -40,6 +44,10 @@
           'location_outside': 'Away',
           'name': 'Pet Door',
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
+        }),
+        '269654': dict({
+          'name': 'Feeder',
+          'product_id': <ProductId.FEEDER_CONNECT: 4>,
         }),
       }),
     }),

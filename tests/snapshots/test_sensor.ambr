@@ -500,7 +500,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'Feeder',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-entry]

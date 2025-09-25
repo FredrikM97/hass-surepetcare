@@ -242,7 +242,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="last_activity",
             translation_key="last_activity",
             field_fn=lambda device, r: r[OPTION_DEVICES]
-            .get(device.last_activity()[1], {})
+            .get(str(device.last_activity()[1]), {})
             .get("name"),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,

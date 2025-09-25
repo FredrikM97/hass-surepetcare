@@ -80,6 +80,10 @@
           'name': 'Pet Door',
           'product_id': 6,
         }),
+        '269654': dict({
+          'name': 'Feeder',
+          'product_id': 4,
+        }),
       }),
     }),
   })
