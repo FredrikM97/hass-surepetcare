@@ -11,6 +11,7 @@ from surepcio.enums import (
     HubLedMode,
     HubPairMode,
     ModifyDeviceTag,
+    BowlType,
 )
 from surepcio import SurePetcareClient
 
@@ -78,6 +79,13 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.training_mode",
             options=[e.name for e in FeederTrainingMode],
             enum_class=FeederTrainingMode,
+        ),
+        SurePetCareSelectEntityDescription(
+            key="bowls_type",
+            translation_key="bowls_type",
+            field="control.bowls.type",
+            options=[e.name for e in BowlType],
+            enum_class=BowlType,
         ),
     ),
     ProductId.DUAL_SCAN_CONNECT: (

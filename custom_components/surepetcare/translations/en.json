@@ -69,6 +69,13 @@
       }
     },
     "select": {
+      "bowls_type": {
+        "name": "Bowls Type",
+        "options": {
+            "LARGE_BOWL": "Large",
+            "TWO_SMALL": "Two Small"
+        }
+      },
       "training_mode": {
         "name": "Training Mode",
         "state": {
