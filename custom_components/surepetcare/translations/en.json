@@ -132,6 +132,15 @@
         }
       }
     },
+    "lock": {
+      "locking": {
+        "name": "Locking",
+        "state": {
+          "locked": "Locked",
+          "unlocked": "Unlocked"
+        }
+      }
+    },
     "button":{
         "tare": {"name": "Reset bowl weight"}
     },

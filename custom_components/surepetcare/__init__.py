@@ -34,6 +34,7 @@ PLATFORMS = [
     Platform.SELECT,
     Platform.NUMBER,
     Platform.BUTTON,
+    Platform.LOCK,
 ]
 
 
