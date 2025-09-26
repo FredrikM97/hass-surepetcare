@@ -2,7 +2,8 @@ import logging
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from surepcio.enums import PetDeviceLocationProfile
-from surepcio.enums import ModifyDeviceTag
+from surepcio.enums import ModifyDeviceTag, PetLocation
+from surepcio.devices import Pet
 
 logger = logging.getLogger(__name__)
 
@@ -94,6 +95,24 @@ async def set_pet_access_mode(call) -> None:
             device_coordinator._device.id,
             PetDeviceLocationProfile[call.data.get("profile")],
         )
+    )
+
+
+@global_service(
+    "set_pet_position",
+    schema=vol.Schema(
+        {
+            vol.Required("pet_id"): str,
+            vol.Required("action"): vol.In([e.name for e in PetLocation]),
+        }
+    ),
+)
+async def set_pet_position(call) -> None:
+    """Set pet position to inside or outside"""
+    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
+    device: Pet = pet_coordinator._device
+    await pet_coordinator.client.api(
+        device.set_position(PetLocation[call.data.get("action")])
     )
 
 

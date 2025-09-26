@@ -95,3 +95,24 @@ set_pet_access_mode:
           options:
             - NO_RESTRICTION
             - INDOOR_ONLY
+  
+set_pet_position:
+  name: Set pet position
+  description: Set a pet's position to inside or outside.
+  fields:
+    pet_id:
+      name: Pet
+      description: Pet registry id to modify access mode.
+      required: true
+      selector:
+        device:
+          integration: surepetcare
+
+    action:
+      description: Action to perform on the pet's position (add or remove)
+      required: true
+      selector:
+        select:
+          options:
+            - INSIDE
+            - OUTSIDE
