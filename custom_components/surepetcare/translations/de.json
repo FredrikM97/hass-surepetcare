@@ -1,0 +1,197 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sure Petcare",
+        "description": "Melde dich mit deinem Sure Petcare Konto an.",
+        "data": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten.",
+      "unknown": "Unbekannter Fehler ist aufgetreten.",
+      "auth_failed": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten.",
+      "no_devices_or_pet_found": "Keine Geräte oder Haustiere in deinem Konto gefunden."
+    },
+    "abort": {
+      "already_configured": "Dieses Konto wurde bereits konfiguriert.",
+      "entities_reconfigured": "Sure Petcare Entitäten wurden neu konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sure Petcare Optionen",
+        "description": "Wähle ein Gerät zur Konfiguration oder beende die Einrichtung.",
+        "data": {
+          "device_option": "Gerät zur Konfiguration auswählen"
+        }
+      },
+      "configure_device": {
+        "title": "Konfiguriere {device_name}",
+        "data": {
+          "polling_speed": "Aktualisierungsintervall (Sekunden)",
+          "location": "Standort",
+          "location_inside": "Standort drinnen",
+          "location_outside": "Standort draußen"
+        }
+      }
+    },
+    "error": {
+      "no_devices_or_pet_found": "Die OptionFlow kann keine konfigurierbaren Geräte oder Haustiere finden."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Verbindung",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      },
+      "learn_mode": {
+        "name": "Lernmodus",
+        "state": {
+          "on": "An",
+          "off": "Aus"
+        }
+      },
+      "curfew_active":{
+        "name": "Ausgangssperre aktiv",
+        "state":{
+          "on": "An",
+          "off": "Aus"
+        }
+      }
+    },
+    "select": {
+      "bowls_type": {
+        "name": "Typ der Futternäpfe",
+        "state": {
+            "LARGE_WET": "Groß (Nass)",
+            "LARGE_DRY":"Groß (Trocken)",
+            "TWO_SMALL_WET_WET": "Zwei klein (Nass/Nass)",
+            "TWO_SMALL_DRY_WET": "Zwei klein (Trocken/Nass)",
+            "TWO_SMALL_WET_DRY": "Zwei klein (Nass/Trocken)",
+            "TWO_SMALL_DRY_DRY": "Zwei klein (Trocken/Trocken)"
+        }
+      },
+      "training_mode": {
+        "name": "Trainingsmodus",
+        "state": {
+          "DISABLED": "Ausgeschaltet",
+          "STEP_1": "Schritt 1",
+          "STEP_2": "Schritt 2",
+          "STEP_3": "Schritt 3",
+          "STEP_4": "Schritt 4"
+        }
+      },
+      "lid": {
+        "name": "Verzögerung Deckel schließen",
+        "state": {
+          "FASTER": "Schnell",
+          "NORMAL": "Normal",
+          "SLOWER": "Langsam"
+        }
+      },
+      "locking": {
+        "name": "Sperrmodus",
+        "state": {
+          "LOCKED": "Gespeert",
+          "UNLOCKED": "Entsperrt",
+          "ALLOW_IN": "Nur hinein",
+          "ALLOW_OUT": "Nur hinaus"
+        }
+      },
+      "curfew_enabled":{
+        "name": "Ausgangssperre aktiviert"
+      },
+      "add_assigned_device": {
+        "name": "Zugeordnetes Gerät hinzufügen"
+      },
+      "remove_assigned_device": {
+        "name": "Zugeordnetes Gerät entfernen"
+      },
+      "led_mode": {
+        "name": "LED-Modus",
+        "state": {
+          "NONE": "Aus",
+          "WEAK": "Schwach",
+          "STRONG": "Stark"
+        }
+      },
+      "pairing_mode": {
+        "name": "Pairing-Modus",
+        "state": {
+          "ON": "An",
+          "OFF": "Aus"
+        }
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Sperren",
+        "state": {
+          "locked": "Gespeert",
+          "unlocked": "Entsperrt"
+        }
+      }
+    },
+    "switch": {
+      "indoor_only": {
+        "name": "Nur drinnen",
+        "state": {
+          "on": "Nur drinnen",
+          "off": "Keine Einschränkung"
+        }
+      }
+    },
+    "button":{
+        "tare": {"name": "Gewicht des Napfes zurücksetzen"}
+    },
+    "number":{
+      "target_weight":{
+        "name": "Zielgewicht Napf {bowl}"
+      }
+    },
+    "sensor": {
+      "last_activity" : {"name": "Letzte Aktivität"},
+      "consumption": {"name": "Verbrauch"},
+      "tag": {"name": "Tag"},
+      "household_id": {"name": "Haushalts-ID"},
+      "info": {"name": "Informationen"},
+      "feeding": {"name": "Fütterung"},
+      "position": {"name": "Position"},
+      "drinking": {"name": "Trinken"},
+      "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
+      "bowls": {"name": "Näpfe"},
+      "current_weight": {"name": "Aktuelles Gewicht"},
+      "target_weight": {"name": "Zielgewicht"},
+      "bowl_weight": {"name": "Gewicht Napf {bowl}"},
+      "weight_capacity": {"name": "Gesamte Gewichtsgrenze",
+        "state_attributes": {
+          "control_bowls_settings_0_food_type": {
+            "name": "Napf 0 - Futtertyp"
+          },
+          "control_bowls_settings_0_target": {
+            "name": "Napf 0 - Zielgewicht"
+          },
+          "control_bowls_settings_1_food_type": {
+            "name": "Napf 1 - Futtertyp"
+          },
+          "control_bowls_settings_1_target": {
+            "name": "Napf 1 - Zielgewicht"
+          }
+        }
+      },
+      "entity_information": {"name": "Entitätsinformationen"},
+      "devices": {
+        "name": "Zugeordnete Geräte"
+      }
+    }
+  }
+}
