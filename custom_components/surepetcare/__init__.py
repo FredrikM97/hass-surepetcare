@@ -35,6 +35,7 @@ PLATFORMS = [
     Platform.NUMBER,
     Platform.BUTTON,
     Platform.LOCK,
+    Platform.SWITCH,
 ]
 
 

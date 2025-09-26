@@ -97,7 +97,7 @@ def mock_config_entry() -> MockConfigEntry:
         options={
             OPTION_DEVICES: {
                 "1299453": {
-                    "name": "Pet Door",
+                    "name": "DualScanConnect door",
                     "product_id": ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
@@ -105,6 +105,10 @@ def mock_config_entry() -> MockConfigEntry:
                 "269654": {
                     "name": "Feeder",
                     "product_id": ProductId.FEEDER_CONNECT,
+                },
+                "727608": {
+                    "name": "PetDoor",
+                    "product_id": ProductId.PET_DOOR,
                 },
             }
         },

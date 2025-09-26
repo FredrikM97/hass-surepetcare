@@ -77,12 +77,16 @@
         '1299453': dict({
           'location_inside': 'Home',
           'location_outside': 'Away',
-          'name': 'Pet Door',
+          'name': 'DualScanConnect door',
           'product_id': 6,
         }),
         '269654': dict({
           'name': 'Feeder',
           'product_id': 4,
+        }),
+        '727608': dict({
+          'name': 'PetDoor',
+          'product_id': 3,
         }),
       }),
     }),

@@ -301,7 +301,7 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'Pet Door',
+        'DualScanConnect door',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -338,7 +338,7 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Add assigned device',
       'options': list([
-        'Pet Door',
+        'DualScanConnect door',
       ]),
     }),
     'context': <ANY>,

@@ -141,6 +141,15 @@
         }
       }
     },
+    "switch": {
+      "indoor_only": {
+        "name": "Indoor Only",
+        "state": {
+          "on": "Indoor Only",
+          "off": "No Restriction"
+        }
+      }
+    },
     "button":{
         "tare": {"name": "Reset bowl weight"}
     },
