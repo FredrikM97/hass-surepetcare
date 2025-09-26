@@ -6,7 +6,7 @@ from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from .const import DOMAIN
+from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity_path import get_by_paths
 
@@ -93,3 +93,15 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         if getattr(desc, "key", None):
             return get_by_paths(data, desc.key, native=True)
         return None
+
+
+def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
+    """Find the entity ID by its name in entry_data['entities']."""
+    return next(
+        (
+            entity_id
+            for entity_id, entity in entry_data.get(OPTION_DEVICES, {}).items()
+            if entity.get("name") == name
+        ),
+        None,
+    )

@@ -72,12 +72,12 @@
       "bowls_type": {
         "name": "Bowls Type",
         "state": {
-            "large_wet": "Large (Wet)",
-            "large_dry":"Large (Dry)",
-            "two_small_wet_wet": "Two small (Wet/Wet)",
-            "two_small_dry_wet": "Two small (Dry/Wet)",
-            "two_small_wet_dry": "Two small (Wet/Dry)",
-            "two_small_dry_dry": "Two small (Dry/Dry)"
+            "LARGE_WET": "Large (Wet)",
+            "LARGE_DRY":"Large (Dry)",
+            "TWO_SMALL_WET_WET": "Two small (Wet/Wet)",
+            "TWO_SMALL_DRY_WET": "Two small (Dry/Wet)",
+            "TWO_SMALL_WET_DRY": "Two small (Wet/Dry)",
+            "TWO_SMALL_DRY_DRY": "Two small (Dry/Dry)"
         }
       },
       "training_mode": {
