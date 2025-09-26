@@ -2,7 +2,7 @@
 
 from copy import deepcopy
 import logging
-from typing import Any
+from typing import Any, Mapping
 from enum import IntEnum
 
 from surepcio import SurePetcareClient
@@ -10,18 +10,17 @@ from surepcio import Household
 
 from surepcio.enums import ProductId
 import voluptuous as vol
-
+from homeassistant.config_entries import ConfigFlowResult
 from homeassistant import config_entries
 from homeassistant.helpers.device_registry import callback
 from homeassistant.helpers.selector import selector
-
+from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
 from .const import (
-    CONF_EMAIL,
-    CONF_PASSWORD,
     DEVICE_OPTION,
     DOMAIN,
     OPTION_DEVICES,
     OPTIONS_FINISHED,
+    CLIENT_DEVICE_ID,
 )
 from .device_config_schema import DEVICE_CONFIG_SCHEMAS
 
@@ -48,32 +47,30 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     VERSION = 1
 
     def __init__(self) -> None:
-        self.client: SurePetcareClient | None = None
+        # self.client: SurePetcareClient | None = None
         self._devices: dict[str, Any] = {}
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user"""
-        errors = {}
+        errors: dict = {}
         if user_input is not None:
-            email = user_input.get(CONF_EMAIL)
-            password = user_input.get(CONF_PASSWORD)
-            (
-                token,
-                client_device_id,
-                entity_info,
-                error,
-            ) = await self._async_fetch_entities(email=email, password=password)
-            if error:
-                errors["base"] = error
-            else:
+            client, error = await self._authenticate(
+                email=user_input.get(CONF_EMAIL), password=user_input.get(CONF_PASSWORD)
+            )
+            errors.update(error)
+
+            entity_info, error = await self._async_fetch_entities(client)
+            errors.update(error)
+            await client.close()
+            if not errors:
                 logger.debug(
                     "Configuration complete, updated entities: %s", entity_info
                 )
                 return self.async_create_entry(
                     title="SurePetCare Devices",
                     data={
-                        "token": token,
-                        "client_device_id": client_device_id,
+                        CONF_TOKEN: client.token,
+                        CLIENT_DEVICE_ID: client.device_id,
                     },
                     options={
                         OPTION_DEVICES: entity_info,
@@ -85,41 +82,27 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             errors=errors,
         )
 
-    async def _async_fetch_entities(
-        self,
-        email: str | None = None,
-        password: str | None = None,
-        token: str | None = None,
-        device_id: str | None = None,
-    ):
-        """Authenticate and fetch devices/pets, return (token, client_device_id, entity_info, error)."""
-        self.client = SurePetcareClient()
-        logged_in = await self.client.login(
-            email=email, password=password, token=token, device_id=device_id
-        )
-        if not logged_in:
-            return None, None, None, "auth_failed"
-        token = getattr(self.client, "token", None)
-        if not token:
-            return None, None, None, "cannot_connect"
-        households = await self.client.api(Household.get_households())
+    async def _async_fetch_entities(self, client: SurePetcareClient):
+        """Authenticate and fetch devices/pets, return (entity_info, error)."""
+        errors = {}
+        households: list[Household] = await client.api(Household.get_households())
         self._devices = {}
         for household in households:
             self._devices.update(
                 {
                     str(device.id): device
-                    for device in await self.client.api(household.get_devices())
+                    for device in await client.api(household.get_devices())
                 }
             )
             self._devices.update(
                 {
                     str(device.id): device
-                    for device in await self.client.api(household.get_pets())
+                    for device in await client.api(household.get_pets())
                 }
             )
-        await self.client.close()
         if not self._devices:
-            return None, None, None, "no_devices_or_pet_found"
+            errors["base"] = "no_devices_or_pet_found"
+            return None, errors
         entity_info = {
             str(device.id): {
                 "product_id": getattr(device, "product_id", None),
@@ -127,23 +110,70 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             }
             for device in self._devices.values()
         }
-        return token, self.client.device_id, entity_info, None
+        return entity_info, errors
 
     async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
         """Migration step in case entities not populated/new device added."""
         entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
-        token = entry.data["token"]
-        device_id = entry.data["client_device_id"]
-
-        _, _, entity_info, _ = await self._async_fetch_entities(
-            token=token, device_id=device_id
+        client, _ = await self._authenticate(
+            token=entry.data["token"], device_id=entry.data["client_device_id"]
         )
-
+        entity_info, _ = await self._async_fetch_entities(client)
+        await client.close()
         self.hass.config_entries.async_update_entry(
             entry, options={OPTION_DEVICES: entity_info}
         )
         logger.debug("Reconfiguration complete, updated entities: %s", entity_info)
         return self.async_abort(reason="entities_reconfigured")
+
+    async def _authenticate(
+        self, email=None, password=None, token=None, device_id=None
+    ) -> tuple[SurePetcareClient, dict]:
+        errors = {}
+        client = SurePetcareClient()
+        logged_in = await client.login(
+            email=email, password=password, token=token, device_id=device_id
+        )
+
+        if not logged_in:
+            errors["base"] = "auth_failed"
+
+        token = getattr(client, "token", None)
+        if not token:
+            errors["base"] = "cannot_connect"
+
+        return client, errors
+
+    async def async_step_reauth(
+        self, entry_data: Mapping[str, Any]
+    ) -> ConfigFlowResult:
+        """Handle configuration by re-auth."""
+        return await self.async_step_reauth_confirm()
+
+    async def async_step_reauth_confirm(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Dialog that informs the user that reauth is required."""
+        reauth_entry = self._get_reauth_entry()
+        if user_input is not None:
+            client, errors = await self._authenticate(
+                email=reauth_entry.data[CONF_EMAIL], password=user_input[CONF_PASSWORD]
+            )
+            await client.close()
+            if not errors:
+                return self.async_update_reload_and_abort(
+                    reauth_entry,
+                    data_updates={
+                        CONF_TOKEN: client.token,
+                        CLIENT_DEVICE_ID: client.device_id,
+                    },
+                )
+
+        return self.async_show_form(
+            step_id="reauth_confirm",
+            data_schema=STEP_USER_DATA_SCHEMA,
+            errors=errors,
+        )
 
     @staticmethod
     @callback
