@@ -165,7 +165,13 @@
       "household_id": {"name": "Haushalts-ID"},
       "info": {"name": "Informationen"},
       "feeding": {"name": "Fütterung"},
-      "position": {"name": "Position"},
+      "position": {
+          "name": "Position",
+          "state": {
+            "inside": "Drinnen",
+            "outside": "Draußen"
+          }
+        },
       "drinking": {"name": "Trinken"},
       "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
       "bowls": {"name": "Näpfe"},
