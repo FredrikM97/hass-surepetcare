@@ -12,6 +12,7 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
+from surepcio.command import Command
 from surepcio.devices import Pet
 from surepcio.enums import ProductId, PetDeviceLocationProfile
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
@@ -44,24 +45,26 @@ def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
 
 def set_profile(
     device: Pet, entry_data: dict, profile: PetDeviceLocationProfile
-) -> Pet:
-    """Set all flap devices to the given profile (e.g., INDOOR_ONLY or NO_RESTRICTION)."""
+) -> list[Command]:
+    """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
-        return None
-    for d in getattr(device.status, "devices", []):
-        device_info = entry_data[OPTION_DEVICES].get(str(d.id), {})
-        if device_info.get("product_id") in (
-            ProductId.PET_DOOR,
-            ProductId.DUAL_SCAN_PET_DOOR,
-        ):
-            device.set_profile(d.id, profile)
-    return device
+        return []
+
+    devices_map = entry_data.get(OPTION_DEVICES, {})
+    valid_products = {ProductId.PET_DOOR, ProductId.DUAL_SCAN_PET_DOOR}
+
+    return [
+        device.set_profile(d.id, profile)
+        for d in getattr(device.status, "devices", [])
+        if devices_map.get(str(d.id), {}).get("product_id") in valid_products
+    ]
+
 
 
 def profile_switch_command(on, off) -> Callable[[object, dict, bool], object | None]:
     """Return a command function that sets profile based on switch state."""
 
-    def command(device: object, entry_data: dict, state: bool) -> object | None:
+    def command(device: object, entry_data: dict, state: bool) -> list[Command] | Command:
         profile = on if state else off
         return set_profile(device, entry_data, profile)
 
