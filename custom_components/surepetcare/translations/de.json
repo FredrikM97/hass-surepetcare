@@ -101,7 +101,7 @@
       "locking": {
         "name": "Sperrmodus",
         "state": {
-          "LOCKED": "Gespeert",
+          "LOCKED": "Gesperrt",
           "UNLOCKED": "Entsperrt",
           "ALLOW_IN": "Nur hinein",
           "ALLOW_OUT": "Nur hinaus"
@@ -136,7 +136,7 @@
       "locking": {
         "name": "Sperren",
         "state": {
-          "locked": "Gespeert",
+          "locked": "Gesperrt",
           "unlocked": "Entsperrt"
         }
       }
