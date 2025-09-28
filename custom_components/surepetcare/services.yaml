@@ -32,7 +32,17 @@ set_control:
       required: true
       selector:
         device:
-          integration: surepetcare
+          filter:
+            - integration: surepetcare
+              model: PET_DOOR
+            - integration: surepetcare
+              model: FEEDER_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_PET_DOOR
+            - integration: surepetcare
+              model: POSEIDON_CONNECT
     control:
       description: Dictionary of control fields to set (e.g. training_mode, fast_polling, bowls, etc).
       required: true
@@ -48,14 +58,26 @@ set_tag:
       required: true
       selector:
         device:
-          integration: surepetcare
+          filter:
+            - integration: surepetcare
+              model: PET_DOOR
+            - integration: surepetcare
+              model: FEEDER_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_PET_DOOR
+            - integration: surepetcare
+              model: POSEIDON_CONNECT
     pet_id:
       name: Pet ID
       description: Target Pet registry id to update
       required: true
       selector:
         device:
-          integration: surepetcare
+          filter:
+            - integration: surepetcare
+              model: PET
     action:
       description: Action to perform on the tag (add or remove)
       required: true
@@ -76,7 +98,9 @@ set_pet_access_mode:
       example: 123456
       selector:
         device:
-          integration: surepetcare
+          filter:
+            - integration: surepetcare
+              model: PET
 
     device_id:
       name: Device (Flap or Feeder)
@@ -85,7 +109,17 @@ set_pet_access_mode:
       example: 123456
       selector:
         device:
-          integration: surepetcare
+          filter:
+            - integration: surepetcare
+              model: PET_DOOR
+            - integration: surepetcare
+              model: FEEDER_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_CONNECT
+            - integration: surepetcare
+              model: DUAL_SCAN_PET_DOOR
+            - integration: surepetcare
+              model: POSEIDON_CONNECT
     profile:
       name: Profile
       description: Pet access profile (e.g. indoor, outdoor, etc.). Part of PetDeviceLocationProfile. Use with care.
@@ -95,3 +129,26 @@ set_pet_access_mode:
           options:
             - NO_RESTRICTION
             - INDOOR_ONLY
+
+set_pet_position:
+  name: Set pet position
+  description: Set a pet's position to inside or outside.
+  fields:
+    pet_id:
+      name: Pet
+      description: Pet registry id to modify access mode.
+      required: true
+      selector:
+        device:
+          filter:
+            integration: surepetcare
+            model: PET
+
+    action:
+      description: Action to perform on the pet's position (add or remove)
+      required: true
+      selector:
+        select:
+          options:
+            - INSIDE
+            - OUTSIDE

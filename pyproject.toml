@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 
 dependencies = [
-    "py-surepetcare>=0.5.7-dev0",
+    "py-surepetcare @ git+https://github.com/FredrikM97/py-surepetcare.git@main",
     "homeassistant>=2024.0.0",
 ]
 

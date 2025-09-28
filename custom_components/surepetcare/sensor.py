@@ -213,6 +213,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 "device_id": "status.activity.device_id",
                 "id": "status.activity.id",
                 "since": "status.activity.since",
+                "where": "status.activity.where",
                 "tag_id": "status.activity.tag_id",
             },
         ),

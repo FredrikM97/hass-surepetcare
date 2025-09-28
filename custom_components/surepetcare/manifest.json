@@ -8,7 +8,7 @@
   "domain": "surepetcare",
   "iot_class": "cloud_polling",
   "name": "SurePetCare",
-  "requirements": ["py-surepetcare>=0.5.7-dev0"],
+  "requirements": ["git+https://github.com/FredrikM97/py-surepetcare.git@main#egg=py-surepetcare"],
   "loggers": ["surepcio"],
   "version": "1.4.8-dev1"
 }

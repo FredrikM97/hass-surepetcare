@@ -9,6 +9,7 @@ from surepcio.enums import ProductId
 
 from .services import _service_registry
 
+from homeassistant.exceptions import ConfigEntryAuthFailed
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
@@ -43,24 +44,20 @@ async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
 ) -> bool:
-    """TODO."""
+    """Set up surepetcare from a config entry."""
     logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
 
     surepetcare_data: dict[str, Any] = {}
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
 
     client: SurePetcareClient = SurePetcareClient()
-    # Try login with token+device_id, else fallback to email+password
-    token = entry.data.get(TOKEN)
-    device_id = entry.data.get(CLIENT_DEVICE_ID)
-    email = entry.data.get("email")
-    password = entry.data.get("password")
-    if token and device_id:
-        await client.login(token=token, device_id=device_id)
-    elif email and password:
-        await client.login(email=email, password=password)
-    else:
-        raise Exception("No valid credentials found in config entry data")
+    try:
+        await client.login(
+            token=entry.data.get(TOKEN), device_id=entry.data.get(CLIENT_DEVICE_ID)
+        )
+    except Exception as exc:
+        raise ConfigEntryAuthFailed from exc
+
     surepetcare_data[FACTORY] = client
 
     async def on_hass_stop(event: Event) -> None:
@@ -77,7 +74,6 @@ async def async_setup_entry(
         for household in households:
             entities.extend(await client.api(household.get_pets()))
             entities.extend(await client.api(household.get_devices()))
-            # Add each hub device to hubs list
         await client.close()
     except Exception as exc:
         await client.close()
