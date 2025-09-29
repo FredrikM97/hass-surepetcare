@@ -41,7 +41,7 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
             translation_key="tare",
             field_fn=lambda device, r: device.control.tare,
             icon="mdi:scale",
-            EntityCategory.CONFIG
+            entity_category=EntityCategory.CONFIG
         ),
     ),
 }
