@@ -60,11 +60,12 @@ def set_profile(
     ]
 
 
-
 def profile_switch_command(on, off) -> Callable[[object, dict, bool], object | None]:
     """Return a command function that sets profile based on switch state."""
 
-    def command(device: object, entry_data: dict, state: bool) -> list[Command] | Command:
+    def command(
+        device: object, entry_data: dict, state: bool
+    ) -> list[Command] | Command:
         profile = on if state else off
         return set_profile(device, entry_data, profile)
 
