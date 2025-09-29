@@ -51,6 +51,7 @@ def mock_coordinator_update_data():
     ):
         yield
 
+
 def _create_entity(details):
     entity = load_device_class(details["entity_info"]["product_id"])(
         details["entity_info"], timezone="utc"
@@ -59,25 +60,28 @@ def _create_entity(details):
     entity.control = entity.controlCls(**details["control"])
     return entity
 
+
 async def _create_device(mock_device_name: str) -> list[DeviceBase]:
     """Load a device or pet entity from a fixture file."""
     details = load_json_value_fixture(f"{mock_device_name}.json")
-    
 
     if isinstance(details, list):
         return [_create_entity(item) for item in details]
     else:
         return [_create_entity(details)]
 
+
 @pytest.fixture
 async def mock_device(mock_device_name: str) -> list[DeviceBase]:
     """Return mock device object(s) as a list."""
     return await _create_device(mock_device_name)
 
+
 @pytest.fixture
 async def mock_pet(mock_device_name: str) -> list[DeviceBase]:
     """Return mock pet object(s) as a list."""
     return await _create_device(mock_device_name)
+
 
 @pytest.fixture
 async def mock_devices() -> list[DeviceBase]:
@@ -86,7 +90,6 @@ async def mock_devices() -> list[DeviceBase]:
     for device in DEVICE_MOCKS:
         devices.extend(await _create_device(device))
     return devices
-
 
 
 @pytest.fixture

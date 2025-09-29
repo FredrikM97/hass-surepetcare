@@ -97,7 +97,8 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
             options_fn=lambda device, r: [
-                option_name(r, d.id) for d in getattr(device.status, "devices", []) or []
+                option_name(r, d.id)
+                for d in getattr(device.status, "devices", []) or []
             ],
             command_fn=device_tag_command(ModifyDeviceTag.REMOVE),
         ),

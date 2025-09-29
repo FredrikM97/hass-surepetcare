@@ -403,7 +403,7 @@ async def test_device_registry(
     )
 
     # Ensure the device registry contains same amount as DEVICE_MOCKS
-    
+
     for device_registry_entry in device_registry_entries:
         assert device_registry_entry == snapshot(
             name=list(device_registry_entry.identifiers)[0][1]
