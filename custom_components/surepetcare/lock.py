@@ -29,7 +29,7 @@ LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
         SurePetCareLockEntityDescription(
             key="locking",
             translation_key="locking",
-            field="control.locking",
+            field_fn=lambda device, r: device.control.locking,
             locked_states={
                 "locked": FlapLocking.LOCKED.value,
                 "unlocked": FlapLocking.UNLOCKED.value,

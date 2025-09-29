@@ -53,7 +53,7 @@ SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, .
         key="connectivity",
         translation_key="connectivity",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
-        field="available",
+        field_fn=lambda device, r: device.available,
     ),
 )
 
@@ -62,7 +62,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field_fn=lambda device, r: device.status.learn_mode,
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -72,7 +72,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field_fn=lambda device, r: device.status.learn_mode,
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -80,7 +80,21 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field_fn=_next_enabled_future_curfew,
-            extra_field="control.curfew",
+            extra_fn=lambda device, r: {
+                "curfew": [
+                    {
+                        "enabled": c.enabled,
+                        "lock_time": str(c.lock_time),
+                        "unlock_time": str(c.unlock_time),
+                    }
+                    for c in (
+                        device.control.curfew
+                        if isinstance(device.control.curfew, list)
+                        else [device.control.curfew]
+                    )
+                    if c is not None
+                ]
+            },
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
@@ -88,7 +102,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field_fn=lambda device, r: device.status.learn_mode,
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -96,7 +110,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field_fn=_next_enabled_future_curfew,
-            extra_field="control.curfew",
+            extra_fn=lambda device, r: device.control.curfew,
         ),
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),

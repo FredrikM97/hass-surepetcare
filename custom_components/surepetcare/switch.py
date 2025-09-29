@@ -45,10 +45,10 @@ def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
 
 def set_profile(
     device: Pet, entry_data: dict, profile: PetDeviceLocationProfile
-) -> list[Command]:
+) -> list[Command] | None:
     """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
-        return []
+        return None
 
     devices_map = entry_data.get(OPTION_DEVICES, {})
     valid_products = {ProductId.PET_DOOR, ProductId.DUAL_SCAN_PET_DOOR}

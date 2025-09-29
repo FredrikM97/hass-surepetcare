@@ -14,8 +14,8 @@ from surepcio.enums import (
     BowlTypeOptions,
 )
 from surepcio import SurePetcareClient
-
-from custom_components.surepetcare.entity_path import build_nested_dict
+from homeassistant.helpers.entity import EntityCategory
+from custom_components.surepetcare.entity import build_nested_dict
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
@@ -58,16 +58,18 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="lid",
             translation_key="lid",
-            field="control.lid.close_delay",
+            field_fn=lambda device, r: device.control.lid.close_delay,
             options=[e.name for e in CloseDelay],
             enum_class=CloseDelay,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
             key="training_mode",
             translation_key="training_mode",
-            field="control.training_mode",
+            field_fn=lambda device, r: device.control.training_mode,
             options=[e.name for e in FeederTrainingMode],
             enum_class=FeederTrainingMode,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
             key="bowls_type",
@@ -83,9 +85,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="locking",
             translation_key="locking",
-            field="control.locking",
+            field_fn=lambda device, r: device.control.locking,
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET: (
@@ -115,14 +118,14 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="led_mode",
             translation_key="led_mode",
-            field="control.led_mode",
+            field_fn=lambda device, r: device.control.led_mode,
             options=[e.name for e in HubLedMode],
             enum_class=HubLedMode,
         ),
         SurePetCareSelectEntityDescription(
             key="pairing_mode",
             translation_key="pairing_mode",
-            field="control.pairing_mode",
+            field_fn=lambda device, r: device.control.pairing_mode,
             options=[e.name for e in HubPairMode],
             enum_class=HubPairMode,
         ),
@@ -131,14 +134,15 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="locking",
             translation_key="locking",
-            field="control.locking",
+            field_fn=lambda device, r: device.control.locking,
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
             key="curfew_enabled",
             translation_key="curfew_enabled",
-            field="control.curfew.enabled",
+            field_fn=lambda device, r: device.control.curfew.enabled,
             options=[True, False],
         ),
     ),
