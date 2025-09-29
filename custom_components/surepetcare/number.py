@@ -9,6 +9,7 @@ from homeassistant.components.number import (
     NumberEntity,
     NumberEntityDescription,
 )
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -44,12 +45,14 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
             field_fn=lambda device, r: device.control.bowls.settings[0].target,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareNumberEntityDescription(
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
             field_fn=lambda device, r: device.control.bowls.settings[1].target,
+            entity_category=EntityCategory.CONFIG,
         ),
     )
 }

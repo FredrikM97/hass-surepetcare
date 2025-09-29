@@ -8,6 +8,7 @@ from homeassistant.components.button import ButtonEntity, ButtonEntityDescriptio
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity import EntityCategory
 
 from custom_components.surepetcare.entity import build_nested_dict
 
@@ -40,6 +41,7 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
             translation_key="tare",
             field_fn=lambda device, r: device.control.tare,
             icon="mdi:scale",
+            EntityCategory.CONFIG
         ),
     ),
 }
