@@ -23,6 +23,7 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
     find_entity_id_by_name,
+    option_name,
 )
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -96,8 +97,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
             options_fn=lambda device, r: [
-                r[OPTION_DEVICES].get(str(d.id))["name"]
-                for d in getattr(device.status, "devices", []) or []
+                option_name(r, d.id) for d in getattr(device.status, "devices", []) or []
             ],
             command_fn=device_tag_command(ModifyDeviceTag.REMOVE),
         ),

@@ -15,7 +15,7 @@ from homeassistant.core import HomeAssistant
 from surepcio.devices import load_device_class
 from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
 from pytest_homeassistant_custom_component.common import (
-    load_json_object_fixture,
+    load_json_value_fixture,
     MockConfigEntry,
 )
 from syrupy.assertion import SnapshotAssertion
@@ -51,10 +51,7 @@ def mock_coordinator_update_data():
     ):
         yield
 
-
-async def _create_device(mock_device_name: str):
-    """Load a device or pet entity from a fixture file."""
-    details = load_json_object_fixture(f"{mock_device_name}.json")
+def _create_entity(details):
     entity = load_device_class(details["entity_info"]["product_id"])(
         details["entity_info"], timezone="utc"
     )
@@ -62,29 +59,43 @@ async def _create_device(mock_device_name: str):
     entity.control = entity.controlCls(**details["control"])
     return entity
 
+async def _create_device(mock_device_name: str) -> list[DeviceBase]:
+    """Load a device or pet entity from a fixture file."""
+    details = load_json_value_fixture(f"{mock_device_name}.json")
+    
+
+    if isinstance(details, list):
+        return [_create_entity(item) for item in details]
+    else:
+        return [_create_entity(details)]
 
 @pytest.fixture
-async def mock_device(mock_device_name: str) -> DeviceBase:
-    """Return mock device object."""
+async def mock_device(mock_device_name: str) -> list[DeviceBase]:
+    """Return mock device object(s) as a list."""
     return await _create_device(mock_device_name)
 
-
 @pytest.fixture
-async def mock_pet(mock_device_name: str) -> DeviceBase:
-    """Return mock pet object."""
+async def mock_pet(mock_device_name: str) -> list[DeviceBase]:
+    """Return mock pet object(s) as a list."""
     return await _create_device(mock_device_name)
 
+@pytest.fixture
+async def mock_devices() -> list[DeviceBase]:
+    """Return flat list of mock device objects."""
+    devices = []
+    for device in DEVICE_MOCKS:
+        devices.extend(await _create_device(device))
+    return devices
+
+
 
 @pytest.fixture
-async def mock_devices() -> DeviceBase:
-    """Return list of mock device objects."""
-    return [await _create_device(device) for device in DEVICE_MOCKS]
-
-
-@pytest.fixture
-async def mock_pets() -> PetBase:
-    """Return list of mock pet objects."""
-    return [await _create_device(pet) for pet in PET_MOCKS]
+async def mock_pets() -> list[PetBase]:
+    """Return flat list of mock pet objects."""
+    pets = []
+    for pet in PET_MOCKS:
+        pets.extend(await _create_device(pet))
+    return pets
 
 
 @pytest.fixture

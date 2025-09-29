@@ -33,6 +33,7 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
+    option_name,
 )
 
 logger = logging.getLogger(__name__)
@@ -256,15 +257,15 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="devices",
             field_fn=lambda device, r: len(getattr(device.status, "devices", []) or []),
             extra_fn=lambda device, r: {
-                "devices": [d.id for d in getattr(device.status, "devices", [])]
+                "devices": [d.id for d in getattr(device.status, "devices", []) or []]
             },
         ),
         SurePetCareSensorEntityDescription(
             key="last_activity",
             translation_key="last_activity",
-            field_fn=lambda device, r: r[OPTION_DEVICES]
-            .get(str(device.last_activity()[1]), {})
-            .get("name"),
+            field_fn=lambda device, r:  option_name(r, (device.last_activity() or [None, None])[1])
+                if device.last_activity()
+                else None,
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
     ),

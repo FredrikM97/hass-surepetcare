@@ -132,3 +132,15 @@ def build_nested_dict(field_path: str, value: float | int | str) -> dict:
         else:
             result = {part: result}
     return result if isinstance(result, dict) else {parts[0]: result}
+
+def device_option(config:dict, device_id:int) -> str | None:
+    """Return the option dict for the device."""
+    return config[OPTION_DEVICES].get(str(device_id), {})
+
+def option_name(config:dict, device_id:int) -> str | None:
+    """Return the name of the device option."""
+    return device_option(config, device_id).get("name")
+
+def option_product_id(config:dict, device_id:int) -> str | None:
+    """Return the name of the device option."""
+    return device_option(config, device_id).get("product_id")

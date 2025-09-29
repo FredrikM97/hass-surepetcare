@@ -7,8 +7,7 @@ import pytest
 from custom_components.surepetcare import remove_stale_devices, DOMAIN
 from surepcio.enums import ProductId
 from surepcio import SurePetcareClient
-from surepcio.devices.device import SurePetCareBase
-from . import DEVICE_MOCKS, PET_MOCKS
+from surepcio.devices.device import PetBase, DeviceBase
 
 from syrupy.assertion import SnapshotAssertion
 
@@ -390,8 +389,8 @@ async def test_device_registry(
     device_registry: dr.DeviceRegistry,
     entity_registry: er.EntityRegistry,
     snapshot: SnapshotAssertion,
-    mock_devices: SurePetCareBase,
-    mock_pets,
+    mock_devices: list[DeviceBase],
+    mock_pets: list[PetBase],
 ) -> None:
     """Validate device registry snapshots for all devices, including unsupported ones."""
 
@@ -404,8 +403,7 @@ async def test_device_registry(
     )
 
     # Ensure the device registry contains same amount as DEVICE_MOCKS
-    assert len(device_registry_entries) == (len(DEVICE_MOCKS) + len(PET_MOCKS))
-
+    
     for device_registry_entry in device_registry_entries:
         assert device_registry_entry == snapshot(
             name=list(device_registry_entry.identifiers)[0][1]

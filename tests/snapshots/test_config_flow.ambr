@@ -87,6 +87,10 @@
           'name': 'Katzenklappe',
           'product_id': 6,
         }),
+        '222222': dict({
+          'name': 'Pet with empty status',
+          'product_id': 0,
+        }),
         '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
@@ -135,6 +139,10 @@
           'name': 'Katzenklappe',
           'product_id': 6,
         }),
+        '222222': dict({
+          'name': 'Pet with empty status',
+          'product_id': 0,
+        }),
         '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
@@ -169,6 +177,10 @@
           '1299453': dict({
             'name': 'Katzenklappe',
             'product_id': 6,
+          }),
+          '222222': dict({
+            'name': 'Pet with empty status',
+            'product_id': 0,
           }),
           '269654': dict({
             'name': 'Maui matlåda (old) ',

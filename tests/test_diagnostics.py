@@ -21,8 +21,8 @@ async def test_entry_diagnostics(
     hass: HomeAssistant,
     mock_client: SurePetcareClient,
     mock_config_entry: MockConfigEntry,
-    mock_device: DeviceBase,
-    mock_pet: PetBase,
+    mock_device: list[DeviceBase],
+    mock_pet: list[PetBase],
     hass_client: ClientSessionGenerator,
     snapshot: SnapshotAssertion,
 ) -> None:
@@ -44,8 +44,8 @@ async def test_device_diagnostics(
     hass: HomeAssistant,
     mock_client: SurePetcareClient,
     mock_config_entry: MockConfigEntry,
-    mock_device: DeviceBase,
-    mock_pet: PetBase,
+    mock_device: list[DeviceBase],
+    mock_pet: list[PetBase],
     hass_client: ClientSessionGenerator,
     device_registry: dr.DeviceRegistry,
     snapshot: SnapshotAssertion,
@@ -54,7 +54,7 @@ async def test_device_diagnostics(
     await initialize_entry(hass, mock_client, mock_config_entry, mock_device, mock_pet)
 
     device = device_registry.async_get_device(
-        identifiers={(DOMAIN, str(mock_device.id))}
+        identifiers={(DOMAIN, str(mock_device[0].id))}
     )
     assert device, repr(device_registry.devices)
 
