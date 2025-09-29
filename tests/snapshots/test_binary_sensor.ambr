@@ -135,16 +135,16 @@
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'curfew': list([
+      'control.curfew': list([
         dict({
           'enabled': False,
-          'lock_time': '22:00:00',
-          'unlock_time': '22:01:00',
+          'lock_time': datetime.time(22, 0),
+          'unlock_time': datetime.time(22, 1),
         }),
         dict({
           'enabled': False,
-          'lock_time': '22:06:00',
-          'unlock_time': '23:06:00',
+          'lock_time': datetime.time(22, 6),
+          'unlock_time': datetime.time(23, 6),
         }),
       ]),
       'friendly_name': 'Katzenklappe Curfew active',
@@ -243,10 +243,10 @@
 # name: test_platform_setup_and_discovery[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
+      'control.curfew_enabled': False,
+      'control.curfew_lock_time': datetime.time(8, 0),
+      'control.curfew_unlock_time': datetime.time(17, 0),
       'friendly_name': 'Laundry Door Curfew active',
-      'lock_time': '08:00:00',
-      'unlock_time': '17:00:00',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',
@@ -537,16 +537,16 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'curfew': list([
+      'control.curfew': list([
         dict({
           'enabled': False,
-          'lock_time': '22:00:00',
-          'unlock_time': '22:01:00',
+          'lock_time': datetime.time(22, 0),
+          'unlock_time': datetime.time(22, 1),
         }),
         dict({
           'enabled': False,
-          'lock_time': '22:06:00',
-          'unlock_time': '23:06:00',
+          'lock_time': datetime.time(22, 6),
+          'unlock_time': datetime.time(23, 6),
         }),
       ]),
       'friendly_name': 'Katzenklappe Curfew active',
@@ -645,10 +645,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
+      'control.curfew_enabled': False,
+      'control.curfew_lock_time': datetime.time(8, 0),
+      'control.curfew_unlock_time': datetime.time(17, 0),
       'friendly_name': 'Laundry Door Curfew active',
-      'lock_time': '08:00:00',
-      'unlock_time': '17:00:00',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',

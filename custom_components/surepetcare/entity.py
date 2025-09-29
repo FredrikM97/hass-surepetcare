@@ -1,6 +1,5 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from enum import Enum
 from typing import Any, Callable, cast
 
 from surepcio import SurePetcareClient
@@ -9,14 +8,17 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .entity_path import get_by_paths
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareBaseEntityDescription:
     """Describes SurePetCare Base entity."""
 
+    field: str | None = None
     field_fn: Callable | None = None
     extra_fn: Callable | None = None
+    extra_field: dict[str, str] | str | None = None
     frozen: bool = False
 
 
@@ -59,7 +61,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def native_value(self) -> Any:
         """Return the sensor value."""
-        return serialize(self._convert_value())
+        return self._convert_value()
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -68,10 +70,16 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             return None
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
-            return serialize(
-                self.entity_description.extra_fn(
-                    data, self.coordinator.config_entry.options
-                )
+            return self.entity_description.extra_fn(
+                data, self.coordinator.config_entry.options
+            )
+        extra_field = getattr(self.entity_description, "extra_field", None)
+        if extra_field and isinstance(extra_field, (str, dict)):
+            return get_by_paths(
+                self.coordinator.data,
+                extra_field,
+                serialize=True,
+                flatten=True,
             )
         return None
 
@@ -79,7 +87,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         data = self.coordinator.data
         desc = self.entity_description
         if getattr(desc, "field_fn", None) is not None:
-            return serialize(desc.field_fn(data, self.coordinator.config_entry.options))
+            return desc.field_fn(data, self.coordinator.config_entry.options)
+        if getattr(desc, "field", None):
+            return get_by_paths(data, desc.field, native=True)
+        if getattr(desc, "key", None):
+            return get_by_paths(data, desc.key, native=True)
         return None
 
 

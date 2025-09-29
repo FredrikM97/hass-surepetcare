@@ -159,7 +159,6 @@
       }
     },
     "sensor": {
-      "fill_percent": {"name": "Fill Percentage"},
       "last_activity" : {"name": "Last Activity"},
       "consumption": {"name": "Consumption"},
       "tag": {"name": "Tag"},
