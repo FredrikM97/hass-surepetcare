@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepetcare.entity_path import build_nested_dict
+from custom_components.surepetcare.entity import build_nested_dict
 
 from .const import (
     COORDINATOR,
@@ -38,7 +38,7 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
         SurePetCareButtonEntityDescription(
             key="tare",
             translation_key="tare",
-            field="control.tare",
+            field_fn=lambda device, r: device.control.tare,
             icon="mdi:scale",
         ),
     ),

@@ -138,7 +138,6 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
-
     @property
     def is_on(self) -> bool:
         return self._convert_value() is True

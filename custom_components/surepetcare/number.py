@@ -13,7 +13,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepetcare.entity_path import build_nested_dict
+from custom_components.surepetcare.entity import build_nested_dict
 
 from .const import (
     COORDINATOR,
@@ -43,13 +43,13 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             key="bowl_0_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
-            field="control.bowls.settings.0.target",
+            field_fn=lambda device, r: device.control.bowls.settings[0].target,
         ),
         SurePetCareNumberEntityDescription(
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
-            field="control.bowls.settings.1.target",
+            field_fn=lambda device, r: device.control.bowls.settings[1].target,
         ),
     )
 }
