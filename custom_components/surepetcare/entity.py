@@ -10,9 +10,11 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
+
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareBaseEntityDescription:
     """Describes SurePetCare Base entity."""
+
     field_fn: Callable | None = None
     extra_fn: Callable | None = None
     frozen: bool = False
@@ -66,9 +68,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             return None
         data = self.coordinator.data
         if self.entity_description.extra_fn is not None:
-            return serialize(self.entity_description.extra_fn(
-                data, self.coordinator.config_entry.options
-            ))
+            return serialize(
+                self.entity_description.extra_fn(
+                    data, self.coordinator.config_entry.options
+                )
+            )
         return None
 
     def _convert_value(self) -> Any:
@@ -90,6 +94,7 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
         None,
     )
 
+
 def serialize(obj):
     """Recursively convert objects/enums/lists/dicts to JSON-serializable types."""
     if isinstance(obj, Enum):
@@ -101,9 +106,12 @@ def serialize(obj):
     elif isinstance(obj, (list, tuple, set)):
         return [serialize(v) for v in obj]
     elif hasattr(obj, "__dict__"):
-        return {k: serialize(v) for k, v in obj.__dict__.items() if not k.startswith("_")}
+        return {
+            k: serialize(v) for k, v in obj.__dict__.items() if not k.startswith("_")
+        }
     else:
         return str(obj)
+
 
 def build_nested_dict(field_path: str, value: float | int | str) -> dict:
     """Build a nested dict/list structure from a dotted field path, handling list indices.

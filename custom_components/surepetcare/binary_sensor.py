@@ -87,7 +87,11 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
                         "lock_time": str(c.lock_time),
                         "unlock_time": str(c.unlock_time),
                     }
-                    for c in (device.control.curfew if isinstance(device.control.curfew, list) else [device.control.curfew])
+                    for c in (
+                        device.control.curfew
+                        if isinstance(device.control.curfew, list)
+                        else [device.control.curfew]
+                    )
                     if c is not None
                 ]
             },

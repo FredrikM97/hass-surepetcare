@@ -45,7 +45,7 @@ def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
 
 def set_profile(
     device: Pet, entry_data: dict, profile: PetDeviceLocationProfile
-) -> list[Command]:
+) -> list[Command] | None:
     """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
         return None
@@ -138,6 +138,7 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+
     @property
     def is_on(self) -> bool:
         return self._convert_value() is True

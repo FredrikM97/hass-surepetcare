@@ -75,7 +75,7 @@ SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
-        field_fn= lambda device, r: device.battery_level,
+        field_fn=lambda device, r: device.battery_level,
     ),
 )
 
@@ -86,8 +86,8 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
         key="entity_information",
         translation_key="entity_information",
         icon="mdi:information",
-        field_fn= lambda device, r: device.name,
-        extra_fn=lambda device, r:{
+        field_fn=lambda device, r: device.name,
+        extra_fn=lambda device, r: {
             "household_id": device.household_id,
             "product_id": device.product_id,
             "id": device.id,
@@ -102,7 +102,7 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         translation_key="entity_information",
         icon="mdi:information",
         field_fn=lambda device, r: device.name,
-        extra_fn=lambda device, r:{
+        extra_fn=lambda device, r: {
             "household_id": device.household_id,
             "product_id": device.product_id,
             "tag": device.tag,
@@ -122,14 +122,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field_fn=lambda device, r: device.status.bowl_status[0].current_weight,
-            extra_fn= lambda device, r: {
+            extra_fn=lambda device, r: {
                 "position": device.status.bowl_status[0].position.name,
                 "food_type": device.status.bowl_status[0].food_type.name,
-                "substance_type":  device.status.bowl_status[0].substance_type,
-                "last_filled_at":  device.status.bowl_status[0].last_filled_at,
+                "substance_type": device.status.bowl_status[0].substance_type,
+                "last_filled_at": device.status.bowl_status[0].last_filled_at,
                 "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
-                "last_fill_weight":  device.status.bowl_status[0].last_fill_weight
-            }
+                "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="bowl_1_weight",
@@ -138,40 +138,48 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field_fn= lambda device, r: device.status.bowl_status[1].current_weight,
-            extra_fn= lambda device, r: {
+            field_fn=lambda device, r: device.status.bowl_status[1].current_weight,
+            extra_fn=lambda device, r: {
                 "position": device.status.bowl_status[1].position.name,
                 "food_type": device.status.bowl_status[1].food_type.name,
                 "substance_type": device.status.bowl_status[1].substance_type,
                 "last_filled_at": device.status.bowl_status[1].last_filled_at,
                 "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,
                 "last_fill_weight": device.status.bowl_status[1].last_fill_weight,
-            }
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="fill_percent",
             translation_key="fill_percent",
             state_class=SensorStateClass.MEASUREMENT,
             field_fn=lambda device, r: sum(
-                v for v in (
+                v
+                for v in (
                     getattr(bowl, "fill_percent", 0)
                     for bowl in (getattr(device.status, "bowl_status", []) or [])
                     if bowl is not None
-                ) if isinstance(v, (int, float)) and v is not None
+                )
+                if isinstance(v, (int, float)) and v is not None
             ),
             extra_fn=lambda device, r: (
                 lambda bowl_status: {
-                    "bowl_0_fill_percent": bowl_status[0].fill_percent if len(bowl_status) > 0 else None,
-                    "bowl_1_fill_percent": bowl_status[1].fill_percent if len(bowl_status) > 1 else None,
+                    "bowl_0_fill_percent": bowl_status[0].fill_percent
+                    if len(bowl_status) > 0
+                    else None,
+                    "bowl_1_fill_percent": bowl_status[1].fill_percent
+                    if len(bowl_status) > 1
+                    else None,
                 }
-            )(getattr(device.status, "bowl_status", []))
+            )(getattr(device.status, "bowl_status", [])),
         ),
         SurePetCareSensorEntityDescription(
             key="weight_capacity",
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
-            field_fn=lambda device, r: sum(w.target for w in device.control.bowls.settings),
-            extra_fn=lambda device, r:{"bowls": device.control.bowls.settings},
+            field_fn=lambda device, r: sum(
+                w.target for w in device.control.bowls.settings
+            ),
+            extra_fn=lambda device, r: {"bowls": device.control.bowls.settings},
         ),
         SurePetCareSensorEntityDescription(
             key="rssi",
@@ -208,7 +216,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             field_fn=lambda device, r: abs(change[0])
             if (change := getattr(device.status.feeding, "change", []))
             else None,
-            extra_fn=lambda device, r:{
+            extra_fn=lambda device, r: {
                 "device_id": device.status.feeding.device_id,
                 "id": device.status.feeding.id,
                 "at": device.status.feeding.at,
@@ -247,7 +255,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="devices",
             translation_key="devices",
             field_fn=lambda device, r: len(getattr(device.status, "devices", []) or []),
-            extra_fn=lambda device, r: {"devices": [d.id for d in getattr(device.status, "devices", [])]},
+            extra_fn=lambda device, r: {
+                "devices": [d.id for d in getattr(device.status, "devices", [])]
+            },
         ),
         SurePetCareSensorEntityDescription(
             key="last_activity",
@@ -303,7 +313,6 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
 
-        
     @property
     def entity_picture(self) -> str | None:
         """Return the entity picture URL."""
