@@ -28,7 +28,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'LED Mode',
     'platform': 'surepetcare',
@@ -43,6 +43,7 @@
 # name: test_platform_setup_and_discovery[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
@@ -88,7 +89,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
     'platform': 'surepetcare',
@@ -103,6 +104,7 @@
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -149,7 +151,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
     'platform': 'surepetcare',
@@ -164,6 +166,7 @@
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -207,7 +210,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
     'platform': 'surepetcare',
@@ -222,6 +225,7 @@
 # name: test_platform_setup_and_discovery[select.maui_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -267,7 +271,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Bowls Type',
     'platform': 'surepetcare',
@@ -282,6 +286,7 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -329,7 +334,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Lid close delay',
     'platform': 'surepetcare',
@@ -344,6 +349,7 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
         'FASTER',
@@ -450,7 +456,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
     'platform': 'surepetcare',
@@ -465,6 +471,7 @@
 # name: test_platform_setup_and_discovery[select.maui_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
       'options': list([
         'PetDoor',
@@ -508,7 +515,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
     'platform': 'surepetcare',
@@ -523,6 +530,7 @@
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -564,7 +572,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
     'platform': 'surepetcare',
@@ -579,6 +587,7 @@
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Remove assigned device',
       'options': list([
       ]),
@@ -620,7 +629,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'LED Mode',
     'platform': 'surepetcare',
@@ -635,6 +644,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
@@ -680,7 +690,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
     'platform': 'surepetcare',
@@ -695,6 +705,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -741,7 +752,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
     'platform': 'surepetcare',
@@ -756,6 +767,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -798,7 +810,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
     'platform': 'surepetcare',
@@ -813,6 +825,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
       'options': list([
       ]),
@@ -857,7 +870,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Bowls Type',
     'platform': 'surepetcare',
@@ -872,6 +885,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -919,7 +933,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Lid close delay',
     'platform': 'surepetcare',
@@ -934,6 +948,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
         'FASTER',
@@ -1038,7 +1053,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
     'platform': 'surepetcare',
@@ -1053,6 +1068,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
       'options': list([
       ]),
@@ -1091,7 +1107,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
     'platform': 'surepetcare',
@@ -1106,6 +1122,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
       'options': list([
       ]),
@@ -1144,7 +1161,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
     'platform': 'surepetcare',
@@ -1159,6 +1176,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Remove assigned device',
       'options': list([
       ]),
@@ -1174,6 +1192,7 @@
 # name: test_select_set_option_and_snapshot
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
@@ -1192,6 +1211,7 @@
 # name: test_select_set_option_and_snapshot.1
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
@@ -1210,6 +1230,7 @@
 # name: test_select_set_option_and_snapshot.10
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
         'FASTER',
@@ -1228,6 +1249,7 @@
 # name: test_select_set_option_and_snapshot.11
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
         'FASTER',
@@ -1346,6 +1368,7 @@
 # name: test_select_set_option_and_snapshot.17
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1367,6 +1390,7 @@
 # name: test_select_set_option_and_snapshot.18
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1388,6 +1412,7 @@
 # name: test_select_set_option_and_snapshot.19
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1409,6 +1434,7 @@
 # name: test_select_set_option_and_snapshot.2
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
         'NONE',
@@ -1427,6 +1453,7 @@
 # name: test_select_set_option_and_snapshot.20
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1448,6 +1475,7 @@
 # name: test_select_set_option_and_snapshot.21
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1469,6 +1497,7 @@
 # name: test_select_set_option_and_snapshot.22
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
         'LARGE_WET',
@@ -1490,6 +1519,7 @@
 # name: test_select_set_option_and_snapshot.23
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1509,6 +1539,7 @@
 # name: test_select_set_option_and_snapshot.24
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1528,6 +1559,7 @@
 # name: test_select_set_option_and_snapshot.25
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1547,6 +1579,7 @@
 # name: test_select_set_option_and_snapshot.26
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1566,6 +1599,7 @@
 # name: test_select_set_option_and_snapshot.27
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1585,6 +1619,7 @@
 # name: test_select_set_option_and_snapshot.28
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1604,6 +1639,7 @@
 # name: test_select_set_option_and_snapshot.29
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1623,6 +1659,7 @@
 # name: test_select_set_option_and_snapshot.3
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
       'options': list([
         'PetDoor',
@@ -1640,6 +1677,7 @@
 # name: test_select_set_option_and_snapshot.30
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
         'UNLOCKED',
@@ -1659,6 +1697,7 @@
 # name: test_select_set_option_and_snapshot.4
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
       'options': list([
         'PetDoor',
@@ -1676,6 +1715,7 @@
 # name: test_select_set_option_and_snapshot.5
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -1692,6 +1732,7 @@
 # name: test_select_set_option_and_snapshot.6
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -1710,6 +1751,7 @@
 # name: test_select_set_option_and_snapshot.7
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -1728,6 +1770,7 @@
 # name: test_select_set_option_and_snapshot.8
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
       'options': list([
         'DualScanConnect door',
@@ -1746,6 +1789,7 @@
 # name: test_select_set_option_and_snapshot.9
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
         'FASTER',

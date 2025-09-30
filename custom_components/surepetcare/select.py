@@ -13,6 +13,8 @@ from surepcio.enums import (
     ModifyDeviceTag,
     BowlTypeOptions,
 )
+from homeassistant.components.sensor import (
+    SensorDeviceClass)
 from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepetcare.helper import (
@@ -68,6 +70,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="lid",
             field=SelectMethodField(path="control.lid.close_delay"),
             options=CloseDelay,
+            device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
@@ -87,6 +90,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                 ),
             ),
             options=BowlTypeOptions,
+            device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
     ),
@@ -96,6 +100,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="locking",
             field=SelectMethodField(path="control.locking"),
             options=FlapLocking,
+            device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
     ),
@@ -103,6 +108,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
+            device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 set_fn=lambda pet, entry_data, option: (
                     pet.set_tag(value, action=ModifyDeviceTag.REMOVE)
@@ -123,6 +129,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="add_assigned_device",
             translation_key="add_assigned_device",
+            device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 options_fn=lambda device, r: [
                     v.get("name")
@@ -145,6 +152,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="led_mode",
             field=SelectMethodField(path="control.led_mode"),
             options=HubLedMode,
+            device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
     ),
@@ -154,6 +162,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="locking",
             field=SelectMethodField(path="control.locking"),
             options=FlapLocking,
+            device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
     ),

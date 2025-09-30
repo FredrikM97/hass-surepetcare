@@ -13,7 +13,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.katzenklappe_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -33,7 +33,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '1299453-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-state]
@@ -42,7 +42,6 @@
       'device_class': 'battery',
       'friendly_name': 'Katzenklappe Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -119,7 +118,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.laundry_door_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -139,7 +138,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '727608-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_battery-state]
@@ -148,7 +147,6 @@
       'device_class': 'battery',
       'friendly_name': 'Laundry Door Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -503,7 +501,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.maui_matlada_old_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -523,7 +521,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '269654-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-state]
@@ -532,7 +530,6 @@
       'device_class': 'battery',
       'friendly_name': 'Maui matlåda (old)  Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',
@@ -754,7 +751,7 @@
     'supported_features': 0,
     'translation_key': 'fill_percent',
     'unique_id': '269654-fill_percent',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_fill_percent-state]
@@ -764,7 +761,6 @@
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_fill_percent',
@@ -797,7 +793,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
     'original_icon': None,
     'original_name': 'RSSI',
     'platform': 'surepetcare',
@@ -806,14 +802,14 @@
     'supported_features': 0,
     'translation_key': 'rssi',
     'unique_id': '269654-rssi',
-    'unit_of_measurement': 'dBm',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
       'friendly_name': 'Maui matlåda (old)  RSSI',
-      'unit_of_measurement': 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
@@ -848,7 +844,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
     'original_icon': None,
     'original_name': 'Total Weight Limit',
     'platform': 'surepetcare',
@@ -873,6 +869,7 @@
           'target': 0,
         }),
       ]),
+      'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
@@ -1265,7 +1262,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.katzenklappe_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -1285,7 +1282,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '1299453-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-state]
@@ -1294,7 +1291,6 @@
       'device_class': 'battery',
       'friendly_name': 'Katzenklappe Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -1371,7 +1367,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.laundry_door_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -1391,7 +1387,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '727608-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_battery-state]
@@ -1400,7 +1396,6 @@
       'device_class': 'battery',
       'friendly_name': 'Laundry Door Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -1755,7 +1750,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.maui_matlada_old_battery',
     'has_entity_name': True,
     'hidden_by': None,
@@ -1775,7 +1770,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '269654-battery_level',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-state]
@@ -1784,7 +1779,6 @@
       'device_class': 'battery',
       'friendly_name': 'Maui matlåda (old)  Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',
@@ -2006,7 +2000,7 @@
     'supported_features': 0,
     'translation_key': 'fill_percent',
     'unique_id': '269654-fill_percent',
-    'unit_of_measurement': '%',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_fill_percent-state]
@@ -2016,7 +2010,6 @@
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_fill_percent',
@@ -2049,7 +2042,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
     'original_icon': None,
     'original_name': 'RSSI',
     'platform': 'surepetcare',
@@ -2058,14 +2051,14 @@
     'supported_features': 0,
     'translation_key': 'rssi',
     'unique_id': '269654-rssi',
-    'unit_of_measurement': 'dBm',
+    'unit_of_measurement': None,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
       'friendly_name': 'Maui matlåda (old)  RSSI',
-      'unit_of_measurement': 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
@@ -2100,7 +2093,7 @@
     'name': None,
     'options': dict({
     }),
-    'original_device_class': None,
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
     'original_icon': None,
     'original_name': 'Total Weight Limit',
     'platform': 'surepetcare',
@@ -2125,6 +2118,7 @@
           'target': 0,
         }),
       ]),
+      'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
