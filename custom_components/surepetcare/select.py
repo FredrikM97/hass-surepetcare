@@ -13,8 +13,7 @@ from surepcio.enums import (
     ModifyDeviceTag,
     BowlTypeOptions,
 )
-from homeassistant.components.sensor import (
-    SensorDeviceClass)
+from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepetcare.helper import (
@@ -214,14 +213,12 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
     @property
     def current_option(self) -> str | None:
         return self.native_value
-    
+
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return (
-            cast(bool, self._device.available)
-        )
-        
+        return cast(bool, self._device.available)
+
     async def async_select_option(self, option: str) -> None:
         # If command then write with it
         if option not in self.options:
