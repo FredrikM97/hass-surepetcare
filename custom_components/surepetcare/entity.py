@@ -6,6 +6,8 @@ from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from custom_components.surepetcare.helper import serialize
 from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity_path import get_by_paths
@@ -107,55 +109,25 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
     )
 
 
-def serialize(obj):
-    """Recursively convert objects/enums/lists/dicts to JSON-serializable types."""
-    if isinstance(obj, Enum):
-        return obj.name
-    elif isinstance(obj, (str, int, float, bool, type(None))):
-        return obj
-    elif isinstance(obj, dict):
-        return {k: serialize(v) for k, v in obj.items()}
-    elif isinstance(obj, (list, tuple, set)):
-        return [serialize(v) for v in obj]
-    elif hasattr(obj, "__dict__"):
-        return {
-            k: serialize(v) for k, v in obj.__dict__.items() if not k.startswith("_")
-        }
-    else:
-        return str(obj)
-
-
-def build_nested_dict(field_path: str, value: float | int | str) -> dict:
-    """Build a nested dict/list structure from a dotted field path, handling list indices.
-    Skips the top-level 'control' key.
+def validate_entity_description(desc):
     """
-    parts = field_path.split(".")
-    if parts and parts[0] == "control":
-        parts = parts[1:]
-    result: object = value
-    for part in reversed(parts):
-        if part.isdigit():
-            idx = int(part)
-            lst: list = []
-            while len(lst) <= idx:
-                lst.append(None)
-            lst[idx] = result
-            result = lst
-        else:
-            result = {part: result}
-    return result if isinstance(result, dict) else {parts[0]: result}
-
-
-def device_option(config: dict, device_id: int) -> dict:
-    """Return the option dict for the device."""
-    return config[OPTION_DEVICES].get(str(device_id), {})
-
-
-def option_name(config: dict, device_id: int) -> str | None:
-    """Return the name of the device option."""
-    return device_option(config, device_id).get("name")
-
-
-def option_product_id(config: dict, device_id: int) -> str | None:
-    """Return the name of the device option."""
-    return device_option(config, device_id).get("product_id")
+    Validate that:
+    - If command_fn is set, field_fn must also be set.
+    - If command_fn is not set, field must be set.
+    """
+    if getattr(desc, "command_fn", None) is not None:
+        if (getattr(desc, "field_fn", None) or getattr(desc, "options_fn", None)) is None:
+ 
+            raise ValueError(
+                f"{getattr(desc, 'key', repr(desc))}: command_fn is set but field_fn is missing."
+            )
+        if getattr(desc, "field", None) is not None:
+            raise ValueError(
+                f"{getattr(desc, 'key', repr(desc))}: command_fn is set but field is also set (should not be)."
+            )
+    else:
+        if getattr(desc, "field", None) is None:
+            raise ValueError(
+                f"{getattr(desc, 'key', repr(desc))}: command_fn is not set and field is missing."
+            )
+        

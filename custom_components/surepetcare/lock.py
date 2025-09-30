@@ -10,6 +10,7 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
+    validate_entity_description,
 )
 from surepcio.enums import ProductId, FlapLocking
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
@@ -48,6 +49,11 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
+     # Validation
+    for descs in LOCKS.values():
+        for desc in descs:
+            validate_entity_description(desc)
+            
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
         descriptions = LOCKS.get(device_coordinator.product_id, ())
@@ -100,6 +106,8 @@ class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
                     }
                 )
             )
+        else:
+            raise ValueError("No command or field defined for lock entity %s", self.entity_description)
         await self.coordinator.async_request_refresh()
 
     async def async_unlock(self, **kwargs):
@@ -115,4 +123,6 @@ class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
                     }
                 )
             )
+        else:
+            raise ValueError("No command or field defined for lock entity %s", self.entity_description)
         await self.coordinator.async_request_refresh()

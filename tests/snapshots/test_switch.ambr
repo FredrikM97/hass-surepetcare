@@ -1,4 +1,100 @@
 # serializer version: 1
+# name: test_platform_setup_and_discovery[switch.hem_hub_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'switch.hem_hub_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'pairing_mode',
+    'unique_id': '295972-pairing_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.hem_hub_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.hem_hub_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.laundry_door_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.laundry_door_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.laundry_door_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[switch.maui_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -97,6 +193,102 @@
     'state': 'off',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'switch.hem_hub_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'pairing_mode',
+    'unique_id': '295972-pairing_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.hem_hub_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.laundry_door_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '727608-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -182,6 +374,114 @@
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Indoor Only',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.hem_hub_none-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.hem_hub_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.hem_hub_none-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.hem_hub_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.laundry_door_none-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.laundry_door_none-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door None',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.maui_indoor_only-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Indoor Only',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.maui_indoor_only-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Indoor Only',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Indoor Only',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with empty status Indoor Only',

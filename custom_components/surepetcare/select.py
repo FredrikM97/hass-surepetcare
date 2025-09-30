@@ -14,16 +14,15 @@ from surepcio.enums import (
     BowlTypeOptions,
 )
 from surepcio import SurePetcareClient
-
-from custom_components.surepetcare.entity_path import build_nested_dict
+from homeassistant.helpers.entity import EntityCategory
+from custom_components.surepetcare.helper import build_nested_dict, find_entity_id_by_name, list_attr, map_attr, option_name
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    find_entity_id_by_name,
-    option_name,
+    validate_entity_description,
 )
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -38,20 +37,11 @@ class SurePetCareSelectEntityDescription(
     SurePetCareBaseEntityDescription, SelectEntityDescription
 ):
     """Describes SurePetCare select entity."""
-
+    options: list[str] | None = None
     enum_class: type | None = None
     options_fn: Callable | None = None
     command_fn: Callable | None = None
 
-
-def device_tag_command(action: ModifyDeviceTag):
-    """Return a command function for modifying device tags."""
-
-    def command(pet, option: str, entry_data: dict) -> object | None:
-        entity_id = find_entity_id_by_name(entry_data, option)
-        return pet.set_tag(entity_id, action=action) if entity_id else None
-
-    return command
 
 
 SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
@@ -93,11 +83,14 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
-            options_fn=lambda device, r: [
-                option_name(r, d.id)
-                for d in getattr(device.status, "devices", []) or []
-            ],
-            command_fn=device_tag_command(ModifyDeviceTag.REMOVE),
+            options_fn=lambda device, r: map_attr(
+                list_attr(device.status, "devices"),
+                lambda d: option_name(r, d.id)
+            ),
+            command_fn=lambda pet, option, entry_data: (
+                pet.set_tag( value, action=ModifyDeviceTag.REMOVE ) 
+                if (value := find_entity_id_by_name(entry_data, option)) else None
+            ),
         ),
         SurePetCareSelectEntityDescription(
             key="add_assigned_device",
@@ -105,11 +98,13 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             options_fn=lambda device, r: [
                 v.get("name")
                 for k, v in r[OPTION_DEVICES].items()
-                if v.get("product_id") not in (ProductId.PET, ProductId.HUB)
-                and k
-                not in {str(d.id) for d in getattr(device.status, "devices", []) or []}
+                if v.get("product_id") not in {ProductId.PET, ProductId.HUB}
+                and k not in {str(d.id) for d in list_attr(device.status, "devices")}
             ],
-            command_fn=device_tag_command(ModifyDeviceTag.ADD),
+            command_fn=lambda pet, option, entry_data: (
+                pet.set_tag( value, action=ModifyDeviceTag.REMOVE) 
+                if (value := find_entity_id_by_name(entry_data, option)) else None
+            ),
         ),
     ),
     ProductId.HUB: (
@@ -119,13 +114,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.led_mode",
             options=[e.name for e in HubLedMode],
             enum_class=HubLedMode,
-        ),
-        SurePetCareSelectEntityDescription(
-            key="pairing_mode",
-            translation_key="pairing_mode",
-            field="control.pairing_mode",
-            options=[e.name for e in HubPairMode],
-            enum_class=HubPairMode,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET_DOOR: (
@@ -135,12 +124,6 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             field="control.locking",
             options=[e.name for e in FlapLocking],
             enum_class=FlapLocking,
-        ),
-        SurePetCareSelectEntityDescription(
-            key="curfew_enabled",
-            translation_key="curfew_enabled",
-            field="control.curfew.enabled",
-            options=[True, False],
         ),
     ),
 }
@@ -155,6 +138,11 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
+    # Validation
+    for descs in SELECTS.values():
+        for desc in descs:
+            validate_entity_description(desc)
+            
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
         descriptions = SELECTS.get(device_coordinator.product_id, ())
@@ -196,13 +184,13 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
     async def async_select_option(self, option: str) -> None:
         if self.entity_description.enum_class is not None:
             option = getattr(self.entity_description.enum_class, option)
+        # If command then write with it
         if self.entity_description.command_fn is not None:
             command = self.entity_description.command_fn(
                 self._device, option, self.coordinator.config_entry.options
             )
-            if command is None:
-                return None
             await self.coordinator.client.api(command)
+        # If field then write with it
         elif self.entity_description.field:
             await self.coordinator.client.api(
                 self._device.set_control(
@@ -210,7 +198,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
                 )
             )
         else:
-            return None
+            raise ValueError("No command or field defined for select entity")
         await self.coordinator.async_request_refresh()
 
     @property
@@ -227,4 +215,4 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         # Fallback to static options if present
         if desc.options is not None:
             return desc.options
-        return []
+        raise ValueError("No options or options_fn defined for select entity")

@@ -249,35 +249,13 @@
 # name: test_platform_setup_and_discovery[sensor.maui_assigned_devices-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'devices': list([
+        727608,
+        269654,
+        271836,
+        1181149,
+      ]),
       'friendly_name': 'Maui Assigned devices',
-      'status_devices_0_created_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_0_device_id': None,
-      'status_devices_0_id': 727608,
-      'status_devices_0_index': 2,
-      'status_devices_0_profile': 2,
-      'status_devices_0_updated_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_0_version': 1,
-      'status_devices_1_created_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_1_device_id': None,
-      'status_devices_1_id': 269654,
-      'status_devices_1_index': 2,
-      'status_devices_1_profile': 2,
-      'status_devices_1_updated_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_1_version': 1,
-      'status_devices_2_created_at': datetime.datetime(2025, 7, 13, 11, 14, 42, tzinfo=TzInfo(UTC)),
-      'status_devices_2_device_id': None,
-      'status_devices_2_id': 271836,
-      'status_devices_2_index': 2,
-      'status_devices_2_profile': 2,
-      'status_devices_2_updated_at': datetime.datetime(2025, 7, 13, 11, 14, 42, tzinfo=TzInfo(UTC)),
-      'status_devices_2_version': 1,
-      'status_devices_3_created_at': datetime.datetime(2025, 4, 25, 19, 0, 40, tzinfo=TzInfo(UTC)),
-      'status_devices_3_device_id': None,
-      'status_devices_3_id': 1181149,
-      'status_devices_3_index': 1,
-      'status_devices_3_profile': 2,
-      'status_devices_3_updated_at': datetime.datetime(2025, 4, 25, 19, 0, 40, tzinfo=TzInfo(UTC)),
-      'status_devices_3_version': 1,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_assigned_devices',
@@ -669,7 +647,6 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'current_weight': -27.2,
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
@@ -743,6 +720,59 @@
     'state': 'Maui matlåda (old) ',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '269654-fill_percent',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_matlada_old_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowl_0_fill_percent': 100,
+      'bowl_1_fill_percent': None,
+      'friendly_name': 'Maui matlåda (old)  None',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '100',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -755,7 +785,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
     'has_entity_name': True,
     'hidden_by': None,
@@ -1463,35 +1493,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_assigned_devices-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'devices': list([
+        727608,
+        269654,
+        271836,
+        1181149,
+      ]),
       'friendly_name': 'Maui Assigned devices',
-      'status_devices_0_created_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_0_device_id': None,
-      'status_devices_0_id': 727608,
-      'status_devices_0_index': 2,
-      'status_devices_0_profile': 2,
-      'status_devices_0_updated_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_0_version': 1,
-      'status_devices_1_created_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_1_device_id': None,
-      'status_devices_1_id': 269654,
-      'status_devices_1_index': 2,
-      'status_devices_1_profile': 2,
-      'status_devices_1_updated_at': datetime.datetime(2025, 9, 17, 17, 12, 47, tzinfo=TzInfo(UTC)),
-      'status_devices_1_version': 1,
-      'status_devices_2_created_at': datetime.datetime(2025, 7, 13, 11, 14, 42, tzinfo=TzInfo(UTC)),
-      'status_devices_2_device_id': None,
-      'status_devices_2_id': 271836,
-      'status_devices_2_index': 2,
-      'status_devices_2_profile': 2,
-      'status_devices_2_updated_at': datetime.datetime(2025, 7, 13, 11, 14, 42, tzinfo=TzInfo(UTC)),
-      'status_devices_2_version': 1,
-      'status_devices_3_created_at': datetime.datetime(2025, 4, 25, 19, 0, 40, tzinfo=TzInfo(UTC)),
-      'status_devices_3_device_id': None,
-      'status_devices_3_id': 1181149,
-      'status_devices_3_index': 1,
-      'status_devices_3_profile': 2,
-      'status_devices_3_updated_at': datetime.datetime(2025, 4, 25, 19, 0, 40, tzinfo=TzInfo(UTC)),
-      'status_devices_3_version': 1,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_assigned_devices',
@@ -1883,7 +1891,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'current_weight': -27.2,
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
@@ -1957,6 +1964,59 @@
     'state': 'Maui matlåda (old) ',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_none-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_matlada_old_none',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': None,
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '269654-fill_percent',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_none-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowl_0_fill_percent': 100,
+      'bowl_1_fill_percent': None,
+      'friendly_name': 'Maui matlåda (old)  None',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_matlada_old_none',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '100',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1969,7 +2029,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'sensor',
-    'entity_category': None,
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
     'has_entity_name': True,
     'hidden_by': None,

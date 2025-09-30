@@ -14,6 +14,7 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
     SensorStateClass,
 )
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE, UnitOfMass
 from homeassistant.core import HomeAssistant
@@ -32,9 +33,9 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    option_name,
 )
-
+from .helper import ( index_attr,
+    option_name, sum_attr)
 logger = logging.getLogger(__name__)
 
 
@@ -140,17 +141,25 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            field="status.bowl_status.1.current_weight",
-            extra_field={
-                "position": "status.bowl_status.1.position",
-                "food_type": "status.bowl_status.1.food_type",
-                "substance_type": "status.bowl_status.1.substance_type",
-                "current_weight": "status.bowl_status.1.current_weight",
-                "last_filled_at": "status.bowl_status.1.last_filled_at",
-                "last_zeroed_at": "status.bowl_status.1.last_zeroed_at",
-                "last_fill_weight": "status.bowl_status.1.last_fill_weight",
-                "fill_percentage": "status.bowl_status.1.fill_percentage",
+            field_fn=lambda device, r: index_attr(device.status.bowl_status,1,"current_weight"),
+            extra_fn=lambda device, r: {
+                "position": device.status.bowl_status[1].position.name,
+                "food_type": device.status.bowl_status[1].food_type.name,
+                "substance_type": device.status.bowl_status[1].substance_type,
+                "last_filled_at": device.status.bowl_status[1].last_filled_at,
+                "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,
+                "last_fill_weight": device.status.bowl_status[1].last_fill_weight,
             },
+        ),
+        SurePetCareSensorEntityDescription(
+            key="fill_percent",
+            translation_key="fill_percent",
+            state_class=SensorStateClass.MEASUREMENT,
+            field_fn=lambda device, r: sum_attr(getattr(device.status, "bowl_status", []), "fill_percent"),
+            extra_fn=lambda device, r: {
+                    "bowl_0_fill_percent": index_attr(device.status.bowl_status, 0, "fill_percent"),
+                    "bowl_1_fill_percent": index_attr(device.status.bowl_status, 1, "fill_percent")
+                }
         ),
         SurePetCareSensorEntityDescription(
             key="weight_capacity",
@@ -167,7 +176,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="rssi",
             translation_key="rssi",
-            field="status.signal.device_rssi",
+            field_fn=lambda device, r: device.status.signal.device_rssi,
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,

@@ -1,4 +1,106 @@
 # serializer version: 1
+# name: test_number_set_and_snapshot
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.1
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.2
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.3
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_number_set_and_snapshot.4
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_number_set_and_snapshot.5
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({

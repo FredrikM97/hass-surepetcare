@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import logging
+from typing import cast
 
 from surepcio.enums import ProductId
 from surepcio import SurePetcareClient
@@ -13,7 +14,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepetcare.entity_path import build_nested_dict
+from custom_components.surepetcare.helper import build_nested_dict_v1
 
 from .const import (
     COORDINATOR,
@@ -25,6 +26,7 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
+    validate_entity_description,
 )
 
 logger = logging.getLogger(__name__)
@@ -64,6 +66,11 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
+    # Validation
+    for descs in SENSORS.values():
+        for desc in descs:
+            validate_entity_description(desc)
+            
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
         descriptions = SENSORS.get(device_coordinator.product_id, ())
@@ -108,10 +115,10 @@ class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
     async def async_set_native_value(self, value: float) -> None:  # type: ignore[override]
         """Set new value for the number (target weight)."""
         if self.entity_description.field is None:
-            return None
+            raise ValueError("No command or field defined for number entity %s", self.entity_description)
         await self.coordinator.client.api(
             self._device.set_control(
-                **build_nested_dict(self.entity_description.field, value)
+                **build_nested_dict_v1(self.entity_description.field, value)
             )
         )
         await self.coordinator.async_request_refresh()

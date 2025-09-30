@@ -1,4 +1,32 @@
 # serializer version: 1
+# name: test_lock_toggle_and_snapshot[lock.laundry_door_locking-locked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.laundry_door_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_lock_toggle_and_snapshot[lock.laundry_door_locking-unlocked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.laundry_door_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
 # name: test_platform_setup_and_discovery[lock.laundry_door_locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({

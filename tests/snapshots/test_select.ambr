@@ -17,7 +17,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.hem_hub_led_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -52,63 +52,6 @@
     }),
     'context': <ANY>,
     'entity_id': 'select.hem_hub_led_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_platform_setup_and_discovery[select.hem_hub_pairing_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        'OFF',
-        'ON',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': None,
-    'entity_id': 'select.hem_hub_pairing_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Pairing Mode',
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'pairing_mode',
-    'unique_id': '295972-pairing_mode',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[select.hem_hub_pairing_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub Pairing Mode',
-      'options': list([
-        'OFF',
-        'ON',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -174,63 +117,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'LOCKED',
-  })
-# ---
-# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        True,
-        False,
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': None,
-    'entity_id': 'select.laundry_door_curfew_active',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Curfew active',
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew_enabled',
-    'unique_id': '727608-curfew_enabled',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[select.laundry_door_curfew_active-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
-      'options': list([
-        True,
-        False,
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.laundry_door_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'False',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-entry]
@@ -727,7 +613,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.hem_hub_led_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -762,63 +648,6 @@
     }),
     'context': <ANY>,
     'entity_id': 'select.hem_hub_led_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_pairing_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        'OFF',
-        'ON',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': None,
-    'entity_id': 'select.hem_hub_pairing_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Pairing Mode',
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'pairing_mode',
-    'unique_id': '295972-pairing_mode',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_pairing_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub Pairing Mode',
-      'options': list([
-        'OFF',
-        'ON',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -884,63 +713,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'LOCKED',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        True,
-        False,
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': None,
-    'entity_id': 'select.laundry_door_curfew_active',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Curfew active',
-    'platform': 'surepetcare',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew_enabled',
-    'unique_id': '727608-curfew_enabled',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_curfew_active-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
-      'options': list([
-        True,
-        False,
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.laundry_door_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'False',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-entry]
@@ -1409,5 +1181,599 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub LED Mode',
+      'options': list([
+        'NONE',
+        'WEAK',
+        'STRONG',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.hem_hub_led_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.1
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub LED Mode',
+      'options': list([
+        'NONE',
+        'WEAK',
+        'STRONG',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.hem_hub_led_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.10
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'options': list([
+        'FASTER',
+        'NORMAL',
+        'SLOWER',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_lid_close_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'FASTER',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.11
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'options': list([
+        'FASTER',
+        'NORMAL',
+        'SLOWER',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_lid_close_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'FASTER',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.12
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'options': list([
+        'DISABLED',
+        'STEP_1',
+        'STEP_2',
+        'STEP_3',
+        'STEP_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.13
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'options': list([
+        'DISABLED',
+        'STEP_1',
+        'STEP_2',
+        'STEP_3',
+        'STEP_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.14
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'options': list([
+        'DISABLED',
+        'STEP_1',
+        'STEP_2',
+        'STEP_3',
+        'STEP_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.15
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'options': list([
+        'DISABLED',
+        'STEP_1',
+        'STEP_2',
+        'STEP_3',
+        'STEP_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.16
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'options': list([
+        'DISABLED',
+        'STEP_1',
+        'STEP_2',
+        'STEP_3',
+        'STEP_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'DISABLED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.17
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.18
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.19
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.2
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Hem-hub LED Mode',
+      'options': list([
+        'NONE',
+        'WEAK',
+        'STRONG',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.hem_hub_led_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.20
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.21
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.22
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'options': list([
+        'LARGE_WET',
+        'LARGE_DRY',
+        'TWO_SMALL_WET_WET',
+        'TWO_SMALL_WET_DRY',
+        'TWO_SMALL_DRY_WET',
+        'TWO_SMALL_DRY_DRY',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'TWO_SMALL_WET_WET',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.23
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'LOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.24
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'LOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.25
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'LOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.26
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'LOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.27
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'UNLOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.28
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'UNLOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.29
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'UNLOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.3
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Remove assigned device',
+      'options': list([
+        'PetDoor',
+        'Feeder',
+        None,
+        None,
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_remove_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.30
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'UNLOCKED',
+        'ALLOW_IN',
+        'ALLOW_OUT',
+        'LOCKED',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'UNLOCKED',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.4
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Remove assigned device',
+      'options': list([
+        'PetDoor',
+        'Feeder',
+        None,
+        None,
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_remove_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.5
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Add assigned device',
+      'options': list([
+        'DualScanConnect door',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.6
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Add assigned device',
+      'options': list([
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.7
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Add assigned device',
+      'options': list([
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.8
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Add assigned device',
+      'options': list([
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.9
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'options': list([
+        'FASTER',
+        'NORMAL',
+        'SLOWER',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_lid_close_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'FASTER',
   })
 # ---

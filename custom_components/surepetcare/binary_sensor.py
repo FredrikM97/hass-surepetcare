@@ -7,7 +7,6 @@ from typing import cast
 
 from surepcio.enums import ProductId
 from surepcio.devices.device import SurePetCareBase
-from surepcio.devices.dual_scan_connect import Curfew
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -18,25 +17,21 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from custom_components.surepetcare.helper import ensure_list, list_attr
+
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
+    validate_entity_description,
 )
 
 logger = logging.getLogger(__name__)
 
 
 def _next_enabled_future_curfew(device: SurePetCareBase, r: ConfigEntry) -> bool | None:
-    curfews: list[Curfew] | Curfew = device.control.curfew
-
-    if curfews is None:
-        return None
-
-    if not isinstance(curfews, list):
-        curfews = [curfews]
-
+    curfews = ensure_list(device.control, "curfew")
     now = datetime.now().time()
     return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
 
@@ -80,7 +75,16 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field_fn=_next_enabled_future_curfew,
-            extra_field="control.curfew",
+            extra_fn=lambda device, r: {
+                "curfew": [
+                    {
+                        "enabled": c.enabled,
+                        "lock_time": str(c.lock_time),
+                        "unlock_time": str(c.unlock_time),
+                    }
+                    for c in list_attr(device.control, "curfew")
+                ]
+            },
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
@@ -112,7 +116,7 @@ async def async_setup_entry(
     """Set up a Surepetcare config entry."""
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
-
+    
     entities = []
     for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
         descriptions = SENSORS.get(device_coordinator.product_id, ())
