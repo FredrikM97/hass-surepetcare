@@ -9,6 +9,8 @@ from homeassistant.components.number import (
     NumberEntity,
     NumberEntityDescription,
 )
+from homeassistant.const import  UnitOfMass
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -44,12 +46,16 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
             field=MethodField(path="control.bowls.settings[0].target"),
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareNumberEntityDescription(
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
             field=MethodField(path="control.bowls.settings[1].target"),
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            entity_category=EntityCategory.CONFIG,
         ),
     )
 }

@@ -74,7 +74,7 @@ SENSOR_DESCRIPTIONS_BATTERY: tuple[SurePetCareSensorEntityDescription, ...] = (
         key="battery_level",
         device_class=SensorDeviceClass.BATTERY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=PERCENTAGE,
+        entity_category=EntityCategory.DIAGNOSTIC,
         field=MethodField(path="battery_level"),
     ),
 )
@@ -164,6 +164,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="fill_percent",
             translation_key="fill_percent",
             state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
                 get_fn=lambda device, r: sum_attr(
                     getattr(device.status, "bowl_status", []), "fill_percent"
@@ -182,6 +183,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="weight_capacity",
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
+            device_class=SensorDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 get_fn=lambda device, r: sum(
                     w.target
@@ -202,9 +205,11 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="rssi",
             translation_key="rssi",
+            native_unit_of_measurement="dBm",
             field=MethodField(
                 get_fn=lambda device, r: device.status.signal.device_rssi,
             ),
+            device_class=SensorDeviceClass.SIGNAL_STRENGTH,
             entity_category=EntityCategory.DIAGNOSTIC,
         ),
         *SENSOR_DESCRIPTIONS_BATTERY,
@@ -281,6 +286,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="devices",
             translation_key="devices",
+            native_unit_of_measurement="pcs",
             field=MethodField(
                 get_fn=lambda device, r: len(
                     getattr(device.status, "devices", []) or []

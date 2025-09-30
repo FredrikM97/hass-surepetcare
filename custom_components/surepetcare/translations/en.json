@@ -51,8 +51,7 @@
         "state": {
           "on": "Online",
           "off": "Offline"
-        },
-        "unit_of_measurement": "%"
+        }
       },
       "learn_mode": {
         "name": "Learn Mode",
@@ -153,11 +152,10 @@
     "number":{
       "target_weight":{
         "name": "Target weight Bowl {bowl}"
-        , "unit_of_measurement": "g"
       }
     },
     "sensor": {
-      "fill_percent": {"name": "Fill Percent", "unit_of_measurement": "%"},
+      "fill_percent": {"name": "Fill Percent"},
       "last_activity" : {"name": "Last Activity"},
       "consumption": {"name": "Consumption"},
       "tag": {"name": "Tag"},
@@ -166,7 +164,7 @@
       "feeding": {"name": "Feeding"},
       "position": {"name": "Position"},
       "drinking": {"name": "Drinking"},
-      "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
+      "rssi": {"name": "RSSI"},
       "bowls": {"name": "Bowls"},
       "current_weight": {"name": "Current Weight"},
       "target_weight": {"name": "Target Weight"},
@@ -189,8 +187,7 @@
       },
       "entity_information": {"name": "Entity Information"},
       "devices": {
-        "name": "Assigned devices",
-        "unit_of_measurement": "pcs"
+        "name": "Assigned devices"
       }
     }
   }
