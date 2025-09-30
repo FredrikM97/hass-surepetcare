@@ -164,6 +164,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             key="fill_percent",
             translation_key="fill_percent",
             state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
                 get_fn=lambda device, r: sum_attr(
                     getattr(device.status, "bowl_status", []), "fill_percent"
@@ -183,6 +184,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="weight_capacity",
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 get_fn=lambda device, r: sum(
                     w.target
