@@ -53,6 +53,7 @@ async def test_platform_setup_and_discovery_missing_entities(
         hass, entity_registry, snapshot, mock_config_entry_missing_entities.entry_id
     )
 
+
 @patch("custom_components.surepetcare.PLATFORMS", [Platform.LOCK])
 @pytest.mark.usefixtures("enable_custom_integrations")
 @pytest.mark.usefixtures("entity_registry_enabled_default")

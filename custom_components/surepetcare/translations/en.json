@@ -51,7 +51,8 @@
         "state": {
           "on": "Online",
           "off": "Offline"
-        }
+        },
+        "unit_of_measurement": "%"
       },
       "learn_mode": {
         "name": "Learn Mode",
@@ -107,9 +108,6 @@
           "ALLOW_OUT": "Exit Only"
         }
       },
-      "curfew_enabled":{
-        "name": "Curfew active"
-      },
       "add_assigned_device": {
         "name": "Add assigned device"
       },
@@ -122,13 +120,6 @@
           "NONE": "Off",
           "WEAK": "Weak",
           "STRONG": "Strong"
-        }
-      },
-      "pairing_mode": {
-        "name": "Pairing Mode",
-        "state": {
-          "ON": "On",
-          "OFF": "Off"
         }
       }
     },
@@ -148,6 +139,12 @@
           "on": "Indoor Only",
           "off": "No Restriction"
         }
+      },
+      "pairing_mode": {
+        "name": "Pairing Mode"
+      },
+      "curfew_enabled":{
+        "name": "Curfew active"
       }
     },
     "button":{
@@ -156,9 +153,11 @@
     "number":{
       "target_weight":{
         "name": "Target weight Bowl {bowl}"
+        , "unit_of_measurement": "g"
       }
     },
     "sensor": {
+      "fill_percent": {"name": "Fill Percent", "unit_of_measurement": "%"},
       "last_activity" : {"name": "Last Activity"},
       "consumption": {"name": "Consumption"},
       "tag": {"name": "Tag"},
@@ -190,7 +189,8 @@
       },
       "entity_information": {"name": "Entity Information"},
       "devices": {
-        "name": "Assigned devices"
+        "name": "Assigned devices",
+        "unit_of_measurement": "pcs"
       }
     }
   }

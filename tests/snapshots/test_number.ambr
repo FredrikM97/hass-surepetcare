@@ -7,6 +7,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
@@ -24,6 +25,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
@@ -41,6 +43,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
@@ -58,6 +61,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
@@ -75,6 +79,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
@@ -92,6 +97,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
@@ -138,7 +144,7 @@
     'supported_features': 0,
     'translation_key': 'target_weight',
     'unique_id': '269654-bowl_0_target_weight',
-    'unit_of_measurement': None,
+    'unit_of_measurement': 'g',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-state]
@@ -149,6 +155,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
@@ -195,7 +202,7 @@
     'supported_features': 0,
     'translation_key': 'target_weight',
     'unique_id': '269654-bowl_1_target_weight',
-    'unit_of_measurement': None,
+    'unit_of_measurement': 'g',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_two-state]
@@ -206,6 +213,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
@@ -252,7 +260,7 @@
     'supported_features': 0,
     'translation_key': 'target_weight',
     'unique_id': '269654-bowl_0_target_weight',
-    'unit_of_measurement': None,
+    'unit_of_measurement': 'g',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_one-state]
@@ -263,6 +271,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
@@ -309,7 +318,7 @@
     'supported_features': 0,
     'translation_key': 'target_weight',
     'unique_id': '269654-bowl_1_target_weight',
-    'unit_of_measurement': None,
+    'unit_of_measurement': 'g',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_two-state]
@@ -320,6 +329,7 @@
       'min': 0.0,
       'mode': <NumberMode.AUTO: 'auto'>,
       'step': 1.0,
+      'unit_of_measurement': 'g',
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',

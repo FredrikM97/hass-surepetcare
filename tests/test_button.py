@@ -53,6 +53,7 @@ async def test_platform_setup_and_discovery_missing_entities(
         hass, entity_registry, snapshot, mock_config_entry_missing_entities.entry_id
     )
 
+
 @patch("custom_components.surepetcare.PLATFORMS", [Platform.BUTTON])
 @pytest.mark.usefixtures("enable_custom_integrations")
 @pytest.mark.usefixtures("entity_registry_enabled_default")
@@ -82,4 +83,4 @@ async def test_button_press_and_snapshot(
         state = hass.states.get(entity_id)
         assert state is not None
         # Ignore for now since button state is a timestamp
-        #snapshot(exclude=["state"]).assert_match(state)
+        # snapshot(exclude=["state"]).assert_match(state)

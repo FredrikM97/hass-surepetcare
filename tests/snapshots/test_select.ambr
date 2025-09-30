@@ -55,7 +55,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
@@ -232,7 +232,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_bowls_type-entry]
@@ -431,8 +431,6 @@
       'options': list([
         'PetDoor',
         'Feeder',
-        None,
-        None,
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -471,8 +469,6 @@
       'options': list([
         'PetDoor',
         'Feeder',
-        None,
-        None,
       ]),
     }),
     'context': <ANY>,
@@ -480,7 +476,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_add_assigned_device-entry]
@@ -539,7 +535,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_remove_assigned_device-entry]
@@ -592,7 +588,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-entry]
@@ -651,7 +647,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
@@ -826,7 +822,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_bowls_type-entry]
@@ -1023,10 +1019,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        None,
-        None,
-        None,
-        None,
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1063,10 +1055,6 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Remove assigned device',
       'options': list([
-        None,
-        None,
-        None,
-        None,
       ]),
     }),
     'context': <ANY>,
@@ -1074,7 +1062,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_add_assigned_device-entry]
@@ -1127,7 +1115,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_remove_assigned_device-entry]
@@ -1180,7 +1168,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot
@@ -1198,7 +1186,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.1
@@ -1216,7 +1204,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.10
@@ -1433,7 +1421,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.20
@@ -1639,8 +1627,6 @@
       'options': list([
         'PetDoor',
         'Feeder',
-        None,
-        None,
       ]),
     }),
     'context': <ANY>,
@@ -1648,7 +1634,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.30
@@ -1677,8 +1663,6 @@
       'options': list([
         'PetDoor',
         'Feeder',
-        None,
-        None,
       ]),
     }),
     'context': <ANY>,
@@ -1686,7 +1670,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.5
@@ -1702,7 +1686,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.6
@@ -1720,7 +1704,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.7
@@ -1738,7 +1722,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.8
@@ -1756,7 +1740,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'unavailable',
   })
 # ---
 # name: test_select_set_option_and_snapshot.9

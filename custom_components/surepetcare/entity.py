@@ -1,26 +1,22 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Any, Callable, cast
+from typing import Any, cast
 
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.surepetcare.helper import serialize
+from custom_components.surepetcare.helper import MethodField, serialize
 from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
-from .entity_path import get_by_paths
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareBaseEntityDescription:
     """Describes SurePetCare Base entity."""
 
-    field: str | None = None
-    field_fn: Callable | None = None
-    extra_fn: Callable | None = None
-    extra_field: dict[str, str] | str | None = None
+    field: MethodField
     frozen: bool = False
 
 
@@ -58,43 +54,45 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return cast(bool, self._device.available) and super().available
+        return (
+            cast(bool, self._device.available)
+            and super().available
+            and self.native_value is not None
+        )
 
     @property
     def native_value(self) -> Any:
         """Return the sensor value."""
-        return self._convert_value()
+        return serialize(
+            self.entity_description.field.get(
+                self.coordinator.data, self.coordinator.config_entry.options
+            )
+        )
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
         """Return extra state attributes."""
         if self.native_value is None:
             return None
-        data = self.coordinator.data
-        if self.entity_description.extra_fn is not None:
-            return self.entity_description.extra_fn(
-                data, self.coordinator.config_entry.options
-            )
-        extra_field = getattr(self.entity_description, "extra_field", None)
-        if extra_field and isinstance(extra_field, (str, dict)):
-            return get_by_paths(
-                self.coordinator.data,
-                extra_field,
-                serialize=True,
-                flatten=True,
+
+        if (
+            self.entity_description.field.path_extra
+            or self.entity_description.field.get_extra_fn
+        ):
+            return serialize(
+                self.entity_description.field.get_extra(
+                    self.coordinator.data, self.coordinator.config_entry.options
+                )
             )
         return None
 
-    def _convert_value(self) -> Any:
-        data = self.coordinator.data
-        desc = self.entity_description
-        if getattr(desc, "field_fn", None) is not None:
-            return desc.field_fn(data, self.coordinator.config_entry.options)
-        if getattr(desc, "field", None):
-            return get_by_paths(data, desc.field, native=True)
-        if getattr(desc, "key", None):
-            return get_by_paths(data, desc.key, native=True)
-        return None
+    async def send_command(self, value: Any) -> None:
+        """Send command to device."""
+        command = self.entity_description.field(
+            self._device, self.coordinator.config_entry.options, value
+        )
+        await self.coordinator.client.api(command)
+        await self.coordinator.async_request_refresh()
 
 
 def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
@@ -107,27 +105,3 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
         ),
         None,
     )
-
-
-def validate_entity_description(desc):
-    """
-    Validate that:
-    - If command_fn is set, field_fn must also be set.
-    - If command_fn is not set, field must be set.
-    """
-    if getattr(desc, "command_fn", None) is not None:
-        if (getattr(desc, "field_fn", None) or getattr(desc, "options_fn", None)) is None:
- 
-            raise ValueError(
-                f"{getattr(desc, 'key', repr(desc))}: command_fn is set but field_fn is missing."
-            )
-        if getattr(desc, "field", None) is not None:
-            raise ValueError(
-                f"{getattr(desc, 'key', repr(desc))}: command_fn is set but field is also set (should not be)."
-            )
-    else:
-        if getattr(desc, "field", None) is None:
-            raise ValueError(
-                f"{getattr(desc, 'key', repr(desc))}: command_fn is not set and field is missing."
-            )
-        

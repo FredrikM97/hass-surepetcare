@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_platform_setup_and_discovery[switch.hem_hub_none-entry]
+# name: test_platform_setup_and_discovery[switch.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -12,7 +12,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'switch.hem_hub_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -24,7 +24,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Pairing Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -34,20 +34,20 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[switch.hem_hub_none-state]
+# name: test_platform_setup_and_discovery[switch.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.hem_hub_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery[switch.laundry_door_none-entry]
+# name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -60,7 +60,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': None,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -72,7 +72,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -82,13 +82,13 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[switch.laundry_door_none-state]
+# name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door None',
+      'friendly_name': 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -193,7 +193,7 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_none-entry]
+# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -206,7 +206,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'switch.hem_hub_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -218,7 +218,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Pairing Mode',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -228,20 +228,20 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_none-state]
+# name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.hem_hub_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_none-entry]
+# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -254,7 +254,7 @@
     'disabled_by': None,
     'domain': 'switch',
     'entity_category': None,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.laundry_door_curfew_active',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -266,7 +266,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': None,
+    'original_name': 'Curfew active',
     'platform': 'surepetcare',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -276,13 +276,13 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_none-state]
+# name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door None',
+      'friendly_name': 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -335,7 +335,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'off',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-entry]
@@ -387,52 +387,52 @@
     'state': 'off',
   })
 # ---
-# name: test_switch_toggle_and_snapshot[switch.hem_hub_none-off]
+# name: test_switch_toggle_and_snapshot[switch.hem_hub_pairing_mode-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
+      'friendly_name': 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.hem_hub_none',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.hem_hub_none-on]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub None',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.hem_hub_none',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.laundry_door_none-off]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door None',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
   })
 # ---
-# name: test_switch_toggle_and_snapshot[switch.laundry_door_none-on]
+# name: test_switch_toggle_and_snapshot[switch.hem_hub_pairing_mode-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door None',
+      'friendly_name': 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
-    'entity_id': 'switch.laundry_door_none',
+    'entity_id': 'switch.hem_hub_pairing_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.laundry_door_curfew_active-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.laundry_door_curfew_active-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Laundry Door Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.laundry_door_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

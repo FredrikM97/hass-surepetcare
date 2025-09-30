@@ -3,7 +3,6 @@
 from dataclasses import dataclass
 from datetime import datetime
 import logging
-from typing import cast
 
 from surepcio.enums import ProductId
 from surepcio.devices.device import SurePetCareBase
@@ -17,14 +16,13 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import ensure_list, list_attr
+from custom_components.surepetcare.helper import MethodField, ensure_list, list_attr
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    validate_entity_description,
 )
 
 logger = logging.getLogger(__name__)
@@ -48,7 +46,7 @@ SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, .
         key="connectivity",
         translation_key="connectivity",
         device_class=BinarySensorDeviceClass.CONNECTIVITY,
-        field="available",
+        field=MethodField(path="available"),
     ),
 )
 
@@ -57,7 +55,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field=MethodField(path="status.learn_mode"),
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
@@ -67,24 +65,26 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field=MethodField(path="status.learn_mode"),
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
         SurePetCareBinarySensorEntityDescription(
             key="curfew",
             translation_key="curfew_active",
-            field_fn=_next_enabled_future_curfew,
-            extra_fn=lambda device, r: {
-                "curfew": [
-                    {
-                        "enabled": c.enabled,
-                        "lock_time": str(c.lock_time),
-                        "unlock_time": str(c.unlock_time),
-                    }
-                    for c in list_attr(device.control, "curfew")
-                ]
-            },
+            field=MethodField(
+                get_fn=_next_enabled_future_curfew,
+                get_extra_fn=lambda device, r: {
+                    "curfew": [
+                        {
+                            "enabled": c.enabled,
+                            "lock_time": str(c.lock_time),
+                            "unlock_time": str(c.unlock_time),
+                        }
+                        for c in list_attr(device.control, "curfew")
+                    ]
+                },
+            ),
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
@@ -92,15 +92,16 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
-            field="status.learn_mode",
+            field=MethodField(path="status.learn_mode"),
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,
         ),
         SurePetCareBinarySensorEntityDescription(
             key="curfew",
             translation_key="curfew_active",
-            field_fn=_next_enabled_future_curfew,
-            extra_field="control.curfew",
+            field=MethodField(
+                get_fn=_next_enabled_future_curfew, path_extra="control.curfew"
+            ),
         ),
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
@@ -116,7 +117,7 @@ async def async_setup_entry(
     """Set up a Surepetcare config entry."""
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
-    
+
     entities = []
     for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
         descriptions = SENSORS.get(device_coordinator.product_id, ())
@@ -157,4 +158,4 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return cast(bool, self._convert_value())
+        return self.native_value is True

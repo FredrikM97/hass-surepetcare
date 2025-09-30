@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepetcare.helper import build_nested_dict
+from custom_components.surepetcare.helper import MethodField
 
 
 from .const import (
@@ -22,7 +22,6 @@ from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    validate_entity_description,
 )
 
 logger = logging.getLogger(__name__)
@@ -40,7 +39,7 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
         SurePetCareButtonEntityDescription(
             key="tare",
             translation_key="tare",
-            field="control.tare",
+            field=MethodField(path="control.tare"),
             icon="mdi:scale",
         ),
     ),
@@ -56,11 +55,6 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
-    # Validation
-    for descs in BUTTONS.values():
-        for desc in descs:
-            validate_entity_description(desc)
-            
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
         descriptions = BUTTONS.get(device_coordinator.product_id, ())
@@ -96,9 +90,4 @@ class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
 
     async def async_press(self) -> None:
         """Press the button."""
-        await self.coordinator.client.api(
-            self._device.set_control(
-                **build_nested_dict(self.entity_description.field, 1)
-            )
-        )
-        await self.coordinator.async_request_refresh()
+        await self.send_command(1)

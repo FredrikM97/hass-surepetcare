@@ -2,27 +2,51 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from typing import Callable, cast
+from typing import Any
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import build_nested_dict, list_attr, option_product_id
+from custom_components.surepetcare.helper import (
+    MethodField,
+    list_attr,
+    option_product_id,
+)
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
-    validate_entity_description,
 )
 from homeassistant.helpers.entity import EntityCategory
 from surepcio.command import Command
 from surepcio.devices import Pet
 from surepcio.enums import ProductId, PetDeviceLocationProfile, HubPairMode
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
+from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True, slots=True)
+class SwitchMethodField(MethodField):
+    """MethodField for switch-like entities, supporting on/off mapping."""
+
+    on: Any = True
+    off: Any = False
+
+    def get(self, device: object, config: dict) -> bool:
+        value = MethodField.get(self, device, config)
+        return True if value is self.on else False
+
+    def set(self, device: object, config: dict, value: Any) -> Any:
+        # Map True/False to on/off, otherwise pass value as-is
+        if value is True:
+            value = self.on
+        elif value is False:
+            value = self.off
+
+        return MethodField.set(self, device, config, value)
 
 
 def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
@@ -62,13 +86,12 @@ def set_profile(
         if option_product_id(config, d.id) in valid_products
     ]
 
+
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareSwitchEntityDescription(
     SurePetCareBaseEntityDescription, SwitchEntityDescription
 ):
     """Describes SurePetCare switch entity."""
-
-    command_fn: Callable | None = None
 
 
 # Example: Add your switch entity descriptions here
@@ -77,11 +100,11 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
         SurePetCareSwitchEntityDescription(
             key="indoor_only",
             translation_key="indoor_only",
-            field_fn=profile_is_indoor,
-            command_fn=lambda device, entry_data, state: set_profile(
-                device,
-                entry_data,
-                PetDeviceLocationProfile.INDOOR_ONLY if state else PetDeviceLocationProfile.NO_RESTRICTION,
+            field=SwitchMethodField(
+                get_fn=profile_is_indoor,
+                set_fn=set_profile,
+                on=PetDeviceLocationProfile.INDOOR_ONLY,
+                off=PetDeviceLocationProfile.NO_RESTRICTION,
             ),
             icon="mdi:door",
         ),
@@ -90,20 +113,19 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
         SurePetCareSwitchEntityDescription(
             key="pairing_mode",
             translation_key="pairing_mode",
-            field="control.pairing_mode",
-            #options=[e.name for e in HubPairMode],
-            #enum_class=HubPairMode,
+            field=SwitchMethodField(
+                path="control.pairing.mode", on=HubPairMode.ON, off=HubPairMode.OFF
+            ),
             entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET_DOOR: (
-          SurePetCareSwitchEntityDescription(
+        SurePetCareSwitchEntityDescription(
             key="curfew_enabled",
             translation_key="curfew_enabled",
-            field="control.curfew.enabled",
-            #options=[True, False],
+            field=SwitchMethodField(path="control.curfew.enabled"),
         ),
-    )
+    ),
 }
 
 
@@ -116,11 +138,6 @@ async def async_setup_entry(
     coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
     client = coordinator_data[KEY_API]
 
-     # Validation
-    for descs in SWITCHES.values():
-        for desc in descs:
-            validate_entity_description(desc)
-            
     entities = []
     for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
         descriptions = SWITCHES.get(device_coordinator.product_id, ())
@@ -155,51 +172,10 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool:
-        return self._convert_value() is True
-
-    @property
-    def available(self) -> bool:
-        return (
-            cast(bool, self._device.available)
-            and super().available
-            and self._convert_value() in (True, False)
-        )
+        return self.native_value is True
 
     async def async_turn_on(self, **kwargs):
-        
-        # If command then write with it
-        if self.entity_description.command_fn is not None:
-            
-            command = self.entity_description.command_fn(
-                self._device, self.coordinator.config_entry.options, True
-            )
-            await self.coordinator.client.api(command)
-        # If field then write with it
-        elif self.entity_description.field:
-            await self.coordinator.client.api(
-                self._device.set_control(
-                    **build_nested_dict(self.entity_description.field, True)
-                )
-            )
-        else:
-            raise ValueError("No command or field defined for select entity")
-        await self.coordinator.async_request_refresh()
+        await self.send_command(True)
 
     async def async_turn_off(self, **kwargs):
-        # If command then write with it
-        if self.entity_description.command_fn is not None:
-            
-            command = self.entity_description.command_fn(
-                self._device, self.coordinator.config_entry.options, False
-            )
-            await self.coordinator.client.api(command)
-        # If field then write with it
-        elif self.entity_description.field:
-            await self.coordinator.client.api(
-                self._device.set_control(
-                    **build_nested_dict(self.entity_description.field, False)
-                )
-            )
-        else:
-            raise ValueError("No command or field defined for select entity")
-        await self.coordinator.async_request_refresh()
+        await self.send_command(False)
