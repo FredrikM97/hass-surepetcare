@@ -8,7 +8,7 @@ from homeassistant.components.button import ButtonEntity, ButtonEntityDescriptio
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
-
+from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepetcare.helper import MethodField
 
 
@@ -41,6 +41,7 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
             translation_key="tare",
             field=MethodField(path="control.tare"),
             icon="mdi:scale",
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
 }

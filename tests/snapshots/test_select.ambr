@@ -55,7 +55,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
@@ -77,7 +77,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.katzenklappe_locking_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -138,7 +138,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.laundry_door_locking_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -232,7 +232,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_bowls_type-entry]
@@ -256,7 +256,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_bowls_type',
     'has_entity_name': True,
     'hidden_by': None,
@@ -318,7 +318,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_lid_close_delay',
     'has_entity_name': True,
     'hidden_by': None,
@@ -379,7 +379,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_training_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -476,7 +476,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_add_assigned_device-entry]
@@ -535,7 +535,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_remove_assigned_device-entry]
@@ -588,7 +588,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-entry]
@@ -647,7 +647,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
@@ -669,7 +669,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.katzenklappe_locking_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -730,7 +730,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.laundry_door_locking_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -822,7 +822,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_bowls_type-entry]
@@ -846,7 +846,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_bowls_type',
     'has_entity_name': True,
     'hidden_by': None,
@@ -908,7 +908,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_lid_close_delay',
     'has_entity_name': True,
     'hidden_by': None,
@@ -969,7 +969,7 @@
     'device_id': <ANY>,
     'disabled_by': None,
     'domain': 'select',
-    'entity_category': None,
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
     'entity_id': 'select.maui_matlada_old_training_mode',
     'has_entity_name': True,
     'hidden_by': None,
@@ -1062,7 +1062,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_add_assigned_device-entry]
@@ -1115,7 +1115,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_remove_assigned_device-entry]
@@ -1168,7 +1168,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot
@@ -1186,7 +1186,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.1
@@ -1204,7 +1204,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.10
@@ -1421,7 +1421,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.20
@@ -1634,7 +1634,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.30
@@ -1670,7 +1670,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.5
@@ -1686,7 +1686,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.6
@@ -1704,7 +1704,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.7
@@ -1722,7 +1722,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.8
@@ -1740,7 +1740,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.9

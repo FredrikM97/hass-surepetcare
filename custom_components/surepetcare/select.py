@@ -3,7 +3,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Callable
+from typing import Any, Callable, cast
 from surepcio.enums import (
     ProductId,
     CloseDelay,
@@ -68,12 +68,14 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="lid",
             field=SelectMethodField(path="control.lid.close_delay"),
             options=CloseDelay,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
             key="training_mode",
             translation_key="training_mode",
             field=SelectMethodField(path="control.training_mode"),
             options=FeederTrainingMode,
+            entity_category=EntityCategory.CONFIG,
         ),
         SurePetCareSelectEntityDescription(
             key="bowls_type",
@@ -85,6 +87,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                 ),
             ),
             options=BowlTypeOptions,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.DUAL_SCAN_CONNECT: (
@@ -93,6 +96,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="locking",
             field=SelectMethodField(path="control.locking"),
             options=FlapLocking,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET: (
@@ -150,6 +154,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="locking",
             field=SelectMethodField(path="control.locking"),
             options=FlapLocking,
+            entity_category=EntityCategory.CONFIG,
         ),
     ),
 }
@@ -200,7 +205,14 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
     @property
     def current_option(self) -> str | None:
         return self.native_value
-
+    
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return (
+            cast(bool, self._device.available)
+        )
+        
     async def async_select_option(self, option: str) -> None:
         # If command then write with it
         if option not in self.options:
