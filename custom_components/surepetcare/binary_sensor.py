@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 import logging
+from types import MappingProxyType
+from typing import Any
 
 from surepcio.enums import ProductId
 from surepcio.devices.device import SurePetCareBase
@@ -33,7 +35,9 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def _next_enabled_future_curfew(device: SurePetCareBase, r: ConfigEntry) -> bool | None:
+def _next_enabled_future_curfew(
+    device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
+) -> bool | None:
     curfews = ensure_list(device.control, "curfew")
     now = datetime.now().time()
     return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
+from types import MappingProxyType
 from typing import Any
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -36,15 +37,19 @@ class SwitchMethodField(MethodField):
     on: Any = True
     off: Any = False
 
-    def get(self, device: object, config: dict) -> bool | None:
-        value = MethodField.get(self, device, config)
+    def get(
+        self, device: object, entry_options: MappingProxyType[str, Any]
+    ) -> bool | None:
+        value = MethodField.get(self, device, entry_options)
         if value is self.on:
             return True
         if value is self.off:
             return False
         return None
 
-    def set(self, device: object, config: dict, value: Any) -> Any:
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
         # Map True/False to on/off, otherwise pass value as-is
         if value is True:
             value = self.on
@@ -52,10 +57,12 @@ class SwitchMethodField(MethodField):
             value = self.off
         elif value is None:
             raise ValueError("Cannot set switch to None for %s", device)
-        return MethodField.set(self, device, config, value)
+        return MethodField.set(self, device, entry_options, value)
 
 
-def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
+def profile_is_indoor(
+    device: Pet, entry_options: MappingProxyType[str, Any]
+) -> bool | None:
     """Return True if all flap device profiles are indoor only."""
     devices = list_attr(device, "status", "devices")
     if not devices:
@@ -68,17 +75,20 @@ def profile_is_indoor(device: Pet, entry_data: dict) -> bool | None:
     profiles = {
         d.profile
         for d in devices
-        if option_product_id(entry_data, d.id) in valid_products
+        if option_product_id(entry_options, d.id) in valid_products
     }
     if len(profiles) > 1:
         logger.warning(f"Flap device profiles are not uniform: {profiles}")
     if len(profiles) == 0:
+        logger.debug(f"No flap devices found for pet {device.name}")
         return None
     return profiles == {PetDeviceLocationProfile.INDOOR_ONLY}
 
 
 def set_profile(
-    device: Pet, config: dict, profile: PetDeviceLocationProfile
+    device: Pet,
+    entry_options: MappingProxyType[str, Any],
+    profile: PetDeviceLocationProfile,
 ) -> list[Command]:
     """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
@@ -93,7 +103,7 @@ def set_profile(
     return [
         device.set_profile(d.id, profile)
         for d in list_attr(device.status, "devices")
-        if option_product_id(config, d.id) in valid_products
+        if option_product_id(entry_options, d.id) in valid_products
     ]
 
 

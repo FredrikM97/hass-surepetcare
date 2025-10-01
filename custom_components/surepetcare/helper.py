@@ -1,5 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
+from types import MappingProxyType
+from pydantic import BaseModel
 from surepcio.devices.device import SurePetCareBase
 from enum import Enum
 import re
@@ -7,19 +9,23 @@ from typing import Any, Optional
 from custom_components.surepetcare.const import OPTION_DEVICES
 
 
-def device_option(config: dict, device_id: int) -> dict:
+def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
     """Return the option dict for the device."""
-    return config[OPTION_DEVICES].get(str(device_id), {})
+    return entry_options[OPTION_DEVICES].get(str(device_id), {})
 
 
-def option_name(config: dict, device_id: int) -> str | None:
+def option_name(
+    entry_options: MappingProxyType[str, Any], device_id: int
+) -> str | None:
     """Return the name of the device option."""
-    return device_option(config, device_id).get("name")
+    return device_option(entry_options, device_id).get("name")
 
 
-def option_product_id(config: dict, device_id: int) -> str | None:
+def option_product_id(
+    entry_options: MappingProxyType[str, Any], device_id: int
+) -> str | None:
     """Return the name of the device option."""
-    return device_option(config, device_id).get("product_id")
+    return device_option(entry_options, device_id).get("product_id")
 
 
 def index_attr(seq, idx, attr, default=None):
@@ -40,21 +46,34 @@ def sum_attr(seq, attr, default=0):
 
 
 def serialize(obj):
-    """Recursively convert objects/enums/lists/dicts to JSON-serializable types."""
+    """Recursively convert objects/enums/lists/dicts to JSON-serializable types, including properties, skipping functions, and using model_dump for Pydantic models."""
     if isinstance(obj, Enum):
         return obj.name
-    elif isinstance(obj, (str, int, float, bool, type(None))):
+    if isinstance(obj, (str, int, float, bool, type(None))):
         return obj
-    elif isinstance(obj, dict):
+    if isinstance(obj, BaseModel):
+        if hasattr(obj, "model_dump"):
+            return serialize(obj.model_dump())
+        return serialize(obj.dict())
+    if isinstance(obj, dict):
         return {k: serialize(v) for k, v in obj.items()}
-    elif isinstance(obj, (list, tuple, set)):
+    if isinstance(obj, (list, tuple, set)):
         return [serialize(v) for v in obj]
-    elif hasattr(obj, "__dict__"):
-        return {
+    if hasattr(obj, "__dict__"):
+        result = {
             k: serialize(v) for k, v in obj.__dict__.items() if not k.startswith("_")
         }
-    else:
-        return str(obj)
+        props = [
+            attr
+            for attr in dir(obj)
+            if not attr.startswith("_")
+            and attr not in result
+            and not callable(getattr(obj, attr, None))
+        ]
+        if props:
+            result.update({attr: serialize(getattr(obj, attr, None)) for attr in props})
+        return result
+    return str(obj)
 
 
 _LIST_INDEX_RE = re.compile(r"(\w+)\[(\d+)\]$")
@@ -141,12 +160,14 @@ def map_attr(seq, fn):
     return [fn(item) for item in seq]
 
 
-def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
+def find_entity_id_by_name(
+    entry_options: MappingProxyType[str, Any], name: str
+) -> str | None:
     """Find the entity ID by its name in entry_data['entities']."""
     return next(
         (
             entity_id
-            for entity_id, entity in entry_data.get(OPTION_DEVICES, {}).items()
+            for entity_id, entity in entry_options.get(OPTION_DEVICES, {}).items()
             if entity.get("name") == name
         ),
         None,
@@ -157,62 +178,81 @@ def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
 class MethodField:
     """Field that uses provided functions or paths to get/set values."""
 
-    get_fn: Optional[Callable[[SurePetCareBase, dict], Any]] = None
-    set_fn: Optional[Callable[[SurePetCareBase, dict, Any], Any]] = None
+    get_fn: Optional[Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]] = (
+        None
+    )
+    set_fn: Optional[
+        Callable[[SurePetCareBase, MappingProxyType[str, Any], Any], Any]
+    ] = None
     path: Optional[str] = None
     path_extra: Optional[str | dict] = None
-    get_extra_fn: Optional[Callable[[SurePetCareBase, dict], Any]] = None
+    get_extra_fn: Optional[
+        Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]
+    ] = None
 
-    def get(self, device: SurePetCareBase, config: dict) -> Any:
+    def get(
+        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
+    ) -> Any:
         """Get the value from the device."""
         if self.path:
             return get_by_path(device, self.path)
         if self.get_fn:
-            return self.get_fn(device, config)
+            return self.get_fn(device, entry_options)
         raise NotImplementedError("No get_fn or path defined")
 
-    def get_extra(self, device: SurePetCareBase, config: dict) -> Any:
+    def get_extra(
+        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
+    ) -> Any:
         """Get extra attributes from the device."""
         if self.path_extra:
             return get_by_path(device, self.path_extra)
         if self.get_extra_fn:
-            return self.get_extra_fn(device, config)
+            return self.get_extra_fn(device, entry_options)
         raise NotImplementedError("No get_extra_fn or path defined")
 
-    def set(self, device: SurePetCareBase, config: dict, value: Any) -> Any:
+    def set(
+        self,
+        device: SurePetCareBase,
+        entry_options: MappingProxyType[str, Any],
+        value: Any,
+    ) -> Any:
         """Set the value on the device."""
         if self.path:
             return device.set_control(**build_nested_dict(self.path, value))
         if self.set_fn:
-            return self.set_fn(device, config, value)
+            return self.set_fn(device, entry_options, value)
         raise NotImplementedError("No set_fn or path defined")
 
-    def __call__(self, device: SurePetCareBase, config: dict, value: Any) -> Any:
+    def __call__(
+        self,
+        device: SurePetCareBase,
+        entry_options: MappingProxyType[str, Any],
+        value: Any,
+    ) -> Any:
         """Call to set the value."""
-        return self.set(device, config, value)
+        return self.set(device, entry_options, value)
 
 
-def resolve_select_option_value(desc, option: str) -> Any:
+def resolve_select_option_value(desc, entry_options: str) -> Any:
     """Resolve the correct value for a select option, handling Enum classes or plain lists."""
     if (
         desc.options is not None
         and isinstance(desc.options, type)
         and issubclass(desc.options, Enum)
     ):
-        return getattr(desc.options, option)
-    return option
+        return getattr(desc.options, entry_options)
+    return entry_options
 
 
 def should_add_entity(
     description: Any,
     device_data: Any,
-    config_options: dict,
+    entry_options: MappingProxyType[str, Any],
 ) -> bool:
     """Return True if the entity should be added, False otherwise. Entities with entity_registry_enabled_default at registration and None as native_value won't show up in the UI"""
     get_fn = getattr(description.field, "get_fn", None)
-    options = getattr(description, "options", None) or config_options or {}
     if get_fn is not None:
-        value = get_fn(device_data, options)
+        value = get_fn(device_data, entry_options)
         if (
             value is None
             and getattr(description, "entity_registry_enabled_default") is False

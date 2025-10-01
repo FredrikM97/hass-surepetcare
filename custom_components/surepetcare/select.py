@@ -3,6 +3,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
+from types import MappingProxyType
 from typing import Any, Callable, cast
 from surepcio.enums import (
     ProductId,
@@ -46,14 +47,16 @@ class SelectMethodField(MethodField):
 
     options_fn: Callable | None = None
 
-    def get(self, device: object, config: dict) -> Any:
+    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
         if self.get_fn is None and self.path is None and self.options_fn is not None:
             # Bonky solution but this might return multiple values and therefore we just return None.
             return None
-        return MethodField.get(self, device, config)
+        return MethodField.get(self, device, entry_options)
 
-    def set(self, device: object, config: dict, value: Any) -> Any:
-        return MethodField.set(self, device, config, value)
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
+        return MethodField.set(self, device, entry_options, value)
 
 
 @dataclass(frozen=True, kw_only=True)

@@ -245,8 +245,8 @@
     'attributes': ReadOnlyDict({
       'enabled': False,
       'friendly_name': 'Laundry Door Curfew active',
-      'lock_time': '08:00:00',
-      'unlock_time': '17:00:00',
+      'lock_time': '08:00',
+      'unlock_time': '17:00',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',
@@ -647,8 +647,8 @@
     'attributes': ReadOnlyDict({
       'enabled': False,
       'friendly_name': 'Laundry Door Curfew active',
-      'lock_time': '08:00:00',
-      'unlock_time': '17:00:00',
+      'lock_time': '08:00',
+      'unlock_time': '17:00',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',

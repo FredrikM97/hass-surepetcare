@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 import logging
+from types import MappingProxyType
+from typing import Any
 
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId, PetLocation
@@ -38,7 +40,9 @@ from .helper import MethodField, index_attr, option_name, should_add_entity, sum
 logger = logging.getLogger(__name__)
 
 
-def get_location(device: Pet, reconfig) -> PetLocation | str | None:
+def get_location(
+    device: Pet, entry_options: MappingProxyType[str, Any]
+) -> PetLocation | str | None:
     """Return PetLocation, or None if unknown.
 
     Uses reconfigured values for location_inside/location_outside if available.
@@ -48,13 +52,13 @@ def get_location(device: Pet, reconfig) -> PetLocation | str | None:
     if position is not None:
         if position.where == PetLocation.INSIDE:
             return (
-                reconfig[OPTION_DEVICES]
+                entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
                 .get(LOCATION_INSIDE, position.where)
             )
         elif position.where == PetLocation.OUTSIDE:
             return (
-                reconfig[OPTION_DEVICES]
+                entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
                 .get(LOCATION_OUTSIDE, position.where)
             )

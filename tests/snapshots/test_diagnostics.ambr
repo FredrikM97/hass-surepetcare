@@ -1,66 +1,98 @@
 # serializer version: 1
 # name: test_device_diagnostics[feeder_connect]
   dict({
-    'control': dict({
-      'bowls': dict({
-        'settings': list([
-          dict({
-            'food_type': 1,
-            'target': 50,
-          }),
-          dict({
-            'food_type': 1,
-            'target': 0,
-          }),
-        ]),
-        'type': 4,
+    'device': dict({
+      'available': True,
+      'battery_level': 13,
+      'control': dict({
+        'bowls': dict({
+          'settings': list([
+            dict({
+              'food_type': 'WET',
+              'target': 50,
+            }),
+            dict({
+              'food_type': 'WET',
+              'target': 0,
+            }),
+          ]),
+          'type': 'TWO_SMALL',
+        }),
+        'fast_polling': False,
+        'lid': dict({
+          'close_delay': 'FASTER',
+        }),
+        'tare': 2,
+        'training_mode': 'DISABLED',
       }),
-      'fast_polling': False,
-      'lid': dict({
-        'close_delay': 0,
+      'entity_info': dict({
+        'household_id': 222527,
+        'id': 269654,
+        'name': 'Maui matlåda (old) ',
+        'parent_device_id': 295972,
+        'product_id': 4,
       }),
-      'tare': 2,
-      'training_mode': 0,
-    }),
-    'entity_info': dict({
       'household_id': 222527,
       'id': 269654,
       'name': 'Maui matlåda (old) ',
       'parent_device_id': 295972,
+      'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      'product': 'FEEDER_CONNECT',
       'product_id': 4,
-    }),
-    'status': dict({
-      'battery': 5.015,
-      'bowl_status': list([
-        dict({
-          'current_weight': 32.16,
-          'fill_percent': 100,
-          'food_type': 1,
-          'index': 0,
-          'last_fill_weight': 32.16,
-          'last_filled_at': '2025-07-07T10:29:29+00:00',
-          'last_zeroed_at': '2025-05-23T10:25:29+00:00',
-          'substance_type': 2,
+      'product_name': 'FEEDER_CONNECT',
+      'rssi': -81,
+      'status': dict({
+        'battery': 5.015,
+        'bowl_status': list([
+          dict({
+            'current_weight': 32.16,
+            'fill_percent': 100,
+            'food_type': 'WET',
+            'index': 'LEFT',
+            'last_fill_weight': 32.16,
+            'last_filled_at': '2025-07-07 10:29:29+00:00',
+            'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+            'substance_type': 2,
+          }),
+          dict({
+            'current_weight': -27.2,
+            'food_type': 'WET',
+            'index': 'RIGHT',
+            'last_fill_weight': -27.2,
+            'last_filled_at': '2025-07-07 10:29:29+00:00',
+            'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+            'substance_type': 2,
+          }),
+        ]),
+        'learn_mode': False,
+        'online': True,
+        'signal': dict({
+          'device_rssi': -81,
         }),
-        dict({
-          'current_weight': -27.2,
-          'food_type': 1,
-          'index': 1,
-          'last_fill_weight': -27.2,
-          'last_filled_at': '2025-07-07T10:29:29+00:00',
-          'last_zeroed_at': '2025-05-23T10:25:29+00:00',
-          'substance_type': 2,
+        'version': dict({
+          'device': dict({
+            'firmware': '406.437',
+            'hardware': '9',
+          }),
         }),
-      ]),
-      'learn_mode': False,
-      'online': True,
-      'signal': dict({
-        'device_rssi': -81,
       }),
-      'version': dict({
-        'device': dict({
-          'firmware': '406.437',
-          'hardware': '9',
+      'timezone': 'utc',
+    }),
+    'options': dict({
+      'devices': dict({
+        '1299453': dict({
+          'location_inside': 'Home',
+          'location_outside': 'Away',
+          'name': 'DualScanConnect door',
+          'product_id': 6,
+        }),
+        '269654': dict({
+          'name': 'Feeder',
+          'product_id': 4,
+        }),
+        '727608': dict({
+          'name': 'PetDoor',
+          'product_id': 3,
         }),
       }),
     }),
