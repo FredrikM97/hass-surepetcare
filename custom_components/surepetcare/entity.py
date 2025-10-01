@@ -8,7 +8,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from custom_components.surepetcare.helper import MethodField, serialize
-from .const import DOMAIN, OPTION_DEVICES
+from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 
@@ -62,7 +62,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         )
 
     @property
-    def native_value(self) -> Any:
+    def native_value(self) -> str | None:
         """Return the sensor value."""
         return serialize(
             self.entity_description.field.get(
@@ -95,15 +95,3 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         )
         await self.coordinator.client.api(command)
         await self.coordinator.async_request_refresh()
-
-
-def find_entity_id_by_name(entry_data: dict, name: str) -> str | None:
-    """Find the entity ID by its name in entry_data['entities']."""
-    return next(
-        (
-            entity_id
-            for entity_id, entity in entry_data.get(OPTION_DEVICES, {}).items()
-            if entity.get("name") == name
-        ),
-        None,
-    )
