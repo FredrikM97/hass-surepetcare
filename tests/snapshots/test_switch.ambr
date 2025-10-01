@@ -141,7 +141,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_indoor_only-entry]
@@ -190,7 +190,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.hem_hub_pairing_mode-entry]
@@ -335,7 +335,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-entry]
@@ -384,7 +384,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.hem_hub_pairing_mode-off]
@@ -450,7 +450,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.maui_indoor_only-on]
@@ -464,7 +464,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-off]
@@ -478,7 +478,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-on]
@@ -492,6 +492,6 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---

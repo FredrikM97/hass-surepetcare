@@ -35,9 +35,13 @@ class SwitchMethodField(MethodField):
     on: Any = True
     off: Any = False
 
-    def get(self, device: object, config: dict) -> bool:
+    def get(self, device: object, config: dict) -> bool | None:
         value = MethodField.get(self, device, config)
-        return True if value is self.on else False
+        if value is self.on:
+            return True
+        if value is self.off:
+            return False
+        return None
 
     def set(self, device: object, config: dict, value: Any) -> Any:
         # Map True/False to on/off, otherwise pass value as-is
