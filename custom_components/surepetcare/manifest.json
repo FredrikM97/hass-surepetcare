@@ -10,5 +10,5 @@
   "name": "SurePetCare",
   "requirements": ["py-surepetcare @ git+https://github.com/FredrikM97/py-surepetcare.git@7579a40"],
   "loggers": ["surepcio"],
-  "version": "1.4.8-dev1"
+  "version": "1.4.8-dev2"
 }
