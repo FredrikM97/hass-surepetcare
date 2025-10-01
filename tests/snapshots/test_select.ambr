@@ -56,7 +56,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'NONE',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
@@ -657,7 +657,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'NONE',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
@@ -1205,7 +1205,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'NONE',
   })
 # ---
 # name: test_select_set_option_and_snapshot.1
@@ -1224,7 +1224,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'NONE',
   })
 # ---
 # name: test_select_set_option_and_snapshot.10
@@ -1447,7 +1447,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unknown',
+    'state': 'NONE',
   })
 # ---
 # name: test_select_set_option_and_snapshot.20

@@ -33,7 +33,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '1299453-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-state]
@@ -42,6 +42,7 @@
       'device_class': 'battery',
       'friendly_name': 'Katzenklappe Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -138,7 +139,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '727608-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_battery-state]
@@ -147,6 +148,7 @@
       'device_class': 'battery',
       'friendly_name': 'Laundry Door Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -521,7 +523,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '269654-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-state]
@@ -530,6 +532,7 @@
       'device_class': 'battery',
       'friendly_name': 'Maui matlåda (old)  Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',
@@ -1288,7 +1291,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '1299453-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-state]
@@ -1297,6 +1300,7 @@
       'device_class': 'battery',
       'friendly_name': 'Katzenklappe Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -1393,7 +1397,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '727608-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_battery-state]
@@ -1402,6 +1406,7 @@
       'device_class': 'battery',
       'friendly_name': 'Laundry Door Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -1776,7 +1781,7 @@
     'supported_features': 0,
     'translation_key': None,
     'unique_id': '269654-battery_level',
-    'unit_of_measurement': None,
+    'unit_of_measurement': '%',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-state]
@@ -1785,6 +1790,7 @@
       'device_class': 'battery',
       'friendly_name': 'Maui matlåda (old)  Battery',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',

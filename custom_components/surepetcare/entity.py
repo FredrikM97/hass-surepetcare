@@ -22,7 +22,7 @@ class SurePetCareBaseEntityDescription:
 
 class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
     """Base SurePetCare device."""
-
+    entity_description: SurePetCareBaseEntityDescription
     _attr_has_entity_name = True
 
     def __init__(
@@ -75,16 +75,18 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         if self.native_value is None:
             return None
 
-        if (
+        if not (
             self.entity_description.field.path_extra
             or self.entity_description.field.get_extra_fn
         ):
-            return serialize(
-                self.entity_description.field.get_extra(
-                    self.coordinator.data, self.coordinator.config_entry.options
-                )
+            return None
+        
+        return serialize(
+            self.entity_description.field.get_extra(
+                self.coordinator.data, self.coordinator.config_entry.options
             )
-        return None
+        )
+    
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""

@@ -23,7 +23,6 @@
     },
     "control": {
         "led_mode": 0,
-        "pairing_mode":0,
-        "tags": null
+        "pairing_mode": 0
     }
 }

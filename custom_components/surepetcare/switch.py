@@ -45,7 +45,8 @@ class SwitchMethodField(MethodField):
             value = self.on
         elif value is False:
             value = self.off
-
+        elif value is None:
+            raise ValueError("Cannot set switch to None for %s", device)
         return MethodField.set(self, device, config, value)
 
 
@@ -77,8 +78,8 @@ def set_profile(
     """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
         return []
-
-    valid_products = {ProductId.PET_DOOR, ProductId.DUAL_SCAN_PET_DOOR}
+    # These should be set if exists otherwise ignore
+    valid_products = {ProductId.PET_DOOR, ProductId.DUAL_SCAN_PET_DOOR, ProductId.DUAL_SCAN_CONNECT}
 
     return [
         device.set_profile(d.id, profile)
@@ -114,7 +115,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             key="pairing_mode",
             translation_key="pairing_mode",
             field=SwitchMethodField(
-                path="control.pairing.mode", on=HubPairMode.ON, off=HubPairMode.OFF
+                path="control.pairing_mode", on=HubPairMode.ON, off=HubPairMode.OFF
             ),
             entity_category=EntityCategory.CONFIG,
         ),
