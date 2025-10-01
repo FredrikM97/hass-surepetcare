@@ -15,7 +15,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepetcare.helper import MethodField
+from custom_components.surepetcare.helper import MethodField, should_add_entity
 
 from .const import (
     COORDINATOR,
@@ -71,16 +71,19 @@ async def async_setup_entry(
     client = coordinator_data[KEY_API]
 
     entities = []
-    for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
+    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
         descriptions = SENSORS.get(device_coordinator.product_id, ())
-        for description in descriptions:
-            entities.append(
+        entities.extend(
+            [
                 SurePetCareNumber(
                     device_coordinator,
                     client,
                     description=description,
                 )
-            )
+                for description in descriptions
+                if should_add_entity(description, device_coordinator.data, config_entry.options)
+            ]
+        )
     async_add_entities(entities, update_before_add=True)
 
 

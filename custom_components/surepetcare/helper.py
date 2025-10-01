@@ -201,3 +201,17 @@ def resolve_select_option_value(desc, option: str) -> Any:
     ):
         return getattr(desc.options, option)
     return option
+
+def should_add_entity(
+    description: Any,
+    device_data: Any,
+    config_options: dict,
+) -> bool:
+    """Return True if the entity should be added, False otherwise. Entities with entity_registry_enabled_default at registration and None as native_value won't show up in the UI"""
+    get_fn = getattr(description.field, "get_fn", None)
+    options = getattr(description, "options", None) or config_options or {}
+    if get_fn is not None:
+        value = get_fn(device_data, options)
+        if value is None and getattr(description, "entity_registry_enabled_default") is False:
+            return False
+    return True

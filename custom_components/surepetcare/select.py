@@ -23,6 +23,7 @@ from custom_components.surepetcare.helper import (
     map_attr,
     option_name,
     resolve_select_option_value,
+    should_add_entity,
 )
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
@@ -178,16 +179,19 @@ async def async_setup_entry(
     client = coordinator_data[KEY_API]
 
     entities = []
-    for device_id, device_coordinator in coordinator_data[COORDINATOR_DICT].items():
+    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
         descriptions = SELECTS.get(device_coordinator.product_id, ())
-        for description in descriptions:
-            entities.append(
+        entities.extend(
+            [
                 SurePetCareSelect(
                     device_coordinator,
                     client,
                     description=description,
                 )
-            )
+                for description in descriptions
+                if should_add_entity(description, device_coordinator.data, config_entry.options)
+            ]
+        )
     async_add_entities(entities, update_before_add=True)
 
 

@@ -16,7 +16,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import MethodField, ensure_list, list_attr
+from custom_components.surepetcare.helper import MethodField, ensure_list, list_attr, should_add_entity
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
@@ -129,8 +129,10 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
+                if should_add_entity(description, device_coordinator.data, config_entry.options)
             ]
         )
+    
     async_add_entities(entities, update_before_add=True)
 
 
