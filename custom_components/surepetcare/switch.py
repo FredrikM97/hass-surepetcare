@@ -110,7 +110,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
         SurePetCareSwitchEntityDescription(
             key="indoor_only",
             translation_key="indoor_only",
-            entity_registry_enabled_default = False,
+            entity_registry_enabled_default=False,
             field=SwitchMethodField(
                 get_fn=profile_is_indoor,
                 set_fn=set_profile,
@@ -160,7 +160,9 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(description, device_coordinator.data, config_entry.options)
+                if should_add_entity(
+                    description, device_coordinator.data, config_entry.options
+                )
             ]
         )
     async_add_entities(entities, update_before_add=True)

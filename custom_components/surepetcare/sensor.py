@@ -240,7 +240,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            entity_registry_enabled_default = False,
+            entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: abs(change[0])
                 if (change := getattr(device.status.feeding, "change", []))
@@ -256,7 +256,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="position",
             translation_key="position",
-            entity_registry_enabled_default = False,
+            entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=get_location,
                 path_extra={
@@ -274,7 +274,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
-            entity_registry_enabled_default = False,
+            entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: abs(change[0])
                 if (change := getattr(device.status.drinking, "change", []))
@@ -305,7 +305,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="last_activity",
             translation_key="last_activity",
-            entity_registry_enabled_default = False,
+            entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: option_name(
                     r, (device.last_activity() or [None, None])[1]
@@ -339,7 +339,9 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(description, device_coordinator.data, config_entry.options)
+                if should_add_entity(
+                    description, device_coordinator.data, config_entry.options
+                )
             ]
         )
     async_add_entities(entities, update_before_add=True)
