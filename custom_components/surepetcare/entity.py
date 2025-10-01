@@ -22,6 +22,7 @@ class SurePetCareBaseEntityDescription:
 
 class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
     """Base SurePetCare device."""
+
     entity_description: SurePetCareBaseEntityDescription
     _attr_has_entity_name = True
 
@@ -80,13 +81,12 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             or self.entity_description.field.get_extra_fn
         ):
             return None
-        
+
         return serialize(
             self.entity_description.field.get_extra(
                 self.coordinator.data, self.coordinator.config_entry.options
             )
         )
-    
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""

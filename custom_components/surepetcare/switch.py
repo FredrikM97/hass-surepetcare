@@ -79,7 +79,11 @@ def set_profile(
     if not getattr(device, "status", None):
         return []
     # These should be set if exists otherwise ignore
-    valid_products = {ProductId.PET_DOOR, ProductId.DUAL_SCAN_PET_DOOR, ProductId.DUAL_SCAN_CONNECT}
+    valid_products = {
+        ProductId.PET_DOOR,
+        ProductId.DUAL_SCAN_PET_DOOR,
+        ProductId.DUAL_SCAN_CONNECT,
+    }
 
     return [
         device.set_profile(d.id, profile)
