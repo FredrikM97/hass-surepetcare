@@ -9,6 +9,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/FredrikM97/hass-surepetcare/issues",
   "loggers": ["surepcio"],
-  "requirements": ["py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare.git@7579a40"],
+  "requirements": ["py-surepetcare==0.5.7"],
   "version": "1.4.8"
 }
