@@ -72,39 +72,39 @@
       "bowls_type": {
         "name": "Bowls Type",
         "state": {
-            "LARGE_WET": "Large (Wet)",
-            "LARGE_DRY":"Large (Dry)",
-            "TWO_SMALL_WET_WET": "Two small (Wet/Wet)",
-            "TWO_SMALL_DRY_WET": "Two small (Dry/Wet)",
-            "TWO_SMALL_WET_DRY": "Two small (Wet/Dry)",
-            "TWO_SMALL_DRY_DRY": "Two small (Dry/Dry)"
+            "large_wet": "Large (Wet)",
+            "large_dry":"Large (Dry)",
+            "two_smal_wet_wet": "Two small (Wet/Wet)",
+            "two_smal_dry_wet": "Two small (Dry/Wet)",
+            "two_smal_wet_dry": "Two small (Wet/Dry)",
+            "two_smal_dry_dry": "Two small (Dry/Dry)"
         }
       },
       "training_mode": {
         "name": "Training Mode",
         "state": {
-          "DISABLED": "Off",
-          "STEP_1": "Step 1",
-          "STEP_2": "Step 2",
-          "STEP_3": "Step 3",
-          "STEP_4": "Step 4"
+          "disabled": "Off",
+          "step_1": "Step 1",
+          "step_2": "Step 2",
+          "step_3": "Step 3",
+          "step_4": "Step 4"
         }
       },
       "lid": {
         "name": "Lid close delay",
         "state": {
-          "FASTER": "Fast",
-          "NORMAL": "Normal",
-          "SLOWER": "Slow"
+          "faster": "Fast",
+          "normal": "Normal",
+          "slower": "Slow"
         }
       },
       "locking": {
         "name": "Locking Mode",
         "state": {
-          "LOCKED": "Locked",
-          "UNLOCKED": "Unlocked",
-          "ALLOW_IN": "Entry Only",
-          "ALLOW_OUT": "Exit Only"
+          "locked": "Locked",
+          "unlocked": "Unlocked",
+          "allow_in": "Entry Only",
+          "allow_out": "Exit Only"
         }
       },
       "add_assigned_device": {
@@ -116,9 +116,9 @@
       "led_mode": {
         "name": "LED Mode",
         "state": {
-          "NONE": "Off",
-          "WEAK": "Weak",
-          "STRONG": "Strong"
+          "none": "Off",
+          "weak": "Weak",
+          "strong": "Strong"
         }
       }
     },

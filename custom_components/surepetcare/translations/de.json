@@ -72,39 +72,39 @@
       "bowls_type": {
         "name": "Typ der Futternäpfe",
         "state": {
-            "LARGE_WET": "Groß (Nass)",
-            "LARGE_DRY":"Groß (Trocken)",
-            "TWO_SMALL_WET_WET": "Zwei klein (Nass/Nass)",
-            "TWO_SMALL_DRY_WET": "Zwei klein (Trocken/Nass)",
-            "TWO_SMALL_WET_DRY": "Zwei klein (Nass/Trocken)",
-            "TWO_SMALL_DRY_DRY": "Zwei klein (Trocken/Trocken)"
+            "large_wet": "Groß (Nass)",
+            "large_dry":"Groß (Trocken)",
+            "two_smal_wet_wet": "Zwei klein (Nass/Nass)",
+            "two_smal_dry_wet": "Zwei klein (Trocken/Nass)",
+            "two_smal_wet_dry": "Zwei klein (Nass/Trocken)",
+            "two_smal_dry_dry": "Zwei klein (Trocken/Trocken)"
         }
       },
       "training_mode": {
         "name": "Trainingsmodus",
         "state": {
-          "DISABLED": "Ausgeschaltet",
-          "STEP_1": "Schritt 1",
-          "STEP_2": "Schritt 2",
-          "STEP_3": "Schritt 3",
-          "STEP_4": "Schritt 4"
+          "disabled": "Ausgeschaltet",
+          "step_1": "Schritt 1",
+          "step_2": "Schritt 2",
+          "step_3": "Schritt 3",
+          "step_4": "Schritt 4"
         }
       },
       "lid": {
         "name": "Verzögerung Deckel schließen",
         "state": {
-          "FASTER": "Schnell",
-          "NORMAL": "Normal",
-          "SLOWER": "Langsam"
+          "faster": "Schnell",
+          "normal": "Normal",
+          "slower": "Langsam"
         }
       },
       "locking": {
         "name": "Sperrmodus",
         "state": {
-          "LOCKED": "Gesperrt",
-          "UNLOCKED": "Entsperrt",
-          "ALLOW_IN": "Nur hinein",
-          "ALLOW_OUT": "Nur hinaus"
+          "locked": "Gesperrt",
+          "unlocked": "Entsperrt",
+          "allow_in": "Nur hinein",
+          "allow_out": "Nur hinaus"
         }
       },
       "curfew_enabled":{
@@ -119,16 +119,16 @@
       "led_mode": {
         "name": "LED-Modus",
         "state": {
-          "NONE": "Aus",
-          "WEAK": "Schwach",
-          "STRONG": "Stark"
+          "none": "Aus",
+          "weak": "Schwach",
+          "strong": "Stark"
         }
       },
       "pairing_mode": {
         "name": "Pairing-Modus",
         "state": {
-          "ON": "An",
-          "OFF": "Aus"
+          "on": "An",
+          "off": "Aus"
         }
       }
     },
