@@ -2,10 +2,6 @@
 
 Built upon py-surepetcare to integrate with home assistant. Allow fine control to Pet and devices from SurePetCare. Provides services for fine control of SurePetCare data such as access to device, curfew and more.
 
-**This integration replaces the core integration for SurePetCare and the integrations are not compatible**
-
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration)
-
 ---
 
 <img  alt="image" src="https://github.com/user-attachments/assets/95d6587a-56e0-4c0d-8dda-f94a7435f344" style="width:50%;"/>
@@ -20,6 +16,14 @@ Built upon py-surepetcare to integrate with home assistant. Allow fine control t
 <img  alt="image" src="https://github.com/user-attachments/assets/a8b01a86-21aa-458a-9b81-b18e3f5bc290" style="width:50%;"/>
 
 ---- 
+
+# Installation
+This integration replaces the core integration for SurePetCare and the integrations are not compatible
+
+Create a backup before installing this if you are moving from the core integration.
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration)
+
 
 ## What does this integration do?
 - Adds sensors and binary sensors for each supported device (e.g., door status, battery, feeding events, water level, connectivity)
