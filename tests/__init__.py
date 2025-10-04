@@ -4,7 +4,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 
-DEVICE_MOCKS = ["feeder_connect", "dual_scan_connect", "hub", "pet_door"]
+DEVICE_MOCKS = [
+    "feeder_connect",
+    "dual_scan_connect",
+    "hub",
+    "pet_door",
+    "poseidon_connect",
+]
 PET_MOCKS = [
     "pet",
 ]

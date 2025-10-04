@@ -6,11 +6,15 @@ from custom_components.surepetcare.const import (
     DOMAIN,
     CONF_EMAIL,
     CONF_PASSWORD,
+    ENTRY_ID,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    NAME,
     OPTION_DEVICES,
     OPTIONS_FINISHED,
     POLLING_SPEED,
+    PRODUCT_ID,
+    TOKEN,
 )
 from custom_components.surepetcare.config_flow import (
     SurePetCareConfigFlow,
@@ -72,8 +76,8 @@ async def test_options_flow(hass):
     entry = MockConfigEntry(
         domain=DOMAIN,
         entry_id="test_entry_id",
-        data={"token": "existing_token"},
-        options={OPTION_DEVICES: {"444": {"name": "Test Device", "product_id": 6}}},
+        data={TOKEN: "existing_token"},
+        options={OPTION_DEVICES: {"444": {NAME: "Test Device", PRODUCT_ID: 6}}},
     )
 
     with patch(
@@ -81,10 +85,6 @@ async def test_options_flow(hass):
     ):
         entry.add_to_hass(hass)
         flow = SurePetCareOptionsFlow(entry)
-        # Mock coordinator data for the device
-        # coordinator_data = type(
-        #    "Device", (), {"id": "444", "name": "Test Device", "product_id": 6}
-        # )()
         """
         hass.data = {
             DOMAIN: {
@@ -102,7 +102,7 @@ async def test_options_flow(hass):
         """
         flow.hass = hass
         flow._config_entry = entry
-        flow.context = {"source": "reconfigure", "entry_id": entry.entry_id}
+        flow.context = {"source": "reconfigure", ENTRY_ID: entry.entry_id}
         # Step 1: Init (should show device selection form)
         result = await flow.async_step_init()
         assert result["type"] == FlowResultType.FORM
@@ -134,8 +134,8 @@ async def test_options_flow(hass):
         assert result2["type"] == FlowResultType.FORM
         assert result2["step_id"] == "init"
         assert flow._options[OPTION_DEVICES]["444"] == {
-            "name": "Test Device",
-            "product_id": 6,
+            NAME: "Test Device",
+            PRODUCT_ID: 6,
             LOCATION_INSIDE: "Kitchen",
             LOCATION_OUTSIDE: "Garden",
             POLLING_SPEED: 200,
@@ -183,7 +183,7 @@ async def test_reconfiguration_flow(
     flow = SurePetCareConfigFlow()
     flow.hass = hass
     flow._config_entry = mock_config_entry
-    flow.context = {"entry_id": mock_config_entry.entry_id}
+    flow.context = {ENTRY_ID: mock_config_entry.entry_id}
     result = await flow.async_step_reconfigure()
 
     new_devices = flow._config_entry.options[OPTION_DEVICES]

@@ -20,10 +20,9 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from homeassistant.helpers.entity import EntityCategory
 from surepcio.command import Command
 from surepcio.devices import Pet
-from surepcio.enums import ProductId, PetDeviceLocationProfile, HubPairMode
+from surepcio.enums import ProductId, PetDeviceLocationProfile
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 import logging
 
@@ -128,16 +127,6 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 off=PetDeviceLocationProfile.NO_RESTRICTION,
             ),
             icon="mdi:door",
-        ),
-    ),
-    ProductId.HUB: (
-        SurePetCareSwitchEntityDescription(
-            key="pairing_mode",
-            translation_key="pairing_mode",
-            field=SwitchMethodField(
-                path="control.pairing_mode", on=HubPairMode.ON, off=HubPairMode.OFF
-            ),
-            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET_DOOR: (

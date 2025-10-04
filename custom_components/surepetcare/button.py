@@ -2,7 +2,9 @@
 
 from dataclasses import dataclass
 import logging
-from surepcio.enums import ProductId
+from types import MappingProxyType
+from typing import Any
+from surepcio.enums import ProductId, HubPairMode
 from surepcio import SurePetcareClient
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.config_entries import ConfigEntry
@@ -27,6 +29,20 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
+@dataclass(frozen=True, slots=True)
+class ButtonMethodField(MethodField):
+    """MethodField for button-like entities, supporting on mapping."""
+
+    on: Any = True
+
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
+        if value is True and self.on:
+            value = self.on
+        return MethodField.set(self, device, entry_options, value)
+
+
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareButtonEntityDescription(
     SurePetCareBaseEntityDescription, ButtonEntityDescription
@@ -35,15 +51,14 @@ class SurePetCareButtonEntityDescription(
 
 
 BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
-    ProductId.FEEDER_CONNECT: (
+    ProductId.HUB: (
         SurePetCareButtonEntityDescription(
-            key="tare",
-            translation_key="tare",
-            field=MethodField(path="control.tare"),
-            icon="mdi:scale",
+            key="pairing_mode",
+            translation_key="pairing_mode",
+            field=ButtonMethodField(path="control.pairing_mode", on=HubPairMode.ON),
             entity_category=EntityCategory.CONFIG,
         ),
-    ),
+    )
 }
 
 

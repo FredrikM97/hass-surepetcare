@@ -105,6 +105,56 @@
     'state': 'Katzenklappe',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.katzenklappe_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '1299453-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.katzenklappe_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Katzenklappe RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-56',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -209,6 +259,56 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'Laundry Door',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.laundry_door_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.laundry_door_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '727608-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.laundry_door_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Laundry Door RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.laundry_door_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-88',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_assigned_devices-entry]
@@ -591,9 +691,8 @@
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'LEFT',
+      'position': 'ONE',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 2,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -653,9 +752,9 @@
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'RIGHT',
+      'position': 'TWO',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 2,
+      'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -1049,6 +1148,273 @@
     'state': 'Pet with empty status',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.poseidon_connect_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '734730-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Poseidon connect Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '44',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl  Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '734730-bowl_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'friendly_name': 'Poseidon connect Bowl  Weight',
+      'last_fill_weight': 1071.92,
+      'last_filled_at': '2025-09-03 08:39:29+00:00',
+      'last_zeroed_at': None,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '975.95',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '734730-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Poseidon connect Entity Information',
+      'household_id': 7777,
+      'icon': 'mdi:information',
+      'id': 734730,
+      'parent_device_id': None,
+      'product_id': 8,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Poseidon connect',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_fill_percent-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_fill_percent',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Fill Percent',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '734730-fill_percent',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_fill_percent-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Poseidon connect Fill Percent',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_fill_percent',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '91',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.poseidon_connect_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '734730-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Poseidon connect RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-74',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1155,6 +1521,56 @@
     'state': 'Katzenklappe',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.katzenklappe_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '1299453-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Katzenklappe RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.katzenklappe_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-56',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1259,6 +1675,56 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'Laundry Door',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.laundry_door_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '727608-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Laundry Door RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.laundry_door_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-88',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_assigned_devices-entry]
@@ -1593,9 +2059,8 @@
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'LEFT',
+      'position': 'ONE',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 2,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -1655,9 +2120,9 @@
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'RIGHT',
+      'position': 'TWO',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 2,
+      'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -2049,5 +2514,272 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'Pet with empty status',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.poseidon_connect_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '734730-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Poseidon connect Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '44',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl  Weight',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '734730-bowl_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'friendly_name': 'Poseidon connect Bowl  Weight',
+      'last_fill_weight': 1071.92,
+      'last_filled_at': '2025-09-03 08:39:29+00:00',
+      'last_zeroed_at': None,
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '975.95',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '734730-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Poseidon connect Entity Information',
+      'household_id': 7777,
+      'icon': 'mdi:information',
+      'id': 734730,
+      'parent_device_id': None,
+      'product_id': 8,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Poseidon connect',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_fill_percent-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.poseidon_connect_fill_percent',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Fill Percent',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '734730-fill_percent',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_fill_percent-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Poseidon connect Fill Percent',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_fill_percent',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '91',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.poseidon_connect_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepetcare',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '734730-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Poseidon connect RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.poseidon_connect_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-74',
   })
 # ---

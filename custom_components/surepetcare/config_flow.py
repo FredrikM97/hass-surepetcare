@@ -18,9 +18,13 @@ from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
 from .const import (
     DEVICE_OPTION,
     DOMAIN,
+    ENTRY_ID,
+    NAME,
     OPTION_DEVICES,
     OPTIONS_FINISHED,
     CLIENT_DEVICE_ID,
+    TOKEN,
+    PRODUCT_ID,
 )
 from .device_config_schema import DEVICE_CONFIG_SCHEMAS
 
@@ -105,8 +109,8 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             return None, errors
         entity_info = {
             str(device.id): {
-                "product_id": getattr(device, "product_id", None),
-                "name": getattr(device, "name", device.id),
+                PRODUCT_ID: getattr(device, PRODUCT_ID, None),
+                NAME: getattr(device, NAME, device.id),
             }
             for device in self._devices.values()
         }
@@ -114,9 +118,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 
     async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
         """Migration step in case entities not populated/new device added."""
-        entry = self.hass.config_entries.async_get_entry(self.context["entry_id"])
+        entry = self.hass.config_entries.async_get_entry(self.context[ENTRY_ID])
         client, _ = await self._authenticate(
-            token=entry.data["token"], device_id=entry.data["client_device_id"]
+            token=entry.data[TOKEN], device_id=entry.data[CLIENT_DEVICE_ID]
         )
         entity_info, _ = await self._async_fetch_entities(client)
         await client.close()
@@ -138,7 +142,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         if not logged_in:
             errors["base"] = "auth_failed"
 
-        token = getattr(client, "token", None)
+        token = getattr(client, TOKEN, None)
         if not token:
             errors["base"] = "cannot_connect"
 
@@ -206,13 +210,13 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
             return self.async_abort(reason="no_devices_or_pet_found")
 
         sorted_devices = sorted(
-            self._devices.items(), key=lambda item: item[1].get("product_id", 0)
+            self._devices.items(), key=lambda item: item[1].get(PRODUCT_ID, 0)
         )
         select_options = [
             {
                 "value": str(k),
-                "label": get_device_attr(v, "name", str(k))
-                + f" ({ProductId(v['product_id']).name})",
+                "label": get_device_attr(v, NAME, str(k))
+                + f" ({ProductId(v[PRODUCT_ID]).name})",
             }
             for k, v in sorted_devices
         ]
@@ -244,7 +248,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         return self.async_show_form(
             step_id="configure_device",
             data_schema=vol.Schema(schema_dict),
-            description_placeholders={"device_name": device["name"]},
+            description_placeholders={"device_name": device[NAME]},
         )
 
 
@@ -257,7 +261,7 @@ def get_device_attr(device: Any, attr: str, default: Any = None) -> Any:
 
 def _build_device_schema(entity: dict) -> dict:
     """Build the voluptuous schema dict for the selected device."""
-    schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, "product_id"))
+    schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, PRODUCT_ID))
     schema_dict = {}
     if schema_info:
         for key, field_type in schema_info.items():

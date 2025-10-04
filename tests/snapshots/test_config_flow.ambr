@@ -107,6 +107,10 @@
           'name': 'Laundry Door',
           'product_id': 3,
         }),
+        '734730': dict({
+          'name': 'Poseidon connect',
+          'product_id': 8,
+        }),
       }),
     }),
     'pref_disable_new_entities': False,
@@ -159,6 +163,10 @@
           'name': 'Laundry Door',
           'product_id': 3,
         }),
+        '734730': dict({
+          'name': 'Poseidon connect',
+          'product_id': 8,
+        }),
       }),
     }),
     'result': ConfigEntrySnapshot({
@@ -197,6 +205,10 @@
           '727608': dict({
             'name': 'Laundry Door',
             'product_id': 3,
+          }),
+          '734730': dict({
+            'name': 'Poseidon connect',
+            'product_id': 8,
           }),
         }),
       }),

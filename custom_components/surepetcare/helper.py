@@ -6,7 +6,7 @@ from surepcio.devices.device import SurePetCareBase
 from enum import Enum
 import re
 from typing import Any, Optional
-from custom_components.surepetcare.const import OPTION_DEVICES
+from custom_components.surepetcare.const import NAME, OPTION_DEVICES, PRODUCT_ID
 
 
 def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
@@ -18,14 +18,14 @@ def option_name(
     entry_options: MappingProxyType[str, Any], device_id: int
 ) -> str | None:
     """Return the name of the device option."""
-    return device_option(entry_options, device_id).get("name")
+    return device_option(entry_options, device_id).get(NAME)
 
 
 def option_product_id(
     entry_options: MappingProxyType[str, Any], device_id: int
 ) -> str | None:
     """Return the name of the device option."""
-    return device_option(entry_options, device_id).get("product_id")
+    return device_option(entry_options, device_id).get(PRODUCT_ID)
 
 
 def index_attr(seq, idx, attr, default=None):
@@ -168,7 +168,7 @@ def find_entity_id_by_name(
         (
             entity_id
             for entity_id, entity in entry_options.get(OPTION_DEVICES, {}).items()
-            if entity.get("name") == name
+            if entity.get(NAME) == name
         ),
         None,
     )
