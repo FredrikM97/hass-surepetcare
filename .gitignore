@@ -173,8 +173,3 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .DS_Store
-
-
-release.py
-full_release.py
-create_tag.py
