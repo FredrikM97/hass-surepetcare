@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+import argparse
+import re
 import shutil
 import subprocess
 import sys
-import re
 import textwrap
 
 PYPROJECT_PATH = "pyproject.toml"
@@ -18,12 +19,14 @@ RESET = "\033[0m"
 
 REQUIRED_CLI_TOOLS = ["bump-my-version"]
 
+
 def git(*args, capture_output=False):
     """Run a git command and optionally capture its output."""
     cmd = ["git"] + list(args)
     if capture_output:
         return subprocess.check_output(cmd).decode().strip()
     subprocess.run(cmd, check=True)
+
 
 def confirm(question, default="n"):
     """Prompt the user for a yes/no confirmation with colored prompt."""
@@ -33,13 +36,17 @@ def confirm(question, default="n"):
         answer = default.lower()
     return answer == "y"
 
+
 def check_cli_tools():
     """Verify that all required CLI tools are installed, else exit with instructions."""
     for tool in REQUIRED_CLI_TOOLS:
         if shutil.which(tool) is None:
-            print(f"{RED}Missing required command: {tool}{RESET}\n"
-                  f"Install it with: {CYAN}pip install {tool.replace('-', '_')}{RESET}")
+            print(
+                f"{RED}Missing required command: {tool}{RESET}\n"
+                f"Install it with: {CYAN}pip install {tool.replace('-', '_')}{RESET}"
+            )
             sys.exit(1)
+
 
 def get_bump_options():
     """Return a list of available version bump options from bump-my-version."""
@@ -57,6 +64,7 @@ def get_bump_options():
                     options.append((bump_type, version))
     return options
 
+
 def select_bump_option(bump_options):
     """Prompt the user to select a version bump option from the available list."""
     print(f"\n{BOLD}Available version bumps:{RESET}")
@@ -66,11 +74,12 @@ def select_bump_option(bump_options):
         try:
             choice = int(input(f"{BOLD}Select bump type [1]: {RESET}") or 1)
             if 1 <= choice <= len(bump_options):
-                return bump_options[choice-1]
+                return bump_options[choice - 1]
             else:
                 print(f"{YELLOW}Invalid selection. Please choose a valid bump type.{RESET}")
         except Exception:
             print(f"{YELLOW}Invalid input. Please enter a number.{RESET}")
+
 
 def dry_run_bump(bump_type, new_version=None):
     """Perform a dry run of the version bump and print the output."""
@@ -87,6 +96,7 @@ def dry_run_bump(bump_type, new_version=None):
         print(e.output.decode() if e.output else "")
         return False
 
+
 def do_bump(bump_type, new_version=None):
     """Perform the actual version bump (no tag created)."""
     cmd = ["bump-my-version", "bump", bump_type, "--no-tag"]
@@ -94,17 +104,22 @@ def do_bump(bump_type, new_version=None):
         cmd += ["--new-version", new_version]
     subprocess.run(cmd, check=True)
 
+
 def get_latest_final_tag():
     """Return the latest final release tag (vX.Y.Z) sorted by version."""
-    tags = git("tag", "--list", "v[0-9]*.[0-9]*.[0-9]*", "--sort=-v:refname", capture_output=True).splitlines()
+    tags = git(
+        "tag", "--list", "v[0-9]*.[0-9]*.[0-9]*", "--sort=-v:refname", capture_output=True
+    ).splitlines()
     if not tags:
         print(f"{RED}No final release tags found.{RESET}")
         sys.exit(1)
     return tags[0]
 
+
 def get_commit_for_tag(tag):
     """Return the commit SHA for a given tag."""
     return git("rev-list", "-n", "1", tag, capture_output=True)
+
 
 def get_current_version(pyproject_path=PYPROJECT_PATH):
     """Extract and return the current version from pyproject.toml."""
@@ -116,11 +131,10 @@ def get_current_version(pyproject_path=PYPROJECT_PATH):
     print(f"{RED}Could not find version in pyproject.toml{RESET}")
     sys.exit(1)
 
+
 def get_commit_for_version(version, pyproject_path=PYPROJECT_PATH):
     """Find the commit SHA where the given version was set in pyproject.toml."""
-    log = subprocess.check_output([
-        "git", "log", "--pretty=format:%H", pyproject_path
-    ]).decode().splitlines()
+    log = subprocess.check_output(["git", "log", "--pretty=format:%H", pyproject_path]).decode().splitlines()
     for sha in log:
         content = git("show", f"{sha}:{pyproject_path}", capture_output=True)
         if f'version = "{version}"' in content or f"version = '{version}'" in content:
@@ -128,24 +142,31 @@ def get_commit_for_version(version, pyproject_path=PYPROJECT_PATH):
     print(f"{RED}Could not find commit for version {version}{RESET}")
     sys.exit(1)
 
+
 def summarize_commits_between(ref1, ref2):
     """Print and return the number of commits between two refs."""
     log = git("log", "--oneline", f"{ref1}..{ref2}", capture_output=True)
     if log:
         commits = log.splitlines()
         print(
-            f"\n{BOLD}Total commits between {CYAN}{ref1[:7]}{RESET} and {CYAN}{ref2[:7]}{RESET}: {YELLOW}{len(commits)}{RESET}"
+            f"\n{BOLD}Total commits between {CYAN}{ref1[:7]}{RESET} "
+            f"and {CYAN}{ref2[:7]}{RESET}: {YELLOW}{len(commits)}{RESET}"
         )
         return commits
     else:
         print(f"\n{YELLOW}No commits between {ref1[:7]} and {ref2[:7]}.{RESET}")
         return []
 
+
 def print_github_compare_link(from_commit, to_commit):
     """Print a GitHub compare link for the given commit SHAs."""
     if "<owner>/<repo>" in GITHUB_REPO:
         return
-    print(f"\n{BOLD}GitHub compare:{RESET} {CYAN}{GITHUB_REPO}/compare/{from_commit[:7]}..{to_commit[:7]}{RESET}")
+    print(
+        f"\n{BOLD}GitHub compare:{RESET} "
+        f"{CYAN}{GITHUB_REPO}/compare/{from_commit[:7]}..{to_commit[:7]}{RESET}"
+    )
+
 
 def delete_branch(branch):
     """Delete a local git branch if it exists."""
@@ -153,17 +174,21 @@ def delete_branch(branch):
     if branch in branches:
         git("branch", "-D", branch)
 
+
 def force_fetch_main():
     """Force fetch the main branch from origin."""
     git("fetch", "origin", "main:main", "--force")
+
 
 def squash_between_commits(old_commit, new_commit, old_version, new_version, target_branch="main"):
     """Create a release branch and squash merge changes between two commits."""
     branch_name = f"release-v{new_version}"
     try:
         print(
-            f"{BOLD}Creating branch {GREEN}{branch_name}{RESET} from {CYAN}{old_commit[:7]}{RESET} (v{old_version})...\n"
-            f"{BOLD}Squash merging {CYAN}{new_commit[:7]}{RESET} (v{new_version}) into {GREEN}{branch_name}{RESET}...{RESET}"
+            f"{BOLD}Creating branch {GREEN}{branch_name}{RESET} from "
+            f"{CYAN}{old_commit[:7]}{RESET} (v{old_version})...\n"
+            f"{BOLD}Squash merging {CYAN}{new_commit[:7]}{RESET} (v{new_version}) into "
+            "{GREEN}{branch_name}{RESET}...{RESET}"
         )
         summarize_commits_between(old_commit, new_commit)
         print_github_compare_link(old_commit, new_commit)
@@ -178,7 +203,8 @@ def squash_between_commits(old_commit, new_commit, old_version, new_version, tar
         git("commit", "-m", f"Release: v{new_version}")
         print(f"{GREEN}Squash complete on branch {branch_name}.{RESET}")
 
-        instructions = textwrap.dedent(f"""
+        instructions = textwrap.dedent(
+            f"""
             {BOLD}Next steps:{RESET}
               1. Push your branch and open a PR to '{target_branch}':
                  {CYAN}git push origin {branch_name}{RESET}
@@ -187,7 +213,8 @@ def squash_between_commits(old_commit, new_commit, old_version, new_version, tar
               2. After merge, tag the squashed commit in main:
                  {CYAN}git checkout main && git pull
                  git tag v{new_version} && git push origin v{new_version}{RESET}
-        """)
+        """
+        )
         print(instructions)
         return True
     except Exception as e:
@@ -196,6 +223,7 @@ def squash_between_commits(old_commit, new_commit, old_version, new_version, tar
         force_fetch_main()
         print(f"{YELLOW}Cleanup complete. Please resolve any issues before retrying.{RESET}")
         sys.exit(1)
+
 
 def tag_and_bump():
     """Guide the user through selecting and performing a version bump."""
@@ -230,6 +258,7 @@ def tag_and_bump():
     do_bump(selected_type)
     print(f"\n{GREEN}✔ Version bumped to {CYAN}{version}{RESET}")
 
+
 def full_release_flow():
     """Run the full release flow: tag/bump, then squash and PR."""
     print(f"{BOLD}Step 1: Tag and push new version{RESET}")
@@ -238,8 +267,12 @@ def full_release_flow():
     if confirm("Continue to the squash/release process?"):
         main_release()
     else:
-        print(f"\n{YELLOW}You can run the release process later with:{RESET} {CYAN}python3 full_release.py --release{RESET}")
+        print(
+            f"\n{YELLOW}You can run the release process later with:{RESET} "
+            f"{CYAN}python3 full_release.py --release{RESET}"
+        )
     print(f"\n{GREEN}Full release flow complete! 🎉{RESET}")
+
 
 def main_release():
     """Run only the squash and PR step of the release flow."""
@@ -263,14 +296,16 @@ def main_release():
     if not commits:
         print(f"{YELLOW}No changes to squash between these commits.{RESET}")
         sys.exit(0)
-    if not confirm(f"Proceed with squash of all changes from version {from_version} to {to_version}?", default="n"):
+    if not confirm(
+        f"Proceed with squash of all changes from version {from_version} to {to_version}?", default="n"
+    ):
         print(f"{YELLOW}Aborted.{RESET}")
         sys.exit(0)
     squash_between_commits(from_commit, to_commit, from_version, to_version, target_branch="main")
     print(f"\n{GREEN}Release process complete! 🎉{RESET}")
 
+
 if __name__ == "__main__":
-    import argparse
     parser = argparse.ArgumentParser(description="Full release flow for hass-surepetcare.")
     parser.add_argument("--release", action="store_true", help="Only run the squash/release step")
     parser.add_argument("--tag", action="store_true", help="Only run the tag/bump step")
