@@ -3,7 +3,6 @@
 from copy import deepcopy
 import logging
 from typing import Any, Mapping
-from enum import IntEnum
 
 from surepcio import SurePetcareClient
 from surepcio import Household

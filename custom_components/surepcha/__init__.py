@@ -39,18 +39,29 @@ PLATFORMS = [
     Platform.SWITCH,
 ]
 
+
 async def async_migrate_entry(hass, config_entry: ConfigEntry):
     """Migrate old entry and move data from 'surepetcare' to 'surepcha' domain if present."""
-    logger.debug("Migrating configuration from version %s.%s", config_entry.version, config_entry.minor_version)
+    logger.debug(
+        "Migrating configuration from version %s.%s",
+        config_entry.version,
+        config_entry.minor_version,
+    )
 
     # Migrate in-memory data from old domain to new domain if present
     old_domain = "surepetcare"
     entry_id = config_entry.entry_id
 
-    if old_domain in hass.data and entry_id in hass.data[old_domain] and FACTORY in hass.data[old_domain][entry_id]:
+    if (
+        old_domain in hass.data
+        and entry_id in hass.data[old_domain]
+        and FACTORY in hass.data[old_domain][entry_id]
+    ):
         logger.info(
             "Migrating in-memory data from '%s' to '%s' for entry_id=%s",
-            old_domain, DOMAIN, entry_id
+            old_domain,
+            DOMAIN,
+            entry_id,
         )
         hass.data.setdefault(DOMAIN, {})[entry_id] = hass.data[old_domain].pop(entry_id)
         # Optionally clean up old domain if empty
@@ -76,10 +87,12 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
 
     logger.debug(
         "Migration to configuration version %s.%s successful",
-        config_entry.version, config_entry.minor_version
+        config_entry.version,
+        config_entry.minor_version,
     )
 
     return True
+
 
 async def async_setup_entry(
     hass: HomeAssistant,

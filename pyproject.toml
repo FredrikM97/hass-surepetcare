@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["custom_components.surepetcare*"]
+include = ["custom_components.surepcha*"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

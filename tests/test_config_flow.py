@@ -1,7 +1,7 @@
 import pytest
 from syrupy.assertion import SnapshotAssertion
 from homeassistant.core import HomeAssistant
-from custom_components.surepetcare.const import (
+from custom_components.surepcha.const import (
     DEVICE_OPTION,
     DOMAIN,
     CONF_EMAIL,
@@ -16,7 +16,7 @@ from custom_components.surepetcare.const import (
     PRODUCT_ID,
     TOKEN,
 )
-from custom_components.surepetcare.config_flow import (
+from custom_components.surepcha.config_flow import (
     SurePetCareConfigFlow,
     SurePetCareOptionsFlow,
 )
@@ -62,9 +62,7 @@ class MockClient:
 @pytest.mark.asyncio
 async def test_setup_complete_flow(hass):
     flow = SurePetCareConfigFlow()
-    with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", MockClient
-    ):
+    with patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient):
         result = await flow.async_step_user(
             {"email": "test@example.com", "password": "password123"}
         )
@@ -80,9 +78,7 @@ async def test_options_flow(hass):
         options={OPTION_DEVICES: {"444": {NAME: "Test Device", PRODUCT_ID: 6}}},
     )
 
-    with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", MockClient
-    ):
+    with patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient):
         entry.add_to_hass(hass)
         flow = SurePetCareOptionsFlow(entry)
         """

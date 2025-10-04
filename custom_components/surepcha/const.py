@@ -1,4 +1,4 @@
-""""Constants for the Sure Petcare integration."""
+""" "Constants for the Sure Petcare integration."""
 
 DOMAIN = "surepcha"
 

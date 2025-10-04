@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import (
+from custom_components.surepcha.helper import (
     MethodField,
     list_attr,
     option_product_id,

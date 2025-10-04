@@ -1,7 +1,7 @@
 from collections.abc import Generator
 from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
-from custom_components.surepetcare.const import (
+from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
     LOCATION_INSIDE,
@@ -50,7 +50,7 @@ def mock_coordinator_update_data():
         return self._device
 
     with patch(
-        "custom_components.surepetcare.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
+        "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
         new=return_device_data,
     ):
         yield
@@ -156,9 +156,7 @@ async def mock_loaded_entry(
 
     # Initialize the component
     with (
-        patch(
-            "custom_components.surepetcare.SurePetcareClient", return_value=mock_client
-        ),
+        patch("custom_components.surepcha.SurePetcareClient", return_value=mock_client),
     ):
         await hass.config_entries.async_setup(mock_config_entry.entry_id)
         await hass.async_block_till_done()
@@ -170,7 +168,7 @@ async def mock_loaded_entry(
 def mock_setup_entry(monkeypatch):
     """Mock setting up a config entry."""
     monkeypatch.setattr(
-        "custom_components.surepetcare.async_setup_entry", lambda *a, **kw: True
+        "custom_components.surepcha.async_setup_entry", lambda *a, **kw: True
     )
     yield
 
@@ -203,7 +201,7 @@ async def mock_surepetcare_login_control(
 ) -> Generator[MagicMock, None, None]:
     """Return a mocked SurePetcareClient for config_flow login."""
     with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", autospec=True
+        "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
     ) as client_mock:
         instance = client_mock.return_value
         instance.login = AsyncMock(return_value=True)

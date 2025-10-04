@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 
 from homeassistant.helpers import device_registry as dr
 
-from custom_components.surepetcare.helper import serialize
+from custom_components.surepcha.helper import serialize
 
 from .const import DOMAIN
 

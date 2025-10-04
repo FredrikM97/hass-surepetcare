@@ -18,7 +18,7 @@ from surepcio.enums import (
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
-from custom_components.surepetcare.helper import (
+from custom_components.surepcha.helper import (
     MethodField,
     find_entity_id_by_name,
     list_attr,

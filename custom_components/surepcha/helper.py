@@ -6,7 +6,7 @@ from surepcio.devices.device import SurePetCareBase
 from enum import Enum
 import re
 from typing import Any, Optional
-from custom_components.surepetcare.const import NAME, OPTION_DEVICES, PRODUCT_ID
+from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
 
 
 def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
