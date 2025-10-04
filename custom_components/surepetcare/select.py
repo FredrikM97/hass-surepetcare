@@ -13,6 +13,7 @@ from surepcio.enums import (
     HubLedMode,
     ModifyDeviceTag,
     BowlTypeOptions,
+    Tare
 )
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
@@ -103,6 +104,13 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             ),
             options=BowlTypeOptions,
             device_class=SensorDeviceClass.ENUM,
+            entity_category=EntityCategory.CONFIG,
+        ),
+        SurePetCareSelectEntityDescription(
+            key="tare",
+            translation_key="tare",
+            field=SelectMethodField(path="control.tare"),
+            options=Tare,
             entity_category=EntityCategory.CONFIG,
         ),
     ),
