@@ -28,7 +28,9 @@ from .const import (
     KEY_API,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    NAME,
     OPTION_DEVICES,
+    PRODUCT_ID,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -92,10 +94,10 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
         translation_key="entity_information",
         icon="mdi:information",
         field=MethodField(
-            path="name",
+            path=NAME,
             path_extra={
                 "household_id": "household_id",
-                "product_id": "product_id",
+                PRODUCT_ID: PRODUCT_ID,
                 "id": "id",
                 "parent_device_id": "entity_info.parent_device_id",
             },
@@ -122,10 +124,10 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         translation_key="entity_information",
         icon="mdi:information",
         field=MethodField(
-            path="name",
+            path=NAME,
             path_extra={
                 "household_id": "household_id",
-                "product_id": "product_id",
+                PRODUCT_ID: PRODUCT_ID,
                 "tag": "tag",
                 "id": "id",
                 "parent_device_id": "entity_info.parent_device_id",

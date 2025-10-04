@@ -2,10 +2,14 @@ from collections.abc import Generator
 from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from custom_components.surepetcare.const import (
+    CLIENT_DEVICE_ID,
     DOMAIN,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    NAME,
     OPTION_DEVICES,
+    PRODUCT_ID,
+    TOKEN,
 )
 from . import DEVICE_MOCKS, PET_MOCKS
 from surepcio import SurePetcareClient
@@ -53,7 +57,7 @@ def mock_coordinator_update_data():
 
 
 def _create_entity(details):
-    entity = load_device_class(details["entity_info"]["product_id"])(
+    entity = load_device_class(details["entity_info"][PRODUCT_ID])(
         details["entity_info"], timezone="utc"
     )
     entity.status = entity.statusCls(**details["status"])
@@ -107,22 +111,22 @@ def mock_config_entry() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={"token": "abc", "client_device_id": "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
         options={
             OPTION_DEVICES: {
                 "1299453": {
-                    "name": "DualScanConnect door",
-                    "product_id": ProductId.DUAL_SCAN_CONNECT,
+                    NAME: "DualScanConnect door",
+                    PRODUCT_ID: ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
                 },
                 "269654": {
-                    "name": "Feeder",
-                    "product_id": ProductId.FEEDER_CONNECT,
+                    NAME: "Feeder",
+                    PRODUCT_ID: ProductId.FEEDER_CONNECT,
                 },
                 "727608": {
-                    "name": "PetDoor",
-                    "product_id": ProductId.PET_DOOR,
+                    NAME: "PetDoor",
+                    PRODUCT_ID: ProductId.PET_DOOR,
                 },
             }
         },
@@ -136,7 +140,7 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={"token": "abc", "client_device_id": "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
         options={OPTION_DEVICES: {}},
         unique_id="12345",
     )

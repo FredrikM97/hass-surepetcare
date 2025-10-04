@@ -2,7 +2,7 @@ import importlib
 import inspect
 from unittest.mock import MagicMock, patch
 import custom_components.surepetcare.__init__ as surepetcare_init
-from custom_components.surepetcare.const import FACTORY
+from custom_components.surepetcare.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
 import pytest
 from custom_components.surepetcare import remove_stale_devices, DOMAIN
 from surepcio.enums import ProductId
@@ -83,8 +83,8 @@ class DummyConfigEntry:
 
     def __init__(self):
         self.entry_id = "dummy"
-        self.domain = "surepetcare"
-        self.data = {"token": "tok", "client_device_id": "dev"}
+        self.domain = DOMAIN
+        self.data = {TOKEN: "tok", CLIENT_DEVICE_ID: "dev"}
         self.options = {}
         self.state = None  # Added to avoid AttributeError
 
@@ -271,7 +271,7 @@ async def test_async_setup_entry_and_unload():
         else:
             await surepetcare_init.async_setup_entry(hass, entry)
         # Test unload
-        hass.data["surepetcare"] = {entry.entry_id: {FACTORY: DummyClient()}}
+        hass.data[DOMAIN] = {entry.entry_id: {FACTORY: DummyClient()}}
         result = await surepetcare_init.async_unload_entry(hass, entry)
         assert result is True
 
@@ -347,8 +347,8 @@ async def test_remove_stale_devices_called():
 async def test_async_unload_entry_missing_data():
     hass = DummyHass()
     entry = DummyConfigEntry()
-    # No data in hass.data["surepetcare"]
-    hass.data["surepetcare"] = {}
+    # No data in hass.data[DOMAIN]
+    hass.data[DOMAIN] = {}
     with pytest.raises(KeyError):
         await surepetcare_init.async_unload_entry(hass, entry)
 

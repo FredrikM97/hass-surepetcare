@@ -38,7 +38,16 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
+from .const import (
+    COORDINATOR,
+    COORDINATOR_DICT,
+    DEVICES,
+    DOMAIN,
+    KEY_API,
+    NAME,
+    OPTION_DEVICES,
+    PRODUCT_ID,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -122,7 +131,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                     filter(
                         None,
                         map_attr(
-                            list_attr(device.status, "devices"),
+                            list_attr(device.status, DEVICES),
                             lambda d: option_name(r, d.id),
                         ),
                     )
@@ -135,11 +144,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 options_fn=lambda device, r: [
-                    v.get("name")
+                    v.get(NAME)
                     for k, v in r[OPTION_DEVICES].items()
-                    if v.get("product_id") not in {ProductId.PET, ProductId.HUB}
-                    and k
-                    not in {str(d.id) for d in list_attr(device.status, "devices")}
+                    if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
+                    and k not in {str(d.id) for d in list_attr(device.status, DEVICES)}
                 ],
                 set_fn=lambda pet, entry_data, option: (
                     pet.set_tag(value, action=ModifyDeviceTag.ADD)
