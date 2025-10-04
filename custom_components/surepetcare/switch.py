@@ -20,10 +20,9 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from homeassistant.helpers.entity import EntityCategory
 from surepcio.command import Command
 from surepcio.devices import Pet
-from surepcio.enums import ProductId, PetDeviceLocationProfile, HubPairMode
+from surepcio.enums import ProductId, PetDeviceLocationProfile
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 import logging
 

@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 import logging
+from types import MappingProxyType
 from typing import Any
 from surepcio.enums import ProductId, HubPairMode
 from surepcio import SurePetcareClient
@@ -27,16 +28,19 @@ from .entity import (
 
 logger = logging.getLogger(__name__)
 
+
 @dataclass(frozen=True, slots=True)
 class ButtonMethodField(MethodField):
     """MethodField for button-like entities, supporting on mapping."""
 
     on: Any = True
-    def set(self, device: object, config: dict, value: Any) -> Any:
+
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
         if value is True and self.on:
             value = self.on
-        return MethodField.set(self, device, config, value)
-
+        return MethodField.set(self, device, entry_options, value)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -46,18 +50,15 @@ class SurePetCareButtonEntityDescription(
     """Describes SurePetCare button entity."""
 
 
-BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {    
+BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
     ProductId.HUB: (
-         SurePetCareButtonEntityDescription(
+        SurePetCareButtonEntityDescription(
             key="pairing_mode",
             translation_key="pairing_mode",
-            field=ButtonMethodField(
-                path="control.pairing_mode", on=HubPairMode.ON
-            ),
+            field=ButtonMethodField(path="control.pairing_mode", on=HubPairMode.ON),
             entity_category=EntityCategory.CONFIG,
         ),
     )
-    
 }
 
 

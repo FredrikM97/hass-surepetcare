@@ -13,7 +13,7 @@ from surepcio.enums import (
     HubLedMode,
     ModifyDeviceTag,
     BowlTypeOptions,
-    Tare
+    Tare,
 )
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
