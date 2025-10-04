@@ -104,17 +104,16 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
 )
 
 SENSOR_DESCRIPTIONS_RSSI: tuple[SurePetCareSensorEntityDescription, ...] = (
-    
-        SurePetCareSensorEntityDescription(
-            key="rssi",
-            translation_key="rssi",
-            native_unit_of_measurement="dBm",
-            field=MethodField(
-                get_fn=lambda device, r: device.status.signal.device_rssi,
-            ),
-            device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-            entity_category=EntityCategory.DIAGNOSTIC,
+    SurePetCareSensorEntityDescription(
+        key="rssi",
+        translation_key="rssi",
+        native_unit_of_measurement="dBm",
+        field=MethodField(
+            get_fn=lambda device, r: device.status.signal.device_rssi,
         ),
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
 )
 
 SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, ...] = (
