@@ -176,3 +176,5 @@ cython_debug/
 
 
 release.py
+full_release.py
+create_tag.py
