@@ -1,5 +1,5 @@
 {
-  "domain": "surepetcare",
+  "domain": "surepcha",
   "name": "SurePetCare",
   "codeowners": ["@FredrikM97"],
   "config_flow": true,

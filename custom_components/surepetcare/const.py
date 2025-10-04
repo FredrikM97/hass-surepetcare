@@ -1,6 +1,6 @@
-"""TODO."""
+""""Constants for the Sure Petcare integration."""
 
-DOMAIN = "surepetcare"
+DOMAIN = "surepcha"
 
 CONF_EMAIL = "email"
 CONF_PASSWORD = "password"

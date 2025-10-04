@@ -38,20 +38,12 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
 )
 
 
-class FlowAction(IntEnum):
-    """Determine if setting up or reconfiguring."""
-
-    SETUP = 0
-    RECONFIGURE = 1
-
-
 class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: ignore
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
 
     def __init__(self) -> None:
-        # self.client: SurePetcareClient | None = None
         self._devices: dict[str, Any] = {}
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
