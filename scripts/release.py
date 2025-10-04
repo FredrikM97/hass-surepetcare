@@ -54,7 +54,12 @@ def get_bump_options():
     options = []
     for line in output.splitlines():
         line = line.strip()
-        if "─ major ─" in line or "─ minor ─" in line or "─ patch ─" in line or "─ pre_l ─" in line:
+        if (
+            "─ major ─" in line
+            or "─ minor ─" in line
+            or "─ patch ─" in line
+            or "─ pre_l ─" in line
+        ):
             parts = [p.strip() for p in line.split("─")]
             if len(parts) >= 3:
                 bump_type = parts[-2]
@@ -69,21 +74,27 @@ def select_bump_option(bump_options):
     """Prompt the user to select a version bump option from the available list."""
     print(f"\n{BOLD}Available version bumps:{RESET}")
     for idx, (bump_type, version) in enumerate(bump_options, 1):
-        print(f"  {CYAN}{idx}.{RESET} {YELLOW}{bump_type:7}{RESET} → {GREEN}{version}{RESET}")
+        print(
+            f"  {CYAN}{idx}.{RESET} {YELLOW}{bump_type:7}{RESET} → {GREEN}{version}{RESET}"
+        )
     while True:
         try:
             choice = int(input(f"{BOLD}Select bump type [1]: {RESET}") or 1)
             if 1 <= choice <= len(bump_options):
                 return bump_options[choice - 1]
             else:
-                print(f"{YELLOW}Invalid selection. Please choose a valid bump type.{RESET}")
+                print(
+                    f"{YELLOW}Invalid selection. Please choose a valid bump type.{RESET}"
+                )
         except Exception:
             print(f"{YELLOW}Invalid input. Please enter a number.{RESET}")
 
 
 def dry_run_bump(bump_type, new_version=None):
     """Perform a dry run of the version bump and print the output."""
-    print(f"\n{BOLD}Dry run for bump-my-version bump:{RESET} {YELLOW}{bump_type}{RESET}")
+    print(
+        f"\n{BOLD}Dry run for bump-my-version bump:{RESET} {YELLOW}{bump_type}{RESET}"
+    )
     cmd = ["bump-my-version", "bump", bump_type, "--dry-run"]
     if new_version:
         cmd += ["--new-version", new_version]
@@ -108,7 +119,11 @@ def do_bump(bump_type, new_version=None):
 def get_latest_final_tag():
     """Return the latest final release tag (vX.Y.Z) sorted by version."""
     tags = git(
-        "tag", "--list", "v[0-9]*.[0-9]*.[0-9]*", "--sort=-v:refname", capture_output=True
+        "tag",
+        "--list",
+        "v[0-9]*.[0-9]*.[0-9]*",
+        "--sort=-v:refname",
+        capture_output=True,
     ).splitlines()
     if not tags:
         print(f"{RED}No final release tags found.{RESET}")
@@ -134,7 +149,11 @@ def get_current_version(pyproject_path=PYPROJECT_PATH):
 
 def get_commit_for_version(version, pyproject_path=PYPROJECT_PATH):
     """Find the commit SHA where the given version was set in pyproject.toml."""
-    log = subprocess.check_output(["git", "log", "--pretty=format:%H", pyproject_path]).decode().splitlines()
+    log = (
+        subprocess.check_output(["git", "log", "--pretty=format:%H", pyproject_path])
+        .decode()
+        .splitlines()
+    )
     for sha in log:
         content = git("show", f"{sha}:{pyproject_path}", capture_output=True)
         if f'version = "{version}"' in content or f"version = '{version}'" in content:
@@ -180,7 +199,9 @@ def force_fetch_main():
     git("fetch", "origin", "main:main", "--force")
 
 
-def squash_between_commits(old_commit, new_commit, old_version, new_version, target_branch="main"):
+def squash_between_commits(
+    old_commit, new_commit, old_version, new_version, target_branch="main"
+):
     """Create a release branch and squash merge changes between two commits."""
     branch_name = f"release-v{new_version}"
     try:
@@ -221,7 +242,9 @@ def squash_between_commits(old_commit, new_commit, old_version, new_version, tar
         print(f"\n{RED}Error during squash: {e}{RESET}")
         delete_branch(branch_name)
         force_fetch_main()
-        print(f"{YELLOW}Cleanup complete. Please resolve any issues before retrying.{RESET}")
+        print(
+            f"{YELLOW}Cleanup complete. Please resolve any issues before retrying.{RESET}"
+        )
         sys.exit(1)
 
 
@@ -291,23 +314,32 @@ def main_release():
 
     print(f"\n{BOLD}Local diff for version bump commit:{RESET}")
     diffstat = git("diff", "--stat", parent_commit, to_commit, capture_output=True)
-    print(diffstat if diffstat else f"{YELLOW}No changes in version bump commit.{RESET}")
+    print(
+        diffstat if diffstat else f"{YELLOW}No changes in version bump commit.{RESET}"
+    )
 
     if not commits:
         print(f"{YELLOW}No changes to squash between these commits.{RESET}")
         sys.exit(0)
     if not confirm(
-        f"Proceed with squash of all changes from version {from_version} to {to_version}?", default="n"
+        f"Proceed with squash of all changes from version {from_version} to {to_version}?",
+        default="n",
     ):
         print(f"{YELLOW}Aborted.{RESET}")
         sys.exit(0)
-    squash_between_commits(from_commit, to_commit, from_version, to_version, target_branch="main")
+    squash_between_commits(
+        from_commit, to_commit, from_version, to_version, target_branch="main"
+    )
     print(f"\n{GREEN}Release process complete! 🎉{RESET}")
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Full release flow for hass-surepetcare.")
-    parser.add_argument("--release", action="store_true", help="Only run the squash/release step")
+    parser = argparse.ArgumentParser(
+        description="Full release flow for hass-surepetcare."
+    )
+    parser.add_argument(
+        "--release", action="store_true", help="Only run the squash/release step"
+    )
     parser.add_argument("--tag", action="store_true", help="Only run the tag/bump step")
     args = parser.parse_args()
 
