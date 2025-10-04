@@ -111,4 +111,4 @@ class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
 
     async def async_press(self) -> None:
         """Press the button."""
-        await self.send_command(1)
+        await self.send_command(True)
