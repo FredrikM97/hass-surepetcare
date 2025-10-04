@@ -170,5 +170,5 @@ def remove_stale_devices(
 
 async def async_setup(hass: HomeAssistant, config: ConfigEntry):
     for name, func, schema in _service_registry:
-        hass.services.async_register("surepetcare", name, func, schema=schema)
+        hass.services.async_register(DOMAIN, name, func, schema=schema)
     return True
