@@ -261,8 +261,10 @@ def should_add_entity(
             and getattr(description, "entity_registry_enabled_default") is False
         ):
             logging.debug(
-                "Not adding entity %s as value is None and entity_registry_enabled_default is False",
+                "Suggest to not add entity %s as value is None and entity_registry_enabled_default is False",
                 description.key,
             )
-            return False
+            # Temporarly always return true to prevent breaking stuff
+            # Better to disable than making integration remove it since it cause confusion
+            return True
     return True
