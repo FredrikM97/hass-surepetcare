@@ -18,7 +18,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import (
+from custom_components.surepcha.helper import (
     MethodField,
     ensure_list,
     list_attr,

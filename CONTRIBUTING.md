@@ -9,8 +9,16 @@
 To fetch the latest version from the `main` branch for testing, use the HACS update service.  
 See: [HACS docs](https://hacs.xyz/docs/use/entities/update/)
 
-Example:
+Example for latest dev:
 
+```yaml
+action: update.install
+data:
+  version: dev
+target:
+  entity_id: update.surepetcare_update
+```
+For latest release/main use
 ```yaml
 action: update.install
 data:
@@ -18,5 +26,6 @@ data:
 target:
   entity_id: update.surepetcare_update
 ```
+
 
 It is also possible to use same update from branch to verify functionality. 

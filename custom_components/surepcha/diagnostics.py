@@ -9,9 +9,9 @@ from homeassistant.config_entries import ConfigEntry
 
 from homeassistant.helpers import device_registry as dr
 
-from custom_components.surepetcare.helper import serialize
+from custom_components.surepcha.helper import serialize
 
-from .const import DOMAIN
+from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN
 
 
 async def async_get_config_entry_diagnostics(
@@ -33,6 +33,6 @@ async def async_get_device_diagnostics(
     if not integration_data:
         return {}
 
-    device = integration_data["coordinator"]["coordinator_dict"][device_id].data
+    device = integration_data[COORDINATOR][COORDINATOR_DICT][device_id].data
 
     return {"options": dict(entry.options), "device": serialize(device)}

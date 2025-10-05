@@ -36,7 +36,7 @@ def global_service(name, schema=None):
 async def async_set_debug_logging(call):
     """Set debug logging level for surepetcare integration and library."""
     level = getattr(logging, call.data["level"], logging.INFO)
-    logging.getLogger("custom_components.surepetcare").setLevel(level)
+    logging.getLogger("custom_components.surepcha").setLevel(level)
     logging.getLogger("surepcio").setLevel(level)
 
 

@@ -12,7 +12,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepcha.const import DOMAIN
 
 from . import initialize_entry
 
@@ -21,7 +21,7 @@ from pytest_homeassistant_custom_component.common import (
 )
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
 @pytest.mark.usefixtures("enable_custom_integrations")
 @pytest.mark.usefixtures("entity_registry_enabled_default")
 @pytest.mark.asyncio
@@ -37,7 +37,7 @@ async def test_platform_setup_and_service_call(
     await initialize_entry(
         hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
-    surepetcare_logger = logging.getLogger("custom_components.surepetcare")
+    surepetcare_logger = logging.getLogger("custom_components.surepcha")
     surepcio_logger = logging.getLogger("surepcio")
 
     assert surepetcare_logger.getEffectiveLevel() == logging.INFO
@@ -53,7 +53,7 @@ async def test_platform_setup_and_service_call(
     assert surepcio_logger.getEffectiveLevel() == logging.DEBUG
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
 @pytest.mark.usefixtures(
     "enable_custom_integrations", "entity_registry_enabled_default"
 )
@@ -103,7 +103,7 @@ async def test_platform_setup_and_set_tag_service(
     )
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
 @pytest.mark.usefixtures(
     "enable_custom_integrations", "entity_registry_enabled_default"
 )
@@ -145,7 +145,7 @@ async def test_platform_setup_and_set_pet_access_mode_service(
     )
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
 @pytest.mark.usefixtures(
     "enable_custom_integrations", "entity_registry_enabled_default"
 )

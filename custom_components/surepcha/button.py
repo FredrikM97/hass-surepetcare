@@ -11,7 +11,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
-from custom_components.surepetcare.helper import MethodField, should_add_entity
+from custom_components.surepcha.helper import MethodField, should_add_entity
 
 
 from .const import (
@@ -111,4 +111,4 @@ class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
 
     async def async_press(self) -> None:
         """Press the button."""
-        await self.send_command(1)
+        await self.send_command(True)

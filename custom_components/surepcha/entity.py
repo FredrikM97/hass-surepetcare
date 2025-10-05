@@ -7,7 +7,7 @@ from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.surepetcare.helper import MethodField, serialize
+from custom_components.surepcha.helper import MethodField, serialize
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 

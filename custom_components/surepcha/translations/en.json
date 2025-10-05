@@ -74,10 +74,10 @@
         "state": {
             "large_wet": "Large (Wet)",
             "large_dry":"Large (Dry)",
-            "two_smal_wet_wet": "Two small (Wet/Wet)",
-            "two_smal_dry_wet": "Two small (Dry/Wet)",
-            "two_smal_wet_dry": "Two small (Wet/Dry)",
-            "two_smal_dry_dry": "Two small (Dry/Dry)"
+            "two_small_wet_wet": "Two small (Wet/Wet)",
+            "two_small_dry_wet": "Two small (Dry/Wet)",
+            "two_small_wet_dry": "Two small (Wet/Dry)",
+            "two_small_dry_dry": "Two small (Dry/Dry)"
         }
       },
       "tare": {"name": "Set Bowl Tare",

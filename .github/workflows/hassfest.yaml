@@ -2,9 +2,9 @@ name: Validate with hassfest
 
 on:
   push:
-  pull_request:
+    branches: [main, dev]
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: '0 0 * * *'
 
 jobs:
   validate:

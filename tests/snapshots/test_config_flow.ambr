@@ -38,7 +38,7 @@
     'disabled_by': None,
     'discovery_keys': dict({
     }),
-    'domain': 'surepetcare',
+    'domain': 'surepcha',
     'entry_id': <ANY>,
     'minor_version': 1,
     'options': dict({
@@ -78,7 +78,7 @@
     'disabled_by': None,
     'discovery_keys': dict({
     }),
-    'domain': 'surepetcare',
+    'domain': 'surepcha',
     'entry_id': <ANY>,
     'minor_version': 1,
     'options': dict({
@@ -135,7 +135,7 @@
     'description': None,
     'description_placeholders': None,
     'flow_id': <ANY>,
-    'handler': 'surepetcare',
+    'handler': 'surepcha',
     'minor_version': 1,
     'options': dict({
       'devices': dict({
@@ -177,7 +177,7 @@
       'disabled_by': None,
       'discovery_keys': dict({
       }),
-      'domain': 'surepetcare',
+      'domain': 'surepcha',
       'entry_id': <ANY>,
       'minor_version': 1,
       'options': dict({

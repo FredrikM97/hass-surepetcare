@@ -1,12 +1,15 @@
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 from types import MappingProxyType
 from pydantic import BaseModel
 from surepcio.devices.device import SurePetCareBase
 from enum import Enum
 import re
 from typing import Any, Optional
-from custom_components.surepetcare.const import NAME, OPTION_DEVICES, PRODUCT_ID
+from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
+
+logger = logging.getLogger(__name__)
 
 
 def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
@@ -233,15 +236,16 @@ class MethodField:
         return self.set(device, entry_options, value)
 
 
-def resolve_select_option_value(desc, entry_options: str) -> Any:
+def resolve_select_option_value(desc, selected_option: str) -> Any:
     """Resolve the correct value for a select option, handling Enum classes or plain lists."""
     if (
         desc.options is not None
         and isinstance(desc.options, type)
         and issubclass(desc.options, Enum)
     ):
-        return getattr(desc.options, entry_options)
-    return entry_options
+        # Convert to upper since enum members are usually uppercase and select options are lowercase
+        return getattr(desc.options, selected_option.upper())
+    return selected_option
 
 
 def should_add_entity(
@@ -257,5 +261,11 @@ def should_add_entity(
             value is None
             and getattr(description, "entity_registry_enabled_default") is False
         ):
-            return False
+            logging.debug(
+                "Suggest to not add entity %s as value is None and entity_registry_enabled_default is False",
+                description.key,
+            )
+            # Temporarily always return true to prevent breaking stuff
+            # Better to disable than making integration remove it since it cause confusion
+            return True
     return True
