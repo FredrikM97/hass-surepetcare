@@ -1,5 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 from types import MappingProxyType
 from pydantic import BaseModel
 from surepcio.devices.device import SurePetCareBase
@@ -7,6 +8,8 @@ from enum import Enum
 import re
 from typing import Any, Optional
 from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
+
+logger = logging.getLogger(__name__)
 
 
 def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
@@ -257,5 +260,9 @@ def should_add_entity(
             value is None
             and getattr(description, "entity_registry_enabled_default") is False
         ):
+            logging.debug(
+                "Not adding entity %s as value is None and entity_registry_enabled_default is False",
+                description.key,
+            )
             return False
     return True
