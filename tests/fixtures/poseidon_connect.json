@@ -1,0 +1,44 @@
+[{
+    "control": {
+      "fast_polling": false,
+      "learn_mode": false
+    },
+    "entity_info": {
+      "household_id": 7777,
+      "id": 734730,
+      "name": "Poseidon connect",
+      "parent_device_id": null,
+      "photo": null,
+      "product_id": 8,
+      "tag": null,
+      "tag_id": null
+    },
+    "status": {
+      "battery": 5.514,
+      "bowl_status": [
+        {
+          "current_weight": 975.95,
+          "fill_percent": 91,
+          "food_type": null,
+          "last_fill_weight": 1071.92,
+          "last_filled_at": "2025-09-03T08:39:29+00:00",
+          "last_zeroed_at": null,
+          "position": 0,
+          "substance_type": 1
+        }
+      ],
+      "learn_mode": false,
+      "online": true,
+      "signal": {
+        "device_rssi": -74
+      },
+      "version": {
+        "device": {
+          "firmware": "213.562",
+          "hardware": "1"
+        }
+      }
+    },
+    "timezone": "Europe/Stockholm"
+  }
+]

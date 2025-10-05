@@ -28,7 +28,9 @@ from .const import (
     KEY_API,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    NAME,
     OPTION_DEVICES,
+    PRODUCT_ID,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -92,14 +94,27 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
         translation_key="entity_information",
         icon="mdi:information",
         field=MethodField(
-            path="name",
+            path=NAME,
             path_extra={
                 "household_id": "household_id",
-                "product_id": "product_id",
+                PRODUCT_ID: PRODUCT_ID,
                 "id": "id",
                 "parent_device_id": "entity_info.parent_device_id",
             },
         ),
+    ),
+)
+
+SENSOR_DESCRIPTIONS_RSSI: tuple[SurePetCareSensorEntityDescription, ...] = (
+    SurePetCareSensorEntityDescription(
+        key="rssi",
+        translation_key="rssi",
+        native_unit_of_measurement="dBm",
+        field=MethodField(
+            get_fn=lambda device, r: device.status.signal.device_rssi,
+        ),
+        device_class=SensorDeviceClass.SIGNAL_STRENGTH,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 )
 
@@ -109,10 +124,10 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         translation_key="entity_information",
         icon="mdi:information",
         field=MethodField(
-            path="name",
+            path=NAME,
             path_extra={
                 "household_id": "household_id",
-                "product_id": "product_id",
+                PRODUCT_ID: PRODUCT_ID,
                 "tag": "tag",
                 "id": "id",
                 "parent_device_id": "entity_info.parent_device_id",
@@ -137,7 +152,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[0].position.name,
                     "food_type": device.status.bowl_status[0].food_type.name,
-                    "substance_type": device.status.bowl_status[0].substance_type,
                     "last_filled_at": device.status.bowl_status[0].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
                     "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
@@ -207,32 +221,56 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 },
             ),
         ),
-        SurePetCareSensorEntityDescription(
-            key="rssi",
-            translation_key="rssi",
-            native_unit_of_measurement="dBm",
-            field=MethodField(
-                get_fn=lambda device, r: device.status.signal.device_rssi,
-            ),
-            device_class=SensorDeviceClass.SIGNAL_STRENGTH,
-            entity_category=EntityCategory.DIAGNOSTIC,
-        ),
+        *SENSOR_DESCRIPTIONS_RSSI,
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (
+        *SENSOR_DESCRIPTIONS_RSSI,
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.DUAL_SCAN_CONNECT: (
+        *SENSOR_DESCRIPTIONS_RSSI,
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.PET_DOOR: (
+        *SENSOR_DESCRIPTIONS_RSSI,
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),
     ProductId.POSEIDON_CONNECT: (
+        SurePetCareSensorEntityDescription(
+            key="bowl_weight",
+            translation_key="bowl_weight",
+            translation_placeholders={"bowl": ""},
+            state_class=SensorStateClass.MEASUREMENT,
+            device_class=SensorDeviceClass.WEIGHT,
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            field=MethodField(
+                get_fn=lambda device, r: index_attr(
+                    device.status.bowl_status, 0, "current_weight"
+                ),
+                get_extra_fn=lambda device, r: {
+                    "last_filled_at": device.status.bowl_status[0].last_filled_at,
+                    "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
+                    "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
+                },
+            ),
+        ),
+        SurePetCareSensorEntityDescription(
+            key="fill_percent",
+            translation_key="fill_percent",
+            state_class=SensorStateClass.MEASUREMENT,
+            native_unit_of_measurement=PERCENTAGE,
+            field=MethodField(
+                get_fn=lambda device, r: sum_attr(
+                    getattr(device.status, "bowl_status", []), "fill_percent"
+                ),
+            ),
+        ),
+        *SENSOR_DESCRIPTIONS_RSSI,
         *SENSOR_DESCRIPTIONS_BATTERY,
         *SENSOR_DESCRIPTIONS_DEVICE_INFORMATION,
     ),

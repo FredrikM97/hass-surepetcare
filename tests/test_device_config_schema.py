@@ -1,9 +1,9 @@
-from custom_components.surepetcare.const import (
+from custom_components.surepcha.const import (
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     POLLING_SPEED,
 )
-from custom_components.surepetcare.device_config_schema import DEVICE_CONFIG_SCHEMAS
+from custom_components.surepcha.device_config_schema import DEVICE_CONFIG_SCHEMAS
 from surepcio.enums import ProductId
 import voluptuous as vol
 

@@ -7,7 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import MethodField, should_add_entity
+from custom_components.surepcha.helper import MethodField, should_add_entity
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
@@ -33,6 +33,28 @@ class SurePetCareLockEntityDescription(
 
 LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
     ProductId.PET_DOOR: (
+        SurePetCareLockEntityDescription(
+            key="locking",
+            translation_key="locking",
+            field=LockMethodField(path="control.locking"),
+            locked_states={
+                "locked": FlapLocking.LOCKED.value,
+                "unlocked": FlapLocking.UNLOCKED.value,
+            },
+        ),
+    ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        SurePetCareLockEntityDescription(
+            key="locking",
+            translation_key="locking",
+            field=LockMethodField(path="control.locking"),
+            locked_states={
+                "locked": FlapLocking.LOCKED.value,
+                "unlocked": FlapLocking.UNLOCKED.value,
+            },
+        ),
+    ),
+    ProductId.DUAL_SCAN_PET_DOOR: (
         SurePetCareLockEntityDescription(
             key="locking",
             translation_key="locking",

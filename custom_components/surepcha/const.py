@@ -1,6 +1,6 @@
-"""TODO."""
+""" "Constants for the Sure Petcare integration."""
 
-DOMAIN = "surepetcare"
+DOMAIN = "surepcha"
 
 CONF_EMAIL = "email"
 CONF_PASSWORD = "password"
@@ -21,3 +21,6 @@ LOCATION_OUTSIDE = "location_outside"
 OPTION_DEVICES = "devices"
 DEVICE_OPTION = "device_option"
 OPTIONS_FINISHED = "finished"
+PRODUCT_ID = "product_id"
+DEVICES = "devices"
+NAME = "name"

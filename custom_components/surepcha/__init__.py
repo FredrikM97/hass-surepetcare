@@ -40,6 +40,60 @@ PLATFORMS = [
 ]
 
 
+async def async_migrate_entry(hass, config_entry: ConfigEntry):
+    """Migrate old entry and move data from 'surepetcare' to 'surepcha' domain if present."""
+    logger.debug(
+        "Migrating configuration from version %s.%s",
+        config_entry.version,
+        config_entry.minor_version,
+    )
+
+    # Migrate in-memory data from old domain to new domain if present
+    old_domain = "surepetcare"
+    entry_id = config_entry.entry_id
+
+    if (
+        old_domain in hass.data
+        and entry_id in hass.data[old_domain]
+        and FACTORY in hass.data[old_domain][entry_id]
+    ):
+        logger.info(
+            "Migrating in-memory data from '%s' to '%s' for entry_id=%s",
+            old_domain,
+            DOMAIN,
+            entry_id,
+        )
+        hass.data.setdefault(DOMAIN, {})[entry_id] = hass.data[old_domain].pop(entry_id)
+        # Optionally clean up old domain if empty
+        if not hass.data[old_domain]:
+            hass.data.pop(old_domain)
+
+    if config_entry.version > 1:
+        # This means the user has downgraded from a future version
+        return False
+
+    if config_entry.version == 1:
+        new_data = {**config_entry.data}
+        if config_entry.minor_version < 2:
+            # TODO: modify Config Entry data with changes in version 1.2
+            pass
+        if config_entry.minor_version < 3:
+            # TODO: modify Config Entry data with changes in version 1.3
+            pass
+
+        hass.config_entries.async_update_entry(
+            config_entry, data=new_data, minor_version=3, version=1
+        )
+
+    logger.debug(
+        "Migration to configuration version %s.%s successful",
+        config_entry.version,
+        config_entry.minor_version,
+    )
+
+    return True
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -170,5 +224,5 @@ def remove_stale_devices(
 
 async def async_setup(hass: HomeAssistant, config: ConfigEntry):
     for name, func, schema in _service_registry:
-        hass.services.async_register("surepetcare", name, func, schema=schema)
+        hass.services.async_register(DOMAIN, name, func, schema=schema)
     return True

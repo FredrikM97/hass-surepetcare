@@ -9,7 +9,7 @@ from pytest_homeassistant_custom_component.components.diagnostics import (
     get_diagnostics_for_device,
     get_diagnostics_for_config_entry,
 )
-from custom_components.surepetcare.const import DOMAIN
+from custom_components.surepcha.const import DOMAIN
 from syrupy.assertion import SnapshotAssertion
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.typing import ClientSessionGenerator

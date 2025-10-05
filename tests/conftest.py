@@ -1,11 +1,15 @@
 from collections.abc import Generator
 from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
-from custom_components.surepetcare.const import (
+from custom_components.surepcha.const import (
+    CLIENT_DEVICE_ID,
     DOMAIN,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    NAME,
     OPTION_DEVICES,
+    PRODUCT_ID,
+    TOKEN,
 )
 from . import DEVICE_MOCKS, PET_MOCKS
 from surepcio import SurePetcareClient
@@ -46,14 +50,14 @@ def mock_coordinator_update_data():
         return self._device
 
     with patch(
-        "custom_components.surepetcare.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
+        "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
         new=return_device_data,
     ):
         yield
 
 
 def _create_entity(details):
-    entity = load_device_class(details["entity_info"]["product_id"])(
+    entity = load_device_class(details["entity_info"][PRODUCT_ID])(
         details["entity_info"], timezone="utc"
     )
     entity.status = entity.statusCls(**details["status"])
@@ -107,22 +111,22 @@ def mock_config_entry() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={"token": "abc", "client_device_id": "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
         options={
             OPTION_DEVICES: {
                 "1299453": {
-                    "name": "DualScanConnect door",
-                    "product_id": ProductId.DUAL_SCAN_CONNECT,
+                    NAME: "DualScanConnect door",
+                    PRODUCT_ID: ProductId.DUAL_SCAN_CONNECT,
                     LOCATION_INSIDE: "Home",
                     LOCATION_OUTSIDE: "Away",
                 },
                 "269654": {
-                    "name": "Feeder",
-                    "product_id": ProductId.FEEDER_CONNECT,
+                    NAME: "Feeder",
+                    PRODUCT_ID: ProductId.FEEDER_CONNECT,
                 },
                 "727608": {
-                    "name": "PetDoor",
-                    "product_id": ProductId.PET_DOOR,
+                    NAME: "PetDoor",
+                    PRODUCT_ID: ProductId.PET_DOOR,
                 },
             }
         },
@@ -136,7 +140,7 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={"token": "abc", "client_device_id": "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
         options={OPTION_DEVICES: {}},
         unique_id="12345",
     )
@@ -152,9 +156,7 @@ async def mock_loaded_entry(
 
     # Initialize the component
     with (
-        patch(
-            "custom_components.surepetcare.SurePetcareClient", return_value=mock_client
-        ),
+        patch("custom_components.surepcha.SurePetcareClient", return_value=mock_client),
     ):
         await hass.config_entries.async_setup(mock_config_entry.entry_id)
         await hass.async_block_till_done()
@@ -166,7 +168,7 @@ async def mock_loaded_entry(
 def mock_setup_entry(monkeypatch):
     """Mock setting up a config entry."""
     monkeypatch.setattr(
-        "custom_components.surepetcare.async_setup_entry", lambda *a, **kw: True
+        "custom_components.surepcha.async_setup_entry", lambda *a, **kw: True
     )
     yield
 
@@ -199,7 +201,7 @@ async def mock_surepetcare_login_control(
 ) -> Generator[MagicMock, None, None]:
     """Return a mocked SurePetcareClient for config_flow login."""
     with patch(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", autospec=True
+        "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
     ) as client_mock:
         instance = client_mock.return_value
         instance.login = AsyncMock(return_value=True)

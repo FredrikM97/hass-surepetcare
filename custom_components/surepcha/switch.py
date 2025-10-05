@@ -9,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepetcare.helper import (
+from custom_components.surepcha.helper import (
     MethodField,
     list_attr,
     option_product_id,
@@ -20,10 +20,9 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from homeassistant.helpers.entity import EntityCategory
 from surepcio.command import Command
 from surepcio.devices import Pet
-from surepcio.enums import ProductId, PetDeviceLocationProfile, HubPairMode
+from surepcio.enums import ProductId, PetDeviceLocationProfile
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 import logging
 
@@ -36,16 +35,6 @@ class SwitchMethodField(MethodField):
 
     on: Any = True
     off: Any = False
-
-    def get(
-        self, device: object, entry_options: MappingProxyType[str, Any]
-    ) -> bool | None:
-        value = MethodField.get(self, device, entry_options)
-        if value is self.on:
-            return True
-        if value is self.off:
-            return False
-        return None
 
     def set(
         self, device: object, entry_options: MappingProxyType[str, Any], value: Any
@@ -66,7 +55,7 @@ def profile_is_indoor(
     """Return True if all flap device profiles are indoor only."""
     devices = list_attr(device, "status", "devices")
     if not devices:
-        return False
+        return None
     valid_products = {
         ProductId.PET_DOOR,
         ProductId.DUAL_SCAN_PET_DOOR,
@@ -128,16 +117,6 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 off=PetDeviceLocationProfile.NO_RESTRICTION,
             ),
             icon="mdi:door",
-        ),
-    ),
-    ProductId.HUB: (
-        SurePetCareSwitchEntityDescription(
-            key="pairing_mode",
-            translation_key="pairing_mode",
-            field=SwitchMethodField(
-                path="control.pairing_mode", on=HubPairMode.ON, off=HubPairMode.OFF
-            ),
-            entity_category=EntityCategory.CONFIG,
         ),
     ),
     ProductId.PET_DOOR: (

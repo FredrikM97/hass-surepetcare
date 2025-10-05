@@ -4,7 +4,13 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 
-DEVICE_MOCKS = ["feeder_connect", "dual_scan_connect", "hub", "pet_door"]
+DEVICE_MOCKS = [
+    "feeder_connect",
+    "dual_scan_connect",
+    "hub",
+    "pet_door",
+    "poseidon_connect",
+]
 PET_MOCKS = [
     "pet",
 ]
@@ -34,7 +40,7 @@ async def initialize_entry(
 
     mock_client.api = AsyncMock(side_effect=api_side_effect)
     with patch(
-        "custom_components.surepetcare.SurePetcareClient", return_value=mock_client
+        "custom_components.surepcha.SurePetcareClient", return_value=mock_client
     ):
         await hass.config_entries.async_setup(mock_config_entry.entry_id)
         await hass.async_block_till_done()

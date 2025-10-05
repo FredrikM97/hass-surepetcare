@@ -1,6 +1,6 @@
 """Device configuration schemas for Sure Petcare devices."""
 
-from custom_components.surepetcare.const import (
+from custom_components.surepcha.const import (
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     POLLING_SPEED,
