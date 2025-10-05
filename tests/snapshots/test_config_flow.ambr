@@ -38,7 +38,7 @@
     'disabled_by': None,
     'discovery_keys': dict({
     }),
-    'domain': 'surepetcare',
+    'domain': 'surepcha',
     'entry_id': <ANY>,
     'minor_version': 1,
     'options': dict({
@@ -78,7 +78,7 @@
     'disabled_by': None,
     'discovery_keys': dict({
     }),
-    'domain': 'surepetcare',
+    'domain': 'surepcha',
     'entry_id': <ANY>,
     'minor_version': 1,
     'options': dict({
@@ -107,6 +107,10 @@
           'name': 'Laundry Door',
           'product_id': 3,
         }),
+        '734730': dict({
+          'name': 'Poseidon connect',
+          'product_id': 8,
+        }),
       }),
     }),
     'pref_disable_new_entities': False,
@@ -131,7 +135,7 @@
     'description': None,
     'description_placeholders': None,
     'flow_id': <ANY>,
-    'handler': 'surepetcare',
+    'handler': 'surepcha',
     'minor_version': 1,
     'options': dict({
       'devices': dict({
@@ -159,6 +163,10 @@
           'name': 'Laundry Door',
           'product_id': 3,
         }),
+        '734730': dict({
+          'name': 'Poseidon connect',
+          'product_id': 8,
+        }),
       }),
     }),
     'result': ConfigEntrySnapshot({
@@ -169,7 +177,7 @@
       'disabled_by': None,
       'discovery_keys': dict({
       }),
-      'domain': 'surepetcare',
+      'domain': 'surepcha',
       'entry_id': <ANY>,
       'minor_version': 1,
       'options': dict({
@@ -197,6 +205,10 @@
           '727608': dict({
             'name': 'Laundry Door',
             'product_id': 3,
+          }),
+          '734730': dict({
+            'name': 'Poseidon connect',
+            'product_id': 8,
           }),
         }),
       }),

@@ -44,7 +44,7 @@
     {
       "label": "Lint (Pylint)",
       "type": "shell",
-      "command": "pylint custom_components/surepetcare tests",
+      "command": "pylint custom_components/surepcha tests",
       "group": "test",
       "presentation": {
         "reveal": "always",

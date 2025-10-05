@@ -74,10 +74,18 @@
         "state": {
             "large_wet": "Large (Wet)",
             "large_dry":"Large (Dry)",
-            "two_smal_wet_wet": "Two small (Wet/Wet)",
-            "two_smal_dry_wet": "Two small (Dry/Wet)",
-            "two_smal_wet_dry": "Two small (Wet/Dry)",
-            "two_smal_dry_dry": "Two small (Dry/Dry)"
+            "two_small_wet_wet": "Two small (Wet/Wet)",
+            "two_small_dry_wet": "Two small (Dry/Wet)",
+            "two_small_wet_dry": "Two small (Wet/Dry)",
+            "two_small_dry_dry": "Two small (Dry/Dry)"
+        }
+      },
+      "tare": {"name": "Set Bowl Tare",
+        "state": {
+          "disabled": "Disabled",
+          "large_bowl": "Large Bowl",
+          "two_small": "Two Small Bowls",
+          "not_determined_1": "Unknown feature"
         }
       },
       "training_mode": {
@@ -139,19 +147,18 @@
           "off": "No Restriction"
         }
       },
-      "pairing_mode": {
-        "name": "Pairing Mode"
-      },
       "curfew_enabled":{
         "name": "Curfew active"
       }
     },
-    "button":{
-        "tare": {"name": "Reset bowl weight"}
-    },
     "number":{
       "target_weight":{
         "name": "Target weight Bowl {bowl}"
+      }
+    },
+    "button": {
+      "pairing_mode": {
+        "name": "Pairing Mode"
       }
     },
     "sensor": {

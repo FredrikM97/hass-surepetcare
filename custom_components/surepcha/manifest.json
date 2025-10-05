@@ -1,5 +1,5 @@
 {
-  "domain": "surepetcare",
+  "domain": "surepcha",
   "name": "SurePetCare",
   "codeowners": ["@FredrikM97"],
   "config_flow": true,
@@ -9,6 +9,6 @@
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/FredrikM97/hass-surepetcare/issues",
   "loggers": ["surepcio"],
-  "requirements": ["py-surepetcare==0.5.7"],
+  "requirements": ["git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=0.5.8-dev2"],
   "version": "1.4.9"
 }

@@ -16,7 +16,7 @@ from pytest_homeassistant_custom_component.common import (
 )
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.BINARY_SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.BINARY_SENSOR])
 @pytest.mark.usefixtures("enable_custom_integrations")
 @pytest.mark.usefixtures("entity_registry_enabled_default")
 @pytest.mark.asyncio
@@ -35,7 +35,7 @@ async def test_platform_setup_and_discovery(
     await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
 
 
-@patch("custom_components.surepetcare.PLATFORMS", [Platform.BINARY_SENSOR])
+@patch("custom_components.surepcha.PLATFORMS", [Platform.BINARY_SENSOR])
 @pytest.mark.usefixtures("enable_custom_integrations")
 @pytest.mark.usefixtures("entity_registry_enabled_default")
 @pytest.mark.asyncio

@@ -29,4 +29,4 @@ repos:
           - --show-error-context
           - --explicit-package-bases
           - --ignore-missing-imports
-        files: ^custom_components/surepetcare/.*\.py$
+        files: ^custom_components/surepcha/.*\.py$

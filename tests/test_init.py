@@ -1,10 +1,10 @@
 import importlib
 import inspect
 from unittest.mock import MagicMock, patch
-import custom_components.surepetcare.__init__ as surepetcare_init
-from custom_components.surepetcare.const import FACTORY
+import custom_components.surepcha.__init__ as surepetcare_init
+from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
 import pytest
-from custom_components.surepetcare import remove_stale_devices, DOMAIN
+from custom_components.surepcha import remove_stale_devices, DOMAIN
 from surepcio.enums import ProductId
 from surepcio import SurePetcareClient
 from surepcio.devices.device import PetBase, DeviceBase
@@ -83,8 +83,8 @@ class DummyConfigEntry:
 
     def __init__(self):
         self.entry_id = "dummy"
-        self.domain = "surepetcare"
-        self.data = {"token": "tok", "client_device_id": "dev"}
+        self.domain = DOMAIN
+        self.data = {TOKEN: "tok", CLIENT_DEVICE_ID: "dev"}
         self.options = {}
         self.state = None  # Added to avoid AttributeError
 
@@ -175,7 +175,7 @@ async def dummy_success_client(monkeypatch) -> DummyClient:
             pass
 
     monkeypatch.setattr(
-        "custom_components.surepetcare.config_flow.SurePetcareClient", SuccessClient
+        "custom_components.surepcha.config_flow.SurePetcareClient", SuccessClient
     )
     return SuccessClient()
 
@@ -230,7 +230,7 @@ async def async_unload_platforms(entry, platforms) -> bool:
 
 def make_coordinator_data(coordinator):
     # Helper to create coordinator_data dict with COORDINATOR_DICT for tests
-    from custom_components.surepetcare.const import COORDINATOR_DICT, KEY_API
+    from custom_components.surepcha.const import COORDINATOR_DICT, KEY_API
 
     return {
         KEY_API: DummyClient(),
@@ -258,26 +258,26 @@ async def test_async_setup_entry_and_unload():
     # Patch async_forward_entry_setups to async helper
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
     with patch(
-        "custom_components.surepetcare.__init__.SurePetcareClient", DummyClient
-    ), patch("custom_components.surepetcare.__init__.Household", DummyHousehold), patch(
+        "custom_components.surepcha.__init__.SurePetcareClient", DummyClient
+    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
         "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
     ):
         if hasattr(surepetcare_init, "remove_stale_devices"):
             with patch(
-                "custom_components.surepetcare.__init__.remove_stale_devices",
+                "custom_components.surepcha.__init__.remove_stale_devices",
                 lambda *a, **kw: None,
             ):
                 await surepetcare_init.async_setup_entry(hass, entry)
         else:
             await surepetcare_init.async_setup_entry(hass, entry)
         # Test unload
-        hass.data["surepetcare"] = {entry.entry_id: {FACTORY: DummyClient()}}
+        hass.data[DOMAIN] = {entry.entry_id: {FACTORY: DummyClient()}}
         result = await surepetcare_init.async_unload_entry(hass, entry)
         assert result is True
 
 
 def test_import_init():
-    importlib.import_module("custom_components.surepetcare.__init__")
+    importlib.import_module("custom_components.surepcha.__init__")
 
 
 @pytest.mark.asyncio
@@ -286,8 +286,8 @@ async def test_async_setup_entry_login_failure():
     entry = DummyConfigEntry()
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
     with patch(
-        "custom_components.surepetcare.__init__.SurePetcareClient", FailingClient
-    ), patch("custom_components.surepetcare.__init__.Household", DummyHousehold), patch(
+        "custom_components.surepcha.__init__.SurePetcareClient", FailingClient
+    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
         "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
     ):
         try:
@@ -307,8 +307,8 @@ async def test_async_setup_entry_api_exception():
     entry = DummyConfigEntry()
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
     with patch(
-        "custom_components.surepetcare.__init__.SurePetcareClient", ExceptionClient
-    ), patch("custom_components.surepetcare.__init__.Household", DummyHousehold), patch(
+        "custom_components.surepcha.__init__.SurePetcareClient", ExceptionClient
+    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
         "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
     ):
         try:
@@ -332,11 +332,11 @@ async def test_remove_stale_devices_called():
         called["called"] = True
 
     with patch(
-        "custom_components.surepetcare.__init__.remove_stale_devices",
+        "custom_components.surepcha.__init__.remove_stale_devices",
         fake_remove_stale_devices,
     ), patch(
-        "custom_components.surepetcare.__init__.SurePetcareClient", DummyClient
-    ), patch("custom_components.surepetcare.__init__.Household", DummyHousehold), patch(
+        "custom_components.surepcha.__init__.SurePetcareClient", DummyClient
+    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
         "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
     ):
         await surepetcare_init.async_setup_entry(hass, entry)
@@ -347,8 +347,8 @@ async def test_remove_stale_devices_called():
 async def test_async_unload_entry_missing_data():
     hass = DummyHass()
     entry = DummyConfigEntry()
-    # No data in hass.data["surepetcare"]
-    hass.data["surepetcare"] = {}
+    # No data in hass.data[DOMAIN]
+    hass.data[DOMAIN] = {}
     with pytest.raises(KeyError):
         await surepetcare_init.async_unload_entry(hass, entry)
 
@@ -368,10 +368,10 @@ def test_remove_stale_devices_logic():
     device_registry = MagicMock()
     # Patch async_get and async_entries_for_config_entry
     with patch(
-        "custom_components.surepetcare.__init__.dr.async_get",
+        "custom_components.surepcha.__init__.dr.async_get",
         return_value=device_registry,
     ), patch(
-        "custom_components.surepetcare.__init__.dr.async_entries_for_config_entry",
+        "custom_components.surepcha.__init__.dr.async_entries_for_config_entry",
         return_value=[matching_entry, stale_entry],
     ):
         remove_stale_devices(MagicMock(), MagicMock(entry_id="dummy_entry_id"), devices)

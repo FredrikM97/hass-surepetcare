@@ -13,11 +13,12 @@ from surepcio.enums import (
     HubLedMode,
     ModifyDeviceTag,
     BowlTypeOptions,
+    Tare,
 )
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
-from custom_components.surepetcare.helper import (
+from custom_components.surepcha.helper import (
     MethodField,
     find_entity_id_by_name,
     list_attr,
@@ -38,7 +39,16 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API, OPTION_DEVICES
+from .const import (
+    COORDINATOR,
+    COORDINATOR_DICT,
+    DEVICES,
+    DOMAIN,
+    KEY_API,
+    NAME,
+    OPTION_DEVICES,
+    PRODUCT_ID,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -96,6 +106,13 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
         ),
+        SurePetCareSelectEntityDescription(
+            key="tare",
+            translation_key="tare",
+            field=SelectMethodField(path="control.tare"),
+            options=Tare,
+            entity_category=EntityCategory.CONFIG,
+        ),
     ),
     ProductId.DUAL_SCAN_CONNECT: (
         SurePetCareSelectEntityDescription(
@@ -122,7 +139,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                     filter(
                         None,
                         map_attr(
-                            list_attr(device.status, "devices"),
+                            list_attr(device.status, DEVICES),
                             lambda d: option_name(r, d.id),
                         ),
                     )
@@ -135,11 +152,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 options_fn=lambda device, r: [
-                    v.get("name")
+                    v.get(NAME)
                     for k, v in r[OPTION_DEVICES].items()
-                    if v.get("product_id") not in {ProductId.PET, ProductId.HUB}
-                    and k
-                    not in {str(d.id) for d in list_attr(device.status, "devices")}
+                    if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
+                    and k not in {str(d.id) for d in list_attr(device.status, DEVICES)}
                 ],
                 set_fn=lambda pet, entry_data, option: (
                     pet.set_tag(value, action=ModifyDeviceTag.ADD)
@@ -221,7 +237,10 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
 
     @property
     def current_option(self) -> str | None:
-        return self.native_value
+        # Convert to lower since translation requires lower case.
+        if self.native_value is None:
+            return None
+        return self.native_value.lower()
 
     @property
     def available(self) -> bool:
@@ -253,6 +272,6 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         opts = desc.options
         if opts is not None:
             if isinstance(opts, type) and issubclass(opts, Enum):
-                return [e.name for e in opts]
+                return [e.name.lower() for e in opts]
             return list(opts)
         raise ValueError(f"No options or options_fn defined for select entity {desc}")

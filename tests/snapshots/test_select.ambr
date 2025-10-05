@@ -6,9 +6,9 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -31,7 +31,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'LED Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -46,9 +46,9 @@
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'context': <ANY>,
@@ -56,7 +56,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'NONE',
+    'state': 'none',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
@@ -66,10 +66,10 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -92,7 +92,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -107,10 +107,10 @@
       'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -118,7 +118,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-entry]
@@ -128,10 +128,10 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -154,7 +154,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -169,10 +169,10 @@
       'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -180,7 +180,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'unlocked',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_add_assigned_device-entry]
@@ -213,7 +213,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -246,12 +246,12 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -274,7 +274,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Bowls Type',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -289,12 +289,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -302,7 +302,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
@@ -312,9 +312,9 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -337,7 +337,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Lid close delay',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -352,9 +352,9 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
@@ -362,7 +362,66 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'FASTER',
+    'state': 'faster',
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.maui_matlada_old_set_bowl_tare-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'disabled',
+        'large_bowl',
+        'two_small',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Set Bowl Tare',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '269654-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.maui_matlada_old_set_bowl_tare-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'options': list([
+        'disabled',
+        'large_bowl',
+        'two_small',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_training_mode-entry]
@@ -372,11 +431,11 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -399,7 +458,7 @@
     'original_device_class': None,
     'original_icon': None,
     'original_name': 'Training Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -413,11 +472,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -425,7 +484,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_remove_assigned_device-entry]
@@ -459,7 +518,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -518,7 +577,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -575,7 +634,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -607,9 +666,9 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -632,7 +691,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'LED Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -647,9 +706,9 @@
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'context': <ANY>,
@@ -657,7 +716,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'NONE',
+    'state': 'none',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
@@ -667,10 +726,10 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -693,7 +752,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -708,10 +767,10 @@
       'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -719,7 +778,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-entry]
@@ -729,10 +788,10 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -755,7 +814,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Locking Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -770,10 +829,10 @@
       'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -781,7 +840,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'unlocked',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-entry]
@@ -813,7 +872,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -845,12 +904,12 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -873,7 +932,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Bowls Type',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -888,12 +947,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -901,7 +960,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]
@@ -911,9 +970,9 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -936,7 +995,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Lid close delay',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -951,9 +1010,9 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
@@ -961,7 +1020,66 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'FASTER',
+    'state': 'faster',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_set_bowl_tare-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'disabled',
+        'large_bowl',
+        'two_small',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Set Bowl Tare',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '269654-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_set_bowl_tare-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'options': list([
+        'disabled',
+        'large_bowl',
+        'two_small',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_training_mode-entry]
@@ -971,11 +1089,11 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -998,7 +1116,7 @@
     'original_device_class': None,
     'original_icon': None,
     'original_name': 'Training Mode',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -1012,11 +1130,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1024,7 +1142,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_remove_assigned_device-entry]
@@ -1056,7 +1174,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -1110,7 +1228,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Add assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -1164,7 +1282,7 @@
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
     'original_icon': None,
     'original_name': 'Remove assigned device',
-    'platform': 'surepetcare',
+    'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
@@ -1195,9 +1313,9 @@
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'context': <ANY>,
@@ -1205,7 +1323,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'NONE',
+    'state': 'none',
   })
 # ---
 # name: test_select_set_option_and_snapshot.1
@@ -1214,9 +1332,9 @@
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'context': <ANY>,
@@ -1224,7 +1342,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'NONE',
+    'state': 'none',
   })
 # ---
 # name: test_select_set_option_and_snapshot.10
@@ -1233,9 +1351,9 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
@@ -1243,7 +1361,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'FASTER',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.11
@@ -1252,9 +1370,9 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
@@ -1262,7 +1380,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'FASTER',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.12
@@ -1270,11 +1388,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1282,7 +1400,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.13
@@ -1290,11 +1408,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1302,7 +1420,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.14
@@ -1310,11 +1428,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1322,7 +1440,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.15
@@ -1330,11 +1448,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1342,7 +1460,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.16
@@ -1350,11 +1468,11 @@
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
       'options': list([
-        'DISABLED',
-        'STEP_1',
-        'STEP_2',
-        'STEP_3',
-        'STEP_4',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
@@ -1362,7 +1480,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'DISABLED',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.17
@@ -1371,12 +1489,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1384,7 +1502,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.18
@@ -1393,12 +1511,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1406,7 +1524,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.19
@@ -1415,12 +1533,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1428,7 +1546,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.2
@@ -1437,9 +1555,9 @@
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
       'options': list([
-        'NONE',
-        'WEAK',
-        'STRONG',
+        'none',
+        'strong',
+        'weak',
       ]),
     }),
     'context': <ANY>,
@@ -1447,7 +1565,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'NONE',
+    'state': 'none',
   })
 # ---
 # name: test_select_set_option_and_snapshot.20
@@ -1456,12 +1574,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1469,7 +1587,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.21
@@ -1478,12 +1596,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1491,7 +1609,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.22
@@ -1500,12 +1618,12 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
       'options': list([
-        'LARGE_WET',
-        'LARGE_DRY',
-        'TWO_SMALL_WET_WET',
-        'TWO_SMALL_WET_DRY',
-        'TWO_SMALL_DRY_WET',
-        'TWO_SMALL_DRY_DRY',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
@@ -1513,67 +1631,61 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'TWO_SMALL_WET_WET',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.23
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'disabled',
+        'large_bowl',
+        'two_small',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'two_small',
   })
 # ---
 # name: test_select_set_option_and_snapshot.24
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'disabled',
+        'large_bowl',
+        'two_small',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'two_small',
   })
 # ---
 # name: test_select_set_option_and_snapshot.25
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'disabled',
+        'large_bowl',
+        'two_small',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'two_small',
   })
 # ---
 # name: test_select_set_option_and_snapshot.26
@@ -1582,10 +1694,10 @@
       'device_class': 'enum',
       'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -1593,67 +1705,67 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'LOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.27
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.katzenklappe_locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.28
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.katzenklappe_locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.29
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.katzenklappe_locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.3
@@ -1680,10 +1792,10 @@
       'device_class': 'enum',
       'friendly_name': 'Laundry Door Locking Mode',
       'options': list([
-        'UNLOCKED',
-        'ALLOW_IN',
-        'ALLOW_OUT',
-        'LOCKED',
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
       ]),
     }),
     'context': <ANY>,
@@ -1691,7 +1803,67 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'UNLOCKED',
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.31
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.32
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.33
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.4
@@ -1792,9 +1964,9 @@
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
       'options': list([
-        'FASTER',
-        'NORMAL',
-        'SLOWER',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
@@ -1802,6 +1974,6 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'FASTER',
+    'state': 'faster',
   })
 # ---
