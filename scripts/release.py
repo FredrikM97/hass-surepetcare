@@ -124,6 +124,13 @@ def summarize_commits_between(ref1, ref2):
         print(f"\n{YELLOW}No commits between {ref1[:7]} and {ref2[:7]}.{RESET}")
         return []
 
+def confirm(question, default="n"):
+    yn = "[y/N]" if default.lower() == "n" else "[Y/n]"
+    answer = input(f"{BOLD}{question} {yn}: {RESET}").strip().lower()
+    if not answer:
+        answer = default.lower()
+    return answer == "y"
+
 def tag_and_bump_and_summarize():
     check_cli_tools()
     print(
@@ -169,15 +176,26 @@ def tag_and_bump_and_summarize():
     print(f"{BOLD}Creating release branch {GREEN}{release_branch}{RESET} from {CYAN}{last_tag}{RESET}...")
     git("checkout", "-b", release_branch, last_commit)
 
+    # Summarize commits that will be merged
+    print(f"\n{BOLD}About to merge the following commits from {CYAN}{dev_branch}{RESET} into {GREEN}{release_branch}{RESET}:{RESET}")
+    summarize_commits_between(last_commit, dev_commit)
+    if not confirm(f"Proceed with merging these commits into {release_branch}?", default="y"):
+        print(f"{YELLOW}Aborted before merge.{RESET}")
+        sys.exit(0)
+
     # Merge changes from dev into the release branch (preserve all commits)
-    print(f"{BOLD}Merging changes from {CYAN}{dev_branch}{RESET} into {GREEN}{release_branch}{RESET}...{RESET}")
-    git("merge", "--no-ff", dev_commit)
+    print(f"{BOLD}Merging now...{RESET}")
+    git("merge", "--no-ff", dev_commit, "-m", f"Merge {dev_branch} into {release_branch}")
 
     # Now run the version bump on the release branch
     print(f"{BOLD}Running version bump on {GREEN}{release_branch}{RESET}...{RESET}")
     do_bump(selected_type)
-    git("add", ".")
-    git("commit", "-m", f"Bump version for release")
+    #git("add", ".")
+    #status = git("status", "--porcelain", capture_output=True)
+    #if status.strip():
+    #    git("commit", "-m", f"Bump version for release")
+    #else:
+    #    print(f"{YELLOW}No changes to commit after version bump.{RESET}")
 
     # Summarize commits included in this release
     print(f"\n{BOLD}Summary of commits included in this release:{RESET}")
