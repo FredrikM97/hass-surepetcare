@@ -15,11 +15,13 @@ RESET = "\033[0m"
 
 REQUIRED_CLI_TOOLS = ["bump-my-version"]
 
+
 def git(*args, capture_output=False):
     cmd = ["git"] + list(args)
     if capture_output:
         return subprocess.check_output(cmd).decode().strip()
     subprocess.run(cmd, check=True)
+
 
 def check_cli_tools():
     for tool in REQUIRED_CLI_TOOLS:
@@ -29,6 +31,7 @@ def check_cli_tools():
                 f"Install it with: {CYAN}pip install {tool.replace('-', '_')}{RESET}"
             )
             sys.exit(1)
+
 
 def get_bump_options():
     output = subprocess.check_output(["bump-my-version", "show-bump"]).decode()
@@ -50,6 +53,7 @@ def get_bump_options():
                     options.append((bump_type, version))
     return options
 
+
 def select_bump_option(bump_options):
     print(f"\n{BOLD}Available version bumps:{RESET}")
     for idx, (bump_type, version) in enumerate(bump_options, 1):
@@ -68,6 +72,7 @@ def select_bump_option(bump_options):
         except Exception:
             print(f"{YELLOW}Invalid input. Please enter a number.{RESET}")
 
+
 def dry_run_bump(bump_type, new_version=None):
     print(
         f"\n{BOLD}Dry run for bump-my-version bump:{RESET} {YELLOW}{bump_type}{RESET}"
@@ -84,11 +89,13 @@ def dry_run_bump(bump_type, new_version=None):
         print(e.output.decode() if e.output else "")
         return False
 
+
 def do_bump(bump_type, new_version=None):
     cmd = ["bump-my-version", "bump", bump_type, "--no-tag"]
     if new_version:
         cmd += ["--new-version", new_version]
     subprocess.run(cmd, check=True)
+
 
 def tag_and_bump_and_push():
     check_cli_tools()
@@ -123,7 +130,9 @@ def tag_and_bump_and_push():
     git("pull", "origin", dev_branch)
 
     release_branch = f"release-v{version}"
-    print(f"{BOLD}Creating release branch {GREEN}{release_branch}{RESET} from {CYAN}{dev_branch}{RESET}...")
+    print(
+        f"{BOLD}Creating release branch {GREEN}{release_branch}{RESET} from {CYAN}{dev_branch}{RESET}..."
+    )
     git("checkout", "-b", release_branch, dev_branch)
 
     print(f"{BOLD}Running version bump on {GREEN}{release_branch}{RESET}...{RESET}")
@@ -131,7 +140,7 @@ def tag_and_bump_and_push():
     git("add", ".")
     status = git("status", "--porcelain", capture_output=True)
     if status.strip():
-        git("commit", "-m", f"Bump version for release")
+        git("commit", "-m", "Bump version for release")
     else:
         print(f"{YELLOW}No changes to commit after version bump.{RESET}")
 
@@ -143,12 +152,15 @@ def tag_and_bump_and_push():
         f"  3. Use the {YELLOW}Squash and merge{RESET} option if you want a single commit in main.\n"
     )
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Simplified release flow for hass-surepetcare."
     )
     parser.add_argument(
-        "--tag", action="store_true", help="Run the tag/bump step and create release branch"
+        "--tag",
+        action="store_true",
+        help="Run the tag/bump step and create release branch",
     )
     args = parser.parse_args()
 
