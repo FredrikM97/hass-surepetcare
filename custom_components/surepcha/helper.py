@@ -236,15 +236,16 @@ class MethodField:
         return self.set(device, entry_options, value)
 
 
-def resolve_select_option_value(desc, entry_options: str) -> Any:
+def resolve_select_option_value(desc, selected_option: str) -> Any:
     """Resolve the correct value for a select option, handling Enum classes or plain lists."""
     if (
         desc.options is not None
         and isinstance(desc.options, type)
         and issubclass(desc.options, Enum)
     ):
-        return getattr(desc.options, entry_options)
-    return entry_options
+        # Convert to upper since enum members are usually uppercase and select options are lowercase
+        return getattr(desc.options, selected_option.upper())
+    return selected_option
 
 
 def should_add_entity(
@@ -264,7 +265,7 @@ def should_add_entity(
                 "Suggest to not add entity %s as value is None and entity_registry_enabled_default is False",
                 description.key,
             )
-            # Temporarly always return true to prevent breaking stuff
+            # Temporarily always return true to prevent breaking stuff
             # Better to disable than making integration remove it since it cause confusion
             return True
     return True

@@ -237,7 +237,10 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
 
     @property
     def current_option(self) -> str | None:
-        return self.native_value
+        # Convert to lower since translation requires lower case.
+        if self.native_value is None:
+            return None
+        return self.native_value.lower()
 
     @property
     def available(self) -> bool:
@@ -269,6 +272,6 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         opts = desc.options
         if opts is not None:
             if isinstance(opts, type) and issubclass(opts, Enum):
-                return [e.name for e in opts]
+                return [e.name.lower() for e in opts]
             return list(opts)
         raise ValueError(f"No options or options_fn defined for select entity {desc}")

@@ -36,7 +36,6 @@ class SwitchMethodField(MethodField):
     on: Any = True
     off: Any = False
 
-
     def set(
         self, device: object, entry_options: MappingProxyType[str, Any], value: Any
     ) -> Any:
@@ -47,7 +46,7 @@ class SwitchMethodField(MethodField):
             value = self.off
         elif value is None:
             raise ValueError("Cannot set switch to None for %s", device)
-        return MethodField.set(self,device, entry_options, value)
+        return MethodField.set(self, device, entry_options, value)
 
 
 def profile_is_indoor(
