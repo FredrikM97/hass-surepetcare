@@ -43,6 +43,28 @@ LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
             },
         ),
     ),
+    ProductId.DUAL_SCAN_CONNECT: (
+        SurePetCareLockEntityDescription(
+            key="locking",
+            translation_key="locking",
+            field=LockMethodField(path="control.locking"),
+            locked_states={
+                "locked": FlapLocking.LOCKED.value,
+                "unlocked": FlapLocking.UNLOCKED.value,
+            },
+        ),
+    ),
+    ProductId.DUAL_SCAN_PET_DOOR: (
+        SurePetCareLockEntityDescription(
+            key="locking",
+            translation_key="locking",
+            field=LockMethodField(path="control.locking"),
+            locked_states={
+                "locked": FlapLocking.LOCKED.value,
+                "unlocked": FlapLocking.UNLOCKED.value,
+            },
+        ),
+    ),
 }
 
 
