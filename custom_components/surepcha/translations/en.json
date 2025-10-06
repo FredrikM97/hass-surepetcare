@@ -168,9 +168,27 @@
       "tag": {"name": "Tag"},
       "household_id": {"name": "Household ID"},
       "info": {"name": "Information"},
-      "feeding": {"name": "Feeding"},
+      "feeding": {"name": "Feeding",
+        "state_attributes": {
+          "device_id": {"name": "Device ID"},
+          "id": {"name": "ID"},
+          "at": {"name": "At"},
+          "tag_id": {"name": "Tag ID"},
+          "change_0": {"name": "Change Bowl One"},
+          "change_1": {"name": "Change Bowl Two"}
+        }
+      },
       "position": {"name": "Position"},
-      "drinking": {"name": "Drinking"},
+       "drinking": {"name": "Drinking",
+        "state_attributes": {
+              "device_id": {"name": "Device ID"},
+              "id": {"name": "ID"},
+              "at": {"name": "At"},
+              "tag_id": {"name": "Tag ID"},
+              "change_0": {"name": "Change Bowl One"},
+              "change_1": {"name": "Change Bowl Two"}
+            }
+          },
       "rssi": {"name": "RSSI"},
       "bowls": {"name": "Bowls"},
       "current_weight": {"name": "Current Weight"},

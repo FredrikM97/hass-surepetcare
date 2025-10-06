@@ -410,6 +410,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
+      'change_0': 3.23,
+      'change_1': 0,
       'device_class': 'weight',
       'device_id': 269654,
       'friendly_name': 'Maui Drinking',
@@ -525,6 +527,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
+      'change_0': 3.23,
+      'change_1': 0,
       'device_class': 'weight',
       'device_id': 269654,
       'friendly_name': 'Maui Feeding',
@@ -2034,6 +2038,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
+      'change_0': 3.23,
+      'change_1': 0,
       'device_class': 'weight',
       'device_id': 269654,
       'friendly_name': 'Maui Drinking',
@@ -2149,6 +2155,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
+      'change_0': 3.23,
+      'change_1': 0,
       'device_class': 'weight',
       'device_id': 269654,
       'friendly_name': 'Maui Feeding',

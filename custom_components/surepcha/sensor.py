@@ -284,14 +284,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs(change[0])
+                get_fn=lambda device, r: abs(change[0] + change[1])
                 if (change := getattr(device.status.feeding, "change", []))
                 else None,
-                path_extra={
-                    "device_id": "status.feeding.device_id",
-                    "id": "status.feeding.id",
-                    "at": "status.feeding.at",
-                    "tag_id": "status.feeding.tag_id",
+                get_extra_fn=lambda device, config_options: {
+                    "device_id": device.status.feeding.device_id,
+                    "id": device.status.feeding.id,
+                    "at": device.status.feeding.at,
+                    "tag_id": device.status.feeding.tag_id,
+                    "change_0": abs(device.status.feeding.change[0]),
+                    "change_1": abs(device.status.feeding.change[1]),
                 },
             ),
         ),
@@ -318,14 +320,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs(change[0])
+                get_fn=lambda device, r: abs(change[0] + change[1])
                 if (change := getattr(device.status.drinking, "change", []))
                 else None,
-                path_extra={
-                    "device_id": "status.drinking.device_id",
-                    "id": "status.drinking.id",
-                    "at": "status.drinking.at",
-                    "tag_id": "status.drinking.tag_id",
+                get_extra_fn=lambda device, config_options: {
+                    "device_id": device.status.drinking.device_id,
+                    "id": device.status.drinking.id,
+                    "at": device.status.drinking.at,
+                    "tag_id": device.status.drinking.tag_id,
+                    "change_0": abs(device.status.drinking.change[0]),
+                    "change_1": abs(device.status.drinking.change[1]),
                 },
             ),
         ),
