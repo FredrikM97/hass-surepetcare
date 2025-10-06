@@ -18,15 +18,6 @@ data:
 target:
   entity_id: update.surepetcare_update
 ```
-For latest release/main use
-```yaml
-action: update.install
-data:
-  version: main
-target:
-  entity_id: update.surepetcare_update
-```
-
 
 It is also possible to use same update from branch to verify functionality. 
 
@@ -34,4 +25,3 @@ It is also possible to use same update from branch to verify functionality.
 1. Run `python scripts/release.py` determine which version to bump to etc.
 2. Create the pull request and merge it into main after all tests pass
 3. Create a tag in releases and find the commit of latest release.
-4. Merge main changes into dev
