@@ -17,7 +17,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import PERCENTAGE, UnitOfMass
+from homeassistant.const import PERCENTAGE, UnitOfMass, UnitOfVolume
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
@@ -242,12 +242,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
     ),
     ProductId.POSEIDON_CONNECT: (
         SurePetCareSensorEntityDescription(
-            key="bowl_weight",
-            translation_key="bowl_weight",
+            key="bowl_volume",
+            translation_key="bowl_volume",
             translation_placeholders={"bowl": ""},
             state_class=SensorStateClass.MEASUREMENT,
-            device_class=SensorDeviceClass.WEIGHT,
-            native_unit_of_measurement=UnitOfMass.GRAMS,
+            device_class=SensorDeviceClass.VOLUME,
+            native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             field=MethodField(
                 get_fn=lambda device, r: index_attr(
                     device.status.bowl_status, 0, "current_weight"

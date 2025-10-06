@@ -1413,7 +1413,7 @@
     'state': '44',
   })
 # ---
-# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_weight-entry]
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_volume-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -1428,7 +1428,7 @@
     'disabled_by': None,
     'domain': 'sensor',
     'entity_category': None,
-    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'entity_id': 'sensor.poseidon_connect_bowl_volume',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1441,31 +1441,31 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
-    'original_name': 'Bowl  Weight',
+    'original_name': 'Bowl Volume',
     'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'bowl_weight',
-    'unique_id': '734730-bowl_weight',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'translation_key': 'bowl_volume',
+    'unique_id': '734730-bowl_volume',
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
-# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_weight-state]
+# name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_volume-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Poseidon connect Bowl  Weight',
+      'device_class': 'volume',
+      'friendly_name': 'Poseidon connect Bowl Volume',
       'last_fill_weight': 1071.92,
       'last_filled_at': '2025-09-03 08:39:29+00:00',
       'last_zeroed_at': None,
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
-    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'entity_id': 'sensor.poseidon_connect_bowl_volume',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -3041,7 +3041,7 @@
     'state': '44',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_weight-entry]
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_volume-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
@@ -3056,7 +3056,7 @@
     'disabled_by': None,
     'domain': 'sensor',
     'entity_category': None,
-    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'entity_id': 'sensor.poseidon_connect_bowl_volume',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -3069,31 +3069,31 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
-    'original_name': 'Bowl  Weight',
+    'original_name': 'Bowl Volume',
     'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
     'supported_features': 0,
-    'translation_key': 'bowl_weight',
-    'unique_id': '734730-bowl_weight',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'translation_key': 'bowl_volume',
+    'unique_id': '734730-bowl_volume',
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_weight-state]
+# name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_volume-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Poseidon connect Bowl  Weight',
+      'device_class': 'volume',
+      'friendly_name': 'Poseidon connect Bowl Volume',
       'last_fill_weight': 1071.92,
       'last_filled_at': '2025-09-03 08:39:29+00:00',
       'last_zeroed_at': None,
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
-    'entity_id': 'sensor.poseidon_connect_bowl_weight',
+    'entity_id': 'sensor.poseidon_connect_bowl_volume',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
