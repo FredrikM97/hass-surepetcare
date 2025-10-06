@@ -162,6 +162,7 @@
       }
     },
     "sensor": {
+      "bowl_volume": {"name": "Bowl Volume"},
       "fill_percent": {"name": "Fill Percent"},
       "last_activity" : {"name": "Last Activity"},
       "consumption": {"name": "Consumption"},
