@@ -13,7 +13,8 @@ from surepcio.enums import (
     HubLedMode,
     ModifyDeviceTag,
     BowlTypeOptions,
-    Tare,BowlType
+    Tare,
+    BowlType,
 )
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
@@ -109,7 +110,16 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="tare",
             translation_key="tare",
-            field=SelectMethodField(path="control.tare",options_fn=lambda device, r: [Tare.RESET_LARGE.name] if device.control.bowls.type == BowlType.LARGE else ["reset_left", Tare.RESET_RIGHT.name.lower(), Tare.RESET_BOTH.name.lower()]), # Required to manually set reset_left due to sharing same value as RESET_LARGE
+            field=SelectMethodField(
+                path="control.tare",
+                options_fn=lambda device, r: [Tare.RESET_LARGE.name]
+                if device.control.bowls.type == BowlType.LARGE
+                else [
+                    "reset_left",
+                    Tare.RESET_RIGHT.name.lower(),
+                    Tare.RESET_BOTH.name.lower(),
+                ],
+            ),  # Required to manually set reset_left due to sharing same value as RESET_LARGE
             options=Tare,
             entity_category=EntityCategory.CONFIG,
         ),
