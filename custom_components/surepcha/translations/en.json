@@ -82,8 +82,9 @@
       },
       "tare": {"name": "Reset weight of bowl",
         "state": {
-          "reset_left_or_big": "Reset Left/Large Bowl",
-          "reset_right": "Reset Left",
+          "reset_large": "Reset Large",
+          "reset_left": "Reset Left",
+          "reset_right": "Reset Right",
           "reset_both": "Reset Both"
         }
       },
