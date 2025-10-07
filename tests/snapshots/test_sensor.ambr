@@ -350,10 +350,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'devices': list([
-        727608,
-        269654,
-        271836,
-        1181149,
+        '727608',
+        '269654',
+        '271836',
+        '1181149',
       ]),
       'friendly_name': 'Maui Assigned devices',
       'unit_of_measurement': 'pcs',
@@ -583,6 +583,7 @@
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device': '472721',
       'friendly_name': 'Maui Last Activity',
     }),
     'context': <ANY>,
@@ -1978,10 +1979,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'devices': list([
-        727608,
-        269654,
-        271836,
-        1181149,
+        '727608',
+        '269654',
+        '271836',
+        '1181149',
       ]),
       'friendly_name': 'Maui Assigned devices',
       'unit_of_measurement': 'pcs',

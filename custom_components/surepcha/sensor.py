@@ -343,7 +343,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "devices": [
-                        d.id for d in getattr(device.status, "devices", []) or []
+                        str(d.id) for d in getattr(device.status, "devices", []) or []
                     ]
                 },
             ),
@@ -358,6 +358,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 )
                 if device.last_activity()
                 else None,
+                get_extra_fn=lambda device, r: {
+                    "device":str(device.id)
+                },
             ),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,
