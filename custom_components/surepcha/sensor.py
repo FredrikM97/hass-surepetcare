@@ -151,7 +151,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[0].position.name,
-                    "food_type": device.status.bowl_status[0].food_type.name,
+                    "food_type": device.control.bowls.settings[0].food_type.name,
                     "last_filled_at": device.status.bowl_status[0].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
                     "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
@@ -171,7 +171,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[1].position.name,
-                    "food_type": device.status.bowl_status[1].food_type.name,
+                    "food_type": device.control.bowls.settings[1].food_type.name,
                     "substance_type": device.status.bowl_status[1].substance_type,
                     "last_filled_at": device.status.bowl_status[1].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,
