@@ -80,7 +80,7 @@
             "two_small_dry_dry": "Two small (Dry/Dry)"
         }
       },
-      "tare": {"name": "Reset weight of bowl",
+      "tare": {"name": "Reset bowl weight (require open lid)",
         "state": {
           "reset_large": "Reset Large",
           "reset_left": "Reset Left",
