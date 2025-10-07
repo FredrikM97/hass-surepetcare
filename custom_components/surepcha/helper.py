@@ -47,6 +47,9 @@ def sum_attr(seq, attr, default=0):
         if isinstance(v, (int, float))
     )
 
+def stringify(value: Any) -> str:
+    """Convert value to string, handling None."""
+    return str(value) if value is not None else None
 
 def serialize(obj):
     """Recursively convert objects/enums/lists/dicts to JSON-serializable types, including properties, skipping functions, and using model_dump for Pydantic models."""
