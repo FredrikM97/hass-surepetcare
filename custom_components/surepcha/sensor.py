@@ -37,7 +37,14 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from .helper import MethodField, index_attr, option_name, should_add_entity, sum_attr
+from .helper import (
+    MethodField,
+    index_attr,
+    option_name,
+    should_add_entity,
+    stringify,
+    sum_attr,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -95,11 +102,10 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
         icon="mdi:information",
         field=MethodField(
             path=NAME,
-            path_extra={
-                "household_id": "household_id",
-                PRODUCT_ID: PRODUCT_ID,
-                "id": "id",
-                "parent_device_id": "entity_info.parent_device_id",
+            get_extra_fn=lambda device, r: {
+                "household_id": str(device.household_id),
+                "id": str(device.id),
+                "parent_device_id": stringify(device.entity_info.parent_device_id),
             },
         ),
     ),
@@ -125,12 +131,12 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         icon="mdi:information",
         field=MethodField(
             path=NAME,
-            path_extra={
-                "household_id": "household_id",
-                PRODUCT_ID: PRODUCT_ID,
-                "tag": "tag",
-                "id": "id",
-                "parent_device_id": "entity_info.parent_device_id",
+            get_extra_fn=lambda device, r: {
+                "household_id": str(device.household_id),
+                PRODUCT_ID: device.product_id,
+                "tag": str(device.tag),
+                "id": str(device.id),
+                "parent_device_id": stringify(device.entity_info.parent_device_id),
             },
         ),
     ),
@@ -151,7 +157,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[0].position.name,
-                    "food_type": device.status.bowl_status[0].food_type.name,
+                    "food_type": device.control.bowls.settings[0].food_type.name,
                     "last_filled_at": device.status.bowl_status[0].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
                     "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
@@ -171,7 +177,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[1].position.name,
-                    "food_type": device.status.bowl_status[1].food_type.name,
+                    "food_type": device.control.bowls.settings[1].food_type.name,
                     "substance_type": device.status.bowl_status[1].substance_type,
                     "last_filled_at": device.status.bowl_status[1].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,
@@ -288,10 +294,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 if (change := getattr(device.status.feeding, "change", []))
                 else None,
                 get_extra_fn=lambda device, config_options: {
-                    "device_id": device.status.feeding.device_id,
-                    "id": device.status.feeding.id,
+                    "device_id": str(device.status.feeding.device_id),
+                    "id": str(device.status.feeding.id),
                     "at": device.status.feeding.at,
-                    "tag_id": device.status.feeding.tag_id,
+                    "tag_id": str(device.status.feeding.tag_id),
                     "change_0": abs(device.status.feeding.change[0]),
                     "change_1": abs(device.status.feeding.change[1]),
                 },
@@ -303,12 +309,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=get_location,
-                path_extra={
-                    "device_id": "status.activity.device_id",
-                    "id": "status.activity.id",
-                    "since": "status.activity.since",
-                    "where": "status.activity.where",
-                    "tag_id": "status.activity.tag_id",
+                get_extra_fn=lambda device, r: {
+                    "device_id": str(device.status.activity.device_id),
+                    "id": str(device.status.activity.id),
+                    "since": device.status.activity.since,
+                    "where": device.status.activity.where,
+                    "tag_id": str(device.status.activity.tag_id),
                 },
             ),
         ),
@@ -324,10 +330,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 if (change := getattr(device.status.drinking, "change", []))
                 else None,
                 get_extra_fn=lambda device, config_options: {
-                    "device_id": device.status.drinking.device_id,
-                    "id": device.status.drinking.id,
+                    "device_id": str(device.status.drinking.device_id),
+                    "id": str(device.status.drinking.id),
                     "at": device.status.drinking.at,
-                    "tag_id": device.status.drinking.tag_id,
+                    "tag_id": str(device.status.drinking.tag_id),
                     "change_0": abs(device.status.drinking.change[0]),
                     "change_1": abs(device.status.drinking.change[1]),
                 },
@@ -343,7 +349,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 ),
                 get_extra_fn=lambda device, r: {
                     "devices": [
-                        d.id for d in getattr(device.status, "devices", []) or []
+                        str(d.id) for d in getattr(device.status, "devices", []) or []
                     ]
                 },
             ),
@@ -358,6 +364,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 )
                 if device.last_activity()
                 else None,
+                get_extra_fn=lambda device, r: {"device": str(device.id)},
             ),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,

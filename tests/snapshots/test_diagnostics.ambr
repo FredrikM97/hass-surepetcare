@@ -22,7 +22,7 @@
         'lid': dict({
           'close_delay': 'FASTER',
         }),
-        'tare': 'TWO_SMALL',
+        'tare': 'RESET_RIGHT',
         'training_mode': 'DISABLED',
       }),
       'entity_info': dict({

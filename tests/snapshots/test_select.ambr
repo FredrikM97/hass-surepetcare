@@ -365,16 +365,16 @@
     'state': 'faster',
   })
 # ---
-# name: test_platform_setup_and_discovery[select.maui_matlada_old_set_bowl_tare-entry]
+# name: test_platform_setup_and_discovery[select.maui_matlada_old_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -384,7 +384,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -396,7 +396,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Set Bowl Tare',
+    'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -406,22 +406,22 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[select.maui_matlada_old_set_bowl_tare-state]
+# name: test_platform_setup_and_discovery[select.maui_matlada_old_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small',
+    'state': 'reset_right',
   })
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_training_mode-entry]
@@ -1023,16 +1023,16 @@
     'state': 'faster',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_set_bowl_tare-entry]
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
     }),
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1042,7 +1042,7 @@
     'disabled_by': None,
     'domain': 'select',
     'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -1054,7 +1054,7 @@
     }),
     'original_device_class': None,
     'original_icon': None,
-    'original_name': 'Set Bowl Tare',
+    'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
     'suggested_object_id': None,
@@ -1064,22 +1064,22 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_set_bowl_tare-state]
+# name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small',
+    'state': 'reset_right',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_training_mode-entry]
@@ -1637,55 +1637,55 @@
 # name: test_select_set_option_and_snapshot.23
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.24
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.25
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Set Bowl Tare',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'options': list([
-        'disabled',
-        'large_bowl',
-        'two_small',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_set_bowl_tare',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.26

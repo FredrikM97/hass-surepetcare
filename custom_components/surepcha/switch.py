@@ -23,7 +23,7 @@ from .entity import (
 from surepcio.command import Command
 from surepcio.devices import Pet
 from surepcio.enums import ProductId, PetDeviceLocationProfile
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
+from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, FLAP_PRODUCTS, KEY_API
 import logging
 
 logger = logging.getLogger(__name__)
@@ -56,15 +56,10 @@ def profile_is_indoor(
     devices = list_attr(device, "status", "devices")
     if not devices:
         return None
-    valid_products = {
-        ProductId.PET_DOOR,
-        ProductId.DUAL_SCAN_PET_DOOR,
-        ProductId.DUAL_SCAN_CONNECT,
-    }
     profiles = {
         d.profile
         for d in devices
-        if option_product_id(entry_options, d.id) in valid_products
+        if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
     }
     if len(profiles) > 1:
         logger.warning(f"Flap device profiles are not uniform: {profiles}")
@@ -82,17 +77,11 @@ def set_profile(
     """Set all flap devices to the given profile and return the results."""
     if not getattr(device, "status", None):
         return []
-    # These should be set if exists otherwise ignore
-    valid_products = {
-        ProductId.PET_DOOR,
-        ProductId.DUAL_SCAN_PET_DOOR,
-        ProductId.DUAL_SCAN_CONNECT,
-    }
 
     return [
         device.set_profile(d.id, profile)
         for d in list_attr(device.status, "devices")
-        if option_product_id(entry_options, d.id) in valid_products
+        if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
     ]
 
 
@@ -115,6 +104,13 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 set_fn=set_profile,
                 on=PetDeviceLocationProfile.INDOOR_ONLY,
                 off=PetDeviceLocationProfile.NO_RESTRICTION,
+                get_extra_fn=lambda device, r: {
+                    "flap_devices": [
+                        str(d.id)
+                        for d in list_attr(device.status, "devices")
+                        if option_product_id(r, d.id) in FLAP_PRODUCTS
+                    ]
+                },
             ),
             icon="mdi:door",
         ),

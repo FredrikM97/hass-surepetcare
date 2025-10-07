@@ -80,12 +80,12 @@
             "two_small_dry_dry": "Two small (Dry/Dry)"
         }
       },
-      "tare": {"name": "Set Bowl Tare",
+      "tare": {"name": "Reset bowl weight (require open lid)",
         "state": {
-          "disabled": "Disabled",
-          "large_bowl": "Large Bowl",
-          "two_small": "Two Small Bowls",
-          "not_determined_1": "Unknown feature"
+          "reset_large": "Reset Large",
+          "reset_left": "Reset Left",
+          "reset_right": "Reset Right",
+          "reset_both": "Reset Both"
         }
       },
       "training_mode": {
