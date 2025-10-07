@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/FredrikM97/hass-surepetcare/issues",
   "loggers": ["surepcio"],
   "requirements": ["git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=0.5.8-dev3"],
-  "version": "2.0.1-dev0"
+  "version": "2.0.1"
 }
