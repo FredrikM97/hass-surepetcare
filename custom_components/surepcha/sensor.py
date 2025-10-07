@@ -37,7 +37,14 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from .helper import MethodField, index_attr, option_name, should_add_entity, stringify, sum_attr
+from .helper import (
+    MethodField,
+    index_attr,
+    option_name,
+    should_add_entity,
+    stringify,
+    sum_attr,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +105,7 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
             get_extra_fn=lambda device, r: {
                 "household_id": str(device.household_id),
                 "id": str(device.id),
-                "parent_device_id":stringify(device.entity_info.parent_device_id),
+                "parent_device_id": stringify(device.entity_info.parent_device_id),
             },
         ),
     ),
@@ -124,7 +131,7 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         icon="mdi:information",
         field=MethodField(
             path=NAME,
-            get_extra_fn=lambda device, r:{
+            get_extra_fn=lambda device, r: {
                 "household_id": str(device.household_id),
                 PRODUCT_ID: device.product_id,
                 "tag": str(device.tag),
@@ -357,9 +364,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 )
                 if device.last_activity()
                 else None,
-                get_extra_fn=lambda device, r: {
-                    "device":str(device.id)
-                },
+                get_extra_fn=lambda device, r: {"device": str(device.id)},
             ),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,

@@ -85,6 +85,9 @@
 # name: test_platform_setup_and_discovery[switch.maui_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'flap_devices': list([
+        '727608',
+      ]),
       'friendly_name': 'Maui Indoor Only',
       'icon': 'mdi:door',
     }),
@@ -320,6 +323,9 @@
 # name: test_switch_toggle_and_snapshot[switch.maui_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'flap_devices': list([
+        '727608',
+      ]),
       'friendly_name': 'Maui Indoor Only',
       'icon': 'mdi:door',
     }),
@@ -334,6 +340,9 @@
 # name: test_switch_toggle_and_snapshot[switch.maui_indoor_only-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'flap_devices': list([
+        '727608',
+      ]),
       'friendly_name': 'Maui Indoor Only',
       'icon': 'mdi:door',
     }),
