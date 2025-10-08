@@ -324,9 +324,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="drinking",
             translation_key="drinking",
-            device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
-            native_unit_of_measurement=UnitOfMass.GRAMS,
+            device_class=SensorDeviceClass.VOLUME,
+            native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: abs_sum_attr(device.status.drinking, "change"),

@@ -392,7 +392,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -401,7 +401,7 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '472721-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_drinking-state]
@@ -410,13 +410,13 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'weight',
+      'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Maui Drinking',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_drinking',
@@ -1123,7 +1123,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -1132,16 +1132,16 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '222222-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      'device_class': 'volume',
       'friendly_name': 'Pet with empty status Drinking',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_drinking',
@@ -1437,7 +1437,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -1446,7 +1446,7 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '333333-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_drinking-state]
@@ -1455,13 +1455,13 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'weight',
+      'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Drinking',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_drinking',
@@ -2344,7 +2344,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -2353,7 +2353,7 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '472721-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_drinking-state]
@@ -2362,13 +2362,13 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'weight',
+      'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Maui Drinking',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_drinking',
@@ -3074,7 +3074,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -3083,16 +3083,16 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '222222-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      'device_class': 'volume',
       'friendly_name': 'Pet with empty status Drinking',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_drinking',
@@ -3388,7 +3388,7 @@
         'suggested_display_precision': 0,
       }),
     }),
-    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
     'original_icon': None,
     'original_name': 'Drinking',
     'platform': 'surepcha',
@@ -3397,7 +3397,7 @@
     'supported_features': 0,
     'translation_key': 'drinking',
     'unique_id': '333333-drinking',
-    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_drinking-state]
@@ -3406,13 +3406,13 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'weight',
+      'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Drinking',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_drinking',
