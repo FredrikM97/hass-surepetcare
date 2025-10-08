@@ -1,14 +1,20 @@
 {
   "domain": "surepcha",
   "name": "SurePetCare",
-  "codeowners": ["@FredrikM97"],
+  "codeowners": [
+    "@FredrikM97"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/FredrikM97/hass-surepetcare",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/FredrikM97/hass-surepetcare/issues",
-  "loggers": ["surepcio"],
-  "requirements": ["git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=0.5.8-dev3"],
+  "loggers": [
+    "surepcio"
+  ],
+  "requirements": [
+    "git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=0.5.8-dev4"
+  ],
   "version": "2.0.1"
 }
