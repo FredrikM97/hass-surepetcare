@@ -99,6 +99,10 @@
           'name': 'Hem-hub',
           'product_id': 1,
         }),
+        '333333': dict({
+          'name': 'Pet with only one change on status',
+          'product_id': 0,
+        }),
         '472721': dict({
           'name': 'Maui',
           'product_id': 0,
@@ -155,6 +159,10 @@
           'name': 'Hem-hub',
           'product_id': 1,
         }),
+        '333333': dict({
+          'name': 'Pet with only one change on status',
+          'product_id': 0,
+        }),
         '472721': dict({
           'name': 'Maui',
           'product_id': 0,
@@ -197,6 +205,10 @@
           '295972': dict({
             'name': 'Hem-hub',
             'product_id': 1,
+          }),
+          '333333': dict({
+            'name': 'Pet with only one change on status',
+            'product_id': 0,
           }),
           '472721': dict({
             'name': 'Maui',

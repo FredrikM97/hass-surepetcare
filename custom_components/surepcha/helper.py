@@ -31,9 +31,11 @@ def option_product_id(
     return device_option(entry_options, device_id).get(PRODUCT_ID)
 
 
-def index_attr(seq, idx, attr, default=None):
+def index_attr(seq, idx, attr=None, default=None):
     """Safely get attribute from item at idx in seq, or return default."""
     try:
+        if attr is None:
+            return seq[idx]
         return getattr(seq[idx], attr, default)
     except (IndexError, TypeError, AttributeError):
         return default
@@ -46,6 +48,10 @@ def sum_attr(seq, attr, default=0):
         for v in (getattr(item, attr, default) for item in seq)
         if isinstance(v, (int, float))
     )
+
+def abs_sum_attr(obj, attr):
+    values = getattr(obj, attr, [])
+    return abs(sum(values)) if values else None
 
 
 def stringify(value: Any) -> str | None:

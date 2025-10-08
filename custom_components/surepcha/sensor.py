@@ -39,6 +39,7 @@ from .entity import (
 )
 from .helper import (
     MethodField,
+    abs_sum_attr,
     index_attr,
     option_name,
     should_add_entity,
@@ -290,16 +291,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs(change[0] + change[1])
-                if (change := getattr(device.status.feeding, "change", []))
-                else None,
+                get_fn=lambda device, r: abs_sum_attr(device.status.feeding, "change"),
                 get_extra_fn=lambda device, config_options: {
                     "device_id": str(device.status.feeding.device_id),
                     "id": str(device.status.feeding.id),
                     "at": device.status.feeding.at,
                     "tag_id": str(device.status.feeding.tag_id),
-                    "change_0": abs(device.status.feeding.change[0]),
-                    "change_1": abs(device.status.feeding.change[1]),
+                    "change_0": abs(index_attr(device.status.drinking.change,0,default=0)),
+                    "change_1": abs(index_attr(device.status.drinking.change, 1,default=0)),
                 },
             ),
         ),
@@ -326,16 +325,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs(change[0] + change[1])
-                if (change := getattr(device.status.drinking, "change", []))
-                else None,
+                get_fn=lambda device, r: abs_sum_attr(device.status.drinking, "change"),
                 get_extra_fn=lambda device, config_options: {
                     "device_id": str(device.status.drinking.device_id),
                     "id": str(device.status.drinking.id),
                     "at": device.status.drinking.at,
                     "tag_id": str(device.status.drinking.tag_id),
-                    "change_0": abs(device.status.drinking.change[0]),
-                    "change_1": abs(device.status.drinking.change[1]),
+                    "change_0": abs(index_attr(device.status.drinking.change,0,default=0)),
+                    "change_1": abs(index_attr(device.status.drinking.change, 1,default=0)),
                 },
             ),
         ),
