@@ -15,7 +15,14 @@ requires-python = ">=3.13"
 
 dependencies = [
     "py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare.git@dev",
-    "homeassistant>=2025.10.0b4",
+    "homeassistant>=2025.10.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-homeassistant-custom-component",
+    "pre-commit",
 ]
 
 [tool.setuptools.packages.find]

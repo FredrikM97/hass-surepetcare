@@ -1,3 +1,0 @@
-pytest
-pytest-homeassistant-custom-component>=0.13.109
-pre-commit
