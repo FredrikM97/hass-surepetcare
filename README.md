@@ -18,10 +18,6 @@ Built upon py-surepetcare to integrate with home assistant. Allow fine control t
 ---- 
 
 # Installation
-This integration replaces the core integration for SurePetCare and the integrations are not compatible
-
-Create a backup before installing this if you are moving from the core integration.
-
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration)
 
 
