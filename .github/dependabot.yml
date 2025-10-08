@@ -8,7 +8,6 @@ updates:
       - dependency-type: "direct"
     ignore:
       - dependency-name: "py-surepetcare"
-        reason: "Updated via custom workflow"
     commit-message:
       prefix: "deps"
       include: "scope"
