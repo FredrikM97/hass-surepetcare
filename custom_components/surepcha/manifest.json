@@ -16,5 +16,5 @@
   "requirements": [
     "git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=0.5.8-dev8"
   ],
-  "version": "2.0.2"
+  "version": "2.0.3"
 }
