@@ -1,0 +1,47 @@
+name: Update manifest.json requirements
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly on Sunday
+  workflow_dispatch: # manual trigger
+
+jobs:
+  update-requirements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Get latest version from pyproject.toml
+        id: get_version
+        run: |
+          latest_version=$(curl -s https://raw.githubusercontent.com/FredrikM97/py-surepetcare/dev/pyproject.toml | grep '^version' | head -n1 | awk -F'"' '{print $2}')
+          echo "latest_version=$latest_version" >> $GITHUB_OUTPUT
+
+      - name: Check if update is needed
+        id: check_update
+        run: |
+          current_version=$(jq -r '.requirements[0]' custom_components/surepcha/manifest.json | sed 's/.*py-surepetcare>=\(.*\)/\1/')
+          new_version="${{ steps.get_version.outputs.latest_version }}"
+          if [ "$current_version" != "$new_version" ]; then
+            echo "needs_update=true" >> $GITHUB_OUTPUT
+          else
+            echo "needs_update=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update manifest.json requirements
+        if: steps.check_update.outputs.needs_update == 'true'
+        run: |
+          version="${{ steps.get_version.outputs.latest_version }}"
+          jq --arg version "$version" \
+            '.requirements[0] = "git+https://github.com/FredrikM97/py-surepetcare#py-surepetcare>=" + $version' \
+            custom_components/surepcha/manifest.json > manifest.json.tmp
+          mv manifest.json.tmp custom_components/surepcha/manifest.json
+
+      - name: Commit and push changes
+        if: steps.check_update.outputs.needs_update == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
+          branch: update-manifest-requirements
+          create_branch: true
