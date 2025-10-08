@@ -298,10 +298,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     "at": device.status.feeding.at,
                     "tag_id": str(device.status.feeding.tag_id),
                     "change_0": abs(
-                        index_attr(device.status.drinking.change, 0, default=0)
+                        index_attr(device.status.feeding.change, 0, default=0)
                     ),
                     "change_1": abs(
-                        index_attr(device.status.drinking.change, 1, default=0)
+                        index_attr(device.status.feeding.change, 1, default=0)
                     ),
                 },
             ),

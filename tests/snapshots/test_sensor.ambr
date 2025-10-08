@@ -525,7 +525,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
+      'change_0': 5.23,
       'change_1': 0,
       'device_class': 'weight',
       'device_id': '269654',
@@ -540,7 +540,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '5.23',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-entry]
@@ -1570,7 +1570,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
+      'change_0': 4.23,
       'change_1': 0,
       'device_class': 'weight',
       'device_id': '269654',
@@ -1585,7 +1585,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '4.23',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-entry]
@@ -2477,7 +2477,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
+      'change_0': 5.23,
       'change_1': 0,
       'device_class': 'weight',
       'device_id': '269654',
@@ -2492,7 +2492,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '5.23',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-entry]
@@ -3521,7 +3521,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
+      'change_0': 4.23,
       'change_1': 0,
       'device_class': 'weight',
       'device_id': '269654',
@@ -3536,7 +3536,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '4.23',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-entry]
