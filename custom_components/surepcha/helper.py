@@ -49,6 +49,7 @@ def sum_attr(seq, attr, default=0):
         if isinstance(v, (int, float))
     )
 
+
 def abs_sum_attr(obj, attr):
     values = getattr(obj, attr, [])
     return abs(sum(values)) if values else None

@@ -297,8 +297,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     "id": str(device.status.feeding.id),
                     "at": device.status.feeding.at,
                     "tag_id": str(device.status.feeding.tag_id),
-                    "change_0": abs(index_attr(device.status.drinking.change,0,default=0)),
-                    "change_1": abs(index_attr(device.status.drinking.change, 1,default=0)),
+                    "change_0": abs(
+                        index_attr(device.status.drinking.change, 0, default=0)
+                    ),
+                    "change_1": abs(
+                        index_attr(device.status.drinking.change, 1, default=0)
+                    ),
                 },
             ),
         ),
@@ -331,8 +335,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     "id": str(device.status.drinking.id),
                     "at": device.status.drinking.at,
                     "tag_id": str(device.status.drinking.tag_id),
-                    "change_0": abs(index_attr(device.status.drinking.change,0,default=0)),
-                    "change_1": abs(index_attr(device.status.drinking.change, 1,default=0)),
+                    "change_0": abs(
+                        index_attr(device.status.drinking.change, 0, default=0)
+                    ),
+                    "change_1": abs(
+                        index_attr(device.status.drinking.change, 1, default=0)
+                    ),
                 },
             ),
         ),
