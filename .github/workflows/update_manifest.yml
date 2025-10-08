@@ -55,6 +55,7 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           branch: update-manifest-requirements
+          base: dev
           title: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
           body: "Automated update of py-surepetcare requirement in manifest.json"
           commit-message: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
