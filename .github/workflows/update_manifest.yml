@@ -42,20 +42,11 @@ jobs:
             custom_components/surepcha/manifest.json > manifest.json.tmp
           mv manifest.json.tmp custom_components/surepcha/manifest.json
 
-      - name: Commit and push changes
-        if: steps.check_update.outputs.needs_update == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
-          branch: update-manifest-requirements
-          create_branch: true
-
       - name: Create Pull Request
         if: steps.check_update.outputs.needs_update == 'true'
         uses: peter-evans/create-pull-request@v5
         with:
-          branch: update-manifest-requirements
-          base: dev
+          branch: update-manifest-requirements + "${{ steps.get_version.outputs.latest_version }}"
           title: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
           body: "Automated update of py-surepetcare requirement in manifest.json"
           commit-message: "Update py-surepetcare requirement to latest version ${{ steps.get_version.outputs.latest_version }}"
