@@ -1,6 +1,6 @@
 import json
 import re
-import pkg_resources
+import importlib.metadata
 
 def normalize_version(version):
     return version.replace("-", ".")
@@ -16,8 +16,8 @@ def test_manifest_and_installed_dependency_match():
     manifest_version = m.group(1)
 
     try:
-        installed_version = pkg_resources.get_distribution("py-surepetcare").version
-    except Exception as e:
+        installed_version = importlib.metadata.version("py-surepetcare")
+    except importlib.metadata.PackageNotFoundError as e:
         raise AssertionError(f"py-surepetcare is not installed: {e}")
 
     manifest_version_norm = normalize_version(manifest_version)
@@ -29,3 +29,4 @@ def test_manifest_and_installed_dependency_match():
 
 if __name__ == "__main__":
     test_manifest_and_installed_dependency_match()
+    print("Manifest and installed dependency versions match.")
