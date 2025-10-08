@@ -4,7 +4,7 @@
     {
       "label": "Install Dev Requirements",
       "type": "shell",
-      "command": "pip install -r requirements.txt -r requirements-dev.txt",
+      "command": "pip install -e .[dev]",
       "group": "build",
       "presentation": {
         "reveal": "always",
