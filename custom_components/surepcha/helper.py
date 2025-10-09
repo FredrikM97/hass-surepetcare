@@ -50,6 +50,15 @@ def sum_attr(seq, attr, default=0):
     )
 
 
+def avg_attr(items, attr):
+    vals = [
+        getattr(item, attr, None)
+        for item in items
+        if getattr(item, attr, None) is not None
+    ]
+    return sum(vals) / len(vals) if vals else None
+
+
 def abs_sum_attr(obj, attr):
     values = getattr(obj, attr, [])
     return abs(sum(values)) if values else None

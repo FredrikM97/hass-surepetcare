@@ -35,6 +35,42 @@
     'state': '50',
   })
 # ---
+# name: test_number_set_and_snapshot.10
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_number_set_and_snapshot.11
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
 # name: test_number_set_and_snapshot.2
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -101,6 +137,194 @@
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_number_set_and_snapshot.6
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.7
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.8
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_number_set_and_snapshot.9
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Target weight Bowl One',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'target_weight',
+    'unique_id': '22222-bowl_0_target_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_one-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Target weight Bowl Two',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'target_weight',
+    'unique_id': '22222-bowl_1_target_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_two-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -217,6 +441,122 @@
     }),
     'context': <ANY>,
     'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Target weight Bowl One',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'target_weight',
+    'unique_id': '22222-bowl_0_target_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_one-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_one',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'number',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Target weight Bowl Two',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'target_weight',
+    'unique_id': '22222-bowl_1_target_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_two-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
+      'max': 100.0,
+      'min': 0.0,
+      'mode': <NumberMode.AUTO: 'auto'>,
+      'step': 1.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

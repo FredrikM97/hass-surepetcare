@@ -40,11 +40,11 @@ from .entity import (
 from .helper import (
     MethodField,
     abs_sum_attr,
+    avg_attr,
     index_attr,
     option_name,
     should_add_entity,
     stringify,
-    sum_attr,
 )
 
 logger = logging.getLogger(__name__)
@@ -192,7 +192,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
-                get_fn=lambda device, r: sum_attr(
+                get_fn=lambda device, r: avg_attr(
                     getattr(device.status, "bowl_status", []), "fill_percent"
                 ),
                 get_extra_fn=lambda device, r: {
@@ -272,7 +272,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
-                get_fn=lambda device, r: sum_attr(
+                get_fn=lambda device, r: avg_attr(
                     getattr(device.status, "bowl_status", []), "fill_percent"
                 ),
             ),

@@ -1,4 +1,403 @@
 # serializer version: 1
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '22222-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Feeder with different fill percent Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '13',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_one_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl One Weight',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '22222-bowl_0_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_one_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Feeder with different fill percent Bowl One Weight',
+      'last_fill_weight': 32.16,
+      'last_filled_at': '2025-07-07 10:29:29+00:00',
+      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+      'position': 'ONE',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '32.16',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl Two Weight',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '22222-bowl_1_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
+      'last_fill_weight': -27.2,
+      'last_filled_at': '2025-07-07 10:29:29+00:00',
+      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+      'position': 'TWO',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 'FOOD',
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-27.2',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '22222-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      'friendly_name': 'Feeder with different fill percent Entity Information',
+      'household_id': '222527',
+      'icon': 'mdi:information',
+      'id': '22222',
+      'parent_device_id': '295972',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Feeder with different fill percent',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_fill_percent-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Fill Percent',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '22222-fill_percent',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_fill_percent-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowl_0_fill_percent': 30,
+      'bowl_1_fill_percent': 20,
+      'friendly_name': 'Feeder with different fill percent Fill Percent',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '25.0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '22222-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Feeder with different fill percent RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-81',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Total Weight Limit',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'weight_capacity',
+    'unique_id': '22222-weight_capacity',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowls': list([
+        dict({
+          'food_type': 'WET',
+          'target': 50,
+        }),
+        dict({
+          'food_type': 'WET',
+          'target': 0,
+        }),
+      ]),
+      'device_class': 'weight',
+      'friendly_name': 'Feeder with different fill percent Total Weight Limit',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -872,7 +1271,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100',
+    'state': '100.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
@@ -1898,7 +2297,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '91',
+    'state': '91.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_rssi-entry]
@@ -1949,6 +2348,405 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '-74',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '22222-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Feeder with different fill percent Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '13',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_one_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl One Weight',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '22222-bowl_0_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_one_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Feeder with different fill percent Bowl One Weight',
+      'last_fill_weight': 32.16,
+      'last_filled_at': '2025-07-07 10:29:29+00:00',
+      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+      'position': 'ONE',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '32.16',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Bowl Two Weight',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowl_weight',
+    'unique_id': '22222-bowl_1_weight',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'weight',
+      'food_type': 'WET',
+      'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
+      'last_fill_weight': -27.2,
+      'last_filled_at': '2025-07-07 10:29:29+00:00',
+      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
+      'position': 'TWO',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'substance_type': 'FOOD',
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-27.2',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '22222-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      'friendly_name': 'Feeder with different fill percent Entity Information',
+      'household_id': '222527',
+      'icon': 'mdi:information',
+      'id': '22222',
+      'parent_device_id': '295972',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'Feeder with different fill percent',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_fill_percent-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Fill Percent',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'fill_percent',
+    'unique_id': '22222-fill_percent',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_fill_percent-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowl_0_fill_percent': 30,
+      'bowl_1_fill_percent': 20,
+      'friendly_name': 'Feeder with different fill percent Fill Percent',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '25.0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
+    'original_icon': None,
+    'original_name': 'RSSI',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'rssi',
+    'unique_id': '22222-rssi',
+    'unit_of_measurement': 'dBm',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'signal_strength',
+      'friendly_name': 'Feeder with different fill percent RSSI',
+      'unit_of_measurement': 'dBm',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '-81',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': None,
+    'original_name': 'Total Weight Limit',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'weight_capacity',
+    'unique_id': '22222-weight_capacity',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'bowls': list([
+        dict({
+          'food_type': 'WET',
+          'target': 50,
+        }),
+        dict({
+          'food_type': 'WET',
+          'target': 0,
+        }),
+      ]),
+      'device_class': 'weight',
+      'friendly_name': 'Feeder with different fill percent Total Weight Limit',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '50',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
@@ -2823,7 +3621,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100',
+    'state': '100.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
@@ -3848,7 +4646,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '91',
+    'state': '91.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_rssi-entry]
