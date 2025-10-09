@@ -87,6 +87,10 @@
           'name': 'Katzenklappe',
           'product_id': 6,
         }),
+        '22222': dict({
+          'name': 'Feeder with different fill percent',
+          'product_id': 4,
+        }),
         '222222': dict({
           'name': 'Pet with empty status',
           'product_id': 0,
@@ -147,6 +151,10 @@
           'name': 'Katzenklappe',
           'product_id': 6,
         }),
+        '22222': dict({
+          'name': 'Feeder with different fill percent',
+          'product_id': 4,
+        }),
         '222222': dict({
           'name': 'Pet with empty status',
           'product_id': 0,
@@ -193,6 +201,10 @@
           '1299453': dict({
             'name': 'Katzenklappe',
             'product_id': 6,
+          }),
+          '22222': dict({
+            'name': 'Feeder with different fill percent',
+            'product_id': 4,
           }),
           '222222': dict({
             'name': 'Pet with empty status',

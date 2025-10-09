@@ -1,4 +1,4 @@
-{
+[{
     "entity_info": {
         "id": 269654,
         "name": "Maui matl\u00e5da (old) ",
@@ -65,4 +65,74 @@
         "training_mode": 0,
         "fast_polling": false
     }
+},
+{
+    "entity_info": {
+        "id": 22222,
+        "name": "Feeder with different fill percent",
+        "household_id": 222527,
+        "product_id": 4,
+        "tag_id": null,
+        "photo": null,
+        "tag": null,
+        "parent_device_id": 295972
+    },
+    "status": {
+        "battery": 5.015,
+        "learn_mode": false,
+        "signal": {
+            "device_rssi": -81
+        },
+        "version": {
+            "device": {
+                "hardware": "9",
+                "firmware": "406.437"
+            }
+        },
+        "online": true,
+        "bowl_status": [
+            {
+                "index": 0,
+                "food_type": 1,
+                "substance_type": 2,
+                "current_weight": 32.16,
+                "last_filled_at": "2025-07-07T10:29:29+00:00",
+                "last_zeroed_at": "2025-05-23T10:25:29+00:00",
+                "last_fill_weight": 32.16,
+                "fill_percent": 30
+            },
+            {
+                "index": 1,
+                "food_type": 1,
+                "substance_type": 2,
+                "current_weight": -27.2,
+                "last_filled_at": "2025-07-07T10:29:29+00:00",
+                "last_zeroed_at": "2025-05-23T10:25:29+00:00",
+                "last_fill_weight": -27.2,
+                "fill_percent": 20
+            }
+        ]
+    },
+    "control": {
+        "lid": {
+            "close_delay": 0
+        },
+        "bowls": {
+            "settings": [
+                {
+                    "food_type": 1,
+                    "target": 50
+                },
+                {
+                    "food_type": 1,
+                    "target": 0
+                }
+            ],
+            "type": 4
+        },
+        "tare": 2,
+        "training_mode": 0,
+        "fast_polling": false
+    }
 }
+]

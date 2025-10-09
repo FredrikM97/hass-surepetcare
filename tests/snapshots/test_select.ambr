@@ -1,4 +1,252 @@
 # serializer version: 1
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_bowls_type-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Bowls Type',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowls_type',
+    'unique_id': '22222-bowls_type',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_bowls_type-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_lid_close_delay-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'faster',
+        'normal',
+        'slower',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Lid close delay',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lid',
+    'unique_id': '22222-lid',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_lid_close_delay-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'options': list([
+        'faster',
+        'normal',
+        'slower',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'faster',
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Reset bowl weight (require open lid)',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '22222-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_training_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Training Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'training_mode',
+    'unique_id': '22222-training_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_training_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Training Mode',
+      'options': list([
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'disabled',
+  })
+# ---
 # name: test_platform_setup_and_discovery[select.hem_hub_led_mode-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -771,6 +1019,254 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_bowls_type-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Bowls Type',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'bowls_type',
+    'unique_id': '22222-bowls_type',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_bowls_type-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_lid_close_delay-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'faster',
+        'normal',
+        'slower',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Lid close delay',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'lid',
+    'unique_id': '22222-lid',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_lid_close_delay-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'options': list([
+        'faster',
+        'normal',
+        'slower',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'faster',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Reset bowl weight (require open lid)',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'tare',
+    'unique_id': '22222-tare',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_training_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Training Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'training_mode',
+    'unique_id': '22222-training_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_training_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Training Mode',
+      'options': list([
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'disabled',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-entry]
@@ -1971,20 +2467,19 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.3
@@ -2009,140 +2504,204 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.31
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.32
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.33
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.34
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.35
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.36
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'disabled',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.37
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.38
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.39
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.4
@@ -2163,6 +2722,206 @@
     'state': 'unknown',
   })
 # ---
+# name: test_select_set_option_and_snapshot.40
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.41
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.42
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.43
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.44
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.45
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.46
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.47
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.48
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.49
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
 # name: test_select_set_option_and_snapshot.5
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -2178,6 +2937,86 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.50
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.51
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.52
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.53
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.6
