@@ -50,6 +50,26 @@ from .helper import (
 logger = logging.getLogger(__name__)
 
 
+def bowl_fill_percentages(bowl_status, bowl_settings):
+    """Return (total_percent, {bowl_index: percent or None, ...}) for all bowls."""
+    # Todo move to api
+    total_weight = 0
+    total_target = 0
+    individual = {}
+    for i, (bowl, setting) in enumerate(zip(bowl_status, bowl_settings)):
+        weight = getattr(bowl, "current_weight", None)
+        target = getattr(setting, "target", 0)
+        if weight is not None and target > 0:
+            percent = (weight / target) * 100
+            individual[i] = percent
+            total_weight += weight
+            total_target += target
+        else:
+            individual[i] = None
+    total = (total_weight / total_target * 100) if total_target > 0 else None
+    return total, individual
+
+
 def get_location(
     device: Pet, entry_options: MappingProxyType[str, Any]
 ) -> PetLocation | str | None:
@@ -189,19 +209,21 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="fill_percent",
             translation_key="fill_percent",
+            icon="mdi:percent-outline",
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
+            suggested_display_precision=1,
             field=MethodField(
-                get_fn=lambda device, r: avg_attr(
-                    getattr(device.status, "bowl_status", []), "fill_percent"
-                ),
+                get_fn=lambda device, r: bowl_fill_percentages(
+                    getattr(device.status, "bowl_status", []),
+                    getattr(device.control.bowls, "settings", []),
+                )[0],
                 get_extra_fn=lambda device, r: {
-                    "bowl_0_fill_percent": index_attr(
-                        device.status.bowl_status, 0, "fill_percent"
-                    ),
-                    "bowl_1_fill_percent": index_attr(
-                        device.status.bowl_status, 1, "fill_percent"
-                    ),
+                    f"bowl_{i}_fill_percent": percent
+                    for i, percent in bowl_fill_percentages(
+                        getattr(device.status, "bowl_status", []),
+                        getattr(device.control.bowls, "settings", []),
+                    )[1].items()
                 },
             ),
         ),
@@ -286,6 +308,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="feeding",
             translation_key="feeding",
+            icon="mdi:food-drumstick",
             device_class=SensorDeviceClass.WEIGHT,
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
@@ -309,6 +332,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="position",
             translation_key="position",
+            icon="mdi:map-marker",
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=get_location,
@@ -324,6 +348,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="drinking",
             translation_key="drinking",
+            icon="mdi:water",
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.VOLUME,
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
@@ -347,6 +372,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="devices",
             translation_key="devices",
+            icon="mdi:devices",
             native_unit_of_measurement="pcs",
             field=MethodField(
                 get_fn=lambda device, r: len(
@@ -362,6 +388,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="last_activity",
             translation_key="last_activity",
+            icon="mdi:history",
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: option_name(
@@ -423,10 +450,3 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
-
-    @property
-    def entity_picture(self) -> str | None:
-        """Return the entity picture URL."""
-        if self.entity_description.icon:
-            return self.coordinator.data.photo
-        return None

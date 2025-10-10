@@ -3,9 +3,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -21,9 +22,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -39,9 +41,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -50,16 +53,17 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_number_set_and_snapshot.11
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -68,16 +72,17 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_number_set_and_snapshot.2
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -93,9 +98,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -111,9 +117,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -129,9 +136,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -147,9 +155,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -165,9 +174,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -183,9 +193,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -201,9 +212,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -212,7 +224,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
@@ -221,9 +233,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -244,7 +256,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl One',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -259,9 +271,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -279,9 +292,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -302,7 +315,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl Two',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -317,9 +330,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -328,7 +342,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-entry]
@@ -337,9 +351,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -360,7 +374,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl One',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -375,9 +389,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -395,9 +410,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -418,7 +433,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl Two',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -433,9 +448,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -453,9 +469,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -476,7 +492,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl One',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -491,9 +507,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -511,9 +528,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -534,7 +551,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl Two',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -549,9 +566,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -560,7 +578,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_one-entry]
@@ -569,9 +587,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -592,7 +610,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl One',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -607,9 +625,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl One',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -627,9 +646,9 @@
     }),
     'area_id': None,
     'capabilities': dict({
-      'max': 100.0,
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
     }),
     'config_entry_id': <ANY>,
@@ -650,7 +669,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:scale',
     'original_name': 'Target weight Bowl Two',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -665,9 +684,10 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Target weight Bowl Two',
-      'max': 100.0,
+      'icon': 'mdi:scale',
+      'max': 300,
       'min': 0.0,
-      'mode': <NumberMode.AUTO: 'auto'>,
+      'mode': 'slider',
       'step': 1.0,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),

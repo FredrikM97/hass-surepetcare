@@ -159,7 +159,7 @@
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
-      'last_fill_weight': -27.2,
+      'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'TWO',
@@ -172,7 +172,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '74.2',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -213,7 +213,6 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -252,9 +251,12 @@
     }),
     'name': None,
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:percent-outline',
     'original_name': 'Fill Percent',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -268,9 +270,10 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 30,
-      'bowl_1_fill_percent': 20,
+      'bowl_0_fill_percent': 64.32,
+      'bowl_1_fill_percent': 74.94949494949495,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
+      'icon': 'mdi:percent-outline',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
     }),
@@ -279,7 +282,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '25.0',
+    'state': '71.3825503355705',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -382,7 +385,7 @@
         }),
         dict({
           'food_type': 'WET',
-          'target': 0,
+          'target': 99,
         }),
       ]),
       'device_class': 'weight',
@@ -395,7 +398,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '149',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
@@ -732,7 +735,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -753,6 +756,7 @@
         '1181149',
       ]),
       'friendly_name': 'Maui Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -792,7 +796,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -812,6 +816,7 @@
       'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Maui Drinking',
+      'icon': 'mdi:water',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -863,7 +868,6 @@
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -909,7 +913,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -929,6 +933,7 @@
       'device_class': 'weight',
       'device_id': '269654',
       'friendly_name': 'Maui Feeding',
+      'icon': 'mdi:food-drumstick',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -966,7 +971,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -982,6 +987,7 @@
     'attributes': ReadOnlyDict({
       'device': '472721',
       'friendly_name': 'Maui Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
@@ -1205,7 +1211,6 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -1244,9 +1249,12 @@
     }),
     'name': None,
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:percent-outline',
     'original_name': 'Fill Percent',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1260,9 +1268,10 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 100,
+      'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
+      'icon': 'mdi:percent-outline',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
     }),
@@ -1271,7 +1280,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
@@ -1414,7 +1423,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1430,6 +1439,7 @@
     'attributes': ReadOnlyDict({
       'device_id': '269654',
       'friendly_name': 'Maui Position',
+      'icon': 'mdi:map-marker',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -1467,7 +1477,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1484,6 +1494,7 @@
       'devices': list([
       ]),
       'friendly_name': 'Pet with empty status Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -1523,7 +1534,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1539,6 +1550,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'volume',
       'friendly_name': 'Pet with empty status Drinking',
+      'icon': 'mdi:water',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
@@ -1588,7 +1600,6 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -1634,7 +1645,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1650,6 +1661,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
       'friendly_name': 'Pet with empty status Feeding',
+      'icon': 'mdi:food-drumstick',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -1685,7 +1697,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1700,6 +1712,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with empty status Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_last_activity',
@@ -1733,7 +1746,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1748,6 +1761,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_position',
@@ -1781,7 +1795,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1798,6 +1812,7 @@
       'devices': list([
       ]),
       'friendly_name': 'Pet with only one change on status Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -1837,7 +1852,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1857,6 +1872,7 @@
       'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Drinking',
+      'icon': 'mdi:water',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -1908,7 +1924,6 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -1954,7 +1969,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1974,6 +1989,7 @@
       'device_class': 'weight',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Feeding',
+      'icon': 'mdi:food-drumstick',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -2011,7 +2027,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2027,6 +2043,7 @@
     'attributes': ReadOnlyDict({
       'device': '333333',
       'friendly_name': 'Pet with only one change on status Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -2060,7 +2077,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2075,6 +2092,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_position',
@@ -2510,7 +2528,7 @@
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
-      'last_fill_weight': -27.2,
+      'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'TWO',
@@ -2523,7 +2541,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '74.2',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -2564,7 +2582,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -2603,9 +2620,12 @@
     }),
     'name': None,
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:percent-outline',
     'original_name': 'Fill Percent',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2619,9 +2639,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 30,
-      'bowl_1_fill_percent': 20,
+      'bowl_0_fill_percent': 64.32,
+      'bowl_1_fill_percent': 74.94949494949495,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
+      'icon': 'mdi:percent-outline',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
     }),
@@ -2630,7 +2651,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '25.0',
+    'state': '71.3825503355705',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -2733,7 +2754,7 @@
         }),
         dict({
           'food_type': 'WET',
-          'target': 0,
+          'target': 99,
         }),
       ]),
       'device_class': 'weight',
@@ -2746,7 +2767,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '149',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
@@ -3083,7 +3104,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3104,6 +3125,7 @@
         '1181149',
       ]),
       'friendly_name': 'Maui Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -3143,7 +3165,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3163,6 +3185,7 @@
       'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Maui Drinking',
+      'icon': 'mdi:water',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -3214,7 +3237,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -3260,7 +3282,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3280,6 +3302,7 @@
       'device_class': 'weight',
       'device_id': '269654',
       'friendly_name': 'Maui Feeding',
+      'icon': 'mdi:food-drumstick',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -3317,7 +3340,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3332,6 +3355,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
@@ -3555,7 +3579,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -3594,9 +3617,12 @@
     }),
     'name': None,
     'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 1,
+      }),
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:percent-outline',
     'original_name': 'Fill Percent',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3610,9 +3636,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 100,
+      'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
+      'icon': 'mdi:percent-outline',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
     }),
@@ -3621,7 +3648,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
@@ -3764,7 +3791,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3780,6 +3807,7 @@
     'attributes': ReadOnlyDict({
       'device_id': '269654',
       'friendly_name': 'Maui Position',
+      'icon': 'mdi:map-marker',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -3817,7 +3845,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3834,6 +3862,7 @@
       'devices': list([
       ]),
       'friendly_name': 'Pet with empty status Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -3873,7 +3902,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3889,6 +3918,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'volume',
       'friendly_name': 'Pet with empty status Drinking',
+      'icon': 'mdi:water',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
@@ -3938,7 +3968,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -3984,7 +4013,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4000,6 +4029,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
       'friendly_name': 'Pet with empty status Feeding',
+      'icon': 'mdi:food-drumstick',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -4035,7 +4065,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4050,6 +4080,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with empty status Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_last_activity',
@@ -4083,7 +4114,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4098,6 +4129,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_position',
@@ -4131,7 +4163,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:devices',
     'original_name': 'Assigned devices',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4148,6 +4180,7 @@
       'devices': list([
       ]),
       'friendly_name': 'Pet with only one change on status Assigned devices',
+      'icon': 'mdi:devices',
       'unit_of_measurement': 'pcs',
     }),
     'context': <ANY>,
@@ -4187,7 +4220,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.VOLUME: 'volume'>,
-    'original_icon': None,
+    'original_icon': 'mdi:water',
     'original_name': 'Drinking',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4207,6 +4240,7 @@
       'device_class': 'volume',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Drinking',
+      'icon': 'mdi:water',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -4258,7 +4292,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
@@ -4304,7 +4337,7 @@
       }),
     }),
     'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
-    'original_icon': None,
+    'original_icon': 'mdi:food-drumstick',
     'original_name': 'Feeding',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4324,6 +4357,7 @@
       'device_class': 'weight',
       'device_id': '269654',
       'friendly_name': 'Pet with only one change on status Feeding',
+      'icon': 'mdi:food-drumstick',
       'id': '1210761432',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
@@ -4361,7 +4395,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:history',
     'original_name': 'Last Activity',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4376,6 +4410,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with only one change on status Last Activity',
+      'icon': 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -4409,7 +4444,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:map-marker',
     'original_name': 'Position',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4424,6 +4459,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_position',

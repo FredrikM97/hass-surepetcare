@@ -72,7 +72,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Learn Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -87,6 +87,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Learn Mode',
+      'icon': 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_learn_mode',
@@ -474,7 +475,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Learn Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -489,6 +490,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Learn Mode',
+      'icon': 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_learn_mode',
@@ -571,7 +573,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Learn Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -586,6 +588,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Learn Mode',
+      'icon': 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_learn_mode',
@@ -973,7 +976,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Learn Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -988,6 +991,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Learn Mode',
+      'icon': 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_learn_mode',
