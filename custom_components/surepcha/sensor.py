@@ -209,8 +209,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="fill_percent",
             translation_key="fill_percent",
+            icon="mdi:percent-outline",
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
+            suggested_display_precision=1,
             field=MethodField(
                 get_fn=lambda device, r: bowl_fill_percentages(
                     getattr(device.status, "bowl_status", []),
@@ -329,6 +331,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="position",
             translation_key="position",
+            icon="mdi:map-marker",
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=get_location,
@@ -344,6 +347,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="drinking",
             translation_key="drinking",
+            icon="mdi:water",
             state_class=SensorStateClass.MEASUREMENT,
             device_class=SensorDeviceClass.VOLUME,
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
@@ -367,6 +371,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="devices",
             translation_key="devices",
+            icon="mdi:devices",
             native_unit_of_measurement="pcs",
             field=MethodField(
                 get_fn=lambda device, r: len(
@@ -382,6 +387,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
         SurePetCareSensorEntityDescription(
             key="last_activity",
             translation_key="last_activity",
+            icon="mdi:history",
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: option_name(
@@ -443,10 +449,3 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
-
-    @property
-    def entity_picture(self) -> str | None:
-        """Return the entity picture URL."""
-        if self.entity_description.icon:
-            return self.coordinator.data.photo
-        return None
