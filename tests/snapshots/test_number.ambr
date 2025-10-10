@@ -50,7 +50,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_number_set_and_snapshot.11
@@ -68,7 +68,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_number_set_and_snapshot.2
@@ -212,7 +212,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
@@ -328,7 +328,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-entry]
@@ -560,7 +560,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '0',
+    'state': '99',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_one-entry]

@@ -159,7 +159,7 @@
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
-      'last_fill_weight': -27.2,
+      'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'TWO',
@@ -172,7 +172,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '74.2',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -269,7 +269,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
-      'bowl_1_fill_percent': None,
+      'bowl_1_fill_percent': 74.94949494949495,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
@@ -279,7 +279,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': '71.3825503355705',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -382,7 +382,7 @@
         }),
         dict({
           'food_type': 'WET',
-          'target': 0,
+          'target': 99,
         }),
       ]),
       'device_class': 'weight',
@@ -395,7 +395,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '149',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
@@ -2510,7 +2510,7 @@
       'device_class': 'weight',
       'food_type': 'WET',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
-      'last_fill_weight': -27.2,
+      'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'TWO',
@@ -2523,7 +2523,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '74.2',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -2620,7 +2620,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
-      'bowl_1_fill_percent': None,
+      'bowl_1_fill_percent': 74.94949494949495,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
@@ -2630,7 +2630,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': '71.3825503355705',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -2733,7 +2733,7 @@
         }),
         dict({
           'food_type': 'WET',
-          'target': 0,
+          'target': 99,
         }),
       ]),
       'device_class': 'weight',
@@ -2746,7 +2746,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '149',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
