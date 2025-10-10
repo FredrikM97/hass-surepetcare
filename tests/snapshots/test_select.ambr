@@ -32,7 +32,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:bowl-mix',
     'original_name': 'Bowls Type',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -48,6 +48,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -95,7 +96,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:timer-sand',
     'original_name': 'Lid close delay',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -111,6 +112,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -155,7 +157,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:restart',
     'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -170,6 +172,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -216,7 +219,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Training Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -231,6 +234,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -277,7 +281,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:led-variant-on',
     'original_name': 'LED Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -293,6 +297,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
+      'icon': 'mdi:led-variant-on',
       'options': list([
         'none',
         'strong',
@@ -459,7 +464,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -475,6 +480,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
       ]),
@@ -520,7 +526,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:bowl-mix',
     'original_name': 'Bowls Type',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -536,6 +542,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -583,7 +590,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:timer-sand',
     'original_name': 'Lid close delay',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -599,6 +606,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -643,7 +651,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:restart',
     'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -658,6 +666,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -704,7 +713,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Training Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -719,6 +728,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -764,7 +774,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -780,6 +790,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
         'PetDoor',
         'Feeder',
@@ -823,7 +834,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -839,6 +850,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -880,7 +892,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -896,6 +908,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
       ]),
     }),
@@ -937,7 +950,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -953,6 +966,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -994,7 +1008,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1010,6 +1024,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
       ]),
     }),
@@ -1054,7 +1069,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:bowl-mix',
     'original_name': 'Bowls Type',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1070,6 +1085,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -1117,7 +1133,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:timer-sand',
     'original_name': 'Lid close delay',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1133,6 +1149,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -1177,7 +1194,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:restart',
     'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1192,6 +1209,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -1238,7 +1256,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Training Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1253,6 +1271,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -1299,7 +1318,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:led-variant-on',
     'original_name': 'LED Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1315,6 +1334,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
+      'icon': 'mdi:led-variant-on',
       'options': list([
         'none',
         'strong',
@@ -1480,7 +1500,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1496,6 +1516,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
       ]),
     }),
@@ -1540,7 +1561,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:bowl-mix',
     'original_name': 'Bowls Type',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1556,6 +1577,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -1603,7 +1625,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:timer-sand',
     'original_name': 'Lid close delay',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1619,6 +1641,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -1663,7 +1686,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:restart',
     'original_name': 'Reset bowl weight (require open lid)',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1678,6 +1701,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -1724,7 +1748,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': None,
+    'original_icon': 'mdi:school',
     'original_name': 'Training Mode',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1739,6 +1763,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -1782,7 +1807,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1798,6 +1823,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
       ]),
     }),
@@ -1836,7 +1862,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1852,6 +1878,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
       ]),
     }),
@@ -1890,7 +1917,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1906,6 +1933,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
       ]),
     }),
@@ -1944,7 +1972,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant',
     'original_name': 'Add assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1960,6 +1988,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
       ]),
     }),
@@ -1998,7 +2027,7 @@
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
+    'original_icon': 'mdi:link-variant-off',
     'original_name': 'Remove assigned device',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2014,6 +2043,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
       ]),
     }),
@@ -2030,6 +2060,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
+      'icon': 'mdi:led-variant-on',
       'options': list([
         'none',
         'strong',
@@ -2049,6 +2080,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
+      'icon': 'mdi:led-variant-on',
       'options': list([
         'none',
         'strong',
@@ -2068,6 +2100,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -2087,6 +2120,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -2106,6 +2140,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2125,6 +2160,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2144,6 +2180,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2162,6 +2199,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2182,6 +2220,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2202,6 +2241,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2222,6 +2262,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2242,6 +2283,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2263,6 +2305,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Hem-hub LED Mode',
+      'icon': 'mdi:led-variant-on',
       'options': list([
         'none',
         'strong',
@@ -2282,6 +2325,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2304,6 +2348,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2326,6 +2371,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2348,6 +2394,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2370,6 +2417,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2392,6 +2440,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2413,6 +2462,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2431,6 +2481,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2449,6 +2500,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2468,6 +2520,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2487,6 +2540,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
         'PetDoor',
         'Feeder',
@@ -2505,6 +2559,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2524,6 +2579,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
         'faster',
         'normal',
@@ -2542,6 +2598,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2562,6 +2619,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2582,6 +2640,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2602,6 +2661,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2622,6 +2682,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
         'disabled',
         'step_1',
@@ -2643,6 +2704,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2665,6 +2727,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2687,6 +2750,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2709,6 +2773,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Remove assigned device',
+      'icon': 'mdi:link-variant-off',
       'options': list([
         'PetDoor',
         'Feeder',
@@ -2727,6 +2792,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2749,6 +2815,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2771,6 +2838,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
         'large_wet',
         'large_dry',
@@ -2792,6 +2860,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2810,6 +2879,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2828,6 +2898,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
         'reset_left',
         'reset_right',
@@ -2927,6 +2998,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Maui Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
       ]),
@@ -3024,6 +3096,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -3043,6 +3116,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -3062,6 +3136,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with empty status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
@@ -3081,6 +3156,7 @@
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
         'DualScanConnect door',
         'Feeder',
