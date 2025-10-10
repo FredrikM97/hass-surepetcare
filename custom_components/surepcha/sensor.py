@@ -50,6 +50,26 @@ from .helper import (
 logger = logging.getLogger(__name__)
 
 
+def bowl_fill_percentages(bowl_status, bowl_settings):
+    """Return (total_percent, {bowl_index: percent or None, ...}) for all bowls."""
+    # Todo move to api
+    total_weight = 0
+    total_target = 0
+    individual = {}
+    for i, (bowl, setting) in enumerate(zip(bowl_status, bowl_settings)):
+        weight = getattr(bowl, "current_weight", None)
+        target = getattr(setting, "target", 0)
+        if weight is not None and target > 0:
+            percent = (weight / target) * 100
+            individual[i] = percent
+            total_weight += weight
+            total_target += target
+        else:
+            individual[i] = None
+    total = (total_weight / total_target * 100) if total_target > 0 else None
+    return total, individual
+
+
 def get_location(
     device: Pet, entry_options: MappingProxyType[str, Any]
 ) -> PetLocation | str | None:
@@ -192,16 +212,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
-                get_fn=lambda device, r: avg_attr(
-                    getattr(device.status, "bowl_status", []), "fill_percent"
-                ),
+                get_fn=lambda device, r: bowl_fill_percentages(
+                    getattr(device.status, "bowl_status", []),
+                    getattr(device.control.bowls, "settings", []),
+                )[0],
                 get_extra_fn=lambda device, r: {
-                    "bowl_0_fill_percent": index_attr(
-                        device.status.bowl_status, 0, "fill_percent"
-                    ),
-                    "bowl_1_fill_percent": index_attr(
-                        device.status.bowl_status, 1, "fill_percent"
-                    ),
+                    f"bowl_{i}_fill_percent": percent
+                    for i, percent in bowl_fill_percentages(
+                        getattr(device.status, "bowl_status", []),
+                        getattr(device.control.bowls, "settings", []),
+                    )[1].items()
                 },
             ),
         ),

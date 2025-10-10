@@ -268,8 +268,8 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 30,
-      'bowl_1_fill_percent': 20,
+      'bowl_0_fill_percent': 64.32,
+      'bowl_1_fill_percent': None,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
@@ -279,7 +279,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '25.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -1260,7 +1260,7 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 100,
+      'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1271,7 +1271,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
@@ -2619,8 +2619,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 30,
-      'bowl_1_fill_percent': 20,
+      'bowl_0_fill_percent': 64.32,
+      'bowl_1_fill_percent': None,
       'friendly_name': 'Feeder with different fill percent Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
@@ -2630,7 +2630,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '25.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -3610,7 +3610,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 100,
+      'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
       'friendly_name': 'Maui matlåda (old)  Fill Percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3621,7 +3621,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '100.0',
+    'state': '64.32',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
