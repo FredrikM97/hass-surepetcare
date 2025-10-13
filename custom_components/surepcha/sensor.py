@@ -49,6 +49,7 @@ from .helper import (
 
 logger = logging.getLogger(__name__)
 
+
 def get_location(
     device: Pet, entry_options: MappingProxyType[str, Any]
 ) -> PetLocation | str | None:
