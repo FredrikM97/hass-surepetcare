@@ -82,6 +82,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="lid",
             translation_key="lid",
+            icon="mdi:timer-sand",
             field=SelectMethodField(path="control.lid.close_delay"),
             options=CloseDelay,
             device_class=SensorDeviceClass.ENUM,
@@ -90,6 +91,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="training_mode",
             translation_key="training_mode",
+            icon="mdi:school",
             field=SelectMethodField(path="control.training_mode"),
             options=FeederTrainingMode,
             entity_category=EntityCategory.CONFIG,
@@ -97,6 +99,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="bowls_type",
             translation_key="bowls_type",
+            icon="mdi:bowl-mix",
             field=SelectMethodField(
                 get_fn=lambda device, r: device.get_bowl_type_option(),
                 set_fn=lambda device, r, option: device.set_bowl_type(
@@ -110,6 +113,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="tare",
             translation_key="tare",
+            icon="mdi:restart",
             field=SelectMethodField(
                 path="control.tare",
                 options_fn=lambda device, r: [Tare.RESET_LARGE.name]
@@ -138,6 +142,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="remove_assigned_device",
             translation_key="remove_assigned_device",
+            icon="mdi:link-variant-off",
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 set_fn=lambda pet, entry_data, option: (
@@ -159,6 +164,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="add_assigned_device",
             translation_key="add_assigned_device",
+            icon="mdi:link-variant",
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 options_fn=lambda device, r: [
@@ -179,6 +185,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
         SurePetCareSelectEntityDescription(
             key="led_mode",
             translation_key="led_mode",
+            icon="mdi:led-variant-on",
             field=SelectMethodField(path="control.led_mode"),
             options=HubLedMode,
             device_class=SensorDeviceClass.ENUM,

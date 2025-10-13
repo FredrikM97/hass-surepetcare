@@ -105,10 +105,10 @@
                 "index": 1,
                 "food_type": 1,
                 "substance_type": 2,
-                "current_weight": -27.2,
+                "current_weight": 74.2,
                 "last_filled_at": "2025-07-07T10:29:29+00:00",
                 "last_zeroed_at": "2025-05-23T10:25:29+00:00",
-                "last_fill_weight": -27.2,
+                "last_fill_weight": 74.2,
                 "fill_percent": 20
             }
         ]
@@ -125,7 +125,7 @@
                 },
                 {
                     "food_type": 1,
-                    "target": 0
+                    "target": 99
                 }
             ],
             "type": 4

@@ -64,6 +64,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
+            icon="mdi:school",
             field=MethodField(path="status.learn_mode"),
             entity_category=EntityCategory.DIAGNOSTIC,
             entity_registry_enabled_default=False,

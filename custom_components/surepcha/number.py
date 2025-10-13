@@ -45,6 +45,9 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             key="bowl_0_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
+            mode="slider",
+            icon="mdi:scale",
+            native_max_value=300,
             field=MethodField(path="control.bowls.settings[0].target"),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_category=EntityCategory.CONFIG,
@@ -53,6 +56,9 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
+            mode="slider",
+            icon="mdi:scale",
+            native_max_value=300,
             field=MethodField(path="control.bowls.settings[1].target"),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_category=EntityCategory.CONFIG,
@@ -107,14 +113,6 @@ class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
-        self._attr_native_unit_of_measurement = description.native_unit_of_measurement
-        self._attr_min_value = (
-            description.min_value if hasattr(description, "min_value") else None
-        )
-        self._attr_max_value = (
-            description.max_value if hasattr(description, "max_value") else None
-        )
-        self._attr_step = description.step if hasattr(description, "step") else None
 
     async def async_set_native_value(self, value: float) -> None:  # type: ignore[override]
         """Set new value."""
