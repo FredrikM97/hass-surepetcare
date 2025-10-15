@@ -23,6 +23,7 @@ dev = [
     "pytest",
     "pytest-homeassistant-custom-component>=0.13.287",
     "pre-commit",
+    "bump-my-version",
 ]
 
 [tool.setuptools.packages.find]
