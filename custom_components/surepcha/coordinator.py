@@ -32,7 +32,7 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
             config_entry=config_entry,
             name=f"Update coordinator for {device}",
             update_interval=timedelta(
-                seconds=config_entry.options.get(OPTION_DEVICES,{})
+                seconds=config_entry.options.get(OPTION_DEVICES, {})
                 .get(str(device.id), {})
                 .get(POLLING_SPEED, SCAN_INTERVAL)
             ),
