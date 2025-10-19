@@ -25,7 +25,13 @@ body:
       description: Which product does it concern? (e.g. Hub, DualScanConnect, Feeder Connect)
     validations:
       required: true
-
+  - type: input
+    id: homeassistantversion
+    attributes:
+      label: Home assistant version
+    validations:
+      required: true
+      
   - type: input
     id: version
     attributes:
