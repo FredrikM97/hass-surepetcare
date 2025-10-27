@@ -96,12 +96,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Feeder with different fill percent Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'ONE',
+      'position': 'one',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -157,12 +157,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
       'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'TWO',
+      'position': 'two',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
@@ -1094,12 +1094,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'ONE',
+      'position': 'one',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -1155,12 +1155,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'TWO',
+      'position': 'two',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
@@ -2465,12 +2465,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Feeder with different fill percent Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'ONE',
+      'position': 'one',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -2526,12 +2526,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
       'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'TWO',
+      'position': 'two',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
@@ -3462,12 +3462,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'ONE',
+      'position': 'one',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -3523,12 +3523,12 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'weight',
-      'food_type': 'WET',
+      'food_type': 'wet',
       'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'TWO',
+      'position': 'two',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
       'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
