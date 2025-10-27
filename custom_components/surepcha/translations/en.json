@@ -179,7 +179,13 @@
           "change_1": {"name": "Change Bowl Two"}
         }
       },
-      "position": {"name": "Position"},
+      "position": {
+        "name": "Position",
+        "state": {
+              "inside": "Inside",
+              "outside": "Outside"
+            }
+        },
        "drinking": {"name": "Drinking",
         "state_attributes": {
               "device_id": {"name": "Device ID"},

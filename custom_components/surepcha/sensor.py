@@ -64,13 +64,13 @@ def get_location(
             return (
                 entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
-                .get(LOCATION_INSIDE, position.where)
+                .get(LOCATION_INSIDE, position.where.name.lower())
             )
         elif position.where == PetLocation.OUTSIDE:
             return (
                 entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
-                .get(LOCATION_OUTSIDE, position.where)
+                .get(LOCATION_OUTSIDE, position.where.name.lower())
             )
 
     return None
@@ -157,8 +157,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     device.status.bowl_status, 0, "current_weight"
                 ),
                 get_extra_fn=lambda device, r: {
-                    "position": device.status.bowl_status[0].position.name,
-                    "food_type": device.control.bowls.settings[0].food_type.name,
+                    "position": device.status.bowl_status[0].position.name.lower(),
+                    "food_type": device.control.bowls.settings[
+                        0
+                    ].food_type.name.lower(),
                     "last_filled_at": device.status.bowl_status[0].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
                     "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
@@ -177,8 +179,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     device.status.bowl_status, 1, "current_weight"
                 ),
                 get_extra_fn=lambda device, r: {
-                    "position": device.status.bowl_status[1].position.name,
-                    "food_type": device.control.bowls.settings[1].food_type.name,
+                    "position": device.status.bowl_status[1].position.name.lower(),
+                    "food_type": device.control.bowls.settings[
+                        1
+                    ].food_type.name.lower(),
                     "substance_type": device.status.bowl_status[1].substance_type,
                     "last_filled_at": device.status.bowl_status[1].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,

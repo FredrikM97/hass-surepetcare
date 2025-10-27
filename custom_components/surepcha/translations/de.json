@@ -60,9 +60,9 @@
           "off": "Aus"
         }
       },
-      "curfew_active":{
+      "curfew_active": {
         "name": "Ausgangssperre aktiv",
-        "state":{
+        "state": {
           "on": "An",
           "off": "Aus"
         }
@@ -72,12 +72,21 @@
       "bowls_type": {
         "name": "Typ der Futternäpfe",
         "state": {
-            "large_wet": "Groß (Nass)",
-            "large_dry":"Groß (Trocken)",
-            "two_smal_wet_wet": "Zwei klein (Nass/Nass)",
-            "two_smal_dry_wet": "Zwei klein (Trocken/Nass)",
-            "two_smal_wet_dry": "Zwei klein (Nass/Trocken)",
-            "two_smal_dry_dry": "Zwei klein (Trocken/Trocken)"
+          "large_wet": "Groß (Nass)",
+          "large_dry": "Groß (Trocken)",
+          "two_small_wet_wet": "Zwei klein (Nass/Nass)",
+          "two_small_dry_wet": "Zwei klein (Trocken/Nass)",
+          "two_small_wet_dry": "Zwei klein (Nass/Trocken)",
+          "two_small_dry_dry": "Zwei klein (Trocken/Trocken)"
+        }
+      },
+      "tare": {
+        "name": "Gewicht des Napfes zurücksetzen",
+        "state": {
+          "reset_large": "Große zurücksetzen",
+          "reset_left": "Linke zurücksetzen",
+          "reset_right": "Rechte zurücksetzen",
+          "reset_both": "Beide zurücksetzen"
         }
       },
       "training_mode": {
@@ -107,9 +116,6 @@
           "allow_out": "Nur hinaus"
         }
       },
-      "curfew_enabled":{
-        "name": "Ausgangssperre aktiviert"
-      },
       "add_assigned_device": {
         "name": "Zugeordnetes Gerät hinzufügen"
       },
@@ -122,13 +128,6 @@
           "none": "Aus",
           "weak": "Schwach",
           "strong": "Stark"
-        }
-      },
-      "pairing_mode": {
-        "name": "Pairing-Modus",
-        "state": {
-          "on": "An",
-          "off": "Aus"
         }
       }
     },
@@ -148,37 +147,113 @@
           "on": "Nur drinnen",
           "off": "Keine Einschränkung"
         }
+      },
+      "curfew_enabled": {
+        "name": "Ausgehverbot aktiv"
       }
     },
-    "button":{
-        "tare": {"name": "Gewicht des Napfes zurücksetzen"}
-    },
-    "number":{
-      "target_weight":{
+    "number": {
+      "target_weight": {
         "name": "Zielgewicht Napf {bowl}"
       }
     },
+    "button": {
+      "pairing_mode": {
+        "name": "Pairing-Modus"
+      }
+    },
     "sensor": {
-      "last_activity" : {"name": "Letzte Aktivität"},
-      "consumption": {"name": "Verbrauch"},
-      "tag": {"name": "Tag"},
-      "household_id": {"name": "Haushalts-ID"},
-      "info": {"name": "Informationen"},
-      "feeding": {"name": "Fütterung"},
-      "position": {
-          "name": "Position",
-          "state": {
-            "inside": "Drinnen",
-            "outside": "Draußen"
+      "bowl_volume": {
+        "name": "Schüsselvolumen"
+      },
+      "fill_percent": {
+        "name": "Füllstand in Prozent"
+      },
+      "last_activity": {
+        "name": "Letzte Aktivität"
+      },
+      "consumption": {
+        "name": "Verbrauch"
+      },
+      "tag": {
+        "name": "Tag"
+      },
+      "household_id": {
+        "name": "Haushalts-ID"
+      },
+      "info": {
+        "name": "Informationen"
+      },
+      "feeding": {
+        "name": "Fütterung",
+        "state_attributes": {
+          "device_id": {
+            "name": "Geräte-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Um"
+          },
+          "tag_id": {
+            "name": "Tag-ID"
+          },
+          "change_0": {
+            "name": "Schüssel Eins wechseln"
+          },
+          "change_1": {
+            "name": "Schüssel Zwei wechseln"
           }
-        },
-      "drinking": {"name": "Trinken"},
-      "rssi": {"name": "RSSI", "unit_of_measurement": "dBm"},
-      "bowls": {"name": "Näpfe"},
-      "current_weight": {"name": "Aktuelles Gewicht"},
-      "target_weight": {"name": "Zielgewicht"},
-      "bowl_weight": {"name": "Gewicht Napf {bowl}"},
-      "weight_capacity": {"name": "Gesamte Gewichtsgrenze",
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Drinnen",
+          "outside": "Draußen"
+        }
+      },
+      "drinking": {
+        "name": "Trinken",
+        "state_attributes": {
+          "device_id": {
+            "name": "Geräte-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Um"
+          },
+          "tag_id": {
+            "name": "Tag-ID"
+          },
+          "change_0": {
+            "name": "Schüssel Eins wechseln"
+          },
+          "change_1": {
+            "name": "Schüssel Zwei wechseln"
+          }
+        }
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowls": {
+        "name": "Näpfe"
+      },
+      "current_weight": {
+        "name": "Aktuelles Gewicht"
+      },
+      "target_weight": {
+        "name": "Zielgewicht"
+      },
+      "bowl_weight": {
+        "name": "Gewicht Napf {bowl}"
+      },
+      "weight_capacity": {
+        "name": "Gesamte Gewichtsgrenze",
         "state_attributes": {
           "control_bowls_settings_0_food_type": {
             "name": "Napf 0 - Futtertyp"
@@ -194,7 +269,9 @@
           }
         }
       },
-      "entity_information": {"name": "Entitätsinformationen"},
+      "entity_information": {
+        "name": "Entitätsinformationen"
+      },
       "devices": {
         "name": "Zugeordnete Geräte"
       }
