@@ -201,18 +201,13 @@
       "current_weight": {"name": "Current Weight"},
       "target_weight": {"name": "Target Weight"},
       "bowl_weight": {"name": "Bowl {bowl} Weight"},
-      "weight_capacity": {"name": "Total Weight Limit",
+      "weight_capacity": {
+        "name": "Total Weight Limit",
        "state_attributes": {
-          "control_bowls_settings_0_food_type": {
-            "name": "Bowl 0 - Food Type"
-          },
-          "control_bowls_settings_0_target": {
+          "bowl_0_target": {
             "name": "Bowl 0 - Target Weight"
           },
-          "control_bowls_settings_1_food_type": {
-            "name": "Bowl 1 - Food Type"
-          },
-          "control_bowls_settings_1_target": {
+          "bowl_1_target": {
             "name": "Bowl 1 - Target Weight"
           }
         }

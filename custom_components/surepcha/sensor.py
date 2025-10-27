@@ -219,12 +219,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     )
                 ),
                 get_extra_fn=lambda device, r: {
-                    "bowls": [
-                        bowl
-                        for bowl in getattr(
-                            getattr(getattr(device, "control"), "bowls"), "settings", []
-                        )
-                    ]
+                    "bowls_0_target": index_attr(
+                        device.control.bowls.settings, 0, attr="target"
+                    ),
+                    "bowls_1_target": index_attr(
+                        device.control.bowls.settings, 1, attr="target"
+                    ),
                 },
             ),
         ),

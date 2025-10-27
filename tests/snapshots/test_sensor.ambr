@@ -378,16 +378,8 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls': list([
-        dict({
-          'food_type': 'WET',
-          'target': 50,
-        }),
-        dict({
-          'food_type': 'WET',
-          'target': 99,
-        }),
-      ]),
+      'bowls_0_target': 50,
+      'bowls_1_target': 99,
       'device_class': 'weight',
       'friendly_name': 'Feeder with different fill percent Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1376,16 +1368,8 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls': list([
-        dict({
-          'food_type': 'WET',
-          'target': 50,
-        }),
-        dict({
-          'food_type': 'WET',
-          'target': 0,
-        }),
-      ]),
+      'bowls_0_target': 50,
+      'bowls_1_target': 0,
       'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2747,16 +2731,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls': list([
-        dict({
-          'food_type': 'WET',
-          'target': 50,
-        }),
-        dict({
-          'food_type': 'WET',
-          'target': 99,
-        }),
-      ]),
+      'bowls_0_target': 50,
+      'bowls_1_target': 99,
       'device_class': 'weight',
       'friendly_name': 'Feeder with different fill percent Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3744,16 +3720,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls': list([
-        dict({
-          'food_type': 'WET',
-          'target': 50,
-        }),
-        dict({
-          'food_type': 'WET',
-          'target': 0,
-        }),
-      ]),
+      'bowls_0_target': 50,
+      'bowls_1_target': 0,
       'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
