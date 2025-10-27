@@ -1450,7 +1450,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'INSIDE',
+    'state': 'inside',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_assigned_devices-entry]
@@ -3818,7 +3818,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'INSIDE',
+    'state': 'inside',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_assigned_devices-entry]

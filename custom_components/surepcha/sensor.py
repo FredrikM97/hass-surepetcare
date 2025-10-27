@@ -64,13 +64,13 @@ def get_location(
             return (
                 entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
-                .get(LOCATION_INSIDE, position.where)
+                .get(LOCATION_INSIDE, position.where.name.lower())
             )
         elif position.where == PetLocation.OUTSIDE:
             return (
                 entry_options[OPTION_DEVICES]
                 .get(str(position.device_id), {})
-                .get(LOCATION_OUTSIDE, position.where)
+                .get(LOCATION_OUTSIDE, position.where.name.lower())
             )
 
     return None
