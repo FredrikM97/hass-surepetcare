@@ -116,7 +116,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             icon="mdi:restart",
             field=SelectMethodField(
                 path="control.tare",
-                options_fn=lambda device, r: [Tare.RESET_LARGE.name]
+                options_fn=lambda device, r: [Tare.RESET_LARGE.name.lower()]
                 if device.control.bowls.type == BowlType.LARGE
                 else [
                     "reset_left",
