@@ -213,7 +213,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
                 "label": get_device_attr(v, NAME, str(k))
                 + (
                     f" ({ProductId(v[PRODUCT_ID]).name})"
-                    if v.get(PRODUCT_ID) in ProductId._value2member_map_
+                    if v.get(PRODUCT_ID) in ProductId
                     else " (None)"
                 ),
             }
