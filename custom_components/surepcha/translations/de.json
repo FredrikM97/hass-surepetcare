@@ -28,7 +28,7 @@
         "description": "Wähle ein Gerät zur Konfiguration oder beende die Einrichtung.",
         "data": {
           "device_option": "Gerät zur Konfiguration auswählen",
-          "manual_properties": "Configure manual configuration properties"
+          "manual_properties": "Manuelle Konfigurationseigenschaften festlegen"
         }
       },
       "configure_device": {
@@ -41,11 +41,11 @@
         },
         "sections": {
           "manual_properties": {
-            "name": "User location for pet posiiton",
-            "description": "On manual update of pet position define what is inside/outside with this.",
+            "name": "Benutzerdefinierter Standort für die Haustierposition",
+            "description": "Bei manueller Aktualisierung der Haustierposition hier festlegen, was als drinnen/draußen gilt.",
             "data": {
-              "location_inside": "Inside location",
-              "location_outside": "Outside location"
+              "location_inside": "Standort drinnen",
+              "location_outside": "Standort draußen"
             }
           }
         }
