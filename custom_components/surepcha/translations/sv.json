@@ -1,0 +1,221 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sure Petcare",
+        "description": "Logga in med ditt Sure Petcare-konto.",
+        "data": {
+          "email": "E-post",
+          "password": "Lösenord"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Autentisering misslyckades. Kontrollera dina uppgifter.",
+      "unknown": "Okänt fel inträffade.",
+      "auth_failed": "Autentisering misslyckades. Kontrollera dina uppgifter.",
+      "no_devices_or_pet_found": "Inga enheter eller husdjur hittades på ditt konto."
+    },
+    "abort": {
+      "already_configured": "Detta konto är redan konfigurerat.",
+      "entities_reconfigured": "Sure Petcare-enheter har konfigurerats om."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sure Petcare-alternativ",
+        "description": "Välj en enhet att konfigurera eller slutför installationen.",
+        "data": {
+          "device_option": "Välj enhet att konfigurera"
+        }
+      },
+      "configure_device": {
+        "title": "Konfigurera {device_name}",
+        "data": {
+          "polling_speed": "Uppdateringsintervall (sekunder)",
+          "location": "Plats",
+          "location_inside": "Inomhusplats",
+          "location_outside": "Utomhusplats"
+        }
+      }
+    },
+    "error": {
+      "no_devices_or_pet_found": "OptionFlow kan inte hitta några konfigurerbara enheter eller husdjur."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Anslutning",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      },
+      "learn_mode": {
+        "name": "Inlärningsläge",
+        "state": {
+          "on": "På",
+          "off": "Av"
+        }
+      },
+      "curfew_active":{
+        "name": "Utegångsförbud aktivt",
+        "state":{
+          "on": "På",
+          "off": "Av"
+        }
+      }
+    },
+    "select": {
+      "bowls_type": {
+        "name": "Skåltyp",
+        "state": {
+            "large_wet": "Stor (Våt)",
+            "large_dry":"Stor (Torr)",
+            "two_small_wet_wet": "Två små (Våt/Våt)",
+            "two_small_dry_wet": "Två små (Torr/Våt)",
+            "two_small_wet_dry": "Två små (Våt/Torr)",
+            "two_small_dry_dry": "Två små (Torr/Torr)"
+        }
+      },
+      "tare": {"name": "Återställ skålens vikt (kräver öppen lock)",
+        "state": {
+          "reset_large": "Återställ stor",
+          "reset_left": "Återställ vänster",
+          "reset_right": "Återställ höger",
+          "reset_both": "Återställ båda"
+        }
+      },
+      "training_mode": {
+        "name": "Träningsläge",
+        "state": {
+          "disabled": "Av",
+          "step_1": "Steg 1",
+          "step_2": "Steg 2",
+          "step_3": "Steg 3",
+          "step_4": "Steg 4"
+        }
+      },
+      "lid": {
+        "name": "Fördröjning för lockstängning",
+        "state": {
+          "faster": "Snabb",
+          "normal": "Normal",
+          "slower": "Långsam"
+        }
+      },
+      "locking": {
+        "name": "Låsläge",
+        "state": {
+          "locked": "Låst",
+          "unlocked": "Olåst",
+          "allow_in": "Endast in",
+          "allow_out": "Endast ut"
+        }
+      },
+      "add_assigned_device": {
+        "name": "Lägg till tilldelad enhet"
+      },
+      "remove_assigned_device": {
+        "name": "Ta bort tilldelad enhet"
+      },
+      "led_mode": {
+        "name": "LED-läge",
+        "state": {
+          "none": "Av",
+          "weak": "Svag",
+          "strong": "Stark"
+        }
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Låsning",
+        "state": {
+          "locked": "Låst",
+          "unlocked": "Olåst"
+        }
+      }
+    },
+    "switch": {
+      "indoor_only": {
+        "name": "Endast inomhus",
+        "state": {
+          "on": "Endast inomhus",
+          "off": "Ingen begränsning"
+        }
+      },
+      "curfew_enabled":{
+        "name": "Utegångsförbud aktivt"
+      }
+    },
+    "number":{
+      "target_weight":{
+        "name": "Målvikt Skål {bowl}"
+      }
+    },
+    "button": {
+      "pairing_mode": {
+        "name": "Parningsläge"
+      }
+    },
+    "sensor": {
+      "bowl_volume": {"name": "Skålvolym"},
+      "fill_percent": {"name": "Fyllnadsprocent"},
+      "last_activity" : {"name": "Senaste aktivitet"},
+      "consumption": {"name": "Konsumtion"},
+      "tag": {"name": "Tagg"},
+      "household_id": {"name": "Hushålls-ID"},
+      "info": {"name": "Information"},
+      "feeding": {"name": "Utfodring",
+        "state_attributes": {
+          "device_id": {"name": "Enhets-ID"},
+          "id": {"name": "ID"},
+          "at": {"name": "Tidpunkt"},
+          "tag_id": {"name": "Tagg-ID"},
+          "change_0": {"name": "Ändra skål ett"},
+          "change_1": {"name": "Ändra skål två"}
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+              "inside": "Inne",
+              "outside": "Ute"
+            }
+        },
+       "drinking": {"name": "Dricker",
+        "state_attributes": {
+              "device_id": {"name": "Enhets-ID"},
+              "id": {"name": "ID"},
+              "at": {"name": "Tidpunkt"},
+              "tag_id": {"name": "Tagg-ID"},
+              "change_0": {"name": "Ändra skål ett"},
+              "change_1": {"name": "Ändra skål två"}
+            }
+          },
+      "rssi": {"name": "RSSI"},
+      "bowls": {"name": "Skålar"},
+      "current_weight": {"name": "Nuvarande vikt"},
+      "target_weight": {"name": "Målvikt"},
+      "bowl_weight": {"name": "Skål {bowl} vikt"},
+      "weight_capacity": {
+        "name": "Total viktgräns",
+       "state_attributes": {
+          "bowl_0_target": {
+            "name": "Skål 0 - Målvikt"
+          },
+          "bowl_1_target": {
+            "name": "Skål 1 - Målvikt"
+          }
+        }
+      },
+      "entity_information": {"name": "Enhetsinformation"},
+      "devices": {
+        "name": "Tilldelade enheter"
+      }
+    }
+  }
+}
