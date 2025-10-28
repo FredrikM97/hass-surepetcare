@@ -443,6 +443,7 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
       ]),
     }),
@@ -482,6 +483,7 @@
       'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
       ]),
     }),
@@ -811,6 +813,7 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -852,6 +855,7 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -927,6 +931,7 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -968,6 +973,7 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2099,16 +2105,17 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
+      'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
+    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -2122,6 +2129,7 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2139,43 +2147,66 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
+      'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
-        'faster',
-        'normal',
-        'slower',
+        'manual_properties',
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_lid_close_delay',
+    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'faster',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.13
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
+      'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
       'options': list([
-        'faster',
-        'normal',
-        'slower',
+        'manual_properties',
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_lid_close_delay',
+    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'faster',
+    'state': 'unknown',
   })
 # ---
 # name: test_select_set_option_and_snapshot.14
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Pet with only one change on status Add assigned device',
+      'icon': 'mdi:link-variant',
+      'options': list([
+        'manual_properties',
+        'DualScanConnect door',
+        'Feeder',
+        'PetDoor',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.15
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
@@ -2195,67 +2226,44 @@
     'state': 'faster',
   })
 # ---
-# name: test_select_set_option_and_snapshot.15
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_training_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'disabled',
-  })
-# ---
 # name: test_select_set_option_and_snapshot.16
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
+      'device_class': 'enum',
+      'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_training_mode',
+    'entity_id': 'select.maui_matlada_old_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'disabled',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.17
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
+      'device_class': 'enum',
+      'friendly_name': 'Maui matlåda (old)  Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_training_mode',
+    'entity_id': 'select.maui_matlada_old_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'disabled',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.18
@@ -2323,70 +2331,64 @@
 # name: test_select_set_option_and_snapshot.20
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'entity_id': 'select.maui_matlada_old_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.21
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'entity_id': 'select.maui_matlada_old_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.22
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Maui matlåda (old)  Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'entity_id': 'select.maui_matlada_old_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.23
@@ -2461,44 +2463,75 @@
 # name: test_select_set_option_and_snapshot.26
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
+      'device_class': 'enum',
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
-        'reset_left',
-        'reset_right',
-        'reset_both',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
+    'entity_id': 'select.maui_matlada_old_bowls_type',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'reset_right',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.27
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
+      'device_class': 'enum',
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
-        'reset_left',
-        'reset_right',
-        'reset_both',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
+    'entity_id': 'select.maui_matlada_old_bowls_type',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'reset_right',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.28
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Maui matlåda (old)  Bowls Type',
+      'icon': 'mdi:bowl-mix',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.29
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
       'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
       'icon': 'mdi:restart',
       'options': list([
@@ -2513,26 +2546,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'reset_right',
-  })
-# ---
-# name: test_select_set_option_and_snapshot.29
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
-        'faster',
-        'normal',
-        'slower',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.3
@@ -2557,26 +2570,44 @@
 # name: test_select_set_option_and_snapshot.30
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
-        'faster',
-        'normal',
-        'slower',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'faster',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.31
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
+      'options': list([
+        'reset_left',
+        'reset_right',
+        'reset_both',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.maui_matlada_old_reset_bowl_weight_require_open_lid',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'reset_right',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.32
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
       'device_class': 'enum',
       'friendly_name': 'Feeder with different fill percent Lid close delay',
       'icon': 'mdi:timer-sand',
@@ -2594,67 +2625,44 @@
     'state': 'faster',
   })
 # ---
-# name: test_select_set_option_and_snapshot.32
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'disabled',
-  })
-# ---
 # name: test_select_set_option_and_snapshot.33
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'disabled',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.34
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Lid close delay',
+      'icon': 'mdi:timer-sand',
       'options': list([
-        'disabled',
-        'step_1',
-        'step_2',
-        'step_3',
-        'step_4',
+        'faster',
+        'normal',
+        'slower',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_lid_close_delay',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'disabled',
+    'state': 'faster',
   })
 # ---
 # name: test_select_set_option_and_snapshot.35
@@ -2702,70 +2710,64 @@
 # name: test_select_set_option_and_snapshot.37
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.38
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.39
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
+      'friendly_name': 'Feeder with different fill percent Training Mode',
+      'icon': 'mdi:school',
       'options': list([
-        'large_wet',
-        'large_dry',
-        'two_small_wet_wet',
-        'two_small_wet_dry',
-        'two_small_dry_wet',
-        'two_small_dry_dry',
+        'disabled',
+        'step_1',
+        'step_2',
+        'step_3',
+        'step_4',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'entity_id': 'select.feeder_with_different_fill_percent_training_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'two_small_wet_wet',
+    'state': 'disabled',
   })
 # ---
 # name: test_select_set_option_and_snapshot.4
@@ -2859,44 +2861,75 @@
 # name: test_select_set_option_and_snapshot.43
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
-        'reset_left',
-        'reset_right',
-        'reset_both',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'reset_right',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.44
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
       'options': list([
-        'reset_left',
-        'reset_right',
-        'reset_both',
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'reset_right',
+    'state': 'two_small_wet_wet',
   })
 # ---
 # name: test_select_set_option_and_snapshot.45
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Feeder with different fill percent Bowls Type',
+      'icon': 'mdi:bowl-mix',
+      'options': list([
+        'large_wet',
+        'large_dry',
+        'two_small_wet_wet',
+        'two_small_wet_dry',
+        'two_small_dry_wet',
+        'two_small_dry_dry',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.feeder_with_different_fill_percent_bowls_type',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'two_small_wet_wet',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.46
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
       'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
       'icon': 'mdi:restart',
       'options': list([
@@ -2913,64 +2946,42 @@
     'state': 'reset_right',
   })
 # ---
-# name: test_select_set_option_and_snapshot.46
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'locked',
-  })
-# ---
 # name: test_select_set_option_and_snapshot.47
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.48
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
+      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      'icon': 'mdi:restart',
       'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
+        'reset_left',
+        'reset_right',
+        'reset_both',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.katzenklappe_locking_mode',
+    'entity_id': 'select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'locked',
+    'state': 'reset_right',
   })
 # ---
 # name: test_select_set_option_and_snapshot.49
@@ -3000,6 +3011,7 @@
       'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
       ]),
     }),
@@ -3015,7 +3027,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'unlocked',
         'allow_in',
@@ -3024,18 +3036,18 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.katzenklappe_locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.51
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
+      'friendly_name': 'Katzenklappe Locking Mode',
       'options': list([
         'unlocked',
         'allow_in',
@@ -3044,14 +3056,34 @@
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.laundry_door_locking_mode',
+    'entity_id': 'select.katzenklappe_locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_select_set_option_and_snapshot.52
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Katzenklappe Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.katzenklappe_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'locked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.53
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
@@ -3071,7 +3103,47 @@
     'state': 'unlocked',
   })
 # ---
-# name: test_select_set_option_and_snapshot.53
+# name: test_select_set_option_and_snapshot.54
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.55
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Laundry Door Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot.56
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
@@ -3095,16 +3167,15 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
+      'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
-        'Feeder',
-        'PetDoor',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
+    'entity_id': 'select.maui_add_assigned_device',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -3118,6 +3189,7 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3138,6 +3210,7 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3155,16 +3228,17 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
+      'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
+        'manual_properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
       ]),
     }),
     'context': <ANY>,
-    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
+    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

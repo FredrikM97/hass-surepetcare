@@ -6,8 +6,8 @@
     'data': dict({
       'devices': dict({
         '1299453': dict({
-          'location_inside': 'Washington DC',
-          'location_outside': 'Space',
+          'location_inside': 'Kitchen',
+          'location_outside': 'Garden',
           'name': 'DualScanConnect door',
           'polling_speed': 120,
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
@@ -19,6 +19,12 @@
         '727608': dict({
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
+        }),
+        'manual_properties': dict({
+          'location_inside': None,
+          'location_outside': None,
+          'name': 'manual_properties',
+          'product_id': -1,
         }),
       }),
     }),
@@ -56,6 +62,12 @@
         '727608': dict({
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
+        }),
+        'manual_properties': dict({
+          'location_inside': None,
+          'location_outside': None,
+          'name': 'manual_properties',
+          'product_id': -1,
         }),
       }),
     }),

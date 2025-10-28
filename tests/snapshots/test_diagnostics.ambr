@@ -94,6 +94,12 @@
           'name': 'PetDoor',
           'product_id': 3,
         }),
+        'manual_properties': dict({
+          'location_inside': None,
+          'location_outside': None,
+          'name': 'manual_properties',
+          'product_id': -1,
+        }),
       }),
     }),
   })
@@ -119,6 +125,12 @@
         '727608': dict({
           'name': 'PetDoor',
           'product_id': 3,
+        }),
+        'manual_properties': dict({
+          'location_inside': None,
+          'location_outside': None,
+          'name': 'manual_properties',
+          'product_id': -1,
         }),
       }),
     }),

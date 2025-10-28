@@ -9,6 +9,7 @@ from custom_components.surepcha.const import (
     ENTRY_ID,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
     OPTIONS_FINISHED,
@@ -16,6 +17,7 @@ from custom_components.surepcha.const import (
     PRODUCT_ID,
     TOKEN,
 )
+from homeassistant.helpers import area_registry as ar
 from custom_components.surepcha.config_flow import (
     SurePetCareConfigFlow,
     SurePetCareOptionsFlow,
@@ -195,12 +197,18 @@ async def test_reconfiguration_flow(
 
 @pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
 async def test_options_flow_full(
-    mock_config_entry, hass: HomeAssistant, snapshot: SnapshotAssertion
+    mock_config_entry,
+    hass: HomeAssistant,
+    area_registry: ar.AreaRegistry,
+    snapshot: SnapshotAssertion,
 ):
     """Test the full options flow for device selection and configuration."""
     mock_config_entry.add_to_hass(hass)
     flow = SurePetCareOptionsFlow(mock_config_entry)
     flow.hass = hass
+
+    area_registry.async_create("Kitchen")  # area1
+    area_registry.async_create("Garden")  # area2
 
     result = await flow.async_step_init()
     assert result["type"] == "form"
@@ -209,18 +217,29 @@ async def test_options_flow_full(
     result2 = await flow.async_step_init({DEVICE_OPTION: "1299453"})
     assert result2["type"] == "form"
     assert result2["step_id"] == "configure_device"
-
+    assert helper_fetch_area_options(result2) == [
+        {"value": "kitchen", "label": "Kitchen"},
+        {"value": "garden", "label": "Garden"},
+    ]
     result3 = await flow.async_step_configure_device(
         {
-            LOCATION_INSIDE: "Washington DC",
-            LOCATION_OUTSIDE: "Space",
+            LOCATION_INSIDE: "Kitchen",
+            LOCATION_OUTSIDE: "Garden",
             POLLING_SPEED: 120,
         }
     )
     assert result3["type"] == "form"
     assert result3["step_id"] == "init"
 
-    result4 = await flow.async_step_init({"finished": True})
-    assert result4["type"] == "create_entry"
-    assert result4 == snapshot
+    result4 = await flow.async_step_init({DEVICE_OPTION: MANUAL_PROPERTIES})
+    assert result4["type"] == "form"
+    assert result4["step_id"] == "configure_device"
+
+    result5 = await flow.async_step_init({"finished": True})
+    assert result5["type"] == "create_entry"
+    assert result5 == snapshot
     assert mock_config_entry == snapshot
+
+
+def helper_fetch_area_options(state):
+    return state["data_schema"].schema[LOCATION_INSIDE].config["options"]

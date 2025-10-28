@@ -28,6 +28,7 @@ from .const import (
     KEY_API,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
     PRODUCT_ID,
@@ -50,6 +51,22 @@ from .helper import (
 logger = logging.getLogger(__name__)
 
 
+def get_device_location(entry_options, position, key, default):
+    """Return reconfigured location for device, or default."""
+    return (
+        entry_options[OPTION_DEVICES].get(str(position.device_id), {}).get(key, default)
+    )
+
+
+def get_manual_location(entry_options, position):
+    """Return reconfigured manual location name for device, or default."""
+    return (
+        entry_options[OPTION_DEVICES]
+        .get(MANUAL_PROPERTIES, {})
+        .get(position.where.name.lower(), position.where.name.lower())
+    )
+
+
 def get_location(
     device: Pet, entry_options: MappingProxyType[str, Any]
 ) -> PetLocation | str | None:
@@ -61,18 +78,19 @@ def get_location(
 
     if position is not None:
         if position.where == PetLocation.INSIDE:
-            return (
-                entry_options[OPTION_DEVICES]
-                .get(str(position.device_id), {})
-                .get(LOCATION_INSIDE, position.where.name.lower())
+            return get_device_location(
+                entry_options,
+                position,
+                LOCATION_INSIDE,
+                get_manual_location(entry_options, position),
             )
         elif position.where == PetLocation.OUTSIDE:
-            return (
-                entry_options[OPTION_DEVICES]
-                .get(str(position.device_id), {})
-                .get(LOCATION_OUTSIDE, position.where.name.lower())
+            return get_device_location(
+                entry_options,
+                position,
+                LOCATION_OUTSIDE,
+                get_manual_location(entry_options, position),
             )
-
     return None
 
 

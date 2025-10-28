@@ -26,6 +26,7 @@ OPTIONS_FINISHED = "finished"
 PRODUCT_ID = "product_id"
 DEVICES = "devices"
 NAME = "name"
+MANUAL_PROPERTIES = "manual_properties"
 
 FLAP_PRODUCTS = {
     ProductId.PET_DOOR,

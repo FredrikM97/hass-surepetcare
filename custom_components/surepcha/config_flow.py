@@ -14,10 +14,14 @@ from homeassistant import config_entries
 from homeassistant.helpers.device_registry import callback
 from homeassistant.helpers.selector import selector
 from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
+from homeassistant.helpers.area_registry import async_get as async_get_area_registry
+
 from .const import (
     DEVICE_OPTION,
     DOMAIN,
     ENTRY_ID,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
     NAME,
     OPTION_DEVICES,
     OPTIONS_FINISHED,
@@ -207,7 +211,11 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
             {
                 "value": str(k),
                 "label": get_device_attr(v, NAME, str(k))
-                + f" ({ProductId(v[PRODUCT_ID]).name})",
+                + (
+                    f" ({ProductId(v[PRODUCT_ID]).name})"
+                    if v.get(PRODUCT_ID) in ProductId._value2member_map_
+                    else " (None)"
+                ),
             }
             for k, v in sorted_devices
         ]
@@ -236,6 +244,10 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
 
         device = self._devices.get(self._device_id, {})
         schema_dict = _build_device_schema(device)
+        schema_dict = await _apply_area_selector(
+            self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
+        )
+
         return self.async_show_form(
             step_id="configure_device",
             data_schema=vol.Schema(schema_dict),
@@ -261,4 +273,15 @@ def _build_device_schema(entity: dict) -> dict:
                 schema_dict[type(key)(key.schema, default=default_value)] = field_type
             else:
                 schema_dict[key] = field_type
+    return schema_dict
+
+
+async def _apply_area_selector(hass, schema_dict: dict, filter_keys: list[str]) -> dict:
+    """Replace specified keys in schema_dict with area selectors using available areas."""
+    area_registry = async_get_area_registry(hass)
+    areas = list(area_registry.areas.values())
+    area_options = [{"value": area.id, "label": area.name} for area in areas]
+    for key in filter_keys:
+        if key in schema_dict:
+            schema_dict[key] = selector({"select": {"options": area_options}})
     return schema_dict
