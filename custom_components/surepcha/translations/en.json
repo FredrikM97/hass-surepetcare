@@ -27,7 +27,8 @@
         "title": "Sure Petcare Options",
         "description": "Choose a device to configure or finish setup.",
         "data": {
-          "device_option": "Select device to configure"
+          "device_option": "Select device to configure",
+          "manual_properties": "Configure manual configuration properties"
         }
       },
       "configure_device": {
@@ -37,6 +38,16 @@
           "location": "Location",
           "location_inside": "Inside location",
           "location_outside": "Outside location"
+        },
+        "sections": {
+          "manual_properties": {
+            "name": "User location for pet posiiton",
+            "description": "On manual update of pet position define what is inside/outside with this.",
+            "data": {
+              "location_inside": "Inside location",
+              "location_outside": "Outside location"
+            }
+          }
         }
       }
     },
@@ -60,9 +71,9 @@
           "off": "Off"
         }
       },
-      "curfew_active":{
+      "curfew_active": {
         "name": "Curfew active",
-        "state":{
+        "state": {
           "on": "On",
           "off": "Off"
         }
@@ -72,15 +83,16 @@
       "bowls_type": {
         "name": "Bowls Type",
         "state": {
-            "large_wet": "Large (Wet)",
-            "large_dry":"Large (Dry)",
-            "two_small_wet_wet": "Two small (Wet/Wet)",
-            "two_small_dry_wet": "Two small (Dry/Wet)",
-            "two_small_wet_dry": "Two small (Wet/Dry)",
-            "two_small_dry_dry": "Two small (Dry/Dry)"
+          "large_wet": "Large (Wet)",
+          "large_dry": "Large (Dry)",
+          "two_small_wet_wet": "Two small (Wet/Wet)",
+          "two_small_dry_wet": "Two small (Dry/Wet)",
+          "two_small_wet_dry": "Two small (Wet/Dry)",
+          "two_small_dry_dry": "Two small (Dry/Dry)"
         }
       },
-      "tare": {"name": "Reset bowl weight (require open lid)",
+      "tare": {
+        "name": "Reset bowl weight (require open lid)",
         "state": {
           "reset_large": "Reset Large",
           "reset_left": "Reset Left",
@@ -147,12 +159,12 @@
           "off": "No Restriction"
         }
       },
-      "curfew_enabled":{
+      "curfew_enabled": {
         "name": "Curfew active"
       }
     },
-    "number":{
-      "target_weight":{
+    "number": {
+      "target_weight": {
         "name": "Target weight Bowl {bowl}"
       }
     },
@@ -162,48 +174,98 @@
       }
     },
     "sensor": {
-      "bowl_volume": {"name": "Bowl Volume"},
-      "fill_percent": {"name": "Fill Percent"},
-      "last_activity" : {"name": "Last Activity"},
-      "consumption": {"name": "Consumption"},
-      "tag": {"name": "Tag"},
-      "household_id": {"name": "Household ID"},
-      "info": {"name": "Information"},
-      "feeding": {"name": "Feeding",
+      "bowl_volume": {
+        "name": "Bowl Volume"
+      },
+      "fill_percent": {
+        "name": "Fill Percent"
+      },
+      "last_activity": {
+        "name": "Last Activity"
+      },
+      "consumption": {
+        "name": "Consumption"
+      },
+      "tag": {
+        "name": "Tag"
+      },
+      "household_id": {
+        "name": "Household ID"
+      },
+      "info": {
+        "name": "Information"
+      },
+      "feeding": {
+        "name": "Feeding",
         "state_attributes": {
-          "device_id": {"name": "Device ID"},
-          "id": {"name": "ID"},
-          "at": {"name": "At"},
-          "tag_id": {"name": "Tag ID"},
-          "change_0": {"name": "Change Bowl One"},
-          "change_1": {"name": "Change Bowl Two"}
+          "device_id": {
+            "name": "Device ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "At"
+          },
+          "tag_id": {
+            "name": "Tag ID"
+          },
+          "change_0": {
+            "name": "Change Bowl One"
+          },
+          "change_1": {
+            "name": "Change Bowl Two"
+          }
         }
       },
       "position": {
         "name": "Position",
         "state": {
-              "inside": "Inside",
-              "outside": "Outside"
-            }
-        },
-       "drinking": {"name": "Drinking",
+          "inside": "Inside",
+          "outside": "Outside"
+        }
+      },
+      "drinking": {
+        "name": "Drinking",
         "state_attributes": {
-              "device_id": {"name": "Device ID"},
-              "id": {"name": "ID"},
-              "at": {"name": "At"},
-              "tag_id": {"name": "Tag ID"},
-              "change_0": {"name": "Change Bowl One"},
-              "change_1": {"name": "Change Bowl Two"}
-            }
+          "device_id": {
+            "name": "Device ID"
           },
-      "rssi": {"name": "RSSI"},
-      "bowls": {"name": "Bowls"},
-      "current_weight": {"name": "Current Weight"},
-      "target_weight": {"name": "Target Weight"},
-      "bowl_weight": {"name": "Bowl {bowl} Weight"},
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "At"
+          },
+          "tag_id": {
+            "name": "Tag ID"
+          },
+          "change_0": {
+            "name": "Change Bowl One"
+          },
+          "change_1": {
+            "name": "Change Bowl Two"
+          }
+        }
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowls": {
+        "name": "Bowls"
+      },
+      "current_weight": {
+        "name": "Current Weight"
+      },
+      "target_weight": {
+        "name": "Target Weight"
+      },
+      "bowl_weight": {
+        "name": "Bowl {bowl} Weight"
+      },
       "weight_capacity": {
         "name": "Total Weight Limit",
-       "state_attributes": {
+        "state_attributes": {
           "bowl_0_target": {
             "name": "Bowl 0 - Target Weight"
           },
@@ -212,7 +274,9 @@
           }
         }
       },
-      "entity_information": {"name": "Entity Information"},
+      "entity_information": {
+        "name": "Entity Information"
+      },
       "devices": {
         "name": "Assigned devices"
       }

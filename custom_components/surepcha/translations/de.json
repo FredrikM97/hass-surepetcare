@@ -27,7 +27,8 @@
         "title": "Sure Petcare Optionen",
         "description": "Wähle ein Gerät zur Konfiguration oder beende die Einrichtung.",
         "data": {
-          "device_option": "Gerät zur Konfiguration auswählen"
+          "device_option": "Gerät zur Konfiguration auswählen",
+          "manual_properties": "Configure manual configuration properties"
         }
       },
       "configure_device": {
@@ -37,6 +38,16 @@
           "location": "Standort",
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
+        },
+        "sections": {
+          "manual_properties": {
+            "name": "User location for pet posiiton",
+            "description": "On manual update of pet position define what is inside/outside with this.",
+            "data": {
+              "location_inside": "Inside location",
+              "location_outside": "Outside location"
+            }
+          }
         }
       }
     },

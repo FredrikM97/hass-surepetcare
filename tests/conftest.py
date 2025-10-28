@@ -117,9 +117,6 @@ def mock_config_entry() -> MockConfigEntry:
             OPTION_DEVICES: {
                 MANUAL_PROPERTIES: {
                     NAME: MANUAL_PROPERTIES,
-                    LOCATION_INSIDE: None,
-                    LOCATION_OUTSIDE: None,
-                    PRODUCT_ID: -1,  # Unclear what to have here but currently a dependency
                 },
                 "1299453": {
                     NAME: "DualScanConnect door",
