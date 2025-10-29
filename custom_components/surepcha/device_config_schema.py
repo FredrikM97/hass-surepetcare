@@ -15,7 +15,7 @@ from homeassistant.data_entry_flow import section
 area_fields = {
     Optional(
         LOCATION_INSIDE
-    ): AreaSelector(),  # This is not really string but a more complex structure defined in runtime.
+    ): AreaSelector(),
     Optional(LOCATION_OUTSIDE): AreaSelector(),
 }
 
