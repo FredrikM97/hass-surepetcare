@@ -3,5 +3,7 @@
   "content_in_root": false,
   "hide_default_branch": true,
   "homeassistant": "2025.10.1",
+  "zip_release": true,
+  "filename": "surepcha.zip",
   "render_readme": true
 }
