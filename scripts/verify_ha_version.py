@@ -1,4 +1,3 @@
-
 import json
 from pathlib import Path
 import sys
@@ -12,6 +11,7 @@ def get_homeassistant_version_from_pyproject(pyproject):
             version = dep.split("=", 1)[-1].lstrip(">")
             return version.strip()
     return None
+
 
 def main():
     repo_root = Path(__file__).parent.parent
@@ -30,7 +30,7 @@ def main():
         sys.exit(1)
 
     try:
-        with open(hacs_path, "r", encoding="utf-8") as f:
+        with open(hacs_path, encoding="utf-8") as f:
             hacs = json.load(f)
         hacs_ha_version = hacs.get("homeassistant", {})
         if not hacs_ha_version:
@@ -40,7 +40,10 @@ def main():
         print(f"Error reading hacs.json: {e}")
         sys.exit(1)
 
-    assert ha_version == hacs_ha_version,  f"Version mismatch: pyproject.toml={ha_version} hacs.json={hacs_ha_version}"
+    assert (
+        ha_version == hacs_ha_version
+    ), f"Version mismatch: pyproject.toml={ha_version} hacs.json={hacs_ha_version}"
+
 
 if __name__ == "__main__":
     main()
