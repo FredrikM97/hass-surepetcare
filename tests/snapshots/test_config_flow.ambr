@@ -1,4 +1,38 @@
 # serializer version: 1
+# name: test_async_migrate_entry_adds_manual_properties
+  ConfigEntrySnapshot({
+    'data': dict({
+      'client_device_id': '123',
+      'token': 'abc',
+    }),
+    'disabled_by': None,
+    'discovery_keys': dict({
+    }),
+    'domain': 'surepcha',
+    'entry_id': <ANY>,
+    'minor_version': 2,
+    'options': dict({
+      'devices': dict({
+        '12345': dict({
+          'name': 'Test Device',
+          'product_id': 1,
+        }),
+        'manual_properties': dict({
+          'name': 'User Properties',
+          'product_id': 'manual_properties',
+        }),
+      }),
+    }),
+    'pref_disable_new_entities': False,
+    'pref_disable_polling': False,
+    'source': 'user',
+    'subentries': list([
+    ]),
+    'title': 'Test SurePetCare entry',
+    'unique_id': '12345',
+    'version': 1,
+  })
+# ---
 # name: test_options_flow_full
   FlowResultSnapshot({
     'context': mappingproxy({
@@ -6,8 +40,8 @@
     'data': dict({
       'devices': dict({
         '1299453': dict({
-          'location_inside': 'Washington DC',
-          'location_outside': 'Space',
+          'location_inside': 'Kitchen',
+          'location_outside': 'Garden',
           'name': 'DualScanConnect door',
           'polling_speed': 120,
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
@@ -19,6 +53,9 @@
         '727608': dict({
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
+        }),
+        'manual_properties': dict({
+          'name': 'manual_properties',
         }),
       }),
     }),
@@ -56,6 +93,9 @@
         '727608': dict({
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
+        }),
+        'manual_properties': dict({
+          'name': 'manual_properties',
         }),
       }),
     }),
@@ -144,7 +184,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 1,
+    'minor_version': 2,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -195,7 +235,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 1,
+      'minor_version': 2,
       'options': dict({
         'devices': dict({
           '1299453': dict({

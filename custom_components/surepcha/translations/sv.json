@@ -27,7 +27,8 @@
         "title": "Sure Petcare-alternativ",
         "description": "Välj en enhet att konfigurera eller slutför installationen.",
         "data": {
-          "device_option": "Välj enhet att konfigurera"
+          "device_option": "Välj enhet att konfigurera",
+          "manual_properties": "Konfigurera manuella konfigurationsinställningar"
         }
       },
       "configure_device": {
@@ -37,6 +38,16 @@
           "location": "Plats",
           "location_inside": "Inomhusplats",
           "location_outside": "Utomhusplats"
+        },
+        "sections": {
+          "manual_properties": {
+            "name": "Användarlokalisering för husdjursposition",
+            "description": "Vid manuell uppdatering av husdjursposition, definiera vad som är inne/ute med detta.",
+            "data": {
+              "location_inside": "Inomhusplats",
+              "location_outside": "Utomhusplats"
+            }
+          }
         }
       }
     },
@@ -60,9 +71,9 @@
           "off": "Av"
         }
       },
-      "curfew_active":{
+      "curfew_active": {
         "name": "Utegångsförbud aktivt",
-        "state":{
+        "state": {
           "on": "På",
           "off": "Av"
         }
@@ -72,15 +83,16 @@
       "bowls_type": {
         "name": "Skåltyp",
         "state": {
-            "large_wet": "Stor (Våt)",
-            "large_dry":"Stor (Torr)",
-            "two_small_wet_wet": "Två små (Våt/Våt)",
-            "two_small_dry_wet": "Två små (Torr/Våt)",
-            "two_small_wet_dry": "Två små (Våt/Torr)",
-            "two_small_dry_dry": "Två små (Torr/Torr)"
+          "large_wet": "Stor (Våt)",
+          "large_dry": "Stor (Torr)",
+          "two_small_wet_wet": "Två små (Våt/Våt)",
+          "two_small_dry_wet": "Två små (Torr/Våt)",
+          "two_small_wet_dry": "Två små (Våt/Torr)",
+          "two_small_dry_dry": "Två små (Torr/Torr)"
         }
       },
-      "tare": {"name": "Återställ skålens vikt (kräver öppen lock)",
+      "tare": {
+        "name": "Återställ skålens vikt (kräver öppen lock)",
         "state": {
           "reset_large": "Återställ stor",
           "reset_left": "Återställ vänster",
@@ -147,12 +159,12 @@
           "off": "Ingen begränsning"
         }
       },
-      "curfew_enabled":{
+      "curfew_enabled": {
         "name": "Utegångsförbud aktivt"
       }
     },
-    "number":{
-      "target_weight":{
+    "number": {
+      "target_weight": {
         "name": "Målvikt Skål {bowl}"
       }
     },
@@ -162,48 +174,98 @@
       }
     },
     "sensor": {
-      "bowl_volume": {"name": "Skålvolym"},
-      "fill_percent": {"name": "Fyllnadsprocent"},
-      "last_activity" : {"name": "Senaste aktivitet"},
-      "consumption": {"name": "Konsumtion"},
-      "tag": {"name": "Tagg"},
-      "household_id": {"name": "Hushålls-ID"},
-      "info": {"name": "Information"},
-      "feeding": {"name": "Utfodring",
+      "bowl_volume": {
+        "name": "Skålvolym"
+      },
+      "fill_percent": {
+        "name": "Fyllnadsprocent"
+      },
+      "last_activity": {
+        "name": "Senaste aktivitet"
+      },
+      "consumption": {
+        "name": "Konsumtion"
+      },
+      "tag": {
+        "name": "Tagg"
+      },
+      "household_id": {
+        "name": "Hushålls-ID"
+      },
+      "info": {
+        "name": "Information"
+      },
+      "feeding": {
+        "name": "Utfodring",
         "state_attributes": {
-          "device_id": {"name": "Enhets-ID"},
-          "id": {"name": "ID"},
-          "at": {"name": "Tidpunkt"},
-          "tag_id": {"name": "Tagg-ID"},
-          "change_0": {"name": "Ändra skål ett"},
-          "change_1": {"name": "Ändra skål två"}
+          "device_id": {
+            "name": "Enhets-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Tidpunkt"
+          },
+          "tag_id": {
+            "name": "Tagg-ID"
+          },
+          "change_0": {
+            "name": "Ändra skål ett"
+          },
+          "change_1": {
+            "name": "Ändra skål två"
+          }
         }
       },
       "position": {
         "name": "Position",
         "state": {
-              "inside": "Inne",
-              "outside": "Ute"
-            }
-        },
-       "drinking": {"name": "Dricker",
+          "inside": "Inne",
+          "outside": "Ute"
+        }
+      },
+      "drinking": {
+        "name": "Dricker",
         "state_attributes": {
-              "device_id": {"name": "Enhets-ID"},
-              "id": {"name": "ID"},
-              "at": {"name": "Tidpunkt"},
-              "tag_id": {"name": "Tagg-ID"},
-              "change_0": {"name": "Ändra skål ett"},
-              "change_1": {"name": "Ändra skål två"}
-            }
+          "device_id": {
+            "name": "Enhets-ID"
           },
-      "rssi": {"name": "RSSI"},
-      "bowls": {"name": "Skålar"},
-      "current_weight": {"name": "Nuvarande vikt"},
-      "target_weight": {"name": "Målvikt"},
-      "bowl_weight": {"name": "Skål {bowl} vikt"},
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Tidpunkt"
+          },
+          "tag_id": {
+            "name": "Tagg-ID"
+          },
+          "change_0": {
+            "name": "Ändra skål ett"
+          },
+          "change_1": {
+            "name": "Ändra skål två"
+          }
+        }
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowls": {
+        "name": "Skålar"
+      },
+      "current_weight": {
+        "name": "Nuvarande vikt"
+      },
+      "target_weight": {
+        "name": "Målvikt"
+      },
+      "bowl_weight": {
+        "name": "Skål {bowl} vikt"
+      },
       "weight_capacity": {
         "name": "Total viktgräns",
-       "state_attributes": {
+        "state_attributes": {
           "bowl_0_target": {
             "name": "Skål 0 - Målvikt"
           },
@@ -212,7 +274,9 @@
           }
         }
       },
-      "entity_information": {"name": "Enhetsinformation"},
+      "entity_information": {
+        "name": "Enhetsinformation"
+      },
       "devices": {
         "name": "Tilldelade enheter"
       }

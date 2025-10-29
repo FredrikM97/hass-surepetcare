@@ -7,25 +7,28 @@ from typing import Any, Mapping
 from surepcio import SurePetcareClient
 from surepcio import Household
 
-from surepcio.enums import ProductId
 import voluptuous as vol
 from homeassistant.config_entries import ConfigFlowResult
 from homeassistant import config_entries
 from homeassistant.helpers.device_registry import callback
-from homeassistant.helpers.selector import selector
+from homeassistant.helpers.selector import AreaSelector, DeviceSelector
 from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
+from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+
+
 from .const import (
     DEVICE_OPTION,
     DOMAIN,
     ENTRY_ID,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
     NAME,
     OPTION_DEVICES,
-    OPTIONS_FINISHED,
     CLIENT_DEVICE_ID,
     TOKEN,
     PRODUCT_ID,
 )
-from .device_config_schema import DEVICE_CONFIG_SCHEMAS
+from .device_config_schema import DEVICE_CONFIG_SCHEMAS, MANUAL_PROPERTIES
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +44,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
+    MINOR_VERSION = 2
 
     def __init__(self) -> None:
         self._devices: dict[str, Any] = {}
@@ -98,6 +102,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         if not self._devices:
             errors["base"] = "no_devices_or_pet_found"
             return None, errors
+        # Append NAME and PRODUCT_ID to each device in OPTION_DEVICE
         entity_info = {
             str(device.id): {
                 PRODUCT_ID: getattr(device, PRODUCT_ID, None),
@@ -190,33 +195,26 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         """Show device selection menu."""
 
         if user_input is not None:
-            if user_input.get(OPTIONS_FINISHED):
-                # End the flow and save current options
-                logger.debug("OptionFlow complete, updated entities: %s", self._options)
-                return self.async_create_entry(data=self._options)
-            self._device_id = user_input[DEVICE_OPTION]
-            return await self.async_step_configure_device()
+            if user_input.get(MANUAL_PROPERTIES):
+                self._device_id = MANUAL_PROPERTIES
+                return await self.async_step_configure_device()
+            if user_input.get(DEVICE_OPTION):
+                self._device_id = await get_surepetcare_id_from_ha_device_id(
+                    self.hass, user_input[DEVICE_OPTION]
+                )
+                return await self.async_step_configure_device()
+            logger.debug("OptionFlow complete, updated entities: %s", self._options)
+            return self.async_create_entry(data=self._options)
 
         if not self._devices:
             return self.async_abort(reason="no_devices_or_pet_found")
 
-        sorted_devices = sorted(
-            self._devices.items(), key=lambda item: item[1].get(PRODUCT_ID, 0)
-        )
-        select_options = [
-            {
-                "value": str(k),
-                "label": get_device_attr(v, NAME, str(k))
-                + f" ({ProductId(v[PRODUCT_ID]).name})",
-            }
-            for k, v in sorted_devices
-        ]
         schema = vol.Schema(
             {
-                vol.Required(DEVICE_OPTION): selector(
-                    {"select": {"options": select_options}}
+                vol.Optional(DEVICE_OPTION): DeviceSelector(
+                    {"filter": [{"integration": DOMAIN}]}
                 ),
-                vol.Optional(OPTIONS_FINISHED, default=False): bool,
+                vol.Optional(MANUAL_PROPERTIES, default=False): bool,
             }
         )
 
@@ -236,6 +234,10 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
 
         device = self._devices.get(self._device_id, {})
         schema_dict = _build_device_schema(device)
+        schema_dict = await _apply_area_selector(
+            self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
+        )
+
         return self.async_show_form(
             step_id="configure_device",
             data_schema=vol.Schema(schema_dict),
@@ -262,3 +264,23 @@ def _build_device_schema(entity: dict) -> dict:
             else:
                 schema_dict[key] = field_type
     return schema_dict
+
+
+async def _apply_area_selector(hass, schema_dict: dict, filter_keys: list[str]) -> dict:
+    """Replace specified keys in schema_dict with area selectors using available areas."""
+    for key in filter_keys:
+        if key in schema_dict:
+            schema_dict[key] = AreaSelector()
+    return schema_dict
+
+
+async def get_surepetcare_id_from_ha_device_id(hass, ha_device_id: str) -> str | None:
+    """Get SurePetCare device ID from Home Assistant device ID."""
+    device_registry = async_get_device_registry(hass)
+    device_entry = device_registry.async_get(ha_device_id)
+    if not device_entry:
+        return None
+    for domain, surepetcare_id in device_entry.identifiers:
+        if domain == DOMAIN:
+            return surepetcare_id
+    return None

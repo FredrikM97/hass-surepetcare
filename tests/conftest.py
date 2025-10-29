@@ -6,6 +6,7 @@ from custom_components.surepcha.const import (
     DOMAIN,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
+    MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
     PRODUCT_ID,
@@ -114,6 +115,9 @@ def mock_config_entry() -> MockConfigEntry:
         data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
         options={
             OPTION_DEVICES: {
+                MANUAL_PROPERTIES: {
+                    NAME: MANUAL_PROPERTIES,
+                },
                 "1299453": {
                     NAME: "DualScanConnect door",
                     PRODUCT_ID: ProductId.DUAL_SCAN_CONNECT,
