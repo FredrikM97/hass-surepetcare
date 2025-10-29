@@ -27,3 +27,6 @@ jobs:
       - name: Verify manifest and installed dependency match
         run: |
           python scripts/verify_manifest.py
+      - name: Verify toml and hacs versions of home assistant matches
+        run: |
+          python scripts/verify_ha_version.py
