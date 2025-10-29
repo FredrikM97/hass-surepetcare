@@ -1,5 +1,7 @@
 {
   "name": "SurePetcare",
   "content_in_root": false,
-  "hide_default_branch": true
+  "hide_default_branch": true,
+  "homeassistant": "2025.10.1",
+  "render_readme": true
 }
