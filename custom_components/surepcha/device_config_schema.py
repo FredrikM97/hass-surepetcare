@@ -13,9 +13,7 @@ from voluptuous import Optional, Range, All, Schema
 from homeassistant.data_entry_flow import section
 
 area_fields = {
-    Optional(
-        LOCATION_INSIDE
-    ): AreaSelector(),
+    Optional(LOCATION_INSIDE): AreaSelector(),
     Optional(LOCATION_OUTSIDE): AreaSelector(),
 }
 
