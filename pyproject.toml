@@ -4,26 +4,21 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hass-surepetcare"
-version = "2.0.4"
+version = "0.0.0"
 description = "Hass component library for SurePetcare API"
 authors = [
     { name = "FredrikM97" }
 ]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.13"
-
-dependencies = [
-    "py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare.git@dev",
-    "homeassistant>=2025.10.1",
-]
 
 [project.optional-dependencies]
 dev = [
+    "homeassistant",
+    "py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare.git@dev",
     "pytest",
     "pytest-homeassistant-custom-component>=0.13.287",
-    "pre-commit",
-    "bump-my-version",
+    "pre-commit"
 ]
 
 [tool.setuptools.packages.find]
@@ -34,51 +29,3 @@ asyncio_mode = "auto"
 
 [tool.mypy]
 ignore_missing_imports = true
-
-[tool.bumpversion]
-current_version = "2.0.4"
-parse = """(?x)
-    (?P<major>0|[1-9]\\d*)\\.
-    (?P<minor>0|[1-9]\\d*)\\.
-    (?P<patch>0|[1-9]\\d*)
-    (?:
-        -                             # dash separator for pre-release section
-        (?P<pre_l>[a-zA-Z-]+)         # pre-release label
-        (?P<pre_n>0|[1-9]\\d*)        # pre-release version number
-    )?                                # pre-release section is optional
-"""
-serialize = [
-    "{major}.{minor}.{patch}-{pre_l}{pre_n}",
-    "{major}.{minor}.{patch}",
-]
-search = "{current_version}"
-replace = "{new_version}"
-regex = false
-ignore_missing_version = false
-ignore_missing_files = false
-tag = true
-sign_tags = false
-tag_name = "v{new_version}"
-tag_message = "Bump version: {current_version} → {new_version}"
-allow_dirty = true
-commit = true
-message = "Bump version: {current_version} → {new_version}"
-moveable_tags = []
-commit_args = "--no-verify"
-setup_hooks = []
-pre_commit_hooks = []
-post_commit_hooks = []
-
-[[tool.bumpversion.files]]
-filename = "pyproject.toml"
-search = 'version = "{current_version}"'
-replace = 'version = "{new_version}"'
-
-[[tool.bumpversion.files]]
-filename = "custom_components/surepcha/manifest.json"
-search = '"version": "{current_version}"'
-replace = '"version": "{new_version}"'
-
-[tool.bumpversion.parts.pre_l]
-values = ["dev", "final"]
-optional_value = "final"

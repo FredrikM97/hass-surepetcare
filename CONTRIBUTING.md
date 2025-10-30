@@ -22,6 +22,5 @@ target:
 It is also possible to use same update from branch to verify functionality. 
 
 ## How to release
-1. Run `python scripts/release.py` determine which version to bump to etc.
-2. Create the pull request and merge it into main after all tests pass
-3. Create a tag in releases and find the commit of latest release.
+1. Update the draft and set the tag to version to release.
+2. After release the workflow will create a zip with the latest changes and update the version to match the tag.
