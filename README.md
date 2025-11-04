@@ -46,7 +46,7 @@ For urgent issues, check the Home Assistant logs at Settings → System → Logs
 
 [build-shield]: https://github.com/FredrikM97/hass-surepetcare/actions/workflows/test-and-coverage.yml/badge.svg
 [build]: https://github.com/FredrikM97/hass-surepetcare/actions
-[codecov-shield]: https://codecov.io/gh/FredrikM97/hass-surepetcare/branch/main/graph/badge.svg
+[codecov-shield]: https://codecov.io/gh/FredrikM97/hass-surepetcare/branch/dev/graph/badge.svg
 [codecov]: https://codecov.io/gh/FredrikM97/hass-surepetcare
 [license-shield]: https://img.shields.io/github/license/FredrikM97/hass-surepetcare.svg
 [devcontainer-shield]: https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode
