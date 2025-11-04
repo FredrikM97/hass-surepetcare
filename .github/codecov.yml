@@ -1,0 +1,22 @@
+codecov:
+  require_ci_to_pass: true
+coverage:
+  precision: 2
+  round: down
+  range: 70..100
+  status:
+    project:
+      default:
+        target: 85%
+        threshold: 1%
+        paths:
+          - custom_components/surepcha
+    patch:
+      default:
+        target: 90%
+        threshold: 1%
+ignore:
+  - tests/
+  - docs/
+  - .devcontainer/
+  - setup.py
