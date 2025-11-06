@@ -3,7 +3,7 @@
 [![Home Assistant][ha-versions-shield]][homeassistant]
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
-[![Downloads][downloads-shield]][downloads]
+![Downloads][downloads-shield]
 [![Build Status][build-shield]][build]
 [![Code Coverage][codecov-shield]][codecov]
 [![Documentation Status][wiki-shield]][wiki]
@@ -57,5 +57,4 @@ For urgent issues, check the Home Assistant logs at Settings → System → Logs
 [wiki-shield]: https://img.shields.io/badge/docs-wiki-blue.svg
 [wiki]: https://github.com/FredrikM97/hass-surepetcare/wiki
 [homeassistant]: https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration
-[downloads-shield]: https://img.shields.io/badge/dynamic/json?color=41BDF5&logo=home-assistant&label=downloads&suffix=%20installs&cacheSeconds=15600&url=https://analytics.home-assistant.io/custom_integrations.json&query=$.surepcha.total
-[downloads]: https://analytics.home-assistant.io/custom_integrations.json
+[downloads-shield]: https://img.shields.io/github/downloads/FredrikM97/hass-surepetcare/total.svg
