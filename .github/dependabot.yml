@@ -6,9 +6,10 @@ updates:
       interval: "weekly"
     allow:
       - dependency-type: "direct"
-    ignore:
-      - dependency-name: "py-surepetcare"
     commit-message:
       prefix: "deps"
       include: "scope"
+    labels:
+      - "dependencies"
+      - "security"
     open-pull-requests-limit: 5
