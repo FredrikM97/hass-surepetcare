@@ -2,7 +2,7 @@
 
 [![Home Assistant][ha-versions-shield]][homeassistant]
 [![GitHub Release][releases-shield]][releases]
-[![License][license-shield]](LICENSE.md)
+[![License][license-shield]](LICENSE)
 ![Downloads][downloads-shield]
 [![Build Status][build-shield]][build]
 [![Code Coverage][codecov-shield]][codecov]
