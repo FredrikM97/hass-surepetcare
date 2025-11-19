@@ -6,7 +6,7 @@ import logging
 from types import MappingProxyType
 from typing import Any
 
-from surepcio.enums import ProductId
+from surepcio.enums import ProductId, PetLocation
 from surepcio.devices.device import SurePetCareBase
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
@@ -58,7 +58,27 @@ SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, .
         field=MethodField(path="available"),
     ),
 )
-
+SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ...] = (
+    SurePetCareBinarySensorEntityDescription(
+        key="presence",
+        translation_key="presence",
+        device_class=BinarySensorDeviceClass.PRESENCE,
+        field=MethodField(
+            get_fn=lambda device, r: getattr(
+                getattr(device.status, "activity", None), "where", None
+            )
+            == PetLocation.INSIDE,
+            get_extra_fn=lambda device, r: {
+                "device_id": str(device.status.activity.device_id),
+                "id": str(device.status.activity.id),
+                "since": device.status.activity.since,
+                "tag_id": str(device.status.activity.tag_id),
+            }
+            if getattr(device.status, "activity", None)
+            else {},
+        ),
+    ),
+)
 SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareBinarySensorEntityDescription(
@@ -96,6 +116,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
                 },
             ),
         ),
+        *SENSOR_DESCRIPTIONS_PRESENCE,
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
     ProductId.PET_DOOR: (
@@ -113,8 +134,12 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
                 get_fn=_next_enabled_future_curfew, path_extra="control.curfew"
             ),
         ),
+        *SENSOR_DESCRIPTIONS_PRESENCE,
     ),
-    ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
+    ProductId.DUAL_SCAN_PET_DOOR: (
+        *SENSOR_DESCRIPTIONS_PRESENCE,
+        *SENSOR_DESCRIPTIONS_AVAILABLE,
+    ),
     ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
 }
 

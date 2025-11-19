@@ -64,6 +64,13 @@
           "off": "Offline"
         }
       },
+      "presence": {
+        "name": "Närvaro",
+        "state": {
+          "on": "Ute",
+          "off": "Inne"
+        }
+      },
       "learn_mode": {
         "name": "Inlärningsläge",
         "state": {
