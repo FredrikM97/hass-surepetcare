@@ -15,7 +15,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
-from custom_components.surepcha.helper import MethodField, should_add_entity
+from custom_components.surepcha.method_field import MethodField
 
 from .const import (
     COORDINATOR,
@@ -87,9 +87,7 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
+              
             ]
         )
     async_add_entities(entities, update_before_add=True)

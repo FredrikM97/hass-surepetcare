@@ -7,7 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from custom_components.surepcha.helper import MethodField, should_add_entity
+from custom_components.surepcha.method_field import LockMethodField
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
@@ -15,11 +15,6 @@ from .entity import (
 )
 from surepcio.enums import ProductId, FlapLocking
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
-
-
-@dataclass(frozen=True, slots=True)
-class LockMethodField(MethodField):
-    """MethodField for lock-like entities."""
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -30,40 +25,27 @@ class SurePetCareLockEntityDescription(
 
     locked_states: dict[str, str]
 
+SENSOR_DESCRIPTIONS_LOCKING: tuple[SurePetCareLockEntityDescription, ...] = (
+    SurePetCareLockEntityDescription(
+            key="locking",
+            translation_key="locking",
+            field=LockMethodField(path="control.locking"),
+            locked_states={
+                "locked": FlapLocking.LOCKED.value,
+                "unlocked": FlapLocking.UNLOCKED.value,
+            },
+        ),
+)
 
 LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
     ProductId.PET_DOOR: (
-        SurePetCareLockEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=LockMethodField(path="control.locking"),
-            locked_states={
-                "locked": FlapLocking.LOCKED.value,
-                "unlocked": FlapLocking.UNLOCKED.value,
-            },
-        ),
+        *SENSOR_DESCRIPTIONS_LOCKING,
     ),
     ProductId.DUAL_SCAN_CONNECT: (
-        SurePetCareLockEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=LockMethodField(path="control.locking"),
-            locked_states={
-                "locked": FlapLocking.LOCKED.value,
-                "unlocked": FlapLocking.UNLOCKED.value,
-            },
-        ),
+        *SENSOR_DESCRIPTIONS_LOCKING,
     ),
     ProductId.DUAL_SCAN_PET_DOOR: (
-        SurePetCareLockEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=LockMethodField(path="control.locking"),
-            locked_states={
-                "locked": FlapLocking.LOCKED.value,
-                "unlocked": FlapLocking.UNLOCKED.value,
-            },
-        ),
+        *SENSOR_DESCRIPTIONS_LOCKING,
     ),
 }
 
@@ -88,9 +70,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
     async_add_entities(entities, update_before_add=True)
