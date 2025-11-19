@@ -216,11 +216,17 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=PERCENTAGE,
             suggested_display_precision=1,
             field=MethodField(
-                get_fn=lambda device, r: device.fill_percentages()[0],
+                get_fn=lambda device, r: device.status.fill_percentages.get("total")
+                if device.status.fill_percentages
+                else None,
                 get_extra_fn=lambda device, r: {
                     f"bowl_{i}_fill_percent": percent
-                    for i, percent in device.fill_percentages()[1].items()
-                },
+                    for i, percent in (
+                        device.status.fill_percentages.get("per_bowl", {}) or {}
+                    ).items()
+                }
+                if device.status.fill_percentages
+                else {},
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -371,13 +377,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:devices",
             native_unit_of_measurement="pcs",
             field=MethodField(
-                get_fn=lambda device, r: len(
-                    getattr(device.status, "devices", []) or []
-                ),
+                get_fn=lambda device, r: device.status.devices.count,
                 get_extra_fn=lambda device, r: {
-                    "devices": [
-                        str(d.id) for d in getattr(device.status, "devices", []) or []
-                    ]
+                    "devices": [str(item.id) for item in device.status.devices.items]
                 },
             ),
         ),
@@ -388,11 +390,15 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             entity_registry_enabled_default=False,
             field=MethodField(
                 get_fn=lambda device, r: option_name(
-                    r, (device.last_activity() or [None, None])[1]
+                    r, device.status.last_activity.device_id
                 )
-                if device.last_activity()
+                if device.status.last_activity
                 else None,
-                get_extra_fn=lambda device, r: {"device": str(device.id)},
+                get_extra_fn=lambda device, r: {
+                    "device": str(device.status.last_activity.device_id)
+                }
+                if device.status.last_activity
+                else {},
             ),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,

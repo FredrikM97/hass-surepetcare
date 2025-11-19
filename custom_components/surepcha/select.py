@@ -14,7 +14,6 @@ from surepcio.enums import (
     ModifyDeviceTag,
     BowlTypeOptions,
     Tare,
-    BowlType,
 )
 from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
@@ -116,14 +115,8 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             icon="mdi:restart",
             field=SelectMethodField(
                 path="control.tare",
-                options_fn=lambda device, r: [Tare.RESET_LARGE.name.lower()]
-                if device.control.bowls.type == BowlType.LARGE
-                else [
-                    "reset_left",
-                    Tare.RESET_RIGHT.name.lower(),
-                    Tare.RESET_BOTH.name.lower(),
-                ],
-            ),  # Required to manually set reset_left due to sharing same value as RESET_LARGE
+                options_fn=lambda device, r: device.status.tare_options,
+            ),
             options=Tare,
             entity_category=EntityCategory.CONFIG,
         ),
@@ -154,7 +147,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                     filter(
                         None,
                         map_attr(
-                            list_attr(device.status, DEVICES),
+                            list_attr(device.status, DEVICES, "items"),
                             lambda d: option_name(r, d.id),
                         ),
                     )
@@ -171,7 +164,10 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                     v.get(NAME)
                     for k, v in r[OPTION_DEVICES].items()
                     if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
-                    and k not in {str(d.id) for d in list_attr(device.status, DEVICES)}
+                    and k
+                    not in {
+                        str(d.id) for d in list_attr(device.status, DEVICES, "items")
+                    }
                 ],
                 set_fn=lambda pet, entry_data, option: (
                     pet.set_tag(value, action=ModifyDeviceTag.ADD)

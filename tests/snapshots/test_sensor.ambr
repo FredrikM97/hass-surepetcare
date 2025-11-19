@@ -1301,7 +1301,7 @@
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device': '472721',
+      'device': '269654',
       'friendly_name': 'Maui Last Activity',
       'icon': 'mdi:history',
     }),
@@ -2349,7 +2349,7 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device': '333333',
+      'device': '269654',
       'friendly_name': 'Pet with only one change on status Last Activity',
       'icon': 'mdi:history',
     }),

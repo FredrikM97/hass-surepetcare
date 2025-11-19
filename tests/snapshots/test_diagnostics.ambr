@@ -64,11 +64,23 @@
             'substance_type': 'FOOD',
           }),
         ]),
+        'fill_percentages': dict({
+          'per_bowl': dict({
+            '0': 64.32,
+            '1': None,
+          }),
+          'total': 64.32,
+        }),
         'learn_mode': False,
         'online': True,
         'signal': dict({
           'device_rssi': -81,
         }),
+        'tare_options': list([
+          'reset_left',
+          'reset_right',
+          'reset_both',
+        ]),
         'version': dict({
           'device': dict({
             'firmware': '406.437',

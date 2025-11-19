@@ -53,7 +53,7 @@ def profile_is_indoor(
     device: Pet, entry_options: MappingProxyType[str, Any]
 ) -> bool | None:
     """Return True if all flap device profiles are indoor only."""
-    devices = list_attr(device, "status", "devices")
+    devices = list_attr(device, "status", "devices", "items")
     if not devices:
         return None
     profiles = {
@@ -80,7 +80,7 @@ def set_profile(
 
     return [
         device.set_profile(d.id, profile)
-        for d in list_attr(device.status, "devices")
+        for d in list_attr(device.status, "devices", "items")
         if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
     ]
 
@@ -107,7 +107,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 get_extra_fn=lambda device, r: {
                     "flap_devices": [
                         str(d.id)
-                        for d in list_attr(device.status, "devices")
+                        for d in list_attr(device.status, "devices", "items")
                         if option_product_id(r, d.id) in FLAP_PRODUCTS
                     ]
                 },
