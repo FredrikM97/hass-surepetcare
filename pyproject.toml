@@ -15,7 +15,7 @@ readme = "README.md"
 [project.optional-dependencies]
 dev = [
     "homeassistant",
-    "py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare@0.5.8",
+    "py-surepetcare@git+https://github.com/FredrikM97/py-surepetcare@v0.5.8",
     "pytest",
     "pytest-homeassistant-custom-component>=0.13.287",
     "pre-commit"
