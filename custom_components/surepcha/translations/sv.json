@@ -67,8 +67,8 @@
       "presence": {
         "name": "Närvaro",
         "state": {
-          "on": "Ute",
-          "off": "Inne"
+          "on": "Borta",
+          "off": "Hemma"
         }
       },
       "learn_mode": {
@@ -228,8 +228,8 @@
       "position": {
         "name": "Position",
         "state": {
-          "inside": "Inne",
-          "outside": "Ute"
+          "inside": "Hemma",
+          "outside": "Borta"
         }
       },
       "drinking": {

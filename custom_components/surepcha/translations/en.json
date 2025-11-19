@@ -68,8 +68,8 @@
       "presence": {
           "name": "Presence",
           "state": {
-            "on": "Outside",
-            "off": "Inside"
+            "on": "Away",
+            "off": "Home"
           }
         },
       "learn_mode": {
@@ -229,8 +229,8 @@
       "position": {
         "name": "Position",
         "state": {
-          "inside": "Inside",
-          "outside": "Outside"
+          "inside": "Home",
+          "outside": "Away"
         }
       },
       "drinking": {
