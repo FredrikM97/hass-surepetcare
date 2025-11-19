@@ -33,15 +33,15 @@ set_control:
       selector:
         device:
           filter:
-            - integration: surepetcare
+            - integration: surepcha
               model: PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: FEEDER_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: POSEIDON_CONNECT
     control:
       description: Dictionary of control fields to set (e.g. training_mode, fast_polling, bowls, etc).
@@ -59,15 +59,15 @@ set_tag:
       selector:
         device:
           filter:
-            - integration: surepetcare
+            - integration: surepcha
               model: PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: FEEDER_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: POSEIDON_CONNECT
     pet_id:
       name: Pet ID
@@ -76,7 +76,7 @@ set_tag:
       selector:
         device:
           filter:
-            - integration: surepetcare
+            - integration: surepcha
               model: PET
     action:
       description: Action to perform on the tag (add or remove)
@@ -99,7 +99,7 @@ set_pet_access_mode:
       selector:
         device:
           filter:
-            - integration: surepetcare
+            - integration: surepcha
               model: PET
 
     device_id:
@@ -110,15 +110,15 @@ set_pet_access_mode:
       selector:
         device:
           filter:
-            - integration: surepetcare
+            - integration: surepcha
               model: PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: FEEDER_CONNECT
             - integration: surepetcare
               model: DUAL_SCAN_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_PET_DOOR
-            - integration: surepetcare
+            - integration: surepcha
               model: POSEIDON_CONNECT
     profile:
       name: Profile
@@ -141,7 +141,7 @@ set_pet_position:
       selector:
         device:
           filter:
-            integration: surepetcare
+            integration: surepcha
             model: PET
 
     action:

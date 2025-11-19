@@ -2,7 +2,7 @@
 
 [![Home Assistant][ha-versions-shield]][homeassistant]
 [![GitHub Release][releases-shield]][releases]
-[![License][license-shield]](LICENSE.md)
+[![License][license-shield]](LICENSE)
 ![Downloads][downloads-shield]
 [![Build Status][build-shield]][build]
 [![Code Coverage][codecov-shield]][codecov]
@@ -34,7 +34,7 @@ If you encounter problems with the integration:
 
 1. **Enable debug logging**: Go to Settings → Devices & Services → SurePetCare → Enable debug logging
 2. **Reproduce the issue**: Perform the action that causes the problem
-3. **Download diagnostics**: Go to Settings → Devices & Services → SurePetCare → Download diagnostics
+3. **Download diagnostics**: Go to Settings → Devices & Services → SurePetCare → Disable debug logging
 4. **Create an issue**: [Open a GitHub issue](https://github.com/FredrikM97/hass-surepetcare/issues/new) and attach the diagnostics file
 
 For urgent issues, check the Home Assistant logs at Settings → System → Logs.
