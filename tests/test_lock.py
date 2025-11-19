@@ -83,7 +83,7 @@ async def test_lock_toggle_and_snapshot(
         await hass.async_block_till_done()
         state_locked = hass.states.get(entity_id)
         assert state_locked is not None
-        snapshot(name=f"{entity_id}-locked").assert_match(state_locked)
+        assert state_locked == snapshot(name=f"{entity_id}-locked")
 
         # Unlock
         await hass.services.async_call(
@@ -95,4 +95,4 @@ async def test_lock_toggle_and_snapshot(
         await hass.async_block_till_done()
         state_unlocked = hass.states.get(entity_id)
         assert state_unlocked is not None
-        snapshot(name=f"{entity_id}-unlocked").assert_match(state_unlocked)
+        assert state_unlocked == snapshot(name=f"{entity_id}-unlocked")

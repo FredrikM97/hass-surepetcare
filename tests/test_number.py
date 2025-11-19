@@ -101,4 +101,4 @@ async def test_number_set_and_snapshot(
             await hass.async_block_till_done()
             updated_state = hass.states.get(entity_id)
             assert updated_state is not None
-            snapshot.assert_match(updated_state)
+            assert updated_state == snapshot(name=f"{entity_id}-{value}")

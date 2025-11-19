@@ -24,6 +24,15 @@ from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
 )
 from syrupy.assertion import SnapshotAssertion
+from enum import Enum
+import surepcio.enums
+
+# Auto-detect common enum fields by importing all enums from surepcio
+_KNOWN_ENUMS = {
+    name: obj
+    for name, obj in vars(surepcio.enums).items()
+    if isinstance(obj, type) and issubclass(obj, Enum) and obj is not Enum
+}
 
 
 @pytest.fixture
@@ -69,6 +78,7 @@ def _create_entity(details):
 async def _create_device(mock_device_name: str) -> list[DeviceBase]:
     """Load a device or pet entity from a fixture file."""
     details = load_json_value_fixture(f"{mock_device_name}.json")
+    details = convert_enum_names(details)
 
     if isinstance(details, list):
         return [_create_entity(item) for item in details]
@@ -225,3 +235,37 @@ async def mock_surepetcare_login_control(
 
         instance.api = AsyncMock(side_effect=api_side_effect)
         yield client_mock
+
+
+def convert_enum_names(data):
+    """Convert enum names in test fixture data to their actual values.
+
+    Automatically detects enum values by trying all known enums from surepcio.enums.
+    If a string value matches an enum member name, it's converted to the enum's value.
+
+    Example:
+        convert_enum_names({"product_id": "DUAL_SCAN_CONNECT"})
+        # Returns: {"product_id": 6}
+    """
+    if isinstance(data, dict):
+        result = {}
+        for key, value in data.items():
+            if isinstance(value, str):
+                # Try to find matching enum
+                converted = False
+                for enum_class in _KNOWN_ENUMS.values():
+                    try:
+                        result[key] = getattr(enum_class, value).value
+                        converted = True
+                        break
+                    except (AttributeError, KeyError):
+                        continue
+                if not converted:
+                    result[key] = convert_enum_names(value)
+            else:
+                result[key] = convert_enum_names(value)
+        return result
+    elif isinstance(data, list):
+        return [convert_enum_names(item) for item in data]
+    else:
+        return data

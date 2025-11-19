@@ -98,4 +98,4 @@ async def test_select_set_option_and_snapshot(
             # Snapshot the updated state after setting each option
             updated_state = hass.states.get(entity_id)
             assert updated_state is not None
-            snapshot.assert_match(updated_state)
+            assert updated_state == snapshot(name=f"{entity_id}-{option}")

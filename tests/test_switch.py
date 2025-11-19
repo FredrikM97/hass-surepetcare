@@ -84,7 +84,7 @@ async def test_switch_toggle_and_snapshot(
         await hass.async_block_till_done()
         state_on = hass.states.get(entity_id)
         assert state_on is not None
-        snapshot(name=f"{entity_id}-on").assert_match(state_on)
+        assert state_on == snapshot(name=f"{entity_id}-on")
 
         # Turn off the switch
         await hass.services.async_call(
@@ -96,4 +96,4 @@ async def test_switch_toggle_and_snapshot(
         await hass.async_block_till_done()
         state_off = hass.states.get(entity_id)
         assert state_off is not None
-        snapshot(name=f"{entity_id}-off").assert_match(state_off)
+        assert state_off == snapshot(name=f"{entity_id}-off")

@@ -199,5 +199,72 @@
     "devices": null
   },
   "control": {}
-}
+},
+{
+
+      "entity_info": {
+        "id": 532070,
+        "name": "Ajax",
+        "household_id": 245684,
+        "product_id": 0,
+        "tag_id": 1270143,
+        "photo": {
+          "id": 719509,
+          "title": "cdv_photo_1713371840.jpg",
+          "location": "https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg",
+          "hash": "8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU",
+          "uploading_user_id": 3139226750,
+          "version": 0,
+          "created_at": "2024-04-17 16:37:21+00:00"
+        },
+        "tag": {
+          "id": 1270143,
+          "tag": "250.268501999179",
+          "supported_product_ids": [
+            3,
+            4,
+            6,
+            8,
+            10,
+            32
+          ],
+          "version": 0,
+          "created_at": "2024-04-17 16:04:11+00:00"
+        }
+      },
+      "status": {
+        "activity": {
+          "id": 5241973826,
+          "pet_id": 532070,
+          "tag_id": 1270143,
+          "device_id": 695379,
+          "where": "INSIDE",
+          "since": "2025-11-18 09:36:44+00:00"
+        },
+        "feeding": {},
+        "drinking": {},
+        "devices": [
+          {
+            "id": 695379,
+            "index": 5,
+            "profile": 2,
+            "version": 3,
+            "created_at": "2024-04-17 16:05:15+00:00",
+            "updated_at": "2025-06-11 18:10:47+00:00"
+          }
+        ]
+      },
+      "control": {},
+      "timezone": "Europe/Paris",
+      "available": true,
+      "household_id": 245684,
+      "id": 532070,
+      "name": "Ajax",
+      "photo": "https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg",
+      "product": "PET",
+      "product_id": 0,
+      "product_name": "PET",
+      "tag": 1270143
+    
+  }
 ]

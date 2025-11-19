@@ -82,5 +82,6 @@ async def test_button_press_and_snapshot(
         await hass.async_block_till_done()
         state = hass.states.get(entity_id)
         assert state is not None
-        # Ignore for now since button state is a timestamp
-        # snapshot(exclude=["state"]).assert_match(state)
+        from syrupy.filters import props
+
+        assert state == snapshot(name=f"{entity_id}-press", exclude=props("state"))
