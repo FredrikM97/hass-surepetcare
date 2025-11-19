@@ -68,8 +68,8 @@
       "presence": {
           "name": "Presence",
           "state": {
-            "on": "Away",
-            "off": "Home"
+            "on": "Home",
+            "off": "Away"
           }
         },
       "learn_mode": {

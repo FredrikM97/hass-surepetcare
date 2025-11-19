@@ -67,8 +67,8 @@
       "presence": {
         "name": "Närvaro",
         "state": {
-          "on": "Borta",
-          "off": "Hemma"
+          "on": "Hemma",
+          "off": "Borta"
         }
       },
       "learn_mode": {

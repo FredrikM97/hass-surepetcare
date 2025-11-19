@@ -67,8 +67,8 @@
       "presence": {
         "name": "Anwesenheit",
         "state": {
-          "on": "Draußen",
-          "off": "Drinnen"
+          "on": "Drinnen",
+          "off": "Draußen"
         }
       },
       "learn_mode": {
