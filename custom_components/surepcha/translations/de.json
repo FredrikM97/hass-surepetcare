@@ -64,6 +64,13 @@
           "off": "Offline"
         }
       },
+      "presence": {
+        "name": "Anwesenheit",
+        "state": {
+          "on": "Draußen",
+          "off": "Drinnen"
+        }
+      },
       "learn_mode": {
         "name": "Lernmodus",
         "state": {

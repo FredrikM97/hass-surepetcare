@@ -63,7 +63,15 @@
           "on": "Online",
           "off": "Offline"
         }
+        
       },
+      "presence": {
+          "name": "Presence",
+          "state": {
+            "on": "Outside",
+            "off": "Inside"
+          }
+        },
       "learn_mode": {
         "name": "Learn Mode",
         "state": {
