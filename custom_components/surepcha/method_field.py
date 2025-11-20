@@ -3,8 +3,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 import re
-from enum import Enum
-import re
 from types import MappingProxyType
 from typing import Any, Optional
 
@@ -58,8 +56,6 @@ def get_by_path(obj, path):
             else:
                 obj = getattr(obj, part, None)
     return obj
-
-
 
 
 @dataclass(frozen=True, slots=True)

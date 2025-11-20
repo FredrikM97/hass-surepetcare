@@ -140,5 +140,3 @@ def find_entity_id_by_name(
         ),
         None,
     )
-
-

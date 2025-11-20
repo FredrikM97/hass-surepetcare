@@ -25,28 +25,23 @@ class SurePetCareLockEntityDescription(
 
     locked_states: dict[str, str]
 
+
 SENSOR_DESCRIPTIONS_LOCKING: tuple[SurePetCareLockEntityDescription, ...] = (
     SurePetCareLockEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=LockMethodField(path="control.locking"),
-            locked_states={
-                "locked": FlapLocking.LOCKED.value,
-                "unlocked": FlapLocking.UNLOCKED.value,
-            },
-        ),
+        key="locking",
+        translation_key="locking",
+        field=LockMethodField(path="control.locking"),
+        locked_states={
+            "locked": FlapLocking.LOCKED.value,
+            "unlocked": FlapLocking.UNLOCKED.value,
+        },
+    ),
 )
 
 LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
-    ProductId.PET_DOOR: (
-        *SENSOR_DESCRIPTIONS_LOCKING,
-    ),
-    ProductId.DUAL_SCAN_CONNECT: (
-        *SENSOR_DESCRIPTIONS_LOCKING,
-    ),
-    ProductId.DUAL_SCAN_PET_DOOR: (
-        *SENSOR_DESCRIPTIONS_LOCKING,
-    ),
+    ProductId.PET_DOOR: (*SENSOR_DESCRIPTIONS_LOCKING,),
+    ProductId.DUAL_SCAN_CONNECT: (*SENSOR_DESCRIPTIONS_LOCKING,),
+    ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_LOCKING,),
 }
 
 

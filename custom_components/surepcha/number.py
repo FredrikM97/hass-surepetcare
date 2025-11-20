@@ -87,7 +87,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-              
             ]
         )
     async_add_entities(entities, update_before_add=True)
