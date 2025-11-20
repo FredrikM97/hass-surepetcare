@@ -2,8 +2,6 @@
 
 from dataclasses import dataclass
 import logging
-from types import MappingProxyType
-from typing import Any
 from surepcio.enums import ProductId, HubPairMode
 from surepcio import SurePetcareClient
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
@@ -11,7 +9,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
-from custom_components.surepcha.helper import MethodField, should_add_entity
+from custom_components.surepcha.method_field import ButtonMethodField
 
 
 from .const import (
@@ -27,20 +25,6 @@ from .entity import (
 )
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass(frozen=True, slots=True)
-class ButtonMethodField(MethodField):
-    """MethodField for button-like entities, supporting on mapping."""
-
-    on: Any = True
-
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
-        if value is True and self.on:
-            value = self.on
-        return MethodField.set(self, device, entry_options, value)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -82,9 +66,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
     async_add_entities(entities, update_before_add=True)

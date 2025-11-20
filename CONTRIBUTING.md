@@ -16,7 +16,7 @@ action: update.install
 data:
   version: dev
 target:
-  entity_id: update.surepetcare_update
+  entity_id: update.surepcha_update
 ```
 
 It is also possible to use same update from branch to verify functionality. 
