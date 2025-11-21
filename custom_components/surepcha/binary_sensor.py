@@ -19,11 +19,10 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.surepcha.helper import (
-    MethodField,
     ensure_list,
     list_attr,
-    should_add_entity,
 )
+from custom_components.surepcha.method_field import MethodField
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
@@ -164,9 +163,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
 

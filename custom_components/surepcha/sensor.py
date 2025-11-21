@@ -21,6 +21,8 @@ from homeassistant.const import PERCENTAGE, UnitOfMass, UnitOfVolume
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
+from custom_components.surepcha.method_field import MethodField
+
 from .const import (
     COORDINATOR,
     COORDINATOR_DICT,
@@ -39,12 +41,10 @@ from .entity import (
     SurePetCareBaseEntityDescription,
 )
 from .helper import (
-    MethodField,
     abs_sum_attr,
     avg_attr,
     index_attr,
     option_name,
-    should_add_entity,
     stringify,
 )
 
@@ -426,9 +426,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
     async_add_entities(entities, update_before_add=True)

@@ -3,8 +3,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
-from types import MappingProxyType
-from typing import Any, Callable, cast
+from typing import Any, cast
 from surepcio.enums import (
     ProductId,
     CloseDelay,
@@ -19,14 +18,13 @@ from homeassistant.components.sensor import SensorDeviceClass
 from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepcha.helper import (
-    MethodField,
     find_entity_id_by_name,
     list_attr,
     map_attr,
     option_name,
-    resolve_select_option_value,
-    should_add_entity,
 )
+from custom_components.surepcha.method_field import SelectMethodField
+
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
@@ -51,29 +49,22 @@ from .const import (
 )
 
 
-@dataclass(frozen=True, slots=True)
-class SelectMethodField(MethodField):
-    """MethodField for switch-like entities, supporting on/off mapping."""
-
-    options_fn: Callable | None = None
-
-    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
-        if self.get_fn is None and self.path is None and self.options_fn is not None:
-            # Bonky solution but this might return multiple values and therefore we just return None.
-            return None
-        return MethodField.get(self, device, entry_options)
-
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
-        return MethodField.set(self, device, entry_options, value)
-
-
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareSelectEntityDescription(
     SurePetCareBaseEntityDescription, SelectEntityDescription
 ):
     """Describes SurePetCare select entity."""
+
+
+def resolve_select_option_value(desc, selected_option: str) -> Any:
+    """Resolve the correct value for a select option, handling Enum classes or plain lists."""
+    if (
+        desc.options is not None
+        and isinstance(desc.options, type)
+        and issubclass(desc.options, Enum)
+    ):
+        return getattr(desc.options, selected_option.upper())
+    return selected_option
 
 
 SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
@@ -221,9 +212,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
     async_add_entities(entities, update_before_add=True)

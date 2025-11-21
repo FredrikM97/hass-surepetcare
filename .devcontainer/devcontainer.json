@@ -14,5 +14,8 @@
       ]
     }
   },
-  "postCreateCommand": "pip install -e .[dev]  && pre-commit install"
+  "mounts": [
+    "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh"
+  ],
+  "postCreateCommand": "pip install -e .[dev] && pre-commit install" 
 }

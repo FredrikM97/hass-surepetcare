@@ -10,11 +10,10 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.surepcha.helper import (
-    MethodField,
     list_attr,
     option_product_id,
-    should_add_entity,
 )
+from custom_components.surepcha.method_field import SwitchMethodField
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
@@ -27,26 +26,6 @@ from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, FLAP_PRODUCTS, KEY_API
 import logging
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass(frozen=True, slots=True)
-class SwitchMethodField(MethodField):
-    """MethodField for switch-like entities, supporting on/off mapping."""
-
-    on: Any = True
-    off: Any = False
-
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
-        # Map True/False to on/off, otherwise pass value as-is
-        if value is True:
-            value = self.on
-        elif value is False:
-            value = self.off
-        elif value is None:
-            raise ValueError("Cannot set switch to None for %s", device)
-        return MethodField.set(self, device, entry_options, value)
 
 
 def profile_is_indoor(
@@ -145,9 +124,6 @@ async def async_setup_entry(
                     description=description,
                 )
                 for description in descriptions
-                if should_add_entity(
-                    description, device_coordinator.data, config_entry.options
-                )
             ]
         )
     async_add_entities(entities, update_before_add=True)
