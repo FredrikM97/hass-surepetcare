@@ -63,7 +63,13 @@
       "id": 1210761432,
       "tag_id": 2039802
     },
-    "devices": [
+    "last_activity": {
+      "device_id":"269654",
+      "at": "2020-03-11T14:21:07+00:00"
+    },
+    "devices": {
+      "count": 4,
+      "items": [
         {
           "created_at": "2025-09-17T17:12:47+00:00",
           "id": 727608,
@@ -97,6 +103,7 @@
           "version": 1
         }
       ]
+    }
   },
   "control": {}
 },
@@ -138,7 +145,11 @@
     "activity": null,
     "feeding": null,
     "drinking": null,
-    "devices": null
+    "last_activity": null,
+    "devices": {
+      "count": 0,
+      "items": []
+    }
   },
   "control": {}
 },
@@ -196,7 +207,14 @@
       "id": 1210761432,
       "tag_id": 2039802
     },
-    "devices": null
+    "last_activity": {
+      "device_id":"269654",
+      "at": "2020-03-11T14:21:07+00:00"
+    },
+    "devices": {
+      "count": 0,
+      "items": []
+    }
   },
   "control": {}
 },
@@ -243,16 +261,17 @@
         },
         "feeding": {},
         "drinking": {},
-        "devices": [
-          {
+        "devices": {
+          "count": 1,
+          "items": [{
             "id": 695379,
             "index": 5,
             "profile": 2,
             "version": 3,
             "created_at": "2024-04-17 16:05:15+00:00",
             "updated_at": "2025-06-11 18:10:47+00:00"
-          }
-        ]
+          }]
+        }
       },
       "control": {},
       "timezone": "Europe/Paris",

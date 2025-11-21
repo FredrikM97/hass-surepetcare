@@ -42,7 +42,15 @@
                 "last_zeroed_at": "2025-05-23T10:25:29+00:00",
                 "last_fill_weight": -27.2
             }
-        ]
+        ],
+        "fill_percentages": {
+            "total": 64.32,
+            "per_bowl": {
+                "0": 64.32,
+                "1": null
+            }
+        },
+        "tare_options": ["reset_left", "reset_right", "reset_both"]
     },
     "control": {
         "lid": {
@@ -111,7 +119,15 @@
                 "last_fill_weight": 74.2,
                 "fill_percent": 20
             }
-        ]
+        ],
+        "fill_percentages": {
+            "total": 71.3825503355705,
+            "per_bowl":{
+                "0": 64.32,
+                "1": 74.94949494949495
+            }
+        },
+        "tare_options": ["reset_left",  "reset_right", "reset_both"]
     },
     "control": {
         "lid": {
