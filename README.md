@@ -11,7 +11,23 @@
 
 
 ## About
-Built upon py-surepetcare to integrate with home assistant. Allow fine control to Pet and devices from SurePetCare. Provides services for fine control of SurePetCare data such as access to device, curfew and more.
+This is a Home Assistant integration (HACS) to integrate SurePetCare cloud devices into Home Assistant. The integration provdes services and sensors for all devices. 
+This is an alternative integration to the core integration with an extended amount of sensors that is not available in the core integration. 
+
+A sample of the extra features include entities to:
+* Pet:
+  * Select to add/remove devices
+  * Last activity from flaps,feeder or fountains
+  * [Current position](https://github.com/FredrikM97/hass-surepetcare/wiki/OptionFlow#customize-flap-position-name) betwen one or more flaps
+  * Consumption of feeder or fountains (wiki provide setup for total consumption)
+  * Number of assigned devices
+  * Switch to set pet as indoor only
+* Feeder
+  * Select to change bowl type
+  * Entity to change tare of each bowl
+  * Lid closing speed
+* General
+  * Polling speed of each device
 
 ## Documentation
 The full documentation can be found at [Wiki][wiki].
