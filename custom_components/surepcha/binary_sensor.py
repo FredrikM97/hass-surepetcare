@@ -79,6 +79,7 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
     ),
 )
 SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
+    ProductId.PET: (*SENSOR_DESCRIPTIONS_PRESENCE,),
     ProductId.FEEDER_CONNECT: (
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
@@ -115,7 +116,6 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
                 },
             ),
         ),
-        *SENSOR_DESCRIPTIONS_PRESENCE,
         *SENSOR_DESCRIPTIONS_AVAILABLE,
     ),
     ProductId.PET_DOOR: (
@@ -133,12 +133,8 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
                 get_fn=_next_enabled_future_curfew, path_extra="control.curfew"
             ),
         ),
-        *SENSOR_DESCRIPTIONS_PRESENCE,
     ),
-    ProductId.DUAL_SCAN_PET_DOOR: (
-        *SENSOR_DESCRIPTIONS_PRESENCE,
-        *SENSOR_DESCRIPTIONS_AVAILABLE,
-    ),
+    ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
     ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
 }
 
