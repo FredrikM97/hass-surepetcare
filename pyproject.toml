@@ -17,8 +17,7 @@ dev = [
     "homeassistant",
     "py-surepetcare==0.5.9",
     "pytest",
-    "pytest-homeassistant-custom-component>=0.13.287",
-    "pre-commit"
+    "pytest-homeassistant-custom-component>=0.13.287"
 ]
 
 [tool.setuptools.packages.find]

@@ -4,9 +4,7 @@
   "features": {},
   "customizations": {
     "vscode": {
-      "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
-      },
+      "settings": {},
       "extensions": [
         "ms-python.python",
         "charliermarsh.ruff",
@@ -17,5 +15,5 @@
   "mounts": [
     "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh"
   ],
-  "postCreateCommand": "pip install -e .[dev] && pre-commit install" 
+  "postCreateCommand": "pip install uv pre-commit && uv pip install -e .[dev] && pre-commit install" 
 }
