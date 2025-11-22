@@ -11,14 +11,14 @@
 
 
 ## About
-This is a Home Assistant integration (HACS) to integrate SurePetCare cloud devices into Home Assistant. The integration provdes services and sensors for all devices. 
+This is a Home Assistant integration (HACS) to integrate SurePetCare cloud devices into Home Assistant. The integration provides services and sensors for all devices. 
 This is an alternative integration to the core integration with an extended amount of sensors that is not available in the core integration. 
 
 A sample of the extra features include entities to:
 * Pet:
   * Select to add/remove devices
   * Last activity from flaps,feeder or fountains
-  * [Current position](https://github.com/FredrikM97/hass-surepetcare/wiki/OptionFlow#customize-flap-position-name) betwen one or more flaps
+  * [Current position](https://github.com/FredrikM97/hass-surepetcare/wiki/OptionFlow#customize-flap-position-name) between one or more flaps
   * Consumption of feeder or fountains (wiki provide setup for total consumption)
   * Number of assigned devices
   * Switch to set pet as indoor only
