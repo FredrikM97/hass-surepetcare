@@ -1,4 +1,57 @@
 # serializer version: 1
+# name: test_platform_setup_and_discovery[binary_sensor.ajax_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.ajax_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '532070-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.ajax_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'device_id': '695379',
+      'friendly_name': 'Ajax Presence',
+      'id': '5241973826',
+      'since': '2025-11-18 09:36:44+00:00',
+      'tag_id': '1270143',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.ajax_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
 # name: test_platform_setup_and_discovery[binary_sensor.feeder_with_different_fill_percent_connectivity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -303,55 +356,6 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_presence-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.katzenklappe_presence',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
-    'original_icon': None,
-    'original_name': 'Presence',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'presence',
-    'unique_id': '1299453-presence',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_presence-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Katzenklappe Presence',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.katzenklappe_presence',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
 # name: test_platform_setup_and_discovery[binary_sensor.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -445,55 +449,6 @@
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_learn_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.laundry_door_presence-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.laundry_door_presence',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
-    'original_icon': None,
-    'original_name': 'Presence',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'presence',
-    'unique_id': '727608-presence',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.laundry_door_presence-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Laundry Door Presence',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.laundry_door_presence',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -596,6 +551,210 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.maui_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.maui_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '472721-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.maui_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'device_id': '269654',
+      'friendly_name': 'Maui Presence',
+      'id': '5045077041',
+      'since': '2020-03-11 14:21:07+00:00',
+      'tag_id': '1725049',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.maui_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.pet_with_empty_status_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.pet_with_empty_status_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '222222-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.pet_with_empty_status_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Pet with empty status Presence',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.pet_with_empty_status_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.pet_with_only_one_change_on_status_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '333333-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.pet_with_only_one_change_on_status_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Pet with only one change on status Presence',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.ajax_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.ajax_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '532070-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.ajax_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'device_id': '695379',
+      'friendly_name': 'Ajax Presence',
+      'id': '5241973826',
+      'since': '2025-11-18 09:36:44+00:00',
+      'tag_id': '1270143',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.ajax_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.feeder_with_different_fill_percent_connectivity-entry]
@@ -902,55 +1061,6 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_presence-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.katzenklappe_presence',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
-    'original_icon': None,
-    'original_name': 'Presence',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'presence',
-    'unique_id': '1299453-presence',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_presence-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Katzenklappe Presence',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.katzenklappe_presence',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1050,55 +1160,6 @@
     'state': 'off',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_presence-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': None,
-    'entity_id': 'binary_sensor.laundry_door_presence',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
-    'original_icon': None,
-    'original_name': 'Presence',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'presence',
-    'unique_id': '727608-presence',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_presence-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Laundry Door Presence',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.laundry_door_presence',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_matlada_old_connectivity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1191,6 +1252,157 @@
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_learn_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.maui_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '472721-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'device_id': '269654',
+      'friendly_name': 'Maui Presence',
+      'id': '5045077041',
+      'since': '2020-03-11 14:21:07+00:00',
+      'tag_id': '1725049',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.maui_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_empty_status_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.pet_with_empty_status_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '222222-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_empty_status_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Pet with empty status Presence',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.pet_with_empty_status_presence',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_only_one_change_on_status_presence-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': None,
+    'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': <BinarySensorDeviceClass.PRESENCE: 'presence'>,
+    'original_icon': None,
+    'original_name': 'Presence',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'presence',
+    'unique_id': '333333-presence',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_only_one_change_on_status_presence-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Pet with only one change on status Presence',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
