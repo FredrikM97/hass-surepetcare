@@ -10,7 +10,6 @@ updates:
       prefix: "deps"
     labels:
       - "dependencies"
-      - "python"
     
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -22,4 +21,3 @@ updates:
       prefix: "ci"
     labels:
       - "dependencies"
-      - "github-actions"
