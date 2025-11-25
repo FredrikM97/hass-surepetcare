@@ -189,4 +189,4 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool | None:
         """Return true if the binary sensor is on."""
-        return self.native_value is True
+        return None if self.native_value is None else self.native_value is True
