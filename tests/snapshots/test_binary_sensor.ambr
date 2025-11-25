@@ -652,7 +652,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[binary_sensor.pet_with_only_one_change_on_status_presence-entry]
@@ -701,7 +701,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.ajax_presence-entry]
@@ -1357,7 +1357,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_only_one_change_on_status_presence-entry]
@@ -1406,6 +1406,6 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---

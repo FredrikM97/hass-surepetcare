@@ -172,3 +172,25 @@ class SwitchMethodField(MethodField):
 @dataclass(frozen=True, slots=True)
 class LockMethodField(MethodField):
     """MethodField for lock-like entities."""
+
+
+@dataclass(frozen=True, slots=True)
+class BinarySensorMethodField(MethodField):
+    """MethodField for binary sensor entities, supporting on/off value mapping."""
+
+    on: Any = True
+    off: Any = False
+
+    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+        """Get the value and map it to True/False based on on/off values."""
+        # Get the raw value using parent's get method
+        raw_value = MethodField.get(self, device, entry_options)
+
+        # Map the value to boolean
+        if raw_value == self.on:
+            return True
+        elif raw_value == self.off:
+            return False
+        else:
+            # Return None for unknown values
+            return None
