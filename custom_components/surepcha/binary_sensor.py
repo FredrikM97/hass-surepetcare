@@ -22,7 +22,7 @@ from custom_components.surepcha.helper import (
     ensure_list,
     list_attr,
 )
-from custom_components.surepcha.method_field import MethodField
+from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
 
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
@@ -62,19 +62,16 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
         key="presence",
         translation_key="presence",
         device_class=BinarySensorDeviceClass.PRESENCE,
-        field=MethodField(
-            get_fn=lambda device, r: getattr(
-                getattr(device.status, "activity", None), "where", None
-            )
-            == PetLocation.INSIDE,
+        field=BinarySensorMethodField(
+            path="status.activity.where",
             get_extra_fn=lambda device, r: {
                 "device_id": str(device.status.activity.device_id),
                 "id": str(device.status.activity.id),
                 "since": device.status.activity.since,
                 "tag_id": str(device.status.activity.tag_id),
-            }
-            if getattr(device.status, "activity", None)
-            else {},
+            },
+            on=PetLocation.INSIDE,
+            off=PetLocation.OUTSIDE,
         ),
     ),
 )
