@@ -5,6 +5,10 @@ from surepcio.enums import PetDeviceLocationProfile
 from surepcio.enums import ModifyDeviceTag, PetLocation
 from surepcio.devices import Pet
 
+from custom_components.surepcha.coordinator import (
+    SurePetCareDeviceDataUpdateCoordinator,
+)
+
 logger = logging.getLogger(__name__)
 
 _service_registry = []
@@ -54,6 +58,7 @@ async def async_set_control(call):
     await coordinator.client.api(
         coordinator._device.set_control(**call.data.get("control"))
     )
+    await coordinator.async_request_refresh()
 
 
 @global_service(
@@ -74,6 +79,7 @@ async def async_set_tag(call):
             pet_coordinator._device.tag, ModifyDeviceTag[call.data.get("action")]
         )
     )
+    await device_coordinator.async_request_refresh()
 
 
 @global_service(
@@ -96,6 +102,7 @@ async def set_pet_access_mode(call) -> None:
             PetDeviceLocationProfile[call.data.get("profile")],
         )
     )
+    await pet_coordinator.async_request_refresh()
 
 
 @global_service(
@@ -114,9 +121,10 @@ async def set_pet_position(call) -> None:
     await pet_coordinator.client.api(
         device.set_position(PetLocation[call.data.get("action")])
     )
+    await pet_coordinator.async_request_refresh()
 
 
-def get_coordinator(hass, device_id):
+def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":
     device_registry = async_get_device_registry(hass)
     device = device_registry.async_get(device_id)
     domain, device_id = next(iter(device.identifiers))
