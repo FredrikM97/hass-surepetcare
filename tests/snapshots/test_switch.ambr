@@ -48,6 +48,55 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery[switch.ajax_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.ajax_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '532070-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.ajax_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -148,6 +197,55 @@
     'state': 'off',
   })
 # ---
+# name: test_platform_setup_and_discovery[switch.maui_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.maui_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '472721-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.maui_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -191,6 +289,55 @@
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.pet_with_empty_status_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.pet_with_empty_status_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '222222-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.pet_with_empty_status_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -246,6 +393,55 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '333333-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -293,6 +489,55 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unavailable',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.ajax_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.ajax_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '532070-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.ajax_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_curfew_active-entry]
@@ -392,6 +637,55 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.maui_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.maui_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '472721-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.maui_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -435,6 +729,55 @@
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.pet_with_empty_status_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '222222-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -490,6 +833,55 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_position-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:door',
+    'original_name': 'Position',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'position',
+    'unique_id': '333333-position',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_position-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -516,6 +908,34 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.ajax_position-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.ajax_position-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.laundry_door_curfew_active-off]
@@ -578,6 +998,34 @@
     'state': 'off',
   })
 # ---
+# name: test_switch_toggle_and_snapshot[switch.maui_position-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.maui_position-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -606,6 +1054,34 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with empty status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_empty_status_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -628,6 +1104,34 @@
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Pet with only one change on status Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.pet_with_only_one_change_on_status_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
