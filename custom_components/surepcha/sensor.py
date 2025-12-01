@@ -171,9 +171,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                get_fn=lambda device, r: index_attr(
-                    device.status.bowl_status, 0, "current_weight"
-                ),
+                path="status.bowl_status[0].current_weight",
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[0].position.name.lower(),
                     "food_type": device.control.bowls.settings[
@@ -193,9 +191,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                get_fn=lambda device, r: index_attr(
-                    device.status.bowl_status, 1, "current_weight"
-                ),
+                path="status.bowl_status[1].current_weight",
                 get_extra_fn=lambda device, r: {
                     "position": device.status.bowl_status[1].position.name.lower(),
                     "food_type": device.control.bowls.settings[
@@ -216,9 +212,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=PERCENTAGE,
             suggested_display_precision=1,
             field=MethodField(
-                get_fn=lambda device, r: device.status.fill_percentages.get("total")
-                if device.status.fill_percentages
-                else None,
+                path="status.fill_percentages.total",
                 get_extra_fn=lambda device, r: {
                     f"bowl_{i}_fill_percent": percent
                     for i, percent in (
@@ -280,9 +274,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.VOLUME,
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             field=MethodField(
-                get_fn=lambda device, r: index_attr(
-                    device.status.bowl_status, 0, "current_weight"
-                ),
+                path="status.bowl_status[0].current_weight",
                 get_extra_fn=lambda device, r: {
                     "last_filled_at": device.status.bowl_status[0].last_filled_at,
                     "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
@@ -377,7 +369,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:devices",
             native_unit_of_measurement="pcs",
             field=MethodField(
-                get_fn=lambda device, r: device.status.devices.count,
+                path="status.devices.count",
                 get_extra_fn=lambda device, r: {
                     "devices": [str(item.id) for item in device.status.devices.items]
                 },
