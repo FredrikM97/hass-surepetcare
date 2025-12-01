@@ -168,6 +168,13 @@
       },
       "curfew_enabled": {
         "name": "Utegångsförbud aktivt"
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Hemma",
+          "outside": "Borta"
+        }
       }
     },
     "number": {

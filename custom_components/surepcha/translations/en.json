@@ -169,6 +169,13 @@
       },
       "curfew_enabled": {
         "name": "Curfew active"
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Home",
+          "outside": "Away"
+        }
       }
     },
     "number": {

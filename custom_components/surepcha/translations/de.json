@@ -168,6 +168,13 @@
       },
       "curfew_enabled": {
         "name": "Ausgehverbot aktiv"
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Drinnen",
+          "outside": "Draußen"
+        }
       }
     },
     "number": {
