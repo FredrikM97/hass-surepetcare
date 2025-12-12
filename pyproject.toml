@@ -11,12 +11,14 @@ authors = [
 ]
 license = { text = "MIT" }
 readme = "README.md"
+requires-python = ">=3.13.2"
 
 [project.optional-dependencies]
 dev = [
-    "homeassistant",
+    "homeassistant==2025.12.0",
     "py-surepetcare==0.5.9",
     "pycares<5.0.0",  # Fix aiodns compatibility
+    "pre-commit",
     "pytest",
     "pytest-homeassistant-custom-component>=0.13.287"
 ]

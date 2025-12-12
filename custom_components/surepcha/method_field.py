@@ -74,25 +74,39 @@ class MethodField:
         Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]
     ] = None
 
+    def __post_init__(self):
+        """Set default get_fn and set_fn if not provided but path is."""
+        if self.path:
+            # Only set get_fn default if not explicitly provided
+            if self.get_fn is None:
+                object.__setattr__(
+                    self, "get_fn", lambda device, r: get_by_path(device, self.path)
+                )
+            # Only set set_fn default if not explicitly provided
+            if self.set_fn is None:
+                object.__setattr__(
+                    self,
+                    "set_fn",
+                    lambda device, r, value: device.set_control(
+                        **build_nested_dict(self.path, value)
+                    ),
+                )
+
+        # Set get_extra_fn from path_extra if not explicitly provided
+        if self.path_extra and self.get_extra_fn is None:
+            object.__setattr__(
+                self,
+                "get_extra_fn",
+                lambda device, r: get_by_path(device, self.path_extra),
+            )
+
     def get(
         self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
     ) -> Any:
         """Get the value from the device."""
-        if self.path:
-            return get_by_path(device, self.path)
         if self.get_fn:
             return self.get_fn(device, entry_options)
         raise NotImplementedError("No get_fn or path defined")
-
-    def get_extra(
-        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
-    ) -> Any:
-        """Get extra attributes from the device."""
-        if self.path_extra:
-            return get_by_path(device, self.path_extra)
-        if self.get_extra_fn:
-            return self.get_extra_fn(device, entry_options)
-        raise NotImplementedError("No get_extra_fn or path defined")
 
     def set(
         self,
@@ -101,11 +115,17 @@ class MethodField:
         value: Any,
     ) -> Any:
         """Set the value on the device."""
-        if self.path:
-            return device.set_control(**build_nested_dict(self.path, value))
         if self.set_fn:
             return self.set_fn(device, entry_options, value)
         raise NotImplementedError("No set_fn or path defined")
+
+    def get_extra(
+        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
+    ) -> Any:
+        """Get extra attributes from the device."""
+        if self.get_extra_fn:
+            return self.get_extra_fn(device, entry_options)
+        raise NotImplementedError("No get_extra_fn or path_extra defined")
 
     def __call__(
         self,

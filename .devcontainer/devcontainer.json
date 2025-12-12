@@ -1,6 +1,7 @@
 {
   "name": "Python Dev Container",
   "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "remoteUser": "vscode",
   "features": {},
   "customizations": {
     "vscode": {
@@ -15,8 +16,12 @@
     }
   },
   "mounts": [
-    "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh"
+    "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-  "postCreateCommand": "pip install uv pre-commit && uv venv --clear && uv pip install -e .[dev] && pre-commit install",
-  "postStartCommand": "git config --global --unset-all core.hooksPath || true" 
+  "containerEnv": {
+    "UV_LINK_MODE": "copy",
+    "UV_VENV_CLEAR": "1"
+  },
+  "postCreateCommand": "pip install --quiet uv && uv venv && uv pip install -e .[dev] && uv run pre-commit install",
+  "postStartCommand": "git config --global --unset-all core.hooksPath || true"
 }

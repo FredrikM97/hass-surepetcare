@@ -21,7 +21,7 @@ from .entity import (
 )
 from surepcio.command import Command
 from surepcio.devices import Pet
-from surepcio.enums import ProductId, PetDeviceLocationProfile
+from surepcio.enums import ProductId, PetDeviceLocationProfile, PetLocation
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, FLAP_PRODUCTS, KEY_API
 import logging
 
@@ -90,6 +90,18 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                         if option_product_id(r, d.id) in FLAP_PRODUCTS
                     ]
                 },
+            ),
+            icon="mdi:door",
+        ),
+        SurePetCareSwitchEntityDescription(
+            key="position",
+            translation_key="position",
+            entity_registry_enabled_default=False,
+            field=SwitchMethodField(
+                path="status.activity.where",
+                set_fn=lambda device, r, value: device.set_position(value),
+                on=PetLocation.OUTSIDE,
+                off=PetLocation.INSIDE,
             ),
             icon="mdi:door",
         ),
