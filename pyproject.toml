@@ -16,6 +16,7 @@ readme = "README.md"
 dev = [
     "homeassistant",
     "py-surepetcare==0.5.9",
+    "pycares<5.0.0",  # Fix aiodns compatibility
     "pytest",
     "pytest-homeassistant-custom-component>=0.13.287"
 ]
