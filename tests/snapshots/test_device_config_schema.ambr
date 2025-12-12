@@ -10,12 +10,16 @@
     }),
     <ProductId.DUAL_SCAN_CONNECT: 6>: dict({
       'location_inside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),
         selector_type='area',
       ),
       'location_outside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),
@@ -25,12 +29,16 @@
     }),
     <ProductId.DUAL_SCAN_PET_DOOR: 10>: dict({
       'location_inside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),
         selector_type='area',
       ),
       'location_outside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),
@@ -52,12 +60,16 @@
     }),
     <ProductId.PET_DOOR: 3>: dict({
       'location_inside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),
         selector_type='area',
       ),
       'location_outside': AreaSelector(
+        allowed_context_keys=dict({
+        }),
         config=dict({
           'multiple': False,
         }),

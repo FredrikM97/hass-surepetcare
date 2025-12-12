@@ -117,8 +117,8 @@
 # name: test_entry_diagnostics[feeder_connect]
   dict({
     'entry_data': dict({
-      'client_device_id': '123',
-      'token': 'abc',
+      'client_device_id': '**REDACTED**',
+      'token': '**REDACTED**',
     }),
     'options': dict({
       'devices': dict({

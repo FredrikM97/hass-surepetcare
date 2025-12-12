@@ -33,6 +33,10 @@ async def test_entry_diagnostics(
         hass, hass_client, mock_config_entry
     )
 
+    # Verify sensitive data is redacted
+    assert result["entry_data"]["token"] == "**REDACTED**"
+    assert result["entry_data"]["client_device_id"] == "**REDACTED**"
+
     assert result == snapshot(
         exclude=props("last_changed", "last_reported", "last_updated")
     )
