@@ -17,10 +17,10 @@ requires-python = ">=3.13.2"
 dev = [
     "homeassistant==2025.12.0",
     "py-surepetcare==0.5.9",
-    "pycares<6.0.0",  # Fix aiodns compatibility
-    "pre-commit",
-    "pytest",
-    "pytest-homeassistant-custom-component>=0.13.287"
+    "pycares<6.0.0",
+    "pre-commit==4.5.1",
+    "pytest==9.0.2",
+    "pytest-homeassistant-custom-component==0.13.287"
 ]
 
 [tool.setuptools.packages.find]

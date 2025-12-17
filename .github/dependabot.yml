@@ -10,6 +10,11 @@ updates:
       prefix: "deps"
     labels:
       - "dependencies"
+    groups:
+      homeassistant:
+        patterns:
+          - "homeassistant"
+          - "pytest-homeassistant-custom-component"
     
   # GitHub Actions
   - package-ecosystem: "github-actions"
