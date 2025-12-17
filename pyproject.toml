@@ -20,7 +20,7 @@ dev = [
     "pycares<6.0.0",
     "pre-commit==4.5.1",
     "pytest==9.0.2",
-    "pytest-homeassistant-custom-component==0.13.287"
+    "pytest-homeassistant-custom-component==0.13.300"
 ]
 
 [tool.setuptools.packages.find]
