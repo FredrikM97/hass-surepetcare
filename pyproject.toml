@@ -15,12 +15,12 @@ requires-python = ">=3.13.2"
 
 [project.optional-dependencies]
 dev = [
-    "homeassistant==2025.12.2",
+    "homeassistant==2025.12.4",
     "py-surepetcare==0.5.9",
     "pycares<6.0.0",
     "pre-commit==4.5.1",
 
-    "pytest-homeassistant-custom-component==0.13.300"
+    "pytest-homeassistant-custom-component==0.13.301"
 ]
 
 [tool.setuptools.packages.find]
