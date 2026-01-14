@@ -31,12 +31,23 @@ jobs:
       - name: Create release
         if: steps.check.outputs.has_changes == 'true'
         run: |
-          cd custom_components && zip -r ../surepcha.zip surepcha/ && cd ..
+          zip -r surepcha.zip custom_components/surepcha/ -x '*.pyc' '*__pycache__/*'
           
-          gh release create dev surepcha.zip \
-            --title "Dev Release" \
-            --notes "**Build**: $(date -u '+%Y-%m-%d %H:%M UTC') | **Commit**: $(git rev-parse --short HEAD)" \
-            --prerelease \
-            --clobber
+          # Get commit info (count commits since last stable release)
+          LAST_STABLE_TAG=$(gh release list --limit 100 --json tagName,isPrerelease | jq -r '.[] | select(.isPrerelease == false) | .tagName' | head -1)
+          COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
+          
+          NOTES="⚠️ Development Build - Automated weekly release from dev branch."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
+          
+          # Create or update dev release
+          if ! gh release view dev >/dev/null 2>&1; then
+            gh release create dev --title "Dev Release" --notes "$NOTES" --prerelease
+          fi
+          
+          # Upload with clobber to overwrite existing asset
+          gh release upload dev surepcha.zip --clobber
+          
+          # Update release notes
+          gh release edit dev --notes "$NOTES"
         env:
           GH_TOKEN: ${{ github.token }}
