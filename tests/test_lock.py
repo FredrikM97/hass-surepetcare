@@ -5,7 +5,7 @@ from syrupy.assertion import SnapshotAssertion
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-
+from surepcio.enums import FlapLocking
 from . import initialize_entry
 
 from pytest_homeassistant_custom_component.common import (
@@ -74,6 +74,7 @@ async def test_lock_toggle_and_snapshot(
 
     for entity_id in hass.states.async_entity_ids("lock"):
         # Lock
+        mock_client.api.reset_mock()
         await hass.services.async_call(
             "lock",
             "lock",
@@ -81,11 +82,18 @@ async def test_lock_toggle_and_snapshot(
             blocking=True,
         )
         await hass.async_block_till_done()
+
+        # Verify the API was called with the LOCKED command
+        mock_client.api.assert_called_once()
+        call_args = mock_client.api.call_args[0][0]
+        assert call_args.params["locking"] == FlapLocking.LOCKED.value
+
         state_locked = hass.states.get(entity_id)
         assert state_locked is not None
         assert state_locked == snapshot(name=f"{entity_id}-locked")
 
         # Unlock
+        mock_client.api.reset_mock()
         await hass.services.async_call(
             "lock",
             "unlock",
@@ -93,6 +101,12 @@ async def test_lock_toggle_and_snapshot(
             blocking=True,
         )
         await hass.async_block_till_done()
+
+        # Verify the API was called with the UNLOCKED command
+        mock_client.api.assert_called_once()
+        call_args = mock_client.api.call_args[0][0]
+        assert call_args.params["locking"] == FlapLocking.UNLOCKED.value
+
         state_unlocked = hass.states.get(entity_id)
         assert state_unlocked is not None
         assert state_unlocked == snapshot(name=f"{entity_id}-unlocked")

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import re
 from types import MappingProxyType
 from typing import Any, Optional
+from homeassistant.components.lock.const import LockState
 
 from surepcio.devices.device import SurePetCareBase
 
@@ -189,9 +190,37 @@ class SwitchMethodField(MethodField):
         return MethodField.set(self, device, entry_options, value)
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class LockMethodField(MethodField):
     """MethodField for lock-like entities."""
+
+    states: dict[LockState, Any] = {}
+    _reverse_states: dict[Any, LockState] = {}
+
+    def __post_init__(self):
+        """Create reverse mapping for efficient lookups."""
+        # Call parent's __post_init__ to set up get_fn/set_fn from path
+        MethodField.__post_init__(self)
+        if self.states is None:
+            raise ValueError("LockMethodField requires 'states' to be provided")
+        # Create reverse mapping: FlapLocking -> LockState
+        object.__setattr__(
+            self, "_reverse_states", {v: k for k, v in self.states.items()}
+        )
+
+    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+        """Get the value from the device and map it to LockState."""
+        raw_value = MethodField.get(self, device, entry_options)
+        return self._reverse_states.get(raw_value)
+
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
+        """Set the value on the device by mapping LockState to the corresponding value."""
+        if value not in self.states:
+            raise ValueError(f"Unknown lock state: {value} for {device}")
+        mapped_value = self.states[value]
+        return MethodField.set(self, device, entry_options, mapped_value)
 
 
 @dataclass(frozen=True, slots=True)

@@ -6,7 +6,7 @@ from homeassistant.components.lock import LockEntity, LockEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-
+from homeassistant.components.lock.const import LockState
 from custom_components.surepcha.method_field import LockMethodField
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -23,18 +23,18 @@ class SurePetCareLockEntityDescription(
 ):
     """Describes SurePetCare lock entity."""
 
-    locked_states: dict[str, str]
-
 
 SENSOR_DESCRIPTIONS_LOCKING: tuple[SurePetCareLockEntityDescription, ...] = (
     SurePetCareLockEntityDescription(
         key="locking",
         translation_key="locking",
-        field=LockMethodField(path="control.locking"),
-        locked_states={
-            "locked": FlapLocking.LOCKED.value,
-            "unlocked": FlapLocking.UNLOCKED.value,
-        },
+        field=LockMethodField(
+            path="control.locking",
+            states={
+                LockState.LOCKED: FlapLocking.LOCKED,
+                LockState.UNLOCKED: FlapLocking.UNLOCKED,
+            },
+        ),
     ),
 )
 
@@ -90,10 +90,16 @@ class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
 
     @property
     def is_locked(self) -> bool:
-        return self.native_value == self.entity_description.locked_states["locked"]
+        return self.lock_state() == LockState.LOCKED
 
     async def async_lock(self, **kwargs):
-        await self.send_command(FlapLocking.LOCKED)
+        await self.send_command(LockState.LOCKED)
 
     async def async_unlock(self, **kwargs):
-        await self.send_command(FlapLocking.UNLOCKED)
+        await self.send_command(LockState.UNLOCKED)
+
+    def lock_state(self):
+        """Return the lock state."""
+        return self.entity_description.field.get(
+            self.coordinator.data, self.coordinator.config_entry.options
+        )
