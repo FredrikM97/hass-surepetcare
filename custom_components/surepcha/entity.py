@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
+import logging
 from typing import Any, cast
 
 from surepcio import SurePetcareClient
@@ -11,6 +12,8 @@ from custom_components.surepcha.helper import serialize
 from custom_components.surepcha.method_field import MethodField
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -94,5 +97,13 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         command = self.entity_description.field(
             self._device, self.coordinator.config_entry.options, value
         )
+        logger.debug(
+            "send_command for %s: %s=%s (command: %s)",
+            self.entity_id,
+            self.entity_description.field.path,
+            value,
+            command,
+        )
         await self.coordinator.client.api(command)
         await self.coordinator.async_request_refresh()
+        logger.debug("Coordinator refresh completed for %s", self.entity_id)

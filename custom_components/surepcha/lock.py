@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
+import logging
 from homeassistant.components.lock import LockEntity, LockEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -15,6 +16,8 @@ from .entity import (
 )
 from surepcio.enums import ProductId, FlapLocking
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)

@@ -2,12 +2,15 @@
 
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 import re
 from types import MappingProxyType
 from typing import Any, Optional
 from homeassistant.components.lock.const import LockState
 
 from surepcio.devices.device import SurePetCareBase
+
+logger = logging.getLogger(__name__)
 
 _LIST_INDEX_RE = re.compile(r"(\w+)\[(\d+)\]$")
 
@@ -106,7 +109,13 @@ class MethodField:
     ) -> Any:
         """Get the value from the device."""
         if self.get_fn:
-            return self.get_fn(device, entry_options)
+            value = self.get_fn(device, entry_options)
+            logger.debug(
+                "MethodField.get: path=%s, value=%s",
+                self.path or "<custom_fn>",
+                value,
+            )
+            return value
         raise NotImplementedError("No get_fn or path defined")
 
     def set(
@@ -117,6 +126,11 @@ class MethodField:
     ) -> Any:
         """Set the value on the device."""
         if self.set_fn:
+            logger.debug(
+                "MethodField.set: path=%s, value=%s",
+                self.path or "<custom_fn>",
+                value,
+            )
             return self.set_fn(device, entry_options, value)
         raise NotImplementedError("No set_fn or path defined")
 
