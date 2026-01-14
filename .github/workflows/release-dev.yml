@@ -1,0 +1,42 @@
+name: Dev Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for changes
+        id: check
+        run: |
+          LAST_SHA=$(gh release view dev --json targetCommitish -q '.targetCommitish' 2>/dev/null || echo "")
+          if [ -n "$LAST_SHA" ] && [ -z "$(git diff --name-only $LAST_SHA HEAD -- custom_components/surepcha/)" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Create release
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          cd custom_components && zip -r ../surepcha.zip surepcha/ && cd ..
+          
+          gh release create dev surepcha.zip \
+            --title "Dev Release" \
+            --notes "**Build**: $(date -u '+%Y-%m-%d %H:%M UTC') | **Commit**: $(git rev-parse --short HEAD)" \
+            --prerelease \
+            --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
