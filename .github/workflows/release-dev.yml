@@ -19,8 +19,11 @@ jobs:
       - name: Check for changes
         id: check
         run: |
-          LAST_SHA=$(gh release view dev --json targetCommitish -q '.targetCommitish' 2>/dev/null || echo "")
-          if [ -n "$LAST_SHA" ] && [ -z "$(git diff --name-only $LAST_SHA HEAD -- custom_components/surepcha/)" ]; then
+          CURRENT_SHA=$(git rev-parse --short HEAD)
+          LAST_NOTES=$(gh release view dev --json body -q '.body' 2>/dev/null || echo "")
+          
+          # Check if current commit is already in the release notes
+          if echo "$LAST_NOTES" | grep -q "**Commit**: $CURRENT_SHA"; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
