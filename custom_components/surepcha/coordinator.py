@@ -44,4 +44,7 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[Any]):
 
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
+        logger.debug(
+            "Fetching data for device %s (id=%s)", self._device.name, self._device.id
+        )
         return await self.client.api(self._device.refresh())
