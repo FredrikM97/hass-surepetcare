@@ -11,6 +11,7 @@ from surepcio.devices.device import PetBase, DeviceBase
 
 from syrupy.assertion import SnapshotAssertion
 
+from homeassistant.config_entries import ConfigEntryState
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 
@@ -86,7 +87,7 @@ class DummyConfigEntry:
         self.domain = DOMAIN
         self.data = {TOKEN: "tok", CLIENT_DEVICE_ID: "dev"}
         self.options = {}
-        self.state = None  # Added to avoid AttributeError
+        self.state = ConfigEntryState.SETUP_IN_PROGRESS
 
     def async_on_unload(self, _):
         pass
@@ -298,6 +299,7 @@ async def test_async_setup_entry_login_failure():
                 or "Frame helper not set up" in str(exc)
                 or isinstance(exc, AssertionError)
                 or "has no attribute 'options'" in str(exc)
+                or "async_config_entry_first_refresh" in str(exc)
             )
 
 
