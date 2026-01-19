@@ -702,8 +702,8 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50,
-      'bowls_1_target': 99,
+      'bowls_0_target': 50.0,
+      'bowls_1_target': 99.0,
       'device_class': 'weight',
       'friendly_name': 'Feeder with different fill percent Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -714,7 +714,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149',
+    'state': '149.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
@@ -1692,8 +1692,8 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50,
-      'bowls_1_target': 0,
+      'bowls_0_target': 50.0,
+      'bowls_1_target': 0.0,
       'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1704,7 +1704,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '50.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_position-entry]
@@ -3376,8 +3376,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50,
-      'bowls_1_target': 99,
+      'bowls_0_target': 50.0,
+      'bowls_1_target': 99.0,
       'device_class': 'weight',
       'friendly_name': 'Feeder with different fill percent Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3388,7 +3388,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149',
+    'state': '149.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
@@ -4365,8 +4365,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50,
-      'bowls_1_target': 0,
+      'bowls_0_target': 50.0,
+      'bowls_1_target': 0.0,
       'device_class': 'weight',
       'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4377,7 +4377,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50',
+    'state': '50.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-entry]

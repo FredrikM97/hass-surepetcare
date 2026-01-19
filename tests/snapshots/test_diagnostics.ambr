@@ -9,11 +9,11 @@
           'settings': list([
             dict({
               'food_type': 'WET',
-              'target': 50,
+              'target': 50.0,
             }),
             dict({
               'food_type': 'WET',
-              'target': 0,
+              'target': 0.0,
             }),
           ]),
           'type': 'TWO_SMALL',
