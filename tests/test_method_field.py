@@ -14,6 +14,8 @@ from custom_components.surepcha.method_field import (
     build_nested_dict,
     get_by_path,
 )
+from homeassistant.components.lock.const import LockState
+from surepcio.enums import FlapLocking
 
 
 class TestBuildNestedDict:
@@ -441,20 +443,27 @@ class TestLockMethodField:
         assert issubclass(LockMethodField, MethodField)
 
     def test_basic_functionality(self):
-        """Test LockMethodField basic get/set functionality."""
+        """Test LockMethodField basic get/set functionality with state mapping."""
+
         device = MagicMock()
-        device.control.locked = True
+        device.control.locking = FlapLocking.LOCKED
         device.set_control = MagicMock()
 
-        field = LockMethodField(path="control.locked")
+        field = LockMethodField(
+            path="control.locking",
+            states={
+                LockState.LOCKED: FlapLocking.LOCKED,
+                LockState.UNLOCKED: FlapLocking.UNLOCKED,
+            },
+        )
         options = MappingProxyType({})
 
-        # Get works
-        assert field.get(device, options) is True
+        # Get works and maps to LockState
+        assert field.get(device, options) == LockState.LOCKED
 
-        # Set works
-        field.set(device, options, False)
-        device.set_control.assert_called_with(control={"locked": False})
+        # Set works and maps from LockState to FlapLocking
+        field.set(device, options, LockState.UNLOCKED)
+        device.set_control.assert_called_with(control={"locking": FlapLocking.UNLOCKED})
 
 
 class TestBinarySensorMethodField:

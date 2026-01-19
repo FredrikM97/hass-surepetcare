@@ -10,7 +10,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_lock_toggle_and_snapshot[lock.katzenklappe_locking-unlocked]
@@ -24,7 +24,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_lock_toggle_and_snapshot[lock.laundry_door_locking-locked]
@@ -101,7 +101,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_platform_setup_and_discovery[lock.laundry_door_locking-entry]
@@ -199,7 +199,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unlocked',
+    'state': 'locked',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[lock.laundry_door_locking-entry]

@@ -1,0 +1,56 @@
+name: Dev Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check for changes
+        id: check
+        run: |
+          CURRENT_SHA=$(git rev-parse --short HEAD)
+          LAST_NOTES=$(gh release view dev --json body -q '.body' 2>/dev/null || echo "")
+          
+          # Check if current commit is already in the release notes
+          if echo "$LAST_NOTES" | grep -q "**Commit**: $CURRENT_SHA"; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Create release
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          zip -r surepcha.zip custom_components/surepcha/ -x '*.pyc' '*__pycache__/*'
+          
+          # Get commit info (count commits since last stable release)
+          LAST_STABLE_TAG=$(gh release list --limit 100 --json tagName,isPrerelease | jq -r '.[] | select(.isPrerelease == false) | .tagName' | head -1)
+          COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
+          
+          NOTES="⚠️ Development Build - Automated weekly release from dev branch."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
+          
+          # Create or update dev release
+          if ! gh release view dev >/dev/null 2>&1; then
+            gh release create dev --title "Dev Release" --notes "$NOTES" --prerelease
+          fi
+          
+          # Upload with clobber to overwrite existing asset
+          gh release upload dev surepcha.zip --clobber
+          
+          # Update release notes
+          gh release edit dev --notes "$NOTES"
+        env:
+          GH_TOKEN: ${{ github.token }}

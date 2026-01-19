@@ -2,11 +2,15 @@
 
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 import re
 from types import MappingProxyType
 from typing import Any, Optional
+from homeassistant.components.lock.const import LockState
 
 from surepcio.devices.device import SurePetCareBase
+
+logger = logging.getLogger(__name__)
 
 _LIST_INDEX_RE = re.compile(r"(\w+)\[(\d+)\]$")
 
@@ -105,7 +109,13 @@ class MethodField:
     ) -> Any:
         """Get the value from the device."""
         if self.get_fn:
-            return self.get_fn(device, entry_options)
+            value = self.get_fn(device, entry_options)
+            logger.debug(
+                "MethodField.get: path=%s, value=%s",
+                self.path or "<custom_fn>",
+                value,
+            )
+            return value
         raise NotImplementedError("No get_fn or path defined")
 
     def set(
@@ -116,6 +126,11 @@ class MethodField:
     ) -> Any:
         """Set the value on the device."""
         if self.set_fn:
+            logger.debug(
+                "MethodField.set: path=%s, value=%s",
+                self.path or "<custom_fn>",
+                value,
+            )
             return self.set_fn(device, entry_options, value)
         raise NotImplementedError("No set_fn or path defined")
 
@@ -189,9 +204,41 @@ class SwitchMethodField(MethodField):
         return MethodField.set(self, device, entry_options, value)
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class LockMethodField(MethodField):
     """MethodField for lock-like entities."""
+
+    states: dict[LockState, Any] | None = None
+    _reverse_states: dict[Any, LockState] | None = None
+
+    def __post_init__(self):
+        """Create reverse mapping for efficient lookups."""
+        # Call parent's __post_init__ to set up get_fn/set_fn from path
+        MethodField.__post_init__(self)
+        if not self.states:
+            raise ValueError("LockMethodField requires 'states' to be provided")
+        # Create reverse mapping: FlapLocking -> LockState
+        object.__setattr__(
+            self, "_reverse_states", {v: k for k, v in self.states.items()}
+        )
+
+    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+        """Get the value from the device and map it to LockState."""
+        raw_value = MethodField.get(self, device, entry_options)
+        # _reverse_states is guaranteed to be set in __post_init__
+        assert self._reverse_states is not None
+        return self._reverse_states.get(raw_value)
+
+    def set(
+        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
+    ) -> Any:
+        """Set the value on the device by mapping LockState to the corresponding value."""
+        # states is guaranteed to be set (checked in __post_init__)
+        assert self.states is not None
+        if value not in self.states:
+            raise ValueError(f"Unknown lock state: {value} for {device}")
+        mapped_value = self.states[value]
+        return MethodField.set(self, device, entry_options, mapped_value)
 
 
 @dataclass(frozen=True, slots=True)
