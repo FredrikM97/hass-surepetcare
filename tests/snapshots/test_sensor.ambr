@@ -133,7 +133,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -147,9 +147,10 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'friendly_name': 'Ajax Entity Information',
       'household_id': '245684',
-      'icon': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      'icon': 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
       'product_id': 0,
@@ -1170,7 +1171,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1184,9 +1185,10 @@
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
       'product_id': 0,
@@ -1894,7 +1896,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -1908,9 +1910,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
       'product_id': 0,
@@ -2218,7 +2221,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2232,9 +2235,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
       'product_id': 0,
@@ -2807,7 +2811,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -2821,9 +2825,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'friendly_name': 'Ajax Entity Information',
       'household_id': '245684',
-      'icon': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      'icon': 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
       'product_id': 0,
@@ -3844,7 +3849,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -3858,9 +3863,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
       'product_id': 0,
@@ -4567,7 +4573,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4581,9 +4587,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
       'product_id': 0,
@@ -4891,7 +4898,7 @@
     'options': dict({
     }),
     'original_device_class': None,
-    'original_icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+    'original_icon': 'mdi:information',
     'original_name': 'Entity Information',
     'platform': 'surepcha',
     'previous_unique_id': None,
@@ -4905,9 +4912,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
-      'icon': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      'icon': 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
       'product_id': 0,

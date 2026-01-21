@@ -77,7 +77,7 @@ class MethodField:
     get_extra_fn: Optional[
         Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]
     ] = None
-    icon: Optional[str] = None
+    entity_picture: Optional[str] = None
 
     def __post_init__(self):
         """Set default get_fn and set_fn if not provided but path is."""
@@ -143,9 +143,9 @@ class MethodField:
             return self.get_extra_fn(device, entry_options)
         raise NotImplementedError("No get_extra_fn or path_extra defined")
 
-    def get_icon(self, device) -> Optional[str]:
-        """Return the icon path if set."""
-        return get_by_path(device, self.icon) if self.icon else None
+    def get_entity_picture(self, device) -> Optional[str]:
+        """Return the entity picture URL if set."""
+        return get_by_path(device, self.entity_picture) if self.entity_picture else None
 
     def __call__(
         self,
