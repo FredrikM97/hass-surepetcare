@@ -147,11 +147,13 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'friendly_name': 'Ajax Entity Information',
       'household_id': '245684',
       'icon': 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'product_id': 0,
       'tag': '1270143',
     }),
@@ -537,11 +539,13 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
+      'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
@@ -813,6 +817,7 @@
       'icon': 'mdi:information',
       'id': '1299453',
       'parent_device_id': '1202413',
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_entity_information',
@@ -968,6 +973,7 @@
       'icon': 'mdi:information',
       'id': '727608',
       'parent_device_id': None,
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_entity_information',
@@ -1184,11 +1190,13 @@
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -1527,11 +1535,13 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
+      'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_entity_information',
@@ -1908,11 +1918,13 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -2232,11 +2244,13 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -2562,6 +2576,7 @@
       'icon': 'mdi:information',
       'id': '734730',
       'parent_device_id': None,
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_entity_information',
@@ -2821,11 +2836,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'friendly_name': 'Ajax Entity Information',
       'household_id': '245684',
       'icon': 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
       'product_id': 0,
       'tag': '1270143',
     }),
@@ -3211,11 +3228,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
+      'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_entity_information',
@@ -3487,6 +3506,7 @@
       'icon': 'mdi:information',
       'id': '1299453',
       'parent_device_id': '1202413',
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_entity_information',
@@ -3642,6 +3662,7 @@
       'icon': 'mdi:information',
       'id': '727608',
       'parent_device_id': None,
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_entity_information',
@@ -3858,11 +3879,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Maui Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -4200,11 +4223,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       'friendly_name': 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
+      'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_entity_information',
@@ -4581,11 +4606,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with empty status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -4905,11 +4932,13 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'friendly_name': 'Pet with only one change on status Entity Information',
       'household_id': '222527',
       'icon': 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
+      'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       'product_id': 0,
       'tag': '60978',
     }),
@@ -5234,6 +5263,7 @@
       'icon': 'mdi:information',
       'id': '734730',
       'parent_device_id': None,
+      'photo': None,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_entity_information',

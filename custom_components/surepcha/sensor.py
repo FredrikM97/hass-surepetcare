@@ -125,7 +125,9 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
                 "household_id": str(device.household_id),
                 "id": str(device.id),
                 "parent_device_id": stringify(device.entity_info.parent_device_id),
+                "photo": device.photo,
             },
+            entity_picture="photo",
         ),
     ),
 )
@@ -156,7 +158,9 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
                 "tag": str(device.tag),
                 "id": str(device.id),
                 "parent_device_id": stringify(device.entity_info.parent_device_id),
+                "photo": device.photo,
             },
+            entity_picture="photo",
         ),
     ),
 )
@@ -440,3 +444,12 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         )
         self.entity_description = description
         self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+
+    @property
+    def entity_picture(self) -> str | None:
+        """Return the entity picture URL to use for the entity."""
+        if entity_picture := self.entity_description.field.get_entity_picture(
+            self._device
+        ):
+            return entity_picture
+        return None
