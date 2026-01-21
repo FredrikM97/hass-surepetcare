@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 0 * * 1'
 
+env:
+  COMPONENT_NAME: surepcha
+
 permissions:
   contents: write
 
@@ -31,11 +34,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Zip ${{ env.COMPONENT_NAME }} dir
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          # Package from inside the component directory (archive root is files only)
+          cd "${{ github.workspace }}/custom_components/${{ env.COMPONENT_NAME }}"
+          zip "${{ env.COMPONENT_NAME }}.zip" -r ./ -x '*.pyc' '*__pycache__/*'
+
       - name: Create release
         if: steps.check.outputs.has_changes == 'true'
         run: |
-          zip -r surepcha.zip custom_components/surepcha/ -x '*.pyc' '*__pycache__/*'
-          
           # Get commit info (count commits since last stable release)
           LAST_STABLE_TAG=$(gh release list --limit 100 --json tagName,isPrerelease | jq -r '.[] | select(.isPrerelease == false) | .tagName' | head -1)
           COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
@@ -48,7 +56,7 @@ jobs:
           fi
           
           # Upload with clobber to overwrite existing asset
-          gh release upload dev surepcha.zip --clobber
+          gh release upload dev "custom_components/${{ env.COMPONENT_NAME }}/${{ env.COMPONENT_NAME }}.zip" --clobber
           
           # Update release notes
           gh release edit dev --notes "$NOTES"
