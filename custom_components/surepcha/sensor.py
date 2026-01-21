@@ -125,7 +125,9 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
                 "household_id": str(device.household_id),
                 "id": str(device.id),
                 "parent_device_id": stringify(device.entity_info.parent_device_id),
+                "photo": device.photo,
             },
+            entity_picture="photo",
         ),
     ),
 )
@@ -156,8 +158,9 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
                 "tag": str(device.tag),
                 "id": str(device.id),
                 "parent_device_id": stringify(device.entity_info.parent_device_id),
+                "photo": device.photo,
             },
-            entity_picture="entity_info.photo.location",
+            entity_picture="photo",
         ),
     ),
 )
