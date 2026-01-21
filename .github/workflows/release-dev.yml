@@ -45,7 +45,7 @@ jobs:
         if: steps.check.outputs.has_changes == 'true'
         run: |
           # Get commit info (count commits since last stable release)
-          LAST_STABLE_TAG=$(gh release list --limit 100 --json tagName,isPrerelease | jq -r '.[] | select(.isPrerelease == false) | .tagName' | head -1)
+          LAST_STABLE_TAG=$(gh release list --exclude-pre-releases --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')
           COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
           
           NOTES="⚠️ Development Build - Automated weekly release from dev branch."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
