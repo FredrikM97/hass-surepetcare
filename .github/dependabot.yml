@@ -1,23 +1,24 @@
 version: 2
 updates:
-  # Python dependencies in pyproject.toml
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: pip
+    directory: /
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "deps"
-    labels:
-      - "dependencies"
-    
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
+      interval: monthly
+      day-of-month: 1
+    groups:
+      dev-tools:
+        patterns:
+          - black
+          - isort
+          - flake8
+          - mypy
+          - pytest*
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 3
-    commit-message:
-      prefix: "ci"
-    labels:
-      - "dependencies"
+      interval: monthly
+      day-of-month: 1
