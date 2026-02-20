@@ -111,9 +111,11 @@ class MethodField:
         """Get the value from the device."""
         if self.get_fn:
             value = self.get_fn(device, entry_options)
+            path_label = self.path or self.get_fn.__name__
             logger.debug(
-                "MethodField.get: path=%s, value=%s",
-                self.path or "<custom_fn>",
+                "MethodField.get: device_id=%s, path=%s, value=%s",
+                device.id,
+                path_label,
                 value,
             )
             return value
@@ -127,9 +129,11 @@ class MethodField:
     ) -> Any:
         """Set the value on the device."""
         if self.set_fn:
+            path_label = self.path or self.set_fn.__name__
             logger.debug(
-                "MethodField.set: path=%s, value=%s",
-                self.path or "<custom_fn>",
+                "MethodField.set: device_id=%s, path=%s, value=%s",
+                device.id,
+                path_label,
                 value,
             )
             return self.set_fn(device, entry_options, value)
