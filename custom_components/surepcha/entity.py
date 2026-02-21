@@ -105,5 +105,4 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             command,
         )
         await self.coordinator.client.api(command)
-        await self.coordinator.async_request_refresh()
         logger.debug("Coordinator refresh completed for %s", self.entity_id)
