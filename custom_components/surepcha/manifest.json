@@ -14,7 +14,7 @@
     "surepcio"
   ],
   "requirements": [
-    "py-surepetcare==0.5.11"
+      "git+https://github.com/FredrikM97/py-surepetcare.git@improve_client#pyhafas"
   ],
   "version": "0.0.0"
 }

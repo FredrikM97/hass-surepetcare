@@ -1,4 +1,5 @@
 from __future__ import annotations
+import asyncio
 from dataclasses import dataclass
 import logging
 from typing import Any, cast
@@ -41,6 +42,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         self._device: DeviceBase | PetBase = device_coordinator.data
         self._client = client
         self._attr_unique_id = f"{self._device.id}"
+        self._tasks: set[asyncio.Task] = set()
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -94,6 +96,12 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""
+        task = asyncio.create_task(self._send_command(value))
+        self._tasks.add(task)
+        task.add_done_callback(self._tasks.discard)
+
+    async def _send_command(self, value: Any) -> None:
+        """Send command to device."""
         command = self.entity_description.field(
             self._device, self.coordinator.config_entry.options, value
         )
@@ -105,3 +113,4 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             command,
         )
         await self.coordinator.client.api(command)
+        self.async_write_ha_state()
