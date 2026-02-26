@@ -29,10 +29,10 @@ logger = logging.getLogger(__name__)
 
 
 def profile_is_indoor(
-    device: Pet, entry_options: MappingProxyType[str, Any]
+    pet: Pet, entry_options: MappingProxyType[str, Any]
 ) -> bool | None:
     """Return True if all flap device profiles are indoor only."""
-    devices = list_attr(device, "status", "devices", "items")
+    devices = list_attr(pet, "status", "devices", "items")
     if not devices:
         return None
     profiles = {
@@ -43,23 +43,23 @@ def profile_is_indoor(
     if len(profiles) > 1:
         logger.warning(f"Flap device profiles are not uniform: {profiles}")
     if len(profiles) == 0:
-        logger.debug(f"No flap devices found for pet {device.name}")
+        logger.debug(f"No flap devices found for pet {pet.name}")
         return None
     return profiles == {PetDeviceLocationProfile.INDOOR_ONLY}
 
 
 def set_profile(
-    device: Pet,
+    pet: Pet,
     entry_options: MappingProxyType[str, Any],
     profile: PetDeviceLocationProfile,
 ) -> list[Command]:
     """Set all flap devices to the given profile and return the results."""
-    if not getattr(device, "status", None):
+    if not getattr(pet, "status", None):
         return []
 
     return [
-        device.set_profile(d.id, profile)
-        for d in list_attr(device.status, "devices", "items")
+        pet.set_profile(d.id, profile)
+        for d in list_attr(pet.status, "devices", "items")
         if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
     ]
 
@@ -83,10 +83,10 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 set_fn=set_profile,
                 on=PetDeviceLocationProfile.INDOOR_ONLY,
                 off=PetDeviceLocationProfile.NO_RESTRICTION,
-                get_extra_fn=lambda device, r: {
+                get_extra_fn=lambda pet, r: {
                     "flap_devices": [
                         str(d.id)
-                        for d in list_attr(device.status, "devices", "items")
+                        for d in list_attr(pet.status, "devices", "items")
                         if option_product_id(r, d.id) in FLAP_PRODUCTS
                     ]
                 },
