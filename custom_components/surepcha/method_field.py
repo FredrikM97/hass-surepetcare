@@ -115,7 +115,7 @@ class MethodField:
             logger.debug(
                 "MethodField.get: device_id=%s, path=%s, value=%s",
                 device.id,
-                self.path or "<custom_fn>",
+                path_label,
                 value,
             )
             return value
@@ -133,7 +133,7 @@ class MethodField:
             logger.debug(
                 "MethodField.set: device_id=%s, path=%s, value=%s",
                 device.id,
-                self.path or "<custom_fn>",
+                path_label,
                 value,
             )
             return self.set_fn(device, entry_options, value)
