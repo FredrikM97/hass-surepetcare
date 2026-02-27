@@ -132,7 +132,8 @@
           "locked": "Locked",
           "unlocked": "Unlocked",
           "allow_in": "Entry Only",
-          "allow_out": "Exit Only"
+          "allow_out": "Exit Only",
+          "curfew_mode": "Curfew"
         }
       },
       "add_assigned_device": {
