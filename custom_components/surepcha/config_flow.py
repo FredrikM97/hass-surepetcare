@@ -241,7 +241,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         return self.async_show_form(
             step_id="configure_device",
             data_schema=vol.Schema(schema_dict),
-            description_placeholders={"device_name": device[NAME]},
+            description_placeholders={"device_name": device.get(NAME, self._device_id)},
         )
 
 

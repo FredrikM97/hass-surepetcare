@@ -135,6 +135,10 @@
           'name': 'Pet with empty status',
           'product_id': 0,
         }),
+        '260093': dict({
+          'name': None,
+          'product_id': 3,
+        }),
         '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
@@ -203,6 +207,10 @@
           'name': 'Pet with empty status',
           'product_id': 0,
         }),
+        '260093': dict({
+          'name': None,
+          'product_id': 3,
+        }),
         '269654': dict({
           'name': 'Maui matlåda (old) ',
           'product_id': 4,
@@ -257,6 +265,10 @@
           '222222': dict({
             'name': 'Pet with empty status',
             'product_id': 0,
+          }),
+          '260093': dict({
+            'name': None,
+            'product_id': 3,
           }),
           '269654': dict({
             'name': 'Maui matlåda (old) ',

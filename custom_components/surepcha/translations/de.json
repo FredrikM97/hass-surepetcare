@@ -131,7 +131,8 @@
           "locked": "Gesperrt",
           "unlocked": "Entsperrt",
           "allow_in": "Nur hinein",
-          "allow_out": "Nur hinaus"
+          "allow_out": "Nur hinaus",
+          "curfew_mode": "Udgangsforbud"
         }
       },
       "add_assigned_device": {
