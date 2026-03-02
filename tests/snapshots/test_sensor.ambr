@@ -20,6 +20,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -75,6 +76,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -130,6 +132,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -188,6 +191,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -243,6 +247,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -292,6 +297,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -325,6 +331,110 @@
     'state': 'inside',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Battery',
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '260093-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '70',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Entity Information',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '260093-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Entity Information',
+      'icon': 'mdi:information',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -348,6 +458,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -401,6 +512,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl One Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -462,6 +574,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Two Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -522,6 +635,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -578,6 +692,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 1,
@@ -634,6 +749,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -686,6 +802,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Total Weight Limit',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -744,6 +861,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -795,6 +913,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -848,6 +967,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -900,6 +1020,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -951,6 +1072,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1004,6 +1126,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -1054,6 +1177,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1112,6 +1236,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -1173,6 +1298,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1231,6 +1357,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -1292,6 +1419,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1344,6 +1472,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -1397,6 +1526,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl One Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -1458,6 +1588,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Two Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -1518,6 +1649,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1574,6 +1706,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 1,
@@ -1630,6 +1763,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -1682,6 +1816,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Total Weight Limit',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -1738,6 +1873,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1771,108 +1907,6 @@
     'state': 'inside',
   })
 # ---
-# name: test_platform_setup_and_discovery[sensor.none_battery-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'sensor',
-    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'sensor.none_battery',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-    'original_icon': None,
-    'original_name': 'Battery',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': None,
-    'unique_id': '260093-battery_level',
-    'unit_of_measurement': '%',
-  })
-# ---
-# name: test_platform_setup_and_discovery[sensor.none_battery-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.none_battery',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '70',
-  })
-# ---
-# name: test_platform_setup_and_discovery[sensor.none_entity_information-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'sensor',
-    'entity_category': None,
-    'entity_id': 'sensor.none_entity_information',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': 'mdi:information',
-    'original_name': 'Entity Information',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'entity_information',
-    'unique_id': '260093-entity_information',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[sensor.none_entity_information-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Entity Information',
-      'icon': 'mdi:information',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.none_entity_information',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -1894,6 +1928,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1948,6 +1983,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2003,6 +2039,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2061,6 +2098,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2116,6 +2154,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2165,6 +2204,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2214,6 +2254,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2268,6 +2309,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2329,6 +2371,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2387,6 +2430,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2448,6 +2492,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2498,6 +2543,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2549,6 +2595,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -2600,6 +2647,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Volume',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2656,6 +2704,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2711,6 +2760,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2761,6 +2811,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -2811,6 +2862,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -2861,6 +2913,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2916,6 +2969,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -2971,6 +3025,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3029,6 +3084,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -3084,6 +3140,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3133,6 +3190,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3166,6 +3224,110 @@
     'state': 'inside',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.battery-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'sensor.battery',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Battery',
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
+    'original_icon': None,
+    'original_name': 'Battery',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': None,
+    'unique_id': '260093-battery_level',
+    'unit_of_measurement': '%',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.battery-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'battery',
+      'friendly_name': 'Battery',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.battery',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '70',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.entity_information-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.entity_information',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Entity Information',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:information',
+    'original_name': 'Entity Information',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'entity_information',
+    'unique_id': '260093-entity_information',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.entity_information-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Entity Information',
+      'icon': 'mdi:information',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.entity_information',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -3189,6 +3351,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -3242,6 +3405,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl One Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -3303,6 +3467,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Two Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -3363,6 +3528,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3419,6 +3585,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 1,
@@ -3475,6 +3642,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -3527,6 +3695,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Total Weight Limit',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -3585,6 +3754,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -3636,6 +3806,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3689,6 +3860,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -3741,6 +3913,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -3792,6 +3965,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3845,6 +4019,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -3895,6 +4070,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -3953,6 +4129,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4014,6 +4191,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4072,6 +4250,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4133,6 +4312,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4184,6 +4364,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -4237,6 +4418,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl One Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4298,6 +4480,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Two Weight',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4358,6 +4541,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4414,6 +4598,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 1,
@@ -4470,6 +4655,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -4522,6 +4708,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Total Weight Limit',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4578,6 +4765,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4611,108 +4799,6 @@
     'state': 'inside',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.none_battery-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'sensor',
-    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'sensor.none_battery',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
-    'original_icon': None,
-    'original_name': 'Battery',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': None,
-    'unique_id': '260093-battery_level',
-    'unit_of_measurement': '%',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.none_battery-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.none_battery',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '70',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.none_entity_information-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'sensor',
-    'entity_category': None,
-    'entity_id': 'sensor.none_entity_information',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': 'mdi:information',
-    'original_name': 'Entity Information',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'entity_information',
-    'unique_id': '260093-entity_information',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.none_entity_information-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Entity Information',
-      'icon': 'mdi:information',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.none_entity_information',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -4734,6 +4820,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4788,6 +4875,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4843,6 +4931,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -4901,6 +4990,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -4956,6 +5046,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5005,6 +5096,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5054,6 +5146,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Assigned devices',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5108,6 +5201,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Drinking',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -5169,6 +5263,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5227,6 +5322,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Feeding',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -5288,6 +5384,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Last Activity',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5337,6 +5434,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5388,6 +5486,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Battery',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.BATTERY: 'battery'>,
@@ -5439,6 +5538,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowl Volume',
     'options': dict({
       'sensor': dict({
         'suggested_display_precision': 0,
@@ -5495,6 +5595,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Entity Information',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5550,6 +5651,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Fill Percent',
     'options': dict({
     }),
     'original_device_class': None,
@@ -5600,6 +5702,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,
@@ -5650,6 +5753,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'RSSI',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.SIGNAL_STRENGTH: 'signal_strength'>,

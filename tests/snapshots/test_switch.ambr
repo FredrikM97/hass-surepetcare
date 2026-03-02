@@ -20,6 +20,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -69,6 +70,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -118,6 +120,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Curfew active',
     'options': dict({
     }),
     'original_device_class': None,
@@ -166,6 +169,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -218,6 +222,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -267,6 +272,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -316,6 +322,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -365,6 +372,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -414,6 +422,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -463,6 +472,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Curfew active',
     'options': dict({
     }),
     'original_device_class': None,
@@ -511,6 +521,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -560,6 +571,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -609,6 +621,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Curfew active',
     'options': dict({
     }),
     'original_device_class': None,
@@ -657,6 +670,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -706,6 +720,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -755,6 +770,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -804,6 +820,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -853,6 +870,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Indoor Only',
     'options': dict({
     }),
     'original_device_class': None,
@@ -902,6 +920,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Position',
     'options': dict({
     }),
     'original_device_class': None,
@@ -951,6 +970,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Curfew active',
     'options': dict({
     }),
     'original_device_class': None,
