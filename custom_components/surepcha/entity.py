@@ -94,6 +94,10 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""
+        self.hass.async_create_task(self._send_command(value))
+
+    async def _send_command(self, value: Any) -> None:
+        """Send command to device."""
         command = self.entity_description.field(
             self._device, self.coordinator.config_entry.options, value
         )
@@ -105,5 +109,4 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             command,
         )
         await self.coordinator.client.api(command)
-        await self.coordinator.async_request_refresh()
-        logger.debug("Coordinator refresh completed for %s", self.entity_id)
+        self.async_write_ha_state()

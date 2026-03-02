@@ -55,6 +55,34 @@
     'state': 'unlocked',
   })
 # ---
+# name: test_lock_toggle_and_snapshot[lock.test_surepetcare_entry_locking-locked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Test SurePetCare entry Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_lock_toggle_and_snapshot[lock.test_surepetcare_entry_locking-unlocked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Test SurePetCare entry Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
 # name: test_platform_setup_and_discovery[lock.katzenklappe_locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -153,6 +181,55 @@
     'state': 'unlocked',
   })
 # ---
+# name: test_platform_setup_and_discovery[lock.test_surepetcare_entry_locking-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'lock',
+    'entity_category': None,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Locking',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'locking',
+    'unique_id': '260093-locking',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[lock.test_surepetcare_entry_locking-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Test SurePetCare entry Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[lock.katzenklappe_locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': set({
@@ -245,6 +322,55 @@
     }),
     'context': <ANY>,
     'entity_id': 'lock.laundry_door_locking',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[lock.test_surepetcare_entry_locking-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': set({
+    }),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'lock',
+    'entity_category': None,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Locking',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'locking',
+    'unique_id': '260093-locking',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[lock.test_surepetcare_entry_locking-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Test SurePetCare entry Locking',
+      'supported_features': <LockEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'lock.test_surepetcare_entry_locking',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
