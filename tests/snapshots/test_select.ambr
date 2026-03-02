@@ -27,6 +27,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -86,6 +87,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -147,6 +149,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowls Type',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -211,6 +214,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Lid close delay',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -272,6 +276,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Reset bowl weight (require open lid)',
     'options': dict({
     }),
     'original_device_class': None,
@@ -334,6 +339,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Training Mode',
     'options': dict({
     }),
     'original_device_class': None,
@@ -396,6 +402,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'LED Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -459,6 +466,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -523,6 +531,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -584,6 +593,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -647,6 +657,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowls Type',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -711,6 +722,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Lid close delay',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -772,6 +784,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Reset bowl weight (require open lid)',
     'options': dict({
     }),
     'original_device_class': None,
@@ -834,6 +847,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Training Mode',
     'options': dict({
     }),
     'original_device_class': None,
@@ -895,6 +909,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -956,6 +971,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1015,6 +1031,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1074,6 +1091,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1133,6 +1151,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1193,6 +1212,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1253,6 +1273,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1309,6 +1330,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1370,6 +1392,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowls Type',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1434,6 +1457,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Lid close delay',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1495,6 +1519,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Reset bowl weight (require open lid)',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1557,6 +1582,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Training Mode',
     'options': dict({
     }),
     'original_device_class': None,
@@ -1619,6 +1645,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'LED Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1682,6 +1709,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1746,6 +1774,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1806,6 +1835,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1868,6 +1898,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Bowls Type',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1932,6 +1963,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Lid close delay',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -1993,6 +2025,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Reset bowl weight (require open lid)',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2055,6 +2088,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Training Mode',
     'options': dict({
     }),
     'original_device_class': None,
@@ -2114,6 +2148,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -2170,6 +2205,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -2226,6 +2262,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -2282,6 +2319,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Add assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -2338,6 +2376,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Remove assigned device',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
@@ -2398,6 +2437,7 @@
     'labels': set({
     }),
     'name': None,
+    'object_id_base': 'Locking Mode',
     'options': dict({
     }),
     'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
