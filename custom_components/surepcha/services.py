@@ -58,7 +58,6 @@ async def async_set_control(call):
     await coordinator.client.api(
         coordinator._device.set_control(**call.data.get("control"))
     )
-    await coordinator.async_request_refresh()
 
 
 @global_service(
@@ -79,7 +78,6 @@ async def async_set_tag(call):
             pet_coordinator._device.tag, ModifyDeviceTag[call.data.get("action")]
         )
     )
-    await device_coordinator.async_request_refresh()
 
 
 @global_service(
@@ -102,7 +100,6 @@ async def set_pet_access_mode(call) -> None:
             PetDeviceLocationProfile[call.data.get("profile")],
         )
     )
-    await pet_coordinator.async_request_refresh()
 
 
 @global_service(
@@ -121,7 +118,6 @@ async def set_pet_position(call) -> None:
     await pet_coordinator.client.api(
         device.set_position(PetLocation[call.data.get("action")])
     )
-    await pet_coordinator.async_request_refresh()
 
 
 def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":

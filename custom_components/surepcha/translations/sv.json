@@ -131,7 +131,8 @@
           "locked": "Låst",
           "unlocked": "Olåst",
           "allow_in": "Endast in",
-          "allow_out": "Endast ut"
+          "allow_out": "Endast ut",
+          "curfew_mode": "Utegångsförbud"
         }
       },
       "add_assigned_device": {
