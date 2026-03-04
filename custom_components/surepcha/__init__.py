@@ -27,6 +27,8 @@ from .const import (
     FACTORY,
     KEY_API,
     TOKEN,
+    OPTION_PROPERTIES,
+    OPTION_DATA,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
@@ -63,8 +65,12 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             new_options[OPTION_DEVICES][MANUAL_PROPERTIES] = {
                 NAME: "User Properties",
                 PRODUCT_ID: MANUAL_PROPERTIES,
+                OPTION_DATA: {},
             }
-
+        if config_entry.minor_version < 3:
+            # Moves properties to separate options
+            new_options.update({OPTION_PROPERTIES: {}})
+            new_options.pop(MANUAL_PROPERTIES, None)
         hass.config_entries.async_update_entry(
             config_entry, data=new_data, options=new_options, minor_version=2, version=1
         )

@@ -34,6 +34,7 @@ from .const import (
     NAME,
     OPTION_DEVICES,
     PRODUCT_ID,
+    OPTION_PROPERTIES,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -61,7 +62,7 @@ def get_device_location(entry_options, position, key, default):
 def get_manual_location(entry_options, position):
     """Return reconfigured manual location name for device, or default."""
     return (
-        entry_options[OPTION_DEVICES]
+        entry_options[OPTION_PROPERTIES]
         .get(MANUAL_PROPERTIES, {})
         .get(position.where.name.lower(), position.where.name.lower())
     )
@@ -217,14 +218,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             suggested_display_precision=1,
             field=MethodField(
                 path="status.fill_percentages.total",
-                get_extra_fn=lambda device, r: {
-                    f"bowl_{i}_fill_percent": percent
-                    for i, percent in (
-                        device.status.fill_percentages.get("per_bowl", {}) or {}
-                    ).items()
-                }
-                if device.status.fill_percentages
-                else {},
+                get_extra_fn=lambda device, r: (
+                    {
+                        f"bowl_{i}_fill_percent": percent
+                        for i, percent in (
+                            device.status.fill_percentages.get("per_bowl", {}) or {}
+                        ).items()
+                    }
+                    if device.status.fill_percentages
+                    else {}
+                ),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -384,16 +387,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:history",
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: option_name(
-                    r, device.status.last_activity.device_id
-                )
-                if device.status.last_activity
-                else None,
-                get_extra_fn=lambda device, r: {
-                    "device": str(device.status.last_activity.device_id)
-                }
-                if device.status.last_activity
-                else {},
+                get_fn=lambda device, r: (
+                    option_name(r, device.status.last_activity.device_id)
+                    if device.status.last_activity
+                    else None
+                ),
+                get_extra_fn=lambda device, r: (
+                    {"device": str(device.status.last_activity.device_id)}
+                    if device.status.last_activity
+                    else {}
+                ),
             ),
         ),
         *SENSOR_DESCRIPTIONS_PET_INFORMATION,

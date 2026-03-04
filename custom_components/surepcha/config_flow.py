@@ -27,8 +27,13 @@ from .const import (
     CLIENT_DEVICE_ID,
     TOKEN,
     PRODUCT_ID,
+    OPTION_PROPERTIES,
 )
-from .device_config_schema import DEVICE_CONFIG_SCHEMAS, MANUAL_PROPERTIES
+from .device_config_schema import (
+    DEVICE_CONFIG_SCHEMAS,
+    MANUAL_PROPERTIES,
+    OPTION_CONFIG_SCHEMAS,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -44,10 +49,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
-    MINOR_VERSION = 2
-
-    def __init__(self) -> None:
-        self._devices: dict[str, Any] = {}
+    MINOR_VERSION = 3
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user"""
@@ -85,21 +87,21 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         """Authenticate and fetch devices/pets, return (entity_info, error)."""
         errors = {}
         households: list[Household] = await client.api(Household.get_households())
-        self._devices = {}
+        _devices = {}
         for household in households:
-            self._devices.update(
+            _devices.update(
                 {
                     str(device.id): device
                     for device in await client.api(household.get_devices())
                 }
             )
-            self._devices.update(
+            _devices.update(
                 {
                     str(device.id): device
                     for device in await client.api(household.get_pets())
                 }
             )
-        if not self._devices:
+        if not _devices:
             errors["base"] = "no_devices_or_pet_found"
             return None, errors
         # Append NAME and PRODUCT_ID to each device in OPTION_DEVICE
@@ -108,7 +110,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                 PRODUCT_ID: getattr(device, PRODUCT_ID, None),
                 NAME: getattr(device, NAME, device.id),
             }
-            for device in self._devices.values()
+            for device in _devices.values()
         }
         return entity_info, errors
 
@@ -189,24 +191,24 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         self._options = deepcopy(dict(config_entry.options))
-        self._devices = self._options.get(OPTION_DEVICES, {})
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Show device selection menu."""
 
         if user_input is not None:
             if user_input.get(MANUAL_PROPERTIES):
-                self._device_id = MANUAL_PROPERTIES
-                return await self.async_step_configure_device()
+                return await self.async_step_configure_options()
             if user_input.get(DEVICE_OPTION):
                 self._device_id = await get_surepetcare_id_from_ha_device_id(
                     self.hass, user_input[DEVICE_OPTION]
                 )
                 return await self.async_step_configure_device()
-            logger.debug("OptionFlow complete, updated entities: %s", self._options)
-            return self.async_create_entry(data=self._options)
+            return self.async_create_entry(
+                title="",
+                data=self._options,
+            )
 
-        if not self._devices:
+        if not self._options[OPTION_DEVICES]:
             return self.async_abort(reason="no_devices_or_pet_found")
 
         schema = vol.Schema(
@@ -223,17 +225,39 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
             data_schema=schema,
         )
 
+    async def async_step_configure_options(
+        self, user_input: dict[str, Any] | None = None
+    ):
+        """Configure options."""
+
+        if user_input is not None:
+            self._options.update({OPTION_PROPERTIES: user_input})
+            return await self.async_step_init()
+
+        schema_dict = _build_device_schema(
+            OPTION_CONFIG_SCHEMAS, self._options.get(OPTION_PROPERTIES, {})
+        )
+        schema_dict = await _apply_area_selector(
+            self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
+        )
+
+        return self.async_show_form(
+            step_id="configure_options", data_schema=vol.Schema(schema_dict)
+        )
+
     async def async_step_configure_device(
         self, user_input: dict[str, Any] | None = None
     ):
         """Configure the selected device."""
 
         if user_input is not None:
-            self._devices[self._device_id].update(user_input)
+            self._options[OPTION_DEVICES][self._device_id].update(user_input)
             return await self.async_step_init()
 
-        device = self._devices.get(self._device_id, {})
-        schema_dict = _build_device_schema(device)
+        device = self._options[OPTION_DEVICES].get(self._device_id)
+        schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(device, PRODUCT_ID))
+
+        schema_dict = _build_device_schema(schema_info, device)
         schema_dict = await _apply_area_selector(
             self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
         )
@@ -241,7 +265,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         return self.async_show_form(
             step_id="configure_device",
             data_schema=vol.Schema(schema_dict),
-            description_placeholders={"device_name": device[NAME]},
+            description_placeholders={"device_name": device.get(NAME)},
         )
 
 
@@ -252,9 +276,8 @@ def get_device_attr(device: Any, attr: str, default: Any = None) -> Any:
     return getattr(device, attr, default)
 
 
-def _build_device_schema(entity: dict) -> dict:
+def _build_device_schema(schema_info: dict[Any, Any] | None, entity: dict) -> dict:
     """Build the voluptuous schema dict for the selected device."""
-    schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(entity, PRODUCT_ID))
     schema_dict = {}
     if schema_info:
         for key, field_type in schema_info.items():
