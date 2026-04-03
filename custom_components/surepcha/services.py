@@ -8,6 +8,7 @@ from surepcio.devices import Pet
 from custom_components.surepcha.coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
+from custom_components.surepcha.helper import ensure_command_device
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +57,10 @@ async def async_set_debug_logging(call):
 async def async_set_control(call):
     coordinator = get_coordinator(call.hass, call.data.get("device_id"))
     await coordinator.client.api(
-        coordinator._device.set_control(**call.data.get("control"))
+        ensure_command_device(
+            coordinator._device.set_control(**call.data.get("control")),
+            coordinator._device,
+        )
     )
 
 
@@ -73,9 +77,13 @@ async def async_set_control(call):
 async def async_set_tag(call):
     device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
     pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
-    await device_coordinator.client.api(
-        device_coordinator._device.set_tag(
-            pet_coordinator._device.tag, ModifyDeviceTag[call.data.get("action")]
+    await pet_coordinator.client.api(
+        ensure_command_device(
+            pet_coordinator._device.set_tag(
+                device_coordinator._device.id,
+                ModifyDeviceTag[call.data.get("action")],
+            ),
+            pet_coordinator._device,
         )
     )
 
@@ -95,9 +103,12 @@ async def set_pet_access_mode(call) -> None:
     device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
     pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
     await pet_coordinator.client.api(
-        pet_coordinator._device.set_profile(
-            device_coordinator._device.id,
-            PetDeviceLocationProfile[call.data.get("profile")],
+        ensure_command_device(
+            pet_coordinator._device.set_profile(
+                device_coordinator._device.id,
+                PetDeviceLocationProfile[call.data.get("profile")],
+            ),
+            pet_coordinator._device,
         )
     )
 
@@ -116,7 +127,10 @@ async def set_pet_position(call) -> None:
     pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
     device: Pet = pet_coordinator._device
     await pet_coordinator.client.api(
-        device.set_position(PetLocation[call.data.get("action")])
+        ensure_command_device(
+            device.set_position(PetLocation[call.data.get("action")]),
+            device,
+        )
     )
 
 

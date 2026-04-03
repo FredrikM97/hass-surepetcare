@@ -8,7 +8,7 @@ from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.surepcha.helper import serialize
+from custom_components.surepcha.helper import ensure_command_device, serialize
 from custom_components.surepcha.method_field import MethodField
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
@@ -98,8 +98,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     async def _send_command(self, value: Any) -> None:
         """Send command to device."""
-        command = self.entity_description.field(
-            self._device, self.coordinator.config_entry.options, value
+        command = ensure_command_device(
+            self.entity_description.field(
+                self._device, self.coordinator.config_entry.options, value
+            ),
+            self._device,
         )
         logger.debug(
             "send_command for %s: %s=%s (command: %s)",

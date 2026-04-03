@@ -3,6 +3,8 @@ from types import MappingProxyType
 from pydantic import BaseModel
 from enum import Enum
 from typing import Any
+from surepcio.command import Command
+from surepcio.devices.device import SurePetCareBase
 from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
 
 logger = logging.getLogger(__name__)
@@ -140,3 +142,17 @@ def find_entity_id_by_name(
         ),
         None,
     )
+
+
+def ensure_command_device(
+    command: Command | list[Command] | Any,
+    device: SurePetCareBase,
+) -> Command | list[Command] | Any:
+    """Attach a fallback device to commands missing refresh context."""
+    if isinstance(command, list):
+        return [ensure_command_device(item, device) for item in command]
+
+    if isinstance(command, Command) and command.device is None:
+        command.device = device
+
+    return command
