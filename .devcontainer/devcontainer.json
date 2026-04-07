@@ -22,6 +22,6 @@
     "UV_LINK_MODE": "copy",
     "UV_VENV_CLEAR": "1"
   },
-  "postCreateCommand": "pip install --quiet uv && uv venv && uv pip install -e .[dev] && uv run pre-commit install",
+  "postCreateCommand": "pip install --quiet uv && uv sync --group dev && uv run pre-commit install",
   "postStartCommand": "git config --global --unset-all core.hooksPath || true"
 }

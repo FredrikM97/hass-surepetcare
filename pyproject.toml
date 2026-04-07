@@ -13,11 +13,11 @@ license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.13.2"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "py-surepetcare==0.5.12",
-    "pre-commit==4.5.1",
-    "pytest-homeassistant-custom-component==0.13.316"
+    "py-surepetcare>=0.5.12",
+    "pre-commit>=4.5.1",
+    "pytest-homeassistant-custom-component>=0.13.316"
 ]
 
 [tool.setuptools.packages.find]
