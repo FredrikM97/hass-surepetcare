@@ -21,6 +21,7 @@ from custom_components.surepcha.const import (
     MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
+    OPTION_PROPERTIES,
     OPTIONS_FINISHED,
     POLLING_SPEED,
     PRODUCT_ID,
@@ -239,7 +240,7 @@ async def test_options_flow_full(
 
     result4 = await flow.async_step_init({MANUAL_PROPERTIES: MANUAL_PROPERTIES})
     assert result4["type"] == "form"
-    assert result4["step_id"] == "configure_device"
+    assert result4["step_id"] == "configure_options"
 
     result5 = await flow.async_step_init(
         {"options_finished": True}
@@ -253,14 +254,18 @@ async def test_options_flow_full(
 async def test_async_migrate_entry_adds_manual_properties(
     hass: HomeAssistant, snapshot: SnapshotAssertion
 ):
-    # Simulate an old config entry (version 1, minor_version 1) without MANUAL_PROPERTIES
+    # Simulate an old config entry with legacy manual properties at top level.
     options = {
         OPTION_DEVICES: {
             "12345": {
                 NAME: "Test Device",
                 PRODUCT_ID: 1,
             }
-        }
+        },
+        MANUAL_PROPERTIES: {
+            LOCATION_INSIDE: "Home",
+            LOCATION_OUTSIDE: "Away",
+        },
     }
     entry = MockConfigEntry(
         version=1,
@@ -275,14 +280,14 @@ async def test_async_migrate_entry_adds_manual_properties(
 
     migrated = await async_migrate_entry(hass, entry)
     assert migrated
-    assert MANUAL_PROPERTIES in entry.options[OPTION_DEVICES]
+    assert MANUAL_PROPERTIES not in entry.options
     assert entry.minor_version == 2
     assert entry.version == 1
-    assert entry.options[OPTION_DEVICES][MANUAL_PROPERTIES][NAME] == "User Properties"
-    assert (
-        entry.options[OPTION_DEVICES][MANUAL_PROPERTIES][PRODUCT_ID]
-        == MANUAL_PROPERTIES
-    )
+    assert OPTION_PROPERTIES in entry.options
+    assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {
+        LOCATION_INSIDE: "Home",
+        LOCATION_OUTSIDE: "Away",
+    }
     assert entry == snapshot
 
 

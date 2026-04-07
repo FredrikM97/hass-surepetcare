@@ -6,7 +6,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -49,7 +48,6 @@
       'friendly_name': 'Ajax Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -574,7 +572,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
         'DualScanConnect door',
       ]),
     }),
@@ -615,7 +612,6 @@
       'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
       ]),
     }),
@@ -950,7 +946,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -993,7 +988,6 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1070,7 +1064,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1113,7 +1106,6 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1255,7 +1247,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1295,7 +1286,6 @@
       'friendly_name': 'Ajax Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
       ]),
     }),
     'context': <ANY>,
@@ -1817,7 +1807,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1857,7 +1846,6 @@
       'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
       ]),
     }),
     'context': <ANY>,
@@ -2187,7 +2175,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2227,7 +2214,6 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
       ]),
     }),
     'context': <ANY>,
@@ -2301,7 +2287,6 @@
     'area_id': None,
     'capabilities': dict({
       'options': list([
-        'User Properties',
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2341,7 +2326,6 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
       ]),
     }),
     'context': <ANY>,
@@ -2480,7 +2464,6 @@
       'friendly_name': 'Ajax Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2501,7 +2484,6 @@
       'friendly_name': 'Ajax Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2522,28 +2504,6 @@
       'friendly_name': 'Ajax Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
-        'DualScanConnect door',
-        'Feeder',
-        'PetDoor',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.ajax_add_assigned_device',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.ajax_add_assigned_device-User Properties]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3194,26 +3154,6 @@
       'friendly_name': 'Maui Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
-        'DualScanConnect door',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.maui_add_assigned_device',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.maui_add_assigned_device-User Properties]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
-        'User Properties',
         'DualScanConnect door',
       ]),
     }),
@@ -3630,7 +3570,6 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3651,7 +3590,6 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3672,28 +3610,6 @@
       'friendly_name': 'Pet with empty status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
-        'DualScanConnect door',
-        'Feeder',
-        'PetDoor',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.pet_with_empty_status_add_assigned_device',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.pet_with_empty_status_add_assigned_device-User Properties]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3714,7 +3630,6 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3735,7 +3650,6 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3756,28 +3670,6 @@
       'friendly_name': 'Pet with only one change on status Add assigned device',
       'icon': 'mdi:link-variant',
       'options': list([
-        'User Properties',
-        'DualScanConnect door',
-        'Feeder',
-        'PetDoor',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.pet_with_only_one_change_on_status_add_assigned_device',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.pet_with_only_one_change_on_status_add_assigned_device-User Properties]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
-        'User Properties',
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
