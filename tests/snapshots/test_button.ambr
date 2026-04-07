@@ -13,8 +13,9 @@
 # ---
 # name: test_platform_setup_and_discovery[button.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -62,8 +63,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[button.hem_hub_pairing_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,

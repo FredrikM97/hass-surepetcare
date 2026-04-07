@@ -1,8 +1,9 @@
 # serializer version: 1
 # name: test_platform_setup_and_discovery[select.ajax_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -63,8 +64,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.ajax_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -119,8 +121,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_bowls_type-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -187,8 +190,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_lid_close_delay-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -249,8 +253,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -310,8 +315,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_training_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -375,8 +381,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.hem_hub_led_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -437,8 +444,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -502,8 +510,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -567,8 +576,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -625,8 +635,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_bowls_type-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -693,8 +704,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -755,8 +767,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -816,8 +829,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_training_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -881,8 +895,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.maui_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -941,8 +956,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1003,8 +1019,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1059,8 +1076,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_only_one_change_on_status_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1121,8 +1139,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.pet_with_only_one_change_on_status_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1177,8 +1196,9 @@
 # ---
 # name: test_platform_setup_and_discovery[select.test_surepetcare_entry_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1242,8 +1262,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.ajax_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1298,8 +1319,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.ajax_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1354,8 +1376,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_bowls_type-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1422,8 +1445,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_lid_close_delay-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1484,8 +1508,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1545,8 +1570,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_training_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1610,8 +1636,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1672,8 +1699,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1737,8 +1765,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1802,8 +1831,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1858,8 +1888,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_bowls_type-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1926,8 +1957,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -1988,8 +2020,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_reset_bowl_weight_require_open_lid-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2049,8 +2082,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_training_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2114,8 +2148,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2170,8 +2205,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2226,8 +2262,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2282,8 +2319,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_only_one_change_on_status_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2338,8 +2376,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_only_one_change_on_status_remove_assigned_device-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
@@ -2394,8 +2433,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[select.test_surepetcare_entry_locking_mode-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'options': list([
