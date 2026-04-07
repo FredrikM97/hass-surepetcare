@@ -6,22 +6,19 @@ from typing import Any, Mapping
 
 from surepcio import SurePetcareClient
 from surepcio import Household
+from surepcio.enums import ProductId
 
 import voluptuous as vol
 from homeassistant.config_entries import ConfigFlowResult
 from homeassistant import config_entries
+from homeassistant.data_entry_flow import section
 from homeassistant.helpers.device_registry import callback
-from homeassistant.helpers.selector import AreaSelector, DeviceSelector
 from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
-from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 
 
 from .const import (
-    DEVICE_OPTION,
     DOMAIN,
     ENTRY_ID,
-    LOCATION_INSIDE,
-    LOCATION_OUTSIDE,
     NAME,
     OPTION_DEVICES,
     CLIENT_DEVICE_ID,
@@ -36,6 +33,8 @@ from .device_config_schema import (
 )
 
 logger = logging.getLogger(__name__)
+
+MANUAL_PROPERTIES_SCHEMA = next(iter(OPTION_CONFIG_SCHEMAS.values())).schema.schema
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
@@ -187,123 +186,112 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
     """Options flow for SurePetCare integration."""
 
-    _device_id: str | None
-
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         self._options = deepcopy(dict(config_entry.options))
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
-        """Show device selection menu."""
-
-        if user_input is not None:
-            if user_input.get(MANUAL_PROPERTIES):
-                return await self.async_step_configure_options()
-            if user_input.get(DEVICE_OPTION):
-                self._device_id = await get_surepetcare_id_from_ha_device_id(
-                    self.hass, user_input[DEVICE_OPTION]
-                )
-                return await self.async_step_configure_device()
-            return self.async_create_entry(
-                title="",
-                data=self._options,
-            )
+        """Show the top-level options menu."""
 
         if not self._options[OPTION_DEVICES]:
             return self.async_abort(reason="no_devices_or_pet_found")
 
-        schema = vol.Schema(
-            {
-                vol.Optional(DEVICE_OPTION): DeviceSelector(
-                    {"filter": [{"integration": DOMAIN}]}
-                ),
-                vol.Optional(MANUAL_PROPERTIES, default=False): bool,
-            }
-        )
-
-        return self.async_show_form(
+        return self.async_show_menu(
             step_id="init",
-            data_schema=schema,
+            menu_options=["manual_properties", "devices"],
         )
 
-    async def async_step_configure_options(
+    async def async_step_manual_properties(
         self, user_input: dict[str, Any] | None = None
     ):
-        """Configure options."""
+        """Configure manual location labels."""
 
         if user_input is not None:
-            self._options.update({OPTION_PROPERTIES: user_input})
-            return await self.async_step_init()
+            option_properties = dict(self._options.get(OPTION_PROPERTIES, {}))
+            if user_input:
+                option_properties[MANUAL_PROPERTIES] = user_input
+            self._options[OPTION_PROPERTIES] = option_properties
+            return self.async_create_entry(title="", data=self._options)
 
-        schema_dict = _build_device_schema(
-            OPTION_CONFIG_SCHEMAS, self._options.get(OPTION_PROPERTIES, {})
+        manual_properties = self._options.get(OPTION_PROPERTIES, {}).get(
+            MANUAL_PROPERTIES, {}
         )
-        schema_dict = await _apply_area_selector(
-            self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
+        manual_form_schema, _ = _build_schema_and_defaults(
+            MANUAL_PROPERTIES_SCHEMA, manual_properties
         )
-
         return self.async_show_form(
-            step_id="configure_options", data_schema=vol.Schema(schema_dict)
+            step_id="manual_properties",
+            data_schema=vol.Schema(manual_form_schema),
         )
 
-    async def async_step_configure_device(
-        self, user_input: dict[str, Any] | None = None
-    ):
-        """Configure the selected device."""
+    async def async_step_devices(self, user_input: dict[str, Any] | None = None):
+        """Configure all devices in a single form."""
+
+        device_sections = _device_picker_options(self._options[OPTION_DEVICES])
 
         if user_input is not None:
-            self._options[OPTION_DEVICES][self._device_id].update(user_input)
-            return await self.async_step_init()
+            for device_id, section_key in device_sections:
+                if section_key in user_input:
+                    self._options[OPTION_DEVICES][device_id].update(
+                        user_input[section_key]
+                    )
+            return self.async_create_entry(title="", data=self._options)
 
-        device = self._options[OPTION_DEVICES].get(self._device_id)
-        schema_info = DEVICE_CONFIG_SCHEMAS.get(get_device_attr(device, PRODUCT_ID))
-
-        schema_dict = _build_device_schema(schema_info, device)
-        schema_dict = await _apply_area_selector(
-            self.hass, schema_dict, [LOCATION_INSIDE, LOCATION_OUTSIDE]
-        )
+        schema_dict = {}
+        for device_id, section_key in device_sections:
+            device = self._options[OPTION_DEVICES][device_id]
+            device_schema, section_defaults = _build_schema_and_defaults(
+                DEVICE_CONFIG_SCHEMAS.get(device.get(PRODUCT_ID)), device
+            )
+            schema_dict[
+                vol.Optional(
+                    section_key,
+                    default=section_defaults,
+                )
+            ] = section(vol.Schema(device_schema), {"collapsed": True})
 
         return self.async_show_form(
-            step_id="configure_device",
+            step_id="devices",
             data_schema=vol.Schema(schema_dict),
-            description_placeholders={"device_name": device.get(NAME)},
         )
 
 
-def get_device_attr(device: Any, attr: str, default: Any = None) -> Any:
-    """Get attribute or dict key from device."""
-    if isinstance(device, dict):
-        return device.get(attr, default)
-    return getattr(device, attr, default)
-
-
-def _build_device_schema(schema_info: dict[Any, Any] | None, entity: dict) -> dict:
-    """Build the voluptuous schema dict for the selected device."""
+def _build_schema_and_defaults(
+    schema_info: dict[Any, Any] | None, values: dict[str, Any]
+) -> tuple[dict[Any, Any], dict[str, Any]]:
+    """Build a schema and the corresponding default payload from saved values."""
     schema_dict = {}
-    if schema_info:
-        for key, field_type in schema_info.items():
-            default_value = entity.get(key) if entity else None
-            if default_value is not None:
-                schema_dict[type(key)(key.schema, default=default_value)] = field_type
-            else:
-                schema_dict[key] = field_type
-    return schema_dict
+    defaults = {}
+
+    for key, field_type in (schema_info or {}).items():
+        field_name = key.schema if hasattr(key, "schema") else key
+
+        if field_name in values:
+            default_value = values[field_name]
+            schema_dict[type(key)(field_name, default=default_value)] = field_type
+            defaults[field_name] = default_value
+        elif hasattr(key, "default") and key.default is not vol.UNDEFINED:
+            defaults[field_name] = key.default()
+            schema_dict[key] = field_type
+        else:
+            schema_dict[key] = field_type
+
+    return schema_dict, defaults
 
 
-async def _apply_area_selector(hass, schema_dict: dict, filter_keys: list[str]) -> dict:
-    """Replace specified keys in schema_dict with area selectors using available areas."""
-    for key in filter_keys:
-        if key in schema_dict:
-            schema_dict[key] = AreaSelector()
-    return schema_dict
+def _device_picker_options(devices: dict[str, dict[str, Any]]) -> list[tuple[str, str]]:
+    """Return readable device labels for device sections."""
+    options = []
 
+    for device_id, device in devices.items():
+        product_id = device.get(PRODUCT_ID)
+        try:
+            product_name = ProductId(product_id).name
+        except (TypeError, ValueError):
+            product_name = str(product_id) if product_id is not None else "UNKNOWN"
 
-async def get_surepetcare_id_from_ha_device_id(hass, ha_device_id: str) -> str | None:
-    """Get SurePetCare device ID from Home Assistant device ID."""
-    device_registry = async_get_device_registry(hass)
-    device_entry = device_registry.async_get(ha_device_id)
-    if not device_entry:
-        return None
-    for domain, surepetcare_id in device_entry.identifiers:
-        if domain == DOMAIN:
-            return surepetcare_id
-    return None
+        label = (
+            f"{product_name.replace('_', ' ').title()}: {device.get(NAME) or device_id}"
+        )
+        options.append((device_id, label))
+
+    return options

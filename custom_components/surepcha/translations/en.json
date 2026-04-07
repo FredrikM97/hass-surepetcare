@@ -25,11 +25,27 @@
     "step": {
       "init": {
         "title": "Sure Petcare Options",
-        "description": "Choose a device to configure or finish setup.",
-        "data": {
-          "device_option": "Select device to configure",
-          "manual_properties": "Configure manual configuration properties"
+        "description": "Choose whether to configure manual location names or per-device overrides.",
+        "menu_options": {
+          "manual_properties": "Manual properties",
+          "devices": "Devices"
+        },
+        "menu_option_descriptions": {
+          "manual_properties": "Set the fallback names used for manually updated pet position.",
+          "devices": "Choose a device and configure its override settings."
         }
+      },
+      "manual_properties": {
+        "title": "Manual properties",
+        "description": "Set the fallback names used for manually updated pet position.",
+        "data": {
+          "location_inside": "Inside location",
+          "location_outside": "Outside location"
+        }
+      },
+      "devices": {
+        "title": "Choose device",
+        "description": "Select the device you want to configure."
       },
       "configure_device": {
         "title": "Configure {device_name}",
@@ -38,16 +54,6 @@
           "location": "Location",
           "location_inside": "Inside location",
           "location_outside": "Outside location"
-        },
-        "sections": {
-          "manual_properties": {
-            "name": "User location for pet posiiton",
-            "description": "On manual update of pet position define what is inside/outside with this.",
-            "data": {
-              "location_inside": "Inside location",
-              "location_outside": "Outside location"
-            }
-          }
         }
       }
     },
