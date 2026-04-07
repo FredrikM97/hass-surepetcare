@@ -1167,7 +1167,7 @@ name = "hass-surepetcare"
 version = "0.0.0"
 source = { editable = "." }
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "pre-commit" },
     { name = "py-surepetcare" },
@@ -1175,12 +1175,13 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "pre-commit", marker = "extra == 'dev'", specifier = "==4.5.1" },
-    { name = "py-surepetcare", marker = "extra == 'dev'", specifier = "==0.5.12" },
-    { name = "pytest-homeassistant-custom-component", marker = "extra == 'dev'", specifier = "==0.13.316" },
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pre-commit", specifier = "==4.5.1" },
+    { name = "py-surepetcare", specifier = "==0.5.12" },
+    { name = "pytest-homeassistant-custom-component", specifier = "==0.13.316" },
 ]
-provides-extras = ["dev"]
 
 [[package]]
 name = "home-assistant-bluetooth"
