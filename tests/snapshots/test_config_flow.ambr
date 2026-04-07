@@ -17,9 +17,11 @@
           'name': 'Test Device',
           'product_id': 1,
         }),
+      }),
+      'properties': dict({
         'manual_properties': dict({
-          'name': 'User Properties',
-          'product_id': 'manual_properties',
+          'location_inside': 'Home',
+          'location_outside': 'Away',
         }),
       }),
     }),
@@ -54,8 +56,11 @@
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
         }),
+      }),
+      'properties': dict({
         'manual_properties': dict({
-          'name': 'manual_properties',
+          'location_inside': 'Home',
+          'location_outside': 'Away',
         }),
       }),
     }),
@@ -63,6 +68,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': None,
+    'title': '',
     'type': <FlowResultType.CREATE_ENTRY: 'create_entry'>,
   })
 # ---
@@ -94,8 +100,11 @@
           'name': 'PetDoor',
           'product_id': <ProductId.PET_DOOR: 3>,
         }),
+      }),
+      'properties': dict({
         'manual_properties': dict({
-          'name': 'manual_properties',
+          'location_inside': 'Home',
+          'location_outside': 'Away',
         }),
       }),
     }),
@@ -192,7 +201,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 2,
+    'minor_version': 3,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -251,7 +260,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 2,
+      'minor_version': 3,
       'options': dict({
         'devices': dict({
           '1299453': dict({

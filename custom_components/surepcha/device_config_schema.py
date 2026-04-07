@@ -19,11 +19,11 @@ area_fields = {
 
 
 DEVICE_CONFIG_SCHEMAS = {
-    MANUAL_PROPERTIES: {Optional(MANUAL_PROPERTIES): section(Schema(area_fields))},
     ProductId.DUAL_SCAN_CONNECT: {**area_fields},
     ProductId.DUAL_SCAN_PET_DOOR: {**area_fields},
     ProductId.PET_DOOR: {**area_fields},
 }
+OPTION_CONFIG_SCHEMAS = {Optional(MANUAL_PROPERTIES): section(Schema(area_fields))}
 
 # Ensure every schema includes the polling speed range
 for pid in ProductId:

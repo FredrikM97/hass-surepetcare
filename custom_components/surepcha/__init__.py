@@ -7,9 +7,6 @@ from surepcio import SurePetcareClient
 from surepcio import Household
 from surepcio.enums import ProductId
 
-from .config_flow import OPTION_DEVICES, PRODUCT_ID
-from .sensor import MANUAL_PROPERTIES, NAME
-
 from .services import _service_registry
 
 from homeassistant.exceptions import ConfigEntryAuthFailed
@@ -26,7 +23,9 @@ from .const import (
     DOMAIN,
     FACTORY,
     KEY_API,
+    MANUAL_PROPERTIES,
     TOKEN,
+    OPTION_PROPERTIES,
 )
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
@@ -58,13 +57,16 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
     if config_entry.version == 1:
         new_data = {**config_entry.data}
         new_options = {**config_entry.options}
-        # Migrate MANUAL_PROPERTIES for minor_version < 2
-        if config_entry.minor_version < 2:
-            new_options[OPTION_DEVICES][MANUAL_PROPERTIES] = {
-                NAME: "User Properties",
-                PRODUCT_ID: MANUAL_PROPERTIES,
-            }
-
+        if config_entry.minor_version < 3:
+            # Move legacy manual properties to the dedicated properties section.
+            legacy_manual = new_options.pop(MANUAL_PROPERTIES, {})
+            new_options.update(
+                {
+                    OPTION_PROPERTIES: (
+                        {MANUAL_PROPERTIES: legacy_manual} if legacy_manual else {}
+                    )
+                }
+            )
         hass.config_entries.async_update_entry(
             config_entry, data=new_data, options=new_options, minor_version=2, version=1
         )

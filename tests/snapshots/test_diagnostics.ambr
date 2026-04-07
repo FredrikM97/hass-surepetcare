@@ -106,10 +106,8 @@
           'name': 'PetDoor',
           'product_id': 3,
         }),
-        'manual_properties': dict({
-          'name': 'User Properties',
-          'product_id': 'manual_properties',
-        }),
+      }),
+      'properties': dict({
       }),
     }),
   })
@@ -136,10 +134,8 @@
           'name': 'PetDoor',
           'product_id': 3,
         }),
-        'manual_properties': dict({
-          'name': 'User Properties',
-          'product_id': 'manual_properties',
-        }),
+      }),
+      'properties': dict({
       }),
     }),
   })

@@ -25,11 +25,27 @@
     "step": {
       "init": {
         "title": "Sure Petcare-alternativ",
-        "description": "Välj en enhet att konfigurera eller slutför installationen.",
-        "data": {
-          "device_option": "Välj enhet att konfigurera",
-          "manual_properties": "Konfigurera manuella konfigurationsinställningar"
+        "description": "Välj om du vill konfigurera manuella platsnamn eller enhetsspecifika inställningar.",
+        "menu_options": {
+          "manual_properties": "Manuella egenskaper",
+          "devices": "Enheter"
+        },
+        "menu_option_descriptions": {
+          "manual_properties": "Ange reservnamn som används för manuellt uppdaterad husdjursposition.",
+          "devices": "Välj en enhet och konfigurera dess åsidosatta inställningar."
         }
+      },
+      "manual_properties": {
+        "title": "Manuella egenskaper",
+        "description": "Ange reservnamn som används för manuellt uppdaterad husdjursposition.",
+        "data": {
+          "location_inside": "Inomhusplats",
+          "location_outside": "Utomhusplats"
+        }
+      },
+      "devices": {
+        "title": "Välj enhet",
+        "description": "Välj den enhet du vill konfigurera."
       },
       "configure_device": {
         "title": "Konfigurera {device_name}",
@@ -38,16 +54,6 @@
           "location": "Plats",
           "location_inside": "Inomhusplats",
           "location_outside": "Utomhusplats"
-        },
-        "sections": {
-          "manual_properties": {
-            "name": "Användarlokalisering för husdjursposition",
-            "description": "Vid manuell uppdatering av husdjursposition, definiera vad som är inne/ute med detta.",
-            "data": {
-              "location_inside": "Inomhusplats",
-              "location_outside": "Utomhusplats"
-            }
-          }
         }
       }
     },

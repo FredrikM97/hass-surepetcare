@@ -9,7 +9,12 @@ from pytest_homeassistant_custom_component.components.diagnostics import (
     get_diagnostics_for_device,
     get_diagnostics_for_config_entry,
 )
-from custom_components.surepcha.const import DOMAIN
+from custom_components.surepcha.const import (
+    DOMAIN,
+    MANUAL_PROPERTIES,
+    OPTION_DEVICES,
+    OPTION_PROPERTIES,
+)
 from syrupy.assertion import SnapshotAssertion
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
@@ -36,6 +41,11 @@ async def test_entry_diagnostics(
     # Verify sensitive data is redacted
     assert result["entry_data"]["token"] == "**REDACTED**"
     assert result["entry_data"]["client_device_id"] == "**REDACTED**"
+
+    # Legacy manual properties should not be treated as a pseudo-device anymore.
+    assert MANUAL_PROPERTIES not in result["options"][OPTION_DEVICES]
+    assert OPTION_PROPERTIES in result["options"]
+    assert isinstance(result["options"][OPTION_PROPERTIES], dict)
 
     assert result == snapshot(
         exclude=props("last_changed", "last_reported", "last_updated")
@@ -65,6 +75,12 @@ async def test_device_diagnostics(
     result = await get_diagnostics_for_device(
         hass, hass_client, mock_config_entry, device
     )
+
+    # Device diagnostics includes entry options, so validate the same contract here.
+    assert MANUAL_PROPERTIES not in result["options"][OPTION_DEVICES]
+    assert OPTION_PROPERTIES in result["options"]
+    assert isinstance(result["options"][OPTION_PROPERTIES], dict)
+
     assert result == snapshot(
         exclude=props("last_changed", "last_reported", "last_updated")
     )

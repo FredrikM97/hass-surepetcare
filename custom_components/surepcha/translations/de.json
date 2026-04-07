@@ -25,11 +25,27 @@
     "step": {
       "init": {
         "title": "Sure Petcare Optionen",
-        "description": "Wähle ein Gerät zur Konfiguration oder beende die Einrichtung.",
-        "data": {
-          "device_option": "Gerät zur Konfiguration auswählen",
-          "manual_properties": "Manuelle Konfigurationseigenschaften festlegen"
+        "description": "Wähle, ob du manuelle Standortnamen oder gerätespezifische Überschreibungen konfigurieren möchtest.",
+        "menu_options": {
+          "manual_properties": "Manuelle Eigenschaften",
+          "devices": "Geräte"
+        },
+        "menu_option_descriptions": {
+          "manual_properties": "Lege die Ersatznamen fest, die für manuell aktualisierte Haustierpositionen verwendet werden.",
+          "devices": "Wähle ein Gerät und konfiguriere dessen Überschreibungen."
         }
+      },
+      "manual_properties": {
+        "title": "Manuelle Eigenschaften",
+        "description": "Lege die Ersatznamen fest, die für manuell aktualisierte Haustierpositionen verwendet werden.",
+        "data": {
+          "location_inside": "Standort drinnen",
+          "location_outside": "Standort draußen"
+        }
+      },
+      "devices": {
+        "title": "Gerät wählen",
+        "description": "Wähle das Gerät aus, das du konfigurieren möchtest."
       },
       "configure_device": {
         "title": "Konfiguriere {device_name}",
@@ -38,16 +54,6 @@
           "location": "Standort",
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
-        },
-        "sections": {
-          "manual_properties": {
-            "name": "Benutzerdefinierter Standort für die Haustierposition",
-            "description": "Bei manueller Aktualisierung der Haustierposition hier festlegen, was als drinnen/draußen gilt.",
-            "data": {
-              "location_inside": "Standort drinnen",
-              "location_outside": "Standort draußen"
-            }
-          }
         }
       }
     },
