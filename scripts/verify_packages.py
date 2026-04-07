@@ -24,7 +24,7 @@ def get_requirement_version(requirements, name):
             if git_match:
                 return git_match.group(1).replace("-", ".")
             # Fall back to standard format (e.g., package==1.2.3)
-            match = re.search(rf"{name}[>=!~]=?([\w\.\-]+)", req)
+            match = re.search(rf"{name}(?:==|~=|>=|<=|!=|>|<)\s*([\w\.\-]+)", req)
             if match:
                 return match.group(1).replace("-", ".")
     return None
@@ -51,9 +51,8 @@ def main():
         manifest = json.load(f)
 
     # Get versions from both files
-    dev_deps = (
-        pyproject.get("project", {}).get("optional-dependencies", {}).get("dev", [])
-    )
+    dev_deps = pyproject.get("dependency-groups", {}).get("dev", [])
+    assert dev_deps, "dependency-groups.dev not found in pyproject.toml"
     pyproject_ver = get_requirement_version(dev_deps, "py-surepetcare")
     manifest_ver = get_requirement_version(
         manifest.get("requirements", []), "py-surepetcare"
