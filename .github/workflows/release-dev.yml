@@ -48,7 +48,7 @@ jobs:
           LAST_STABLE_TAG=$(gh release list --exclude-pre-releases --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')
           COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
           
-          NOTES="⚠️ Development Build - Automated weekly release from dev branch."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
+          NOTES="⚠️ Development Build - Automated weekly release from main branch."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
           
           # Create or update dev release
           if ! gh release view dev >/dev/null 2>&1; then
