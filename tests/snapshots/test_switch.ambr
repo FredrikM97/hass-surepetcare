@@ -1,8 +1,9 @@
 # serializer version: 1
 # name: test_platform_setup_and_discovery[switch.ajax_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -51,8 +52,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.ajax_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -101,8 +103,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -150,8 +153,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.maui_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -203,8 +207,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.maui_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -253,8 +258,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -303,8 +309,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -353,8 +360,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -403,8 +411,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -453,8 +462,9 @@
 # ---
 # name: test_platform_setup_and_discovery[switch.test_surepetcare_entry_curfew_active-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -502,8 +512,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -552,8 +563,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -602,8 +614,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -651,8 +664,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -701,8 +715,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -751,8 +766,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -801,8 +817,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -851,8 +868,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_indoor_only-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -901,8 +919,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -951,8 +970,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.test_surepetcare_entry_curfew_active-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,

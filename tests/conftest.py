@@ -218,10 +218,16 @@ async def mock_surepetcare_login_control(
     mock_devices,
 ) -> Generator[MagicMock, None, None]:
     """Return a mocked SurePetcareClient for config_flow login."""
-    with patch(
-        "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
-    ) as client_mock:
+    with (
+        patch(
+            "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
+        ) as client_mock,
+        patch(
+            "custom_components.surepcha.SurePetcareClient", autospec=True
+        ) as setup_mock,
+    ):
         instance = client_mock.return_value
+        setup_mock.return_value = instance
         instance.login = AsyncMock(return_value=True)
         # Mock token and device_id attributes
         instance.token = "mocked_token"

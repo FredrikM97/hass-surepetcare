@@ -945,9 +945,9 @@ dev = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pre-commit", specifier = ">=4.5.1" },
-    { name = "py-surepetcare", specifier = ">=0.5.12" },
-    { name = "pytest-homeassistant-custom-component", specifier = ">=0.13.316" },
+    { name = "pre-commit", specifier = "==4.5.1" },
+    { name = "py-surepetcare", specifier = "==0.5.12" },
+    { name = "pytest-homeassistant-custom-component", specifier = "==0.13.322" },
 ]
 
 [[package]]

@@ -229,8 +229,9 @@
 # ---
 # name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -289,8 +290,9 @@
 # ---
 # name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -349,8 +351,9 @@
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -409,8 +412,9 @@
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_two-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -469,8 +473,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_one-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -529,8 +534,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -589,8 +595,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_one-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,
@@ -649,8 +656,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_two-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'max': 300,

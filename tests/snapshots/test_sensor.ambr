@@ -1,8 +1,9 @@
 # serializer version: 1
 # name: test_platform_setup_and_discovery[sensor.ajax_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -55,8 +56,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.ajax_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -113,8 +115,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.ajax_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -170,8 +173,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.ajax_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -228,8 +232,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.ajax_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -278,8 +283,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.ajax_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -333,8 +339,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -387,8 +394,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -437,8 +445,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -491,8 +500,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_one_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -553,8 +563,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -616,8 +627,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -671,8 +683,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -730,8 +743,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -781,8 +795,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -840,8 +855,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -894,8 +910,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -948,8 +965,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -999,8 +1017,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1053,8 +1072,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1107,8 +1127,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.laundry_door_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1158,8 +1179,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1215,8 +1237,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1279,8 +1302,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1336,8 +1360,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1400,8 +1425,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1451,8 +1477,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1505,8 +1532,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_one_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1567,8 +1595,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1630,8 +1659,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1685,8 +1715,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1744,8 +1775,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1795,8 +1827,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1854,8 +1887,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1909,8 +1943,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -1962,8 +1997,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2020,8 +2056,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2077,8 +2114,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2135,8 +2173,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2185,8 +2224,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2235,8 +2275,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2288,8 +2329,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2352,8 +2394,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2409,8 +2452,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2473,8 +2517,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2524,8 +2569,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2574,8 +2620,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2628,8 +2675,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_volume-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2685,8 +2733,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2739,8 +2788,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -2792,8 +2842,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2843,8 +2894,9 @@
 # ---
 # name: test_platform_setup_and_discovery[sensor.test_surepetcare_entry_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2894,8 +2946,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -2948,8 +3001,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3006,8 +3060,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3063,8 +3118,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3121,8 +3177,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3171,8 +3228,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3226,8 +3284,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3280,8 +3339,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3330,8 +3390,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3384,8 +3445,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_one_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3446,8 +3508,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3509,8 +3572,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3564,8 +3628,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3623,8 +3688,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3674,8 +3740,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3733,8 +3800,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3787,8 +3855,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3841,8 +3910,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -3892,8 +3962,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3946,8 +4017,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4000,8 +4072,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4051,8 +4124,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4108,8 +4182,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4172,8 +4247,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4229,8 +4305,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4293,8 +4370,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4343,8 +4421,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4397,8 +4476,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_one_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4459,8 +4539,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4522,8 +4603,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4577,8 +4659,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4636,8 +4719,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4687,8 +4771,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4746,8 +4831,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4801,8 +4887,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4854,8 +4941,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4912,8 +5000,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -4969,8 +5058,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -5027,8 +5117,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5077,8 +5168,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5127,8 +5219,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_assigned_devices-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5180,8 +5273,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_drinking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -5244,8 +5338,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5301,8 +5396,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_feeding-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -5365,8 +5461,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5415,8 +5512,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_position-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5465,8 +5563,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_battery-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -5519,8 +5618,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_volume-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5576,8 +5676,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_entity_information-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5630,8 +5731,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_fill_percent-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': dict({
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -5683,8 +5785,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -5734,8 +5837,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.test_surepetcare_entry_rssi-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,

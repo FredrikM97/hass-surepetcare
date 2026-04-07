@@ -85,8 +85,9 @@
 # ---
 # name: test_platform_setup_and_discovery[lock.katzenklappe_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -135,8 +136,9 @@
 # ---
 # name: test_platform_setup_and_discovery[lock.laundry_door_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -185,8 +187,9 @@
 # ---
 # name: test_platform_setup_and_discovery[lock.test_surepetcare_entry_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -235,8 +238,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[lock.katzenklappe_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -285,8 +289,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[lock.laundry_door_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
@@ -335,8 +340,9 @@
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[lock.test_surepetcare_entry_locking-entry]
   EntityRegistryEntrySnapshot({
-    'aliases': set({
-    }),
+    'aliases': list([
+      None,
+    ]),
     'area_id': None,
     'capabilities': None,
     'config_entry_id': <ANY>,
