@@ -11,6 +11,7 @@ authors = [
 ]
 license = { text = "MIT" }
 readme = "README.md"
+requires-python = ">=3.14.2"
 
 [dependency-groups]
 dev = [
