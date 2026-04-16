@@ -9,6 +9,7 @@ env:
 
 jobs:
   release:
+    if: github.repository_owner == 'FredrikM97'
     name: Prepare release
     runs-on: ubuntu-latest
     permissions:
