@@ -9,6 +9,7 @@ on:
 jobs:
   validate:
     runs-on: "ubuntu-latest"
+    if: github.repository_owner == 'FredrikM97'
     steps:
         - uses: "actions/checkout@v6"
         - uses: "home-assistant/actions/hassfest@master"
