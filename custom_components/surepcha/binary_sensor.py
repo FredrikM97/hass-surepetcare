@@ -1,7 +1,6 @@
 """Support for Sure Petcare binary sensors."""
 
 from dataclasses import dataclass
-from datetime import datetime
 import logging
 
 from surepcio.enums import ProductId, PetLocation
@@ -16,7 +15,6 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from custom_components.surepcha.helper import (
-    ensure_list,
     list_attr,
 )
 from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
@@ -29,13 +27,6 @@ from .entity import (
 )
 
 logger = logging.getLogger(__name__)
-
-
-def _next_enabled_future_curfew(ctx) -> bool | None:
-    device = ctx.device
-    curfews = ensure_list(device.control, "curfew")
-    now = datetime.now().time()
-    return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -96,7 +87,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=_next_enabled_future_curfew,
+                get_fn=lambda device, _: device.is_curfew_active,
                 get_extra_fn=lambda ctx: {
                     "curfew": [
                         {
@@ -123,7 +114,8 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=_next_enabled_future_curfew, path_extra="control.curfew"
+                get_fn=lambda device, _: device.is_curfew_active,
+                path_extra="control.curfew",
             ),
         ),
     ),
