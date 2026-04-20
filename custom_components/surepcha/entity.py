@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 from typing import Any, cast
-
+from homeassistant.core import callback
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
@@ -64,6 +64,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             and super().available
             and self.native_value is not None
         )
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self.async_write_ha_state()
 
     @property
     def native_value(self) -> str | None:
