@@ -1,48 +1,23 @@
+<img src="https://github.com/user-attachments/assets/c2cc0725-343a-4a3e-9700-2cc87342a136"
+     style="width: 100%; height: auto;" />
 # SurePetCare for Home Assistant
-
-[![Home Assistant][ha-versions-shield]][homeassistant]
 [![GitHub Release][releases-shield]][releases]
-[![License][license-shield]](LICENSE)
-![Downloads][downloads-shield]
-[![Build Status][build-shield]][build]
-[![Code Coverage][codecov-shield]][codecov]
+[![HACS][hacs-shield]][homeassistant]
+[![Home Assistant][ha-versions-shield]][homeassistant]
 [![Documentation Status][wiki-shield]][wiki]
+
+[![Tests Status][tests-shield]][tests]
+[![Code Coverage][codecov-shield]][codecov]
+[![Downloads][downloads-shield]][releases]
+[![License][license-shield]](LICENSE)
 [![Open in Dev Containers][devcontainer-shield]][devcontainer]
 
-
-## About
-This is a Home Assistant integration (HACS) to integrate SurePetCare cloud devices into Home Assistant. The integration provides services and sensors for all devices. 
-This is an alternative integration to the core integration with an extended amount of sensors that is not available in the core integration. 
-
-A sample of the extra features include entities to:
-* Pet:
-  * Select to add/remove devices
-  * Last activity from flaps,feeder or fountains
-  * [Current position](https://github.com/FredrikM97/hass-surepetcare/wiki/OptionFlow#customize-flap-position-name) between one or more flaps
-  * Consumption of feeder or fountains (wiki provide setup for total consumption)
-  * Number of assigned devices
-  * Switch to set pet as indoor only
-* Feeder
-  * Select to change bowl type
-  * Entity to change tare of each bowl
-  * Lid closing speed
-* General
-  * Polling speed of each device
-
-## Documentation
-The full documentation can be found at [Wiki][wiki].
-
-# Installation
-This integration requires the HACS add-on.
-
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration)
-
-
-## What does this integration do?
-- Adds sensors and binary sensors for each supported device (e.g., door status, battery, feeding events, water level, connectivity)
-- Custom name for position indoor/outdoor.
-- Keep track of number of devices connected to a pet
-- Allow Service updates for tags, device control and pet indoor/outdoor per pet
+## Features
+* *Control Devices*: Manage your SurePetcare devices and pets
+* *Monitor*: Keep track of device status, food consumption, position and more.
+* *UI*: Customize pet locations instead of just inside/outside and give location custom names
+* *Tracking*: Track what the pet is doing and when and for how long.
+* *Less with more*: Remove uncessery usage of apps and keep all at one place. 
 
 ## Issues
 
@@ -55,22 +30,42 @@ If you encounter problems with the integration:
 
 For urgent issues, check the Home Assistant logs at Settings → System → Logs.
 
+# Enjoy the integration?
+
+Star ⭐ the repository to help others discover the integration.
+
+[![Sponsor FredrikM97][github-sponsor-shield]][github-sponsor] [![Static Badge][buymeacoffee-shield]][buymeacoffee]
 
 
 
 
 
-[build-shield]: https://github.com/FredrikM97/hass-surepetcare/actions/workflows/test-and-coverage.yml/badge.svg
-[build]: https://github.com/FredrikM97/hass-surepetcare/actions
-[codecov-shield]: https://codecov.io/gh/FredrikM97/hass-surepetcare/branch/dev/graph/badge.svg
+[tests-shield]: https://img.shields.io/github/actions/workflow/status/FredrikM97/hass-surepetcare/test-and-coverage.yml?style=for-the-badge&label=Tests
+[tests]: https://github.com/FredrikM97/hass-surepetcare/actions
+
+[codecov-shield]: https://img.shields.io/codecov/c/github/FredrikM97/hass-surepetcare?style=for-the-badge&label=Coverage
 [codecov]: https://codecov.io/gh/FredrikM97/hass-surepetcare
-[license-shield]: https://img.shields.io/github/license/FredrikM97/hass-surepetcare.svg
-[devcontainer-shield]: https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode
+
+[license-shield]: https://img.shields.io/github/license/FredrikM97/hass-surepetcare.svg?style=for-the-badge
+
+[downloads-shield]: https://img.shields.io/github/downloads/FredrikM97/hass-surepetcare/total.svg?style=for-the-badge
+
+[devcontainer-shield]: https://img.shields.io/badge/Dev%20Container-Open-007ACC?style=for-the-badge&logo=visualstudiocode
 [devcontainer]: https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/FredrikM97/hass-surepetcare
-[ha-versions-shield]: https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/FredrikM97/hass-surepetcare/main/hacs.json&label=homeassistant&query=$.homeassistant&color=blue&logo=homeassistant
-[releases-shield]: https://img.shields.io/github/release/FredrikM97/hass-surepetcare.svg
+
+[ha-versions-shield]: https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/FredrikM97/hass-surepetcare/main/hacs.json&label=Home%20Assistant&query=$.homeassistant&color=41BDF5&style=for-the-badge&logo=homeassistant
+
+[releases-shield]: https://img.shields.io/github/release/FredrikM97/hass-surepetcare.svg?style=for-the-badge&color=41BDF5
 [releases]: https://github.com/FredrikM97/hass-surepetcare/releases
-[wiki-shield]: https://img.shields.io/badge/docs-wiki-blue.svg
+
+[wiki-shield]: https://img.shields.io/badge/Docs-Wiki-41BDF5?style=for-the-badge
 [wiki]: https://github.com/FredrikM97/hass-surepetcare/wiki
+
 [homeassistant]: https://my.home-assistant.io/redirect/hacs_repository/?owner=FredrikM97&repository=hass-surepetcare&category=integration
-[downloads-shield]: https://img.shields.io/github/downloads/FredrikM97/hass-surepetcare/total.svg
+[hacs-shield]: https://img.shields.io/badge/HACS-Download-41BDF5?style=for-the-badge&logo=homeassistant
+
+[github-sponsor-shield]: https://img.shields.io/badge/Sponsor-FredrikM97-EA4AAA?style=for-the-badge&logo=githubsponsors
+[github-sponsor]: https://github.com/sponsors/FredrikM97
+
+[buymeacoffee-shield]: https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee
+[buymeacoffee]: https://www.buymeacoffee.com/FredrikM97
