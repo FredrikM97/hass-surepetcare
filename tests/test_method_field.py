@@ -7,6 +7,7 @@ import pytest
 from custom_components.surepcha.method_field import (
     BinarySensorMethodField,
     ButtonMethodField,
+    FieldContext,
     LockMethodField,
     MethodField,
     SelectMethodField,
@@ -134,7 +135,7 @@ class TestMethodField:
         field = MethodField(path="status.led_mode")
         options = MappingProxyType({})
 
-        assert field.get(device, options) == 1
+        assert field.get(FieldContext(device, options, None)) == 1
 
     def test_with_path_set(self):
         """Test MethodField.set with path parameter."""
@@ -144,7 +145,7 @@ class TestMethodField:
         field = MethodField(path="control.led_mode")
         options = MappingProxyType({})
 
-        field.set(device, options, 2)
+        field.set(FieldContext(device, options, None), 2)
         device.set_control.assert_called_once_with(control={"led_mode": 2})
 
     def test_with_nested_path_set(self):
@@ -155,7 +156,7 @@ class TestMethodField:
         field = MethodField(path="control.curfew.enabled")
         options = MappingProxyType({})
 
-        field.set(device, options, True)
+        field.set(FieldContext(device, options, None), True)
         device.set_control.assert_called_once_with(
             control={"curfew": {"enabled": True}}
         )
@@ -165,10 +166,10 @@ class TestMethodField:
         device = MagicMock()
         device.custom_value = 42
 
-        field = MethodField(get_fn=lambda d, r: d.custom_value * 2)
+        field = MethodField(get_fn=lambda ctx: ctx.device.custom_value * 2)
         options = MappingProxyType({})
 
-        assert field.get(device, options) == 84
+        assert field.get(FieldContext(device, options, None)) == 84
 
     def test_with_custom_set_fn(self):
         """Test MethodField with custom set function."""
@@ -176,11 +177,12 @@ class TestMethodField:
         device.custom_set = MagicMock()
 
         field = MethodField(
-            get_fn=lambda d, r: None, set_fn=lambda d, r, v: d.custom_set(v * 2)
+            get_fn=lambda ctx: None,
+            set_fn=lambda ctx, value: ctx.device.custom_set(value * 2),
         )
         options = MappingProxyType({})
 
-        field.set(device, options, 10)
+        field.set(FieldContext(device, options, None), 10)
         device.custom_set.assert_called_once_with(20)
 
     def test_path_with_custom_set_fn_override(self):
@@ -189,14 +191,16 @@ class TestMethodField:
         device.status.value = 10
         device.custom_set = MagicMock()
 
-        field = MethodField(path="status.value", set_fn=lambda d, r, v: d.custom_set(v))
+        field = MethodField(
+            path="status.value", set_fn=lambda ctx, value: ctx.device.custom_set(value)
+        )
         options = MappingProxyType({})
 
         # Get uses path
-        assert field.get(device, options) == 10
+        assert field.get(FieldContext(device, options, None)) == 10
 
         # Set uses custom function
-        field.set(device, options, 20)
+        field.set(FieldContext(device, options, None), 20)
         device.custom_set.assert_called_once_with(20)
 
     def test_path_with_custom_get_fn_override(self):
@@ -205,14 +209,16 @@ class TestMethodField:
         device.status.value = 10
         device.set_control = MagicMock()
 
-        field = MethodField(path="status.value", get_fn=lambda d, r: d.status.value * 3)
+        field = MethodField(
+            path="status.value", get_fn=lambda ctx: ctx.device.status.value * 3
+        )
         options = MappingProxyType({})
 
         # Get uses custom function
-        assert field.get(device, options) == 30
+        assert field.get(FieldContext(device, options, None)) == 30
 
         # Set uses path default
-        field.set(device, options, 20)
+        field.set(FieldContext(device, options, None), 20)
         device.set_control.assert_called_once()
 
     def test_get_extra_with_path_extra(self):
@@ -223,7 +229,7 @@ class TestMethodField:
         field = MethodField(path="status.value", path_extra="status.extra_data")
         options = MappingProxyType({})
 
-        assert field.get_extra(device, options) == {"key": "value"}
+        assert field.get_extra(FieldContext(device, options, None)) == {"key": "value"}
 
     def test_get_extra_with_get_extra_fn(self):
         """Test MethodField.get_extra with custom function."""
@@ -231,11 +237,14 @@ class TestMethodField:
 
         field = MethodField(
             path="status.value",
-            get_extra_fn=lambda d, r: {"custom": "data", "count": 42},
+            get_extra_fn=lambda ctx: {"custom": "data", "count": 42},
         )
         options = MappingProxyType({})
 
-        assert field.get_extra(device, options) == {"custom": "data", "count": 42}
+        assert field.get_extra(FieldContext(device, options, None)) == {
+            "custom": "data",
+            "count": 42,
+        }
 
     def test_get_extra_with_dict_path_extra(self):
         """Test MethodField.get_extra with dict path_extra."""
@@ -249,7 +258,10 @@ class TestMethodField:
         )
         options = MappingProxyType({})
 
-        assert field.get_extra(device, options) == {"temperature": 20, "humidity": 60}
+        assert field.get_extra(FieldContext(device, options, None)) == {
+            "temperature": 20,
+            "humidity": 60,
+        }
 
     def test_no_get_fn_raises(self):
         """Test MethodField raises when no get_fn is defined."""
@@ -258,16 +270,16 @@ class TestMethodField:
         device = MagicMock()
 
         with pytest.raises(NotImplementedError, match="No get_fn or path defined"):
-            field.get(device, options)
+            field.get(FieldContext(device, options, None))
 
     def test_no_set_fn_raises(self):
         """Test MethodField raises when no set_fn is defined."""
-        field = MethodField(get_fn=lambda d, r: None)
+        field = MethodField(get_fn=lambda ctx: None)
         options = MappingProxyType({})
         device = MagicMock()
 
         with pytest.raises(NotImplementedError, match="No set_fn or path defined"):
-            field.set(device, options, None)
+            field.set(FieldContext(device, options, None), None)
 
     def test_no_get_extra_fn_raises(self):
         """Test MethodField raises when no get_extra_fn or path_extra is defined."""
@@ -276,7 +288,7 @@ class TestMethodField:
         device = MagicMock()
 
         with pytest.raises(NotImplementedError, match="No get_extra_fn or path_extra"):
-            field.get_extra(device, options)
+            field.get_extra(FieldContext(device, options, None))
 
     def test_call_delegates_to_set(self):
         """Test that __call__ delegates to set method."""
@@ -286,7 +298,7 @@ class TestMethodField:
         field = MethodField(path="control.value")
         options = MappingProxyType({})
 
-        field(device, options, 42)
+        field(FieldContext(device, options, None), 42)
         device.set_control.assert_called_once_with(control={"value": 42})
 
 
@@ -301,7 +313,7 @@ class TestButtonMethodField:
         field = ButtonMethodField(path="control.pairing_mode", on="PAIRING")
         options = MappingProxyType({})
 
-        field.set(device, options, True)
+        field.set(FieldContext(device, options, None), True)
         device.set_control.assert_called_with(control={"pairing_mode": "PAIRING"})
 
     def test_passthrough_non_true_values(self):
@@ -312,7 +324,7 @@ class TestButtonMethodField:
         field = ButtonMethodField(path="control.value", on="ON")
         options = MappingProxyType({})
 
-        field.set(device, options, "CUSTOM")
+        field.set(FieldContext(device, options, None), "CUSTOM")
         device.set_control.assert_called_with(control={"value": "CUSTOM"})
 
     def test_default_on_value(self):
@@ -323,7 +335,7 @@ class TestButtonMethodField:
         field = ButtonMethodField(path="control.button")
         options = MappingProxyType({})
 
-        field.set(device, options, True)
+        field.set(FieldContext(device, options, None), True)
         device.set_control.assert_called_with(control={"button": True})
 
 
@@ -338,17 +350,17 @@ class TestSelectMethodField:
         field = SelectMethodField(path="status.mode")
         options = MappingProxyType({})
 
-        assert field.get(device, options) == "AUTO"
+        assert field.get(FieldContext(device, options, None)) == "AUTO"
 
     def test_with_only_options_fn_returns_none(self):
         """Test SelectMethodField with only options_fn returns None."""
         device = MagicMock()
 
-        field = SelectMethodField(options_fn=lambda d, r: ["opt1", "opt2", "opt3"])
+        field = SelectMethodField(options_fn=lambda ctx: ["opt1", "opt2", "opt3"])
         options = MappingProxyType({})
 
         # When only options_fn is set, get returns None
-        assert field.get(device, options) is None
+        assert field.get(FieldContext(device, options, None)) is None
 
     def test_with_path_and_options_fn(self):
         """Test SelectMethodField with both path and options_fn."""
@@ -356,12 +368,12 @@ class TestSelectMethodField:
         device.status.mode = "AUTO"
 
         field = SelectMethodField(
-            path="status.mode", options_fn=lambda d, r: ["AUTO", "MANUAL"]
+            path="status.mode", options_fn=lambda ctx: ["AUTO", "MANUAL"]
         )
         options = MappingProxyType({})
 
         # Get still works with path
-        assert field.get(device, options) == "AUTO"
+        assert field.get(FieldContext(device, options, None)) == "AUTO"
 
     def test_set_works_normally(self):
         """Test SelectMethodField.set works like base MethodField."""
@@ -371,7 +383,7 @@ class TestSelectMethodField:
         field = SelectMethodField(path="control.mode")
         options = MappingProxyType({})
 
-        field.set(device, options, "MANUAL")
+        field.set(FieldContext(device, options, None), "MANUAL")
         device.set_control.assert_called_with(control={"mode": "MANUAL"})
 
 
@@ -386,7 +398,7 @@ class TestSwitchMethodField:
         field = SwitchMethodField(path="control.enabled", on="ENABLED", off="DISABLED")
         options = MappingProxyType({})
 
-        field.set(device, options, True)
+        field.set(FieldContext(device, options, None), True)
         device.set_control.assert_called_with(control={"enabled": "ENABLED"})
 
     def test_maps_false_to_off_value(self):
@@ -397,7 +409,7 @@ class TestSwitchMethodField:
         field = SwitchMethodField(path="control.enabled", on="ENABLED", off="DISABLED")
         options = MappingProxyType({})
 
-        field.set(device, options, False)
+        field.set(FieldContext(device, options, None), False)
         device.set_control.assert_called_with(control={"enabled": "DISABLED"})
 
     def test_raises_on_none_value(self):
@@ -407,7 +419,7 @@ class TestSwitchMethodField:
         options = MappingProxyType({})
 
         with pytest.raises(ValueError, match="Cannot set switch to None"):
-            field.set(device, options, None)
+            field.set(FieldContext(device, options, None), None)
 
     def test_passthrough_non_boolean_values(self):
         """Test SwitchMethodField passes through non-boolean values."""
@@ -417,7 +429,7 @@ class TestSwitchMethodField:
         field = SwitchMethodField(path="control.value")
         options = MappingProxyType({})
 
-        field.set(device, options, "CUSTOM")
+        field.set(FieldContext(device, options, None), "CUSTOM")
         device.set_control.assert_called_with(control={"value": "CUSTOM"})
 
     def test_default_on_off_values(self):
@@ -428,10 +440,10 @@ class TestSwitchMethodField:
         field = SwitchMethodField(path="control.switch")
         options = MappingProxyType({})
 
-        field.set(device, options, True)
+        field.set(FieldContext(device, options, None), True)
         device.set_control.assert_called_with(control={"switch": True})
 
-        field.set(device, options, False)
+        field.set(FieldContext(device, options, None), False)
         device.set_control.assert_called_with(control={"switch": False})
 
 
@@ -459,10 +471,10 @@ class TestLockMethodField:
         options = MappingProxyType({})
 
         # Get works and maps to LockState
-        assert field.get(device, options) == LockState.LOCKED
+        assert field.get(FieldContext(device, options, None)) == LockState.LOCKED
 
         # Set works and maps from LockState to FlapLocking
-        field.set(device, options, LockState.UNLOCKED)
+        field.set(FieldContext(device, options, None), LockState.UNLOCKED)
         device.set_control.assert_called_with(control={"locking": FlapLocking.UNLOCKED})
 
 
@@ -479,7 +491,7 @@ class TestBinarySensorMethodField:
         )
         options = MappingProxyType({})
 
-        assert field.get(device, options) is True
+        assert field.get(FieldContext(device, options, None)) is True
 
     def test_maps_off_value_to_false(self):
         """Test BinarySensorMethodField maps off value to False."""
@@ -491,7 +503,7 @@ class TestBinarySensorMethodField:
         )
         options = MappingProxyType({})
 
-        assert field.get(device, options) is False
+        assert field.get(FieldContext(device, options, None)) is False
 
     def test_maps_unknown_value_to_none(self):
         """Test BinarySensorMethodField maps unknown values to None."""
@@ -503,7 +515,7 @@ class TestBinarySensorMethodField:
         )
         options = MappingProxyType({})
 
-        assert field.get(device, options) is None
+        assert field.get(FieldContext(device, options, None)) is None
 
     def test_handles_none_value(self):
         """Test BinarySensorMethodField handles None value."""
@@ -515,7 +527,7 @@ class TestBinarySensorMethodField:
         )
         options = MappingProxyType({})
 
-        assert field.get(device, options) is None
+        assert field.get(FieldContext(device, options, None)) is None
 
     def test_default_on_off_values(self):
         """Test BinarySensorMethodField with default on/off values."""
@@ -525,10 +537,10 @@ class TestBinarySensorMethodField:
         field = BinarySensorMethodField(path="status.active")
         options = MappingProxyType({})
 
-        assert field.get(device, options) is True
+        assert field.get(FieldContext(device, options, None)) is True
 
         device.status.active = False
-        assert field.get(device, options) is False
+        assert field.get(FieldContext(device, options, None)) is False
 
     def test_with_custom_get_fn(self):
         """Test BinarySensorMethodField with custom get_fn."""
@@ -537,18 +549,18 @@ class TestBinarySensorMethodField:
         device.status.activity.where = "INSIDE"
 
         field = BinarySensorMethodField(
-            get_fn=lambda d, r: getattr(
-                getattr(d.status, "activity", None), "where", None
+            get_fn=lambda ctx: getattr(
+                getattr(ctx.device.status, "activity", None), "where", None
             ),
             on="INSIDE",
             off="OUTSIDE",
         )
         options = MappingProxyType({})
 
-        assert field.get(device, options) is True
+        assert field.get(FieldContext(device, options, None)) is True
 
         device.status.activity.where = "OUTSIDE"
-        assert field.get(device, options) is False
+        assert field.get(FieldContext(device, options, None)) is False
 
         device.status.activity = None
-        assert field.get(device, options) is None
+        assert field.get(FieldContext(device, options, None)) is None

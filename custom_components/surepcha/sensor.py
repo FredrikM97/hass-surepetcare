@@ -122,11 +122,11 @@ SENSOR_DESCRIPTIONS_DEVICE_INFORMATION: tuple[
         icon="mdi:information",
         field=MethodField(
             path=NAME,
-            get_extra_fn=lambda device, r: {
-                "household_id": str(device.household_id),
-                "id": str(device.id),
-                "parent_device_id": stringify(device.entity_info.parent_device_id),
-                "photo": device.photo,
+            get_extra_fn=lambda ctx: {
+                "household_id": str(ctx.device.household_id),
+                "id": str(ctx.device.id),
+                "parent_device_id": stringify(ctx.device.entity_info.parent_device_id),
+                "photo": ctx.device.photo,
             },
             entity_picture="photo",
         ),
@@ -139,7 +139,7 @@ SENSOR_DESCRIPTIONS_RSSI: tuple[SurePetCareSensorEntityDescription, ...] = (
         translation_key="rssi",
         native_unit_of_measurement="dBm",
         field=MethodField(
-            get_fn=lambda device, r: device.status.signal.device_rssi,
+            get_fn=lambda ctx: ctx.device.status.signal.device_rssi,
         ),
         device_class=SensorDeviceClass.SIGNAL_STRENGTH,
         entity_category=EntityCategory.DIAGNOSTIC,
@@ -153,13 +153,13 @@ SENSOR_DESCRIPTIONS_PET_INFORMATION: tuple[SurePetCareSensorEntityDescription, .
         icon="mdi:information",
         field=MethodField(
             path=NAME,
-            get_extra_fn=lambda device, r: {
-                "household_id": str(device.household_id),
-                PRODUCT_ID: device.product_id,
-                "tag": str(device.tag),
-                "id": str(device.id),
-                "parent_device_id": stringify(device.entity_info.parent_device_id),
-                "photo": device.photo,
+            get_extra_fn=lambda ctx: {
+                "household_id": str(ctx.device.household_id),
+                PRODUCT_ID: ctx.device.product_id,
+                "tag": str(ctx.device.tag),
+                "id": str(ctx.device.id),
+                "parent_device_id": stringify(ctx.device.entity_info.parent_device_id),
+                "photo": ctx.device.photo,
             },
             entity_picture="photo",
         ),
@@ -177,14 +177,16 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 path="status.bowl_status[0].current_weight",
-                get_extra_fn=lambda device, r: {
-                    "position": device.status.bowl_status[0].position.name.lower(),
-                    "food_type": device.control.bowls.settings[
+                get_extra_fn=lambda ctx: {
+                    "position": ctx.device.status.bowl_status[0].position.name.lower(),
+                    "food_type": ctx.device.control.bowls.settings[
                         0
                     ].food_type.name.lower(),
-                    "last_filled_at": device.status.bowl_status[0].last_filled_at,
-                    "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
-                    "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
+                    "last_filled_at": ctx.device.status.bowl_status[0].last_filled_at,
+                    "last_zeroed_at": ctx.device.status.bowl_status[0].last_zeroed_at,
+                    "last_fill_weight": ctx.device.status.bowl_status[
+                        0
+                    ].last_fill_weight,
                 },
             ),
         ),
@@ -197,15 +199,17 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 path="status.bowl_status[1].current_weight",
-                get_extra_fn=lambda device, r: {
-                    "position": device.status.bowl_status[1].position.name.lower(),
-                    "food_type": device.control.bowls.settings[
+                get_extra_fn=lambda ctx: {
+                    "position": ctx.device.status.bowl_status[1].position.name.lower(),
+                    "food_type": ctx.device.control.bowls.settings[
                         1
                     ].food_type.name.lower(),
-                    "substance_type": device.status.bowl_status[1].substance_type,
-                    "last_filled_at": device.status.bowl_status[1].last_filled_at,
-                    "last_zeroed_at": device.status.bowl_status[1].last_zeroed_at,
-                    "last_fill_weight": device.status.bowl_status[1].last_fill_weight,
+                    "substance_type": ctx.device.status.bowl_status[1].substance_type,
+                    "last_filled_at": ctx.device.status.bowl_status[1].last_filled_at,
+                    "last_zeroed_at": ctx.device.status.bowl_status[1].last_zeroed_at,
+                    "last_fill_weight": ctx.device.status.bowl_status[
+                        1
+                    ].last_fill_weight,
                 },
             ),
         ),
@@ -218,14 +222,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             suggested_display_precision=1,
             field=MethodField(
                 path="status.fill_percentages.total",
-                get_extra_fn=lambda device, r: (
+                get_extra_fn=lambda ctx: (
                     {
                         f"bowl_{i}_fill_percent": percent
                         for i, percent in (
-                            device.status.fill_percentages.get("per_bowl", {}) or {}
+                            ctx.device.status.fill_percentages.get("per_bowl", {}) or {}
                         ).items()
                     }
-                    if device.status.fill_percentages
+                    if ctx.device.status.fill_percentages
                     else {}
                 ),
             ),
@@ -237,18 +241,18 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                get_fn=lambda device, r: sum(
+                get_fn=lambda ctx: sum(
                     w.target
                     for w in getattr(
-                        getattr(getattr(device, "control"), "bowls"), "settings", []
+                        getattr(getattr(ctx.device, "control"), "bowls"), "settings", []
                     )
                 ),
-                get_extra_fn=lambda device, r: {
+                get_extra_fn=lambda ctx: {
                     "bowls_0_target": index_attr(
-                        device.control.bowls.settings, 0, attr="target"
+                        ctx.device.control.bowls.settings, 0, attr="target"
                     ),
                     "bowls_1_target": index_attr(
-                        device.control.bowls.settings, 1, attr="target"
+                        ctx.device.control.bowls.settings, 1, attr="target"
                     ),
                 },
             ),
@@ -281,10 +285,12 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             field=MethodField(
                 path="status.bowl_status[0].current_weight",
-                get_extra_fn=lambda device, r: {
-                    "last_filled_at": device.status.bowl_status[0].last_filled_at,
-                    "last_zeroed_at": device.status.bowl_status[0].last_zeroed_at,
-                    "last_fill_weight": device.status.bowl_status[0].last_fill_weight,
+                get_extra_fn=lambda ctx: {
+                    "last_filled_at": ctx.device.status.bowl_status[0].last_filled_at,
+                    "last_zeroed_at": ctx.device.status.bowl_status[0].last_zeroed_at,
+                    "last_fill_weight": ctx.device.status.bowl_status[
+                        0
+                    ].last_fill_weight,
                 },
             ),
         ),
@@ -294,8 +300,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             state_class=SensorStateClass.MEASUREMENT,
             native_unit_of_measurement=PERCENTAGE,
             field=MethodField(
-                get_fn=lambda device, r: avg_attr(
-                    getattr(device.status, "bowl_status", []), "fill_percent"
+                get_fn=lambda ctx: avg_attr(
+                    getattr(ctx.device.status, "bowl_status", []), "fill_percent"
                 ),
             ),
         ),
@@ -314,17 +320,17 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs_sum_attr(device.status.feeding, "change"),
-                get_extra_fn=lambda device, config_options: {
-                    "device_id": str(device.status.feeding.device_id),
-                    "id": str(device.status.feeding.id),
-                    "at": device.status.feeding.at,
-                    "tag_id": str(device.status.feeding.tag_id),
+                get_fn=lambda ctx: abs_sum_attr(ctx.device.status.feeding, "change"),
+                get_extra_fn=lambda ctx: {
+                    "device_id": str(ctx.device.status.feeding.device_id),
+                    "id": str(ctx.device.status.feeding.id),
+                    "at": ctx.device.status.feeding.at,
+                    "tag_id": str(ctx.device.status.feeding.tag_id),
                     "change_0": abs(
-                        index_attr(device.status.feeding.change, 0, default=0)
+                        index_attr(ctx.device.status.feeding.change, 0, default=0)
                     ),
                     "change_1": abs(
-                        index_attr(device.status.feeding.change, 1, default=0)
+                        index_attr(ctx.device.status.feeding.change, 1, default=0)
                     ),
                 },
             ),
@@ -335,13 +341,13 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:map-marker",
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=get_location,
-                get_extra_fn=lambda device, r: {
-                    "device_id": str(device.status.activity.device_id),
-                    "id": str(device.status.activity.id),
-                    "since": device.status.activity.since,
-                    "where": device.status.activity.where,
-                    "tag_id": str(device.status.activity.tag_id),
+                get_fn=lambda ctx: get_location(ctx.device, ctx.options),
+                get_extra_fn=lambda ctx: {
+                    "device_id": str(ctx.device.status.activity.device_id),
+                    "id": str(ctx.device.status.activity.id),
+                    "since": ctx.device.status.activity.since,
+                    "where": ctx.device.status.activity.where,
+                    "tag_id": str(ctx.device.status.activity.tag_id),
                 },
             ),
         ),
@@ -354,17 +360,17 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: abs_sum_attr(device.status.drinking, "change"),
-                get_extra_fn=lambda device, config_options: {
-                    "device_id": str(device.status.drinking.device_id),
-                    "id": str(device.status.drinking.id),
-                    "at": device.status.drinking.at,
-                    "tag_id": str(device.status.drinking.tag_id),
+                get_fn=lambda ctx: abs_sum_attr(ctx.device.status.drinking, "change"),
+                get_extra_fn=lambda ctx: {
+                    "device_id": str(ctx.device.status.drinking.device_id),
+                    "id": str(ctx.device.status.drinking.id),
+                    "at": ctx.device.status.drinking.at,
+                    "tag_id": str(ctx.device.status.drinking.tag_id),
                     "change_0": abs(
-                        index_attr(device.status.drinking.change, 0, default=0)
+                        index_attr(ctx.device.status.drinking.change, 0, default=0)
                     ),
                     "change_1": abs(
-                        index_attr(device.status.drinking.change, 1, default=0)
+                        index_attr(ctx.device.status.drinking.change, 1, default=0)
                     ),
                 },
             ),
@@ -376,8 +382,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement="pcs",
             field=MethodField(
                 path="status.devices.count",
-                get_extra_fn=lambda device, r: {
-                    "devices": [str(item.id) for item in device.status.devices.items]
+                get_extra_fn=lambda ctx: {
+                    "devices": [
+                        str(item.id) for item in ctx.device.status.devices.items
+                    ]
                 },
             ),
         ),
@@ -387,14 +395,14 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:history",
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda device, r: (
-                    option_name(r, device.status.last_activity.device_id)
-                    if device.status.last_activity
+                get_fn=lambda ctx: (
+                    option_name(ctx.options, ctx.device.status.last_activity.device_id)
+                    if ctx.device.status.last_activity
                     else None
                 ),
-                get_extra_fn=lambda device, r: (
-                    {"device": str(device.status.last_activity.device_id)}
-                    if device.status.last_activity
+                get_extra_fn=lambda ctx: (
+                    {"device": str(ctx.device.status.last_activity.device_id)}
+                    if ctx.device.status.last_activity
                     else {}
                 ),
             ),

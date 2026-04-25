@@ -103,6 +103,4 @@ class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
 
     def lock_state(self):
         """Return the lock state."""
-        return self.entity_description.field.get(
-            self.coordinator.data, self.coordinator.config_entry.options
-        )
+        return self.entity_description.field.get(self.context)

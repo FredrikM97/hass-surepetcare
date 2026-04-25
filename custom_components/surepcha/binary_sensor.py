@@ -3,11 +3,8 @@
 from dataclasses import dataclass
 from datetime import datetime
 import logging
-from types import MappingProxyType
-from typing import Any
 
 from surepcio.enums import ProductId, PetLocation
-from surepcio.devices.device import SurePetCareBase
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -34,9 +31,8 @@ from .entity import (
 logger = logging.getLogger(__name__)
 
 
-def _next_enabled_future_curfew(
-    device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
-) -> bool | None:
+def _next_enabled_future_curfew(ctx) -> bool | None:
+    device = ctx.device
     curfews = ensure_list(device.control, "curfew")
     now = datetime.now().time()
     return any(c.enabled and c.lock_time <= now <= c.unlock_time for c in curfews)
@@ -64,11 +60,11 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
         device_class=BinarySensorDeviceClass.PRESENCE,
         field=BinarySensorMethodField(
             path="status.activity.where",
-            get_extra_fn=lambda device, r: {
-                "device_id": str(device.status.activity.device_id),
-                "id": str(device.status.activity.id),
-                "since": device.status.activity.since,
-                "tag_id": str(device.status.activity.tag_id),
+            get_extra_fn=lambda ctx: {
+                "device_id": str(ctx.device.status.activity.device_id),
+                "id": str(ctx.device.status.activity.id),
+                "since": ctx.device.status.activity.since,
+                "tag_id": str(ctx.device.status.activity.tag_id),
             },
             on=PetLocation.INSIDE,
             off=PetLocation.OUTSIDE,
@@ -101,14 +97,14 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             translation_key="curfew_active",
             field=MethodField(
                 get_fn=_next_enabled_future_curfew,
-                get_extra_fn=lambda device, r: {
+                get_extra_fn=lambda ctx: {
                     "curfew": [
                         {
                             "enabled": c.enabled,
                             "lock_time": str(c.lock_time),
                             "unlock_time": str(c.unlock_time),
                         }
-                        for c in list_attr(device.control, "curfew")
+                        for c in list_attr(ctx.device.control, "curfew")
                     ]
                 },
             ),

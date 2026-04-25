@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 from dataclasses import dataclass
-from types import MappingProxyType
-from typing import Any
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -20,7 +18,6 @@ from .entity import (
     SurePetCareBaseEntityDescription,
 )
 from surepcio.command import Command
-from surepcio.devices import Pet
 from surepcio.enums import ProductId, PetDeviceLocationProfile, PetLocation
 from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, FLAP_PRODUCTS, KEY_API
 import logging
@@ -28,39 +25,34 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def profile_is_indoor(
-    pet: Pet, entry_options: MappingProxyType[str, Any]
-) -> bool | None:
+def profile_is_indoor(ctx) -> bool | None:
     """Return True if all flap device profiles are indoor only."""
-    devices = list_attr(pet, "status", "devices", "items")
+    devices = list_attr(ctx.device, "status", "devices", "items")
     if not devices:
         return None
     profiles = {
         d.profile
         for d in devices
-        if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
+        if option_product_id(ctx.options, d.id) in FLAP_PRODUCTS
     }
     if len(profiles) > 1:
         logger.warning(f"Flap device profiles are not uniform: {profiles}")
     if len(profiles) == 0:
-        logger.debug(f"No flap devices found for pet {pet.name}")
+        logger.debug(f"No flap devices found for pet {ctx.device.name}")
         return None
     return profiles == {PetDeviceLocationProfile.INDOOR_ONLY}
 
 
-def set_profile(
-    pet: Pet,
-    entry_options: MappingProxyType[str, Any],
-    profile: PetDeviceLocationProfile,
-) -> list[Command]:
+def set_profile(ctx, value) -> list[Command]:
     """Set all flap devices to the given profile and return the results."""
+    pet = ctx.device
     if not getattr(pet, "status", None):
         return []
 
     return [
-        pet.set_profile(d.id, profile)
+        pet.set_profile(d.id, value)
         for d in list_attr(pet.status, "devices", "items")
-        if option_product_id(entry_options, d.id) in FLAP_PRODUCTS
+        if option_product_id(ctx.options, d.id) in FLAP_PRODUCTS
     ]
 
 
@@ -83,11 +75,11 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 set_fn=set_profile,
                 on=PetDeviceLocationProfile.INDOOR_ONLY,
                 off=PetDeviceLocationProfile.NO_RESTRICTION,
-                get_extra_fn=lambda pet, r: {
+                get_extra_fn=lambda ctx: {
                     "flap_devices": [
                         str(d.id)
-                        for d in list_attr(pet.status, "devices", "items")
-                        if option_product_id(r, d.id) in FLAP_PRODUCTS
+                        for d in list_attr(ctx.device.status, "devices", "items")
+                        if option_product_id(ctx.options, d.id) in FLAP_PRODUCTS
                     ]
                 },
             ),
@@ -99,7 +91,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             entity_registry_enabled_default=False,
             field=SwitchMethodField(
                 path="status.activity.where",
-                set_fn=lambda device, r, value: device.set_position(value),
+                set_fn=lambda ctx, value: ctx.device.set_position(value),
                 on=PetLocation.OUTSIDE,
                 off=PetLocation.INSIDE,
             ),
