@@ -4,15 +4,20 @@ from collections.abc import Callable
 from dataclasses import dataclass
 import logging
 import re
-from types import MappingProxyType
 from typing import Any, Optional
 from homeassistant.components.lock.const import LockState
 
-from surepcio.devices.device import SurePetCareBase
 
 logger = logging.getLogger(__name__)
 
 _LIST_INDEX_RE = re.compile(r"(\w+)\[(\d+)\]$")
+
+
+class FieldContext:
+    def __init__(self, device, options, entity_id=None):
+        self.device = device
+        self.options = options
+        self.entity_id = entity_id
 
 
 def build_nested_dict(field_path, value):
@@ -66,17 +71,12 @@ def get_by_path(obj, path):
 class MethodField:
     """Field that uses provided functions or paths to get/set values."""
 
-    get_fn: Optional[Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]] = (
-        None
-    )
-    set_fn: Optional[
-        Callable[[SurePetCareBase, MappingProxyType[str, Any], Any], Any]
-    ] = None
+    entity_id: str | None = None  # Will be injected by the entity if needed
+    get_fn: Optional[Callable[["FieldContext"], Any]] = None
+    set_fn: Optional[Callable[["FieldContext", Any], Any]] = None
     path: Optional[str] = None
     path_extra: Optional[str | dict] = None
-    get_extra_fn: Optional[
-        Callable[[SurePetCareBase, MappingProxyType[str, Any]], Any]
-    ] = None
+    get_extra_fn: Optional[Callable[["FieldContext"], Any]] = None
     entity_picture: Optional[str] = None
 
     def __post_init__(self):
@@ -85,14 +85,14 @@ class MethodField:
             # Only set get_fn default if not explicitly provided
             if self.get_fn is None:
                 object.__setattr__(
-                    self, "get_fn", lambda device, r: get_by_path(device, self.path)
+                    self, "get_fn", lambda ctx: get_by_path(ctx.device, self.path)
                 )
             # Only set set_fn default if not explicitly provided
             if self.set_fn is None:
                 object.__setattr__(
                     self,
                     "set_fn",
-                    lambda device, r, value: device.set_control(
+                    lambda ctx, value: ctx.device.set_control(
                         **build_nested_dict(self.path, value)
                     ),
                 )
@@ -102,63 +102,51 @@ class MethodField:
             object.__setattr__(
                 self,
                 "get_extra_fn",
-                lambda device, r: get_by_path(device, self.path_extra),
+                lambda ctx: get_by_path(ctx.device, self.path_extra),
             )
 
-    def get(
-        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
-    ) -> Any:
+    def get(self, context: FieldContext) -> Any:
         """Get the value from the device."""
         if self.get_fn:
-            value = self.get_fn(device, entry_options)
+            value = self.get_fn(context)
             path_label = self.path or self.get_fn.__name__
             logger.debug(
-                "MethodField.get: device_id=%s, path=%s, value=%s",
-                device.id,
+                "MethodField.get: device_id=%s, path=%s, value=%s, entity_id=%s",
+                context.device.id,
                 path_label,
                 value,
+                context.entity_id,
             )
             return value
         raise NotImplementedError("No get_fn or path defined")
 
-    def set(
-        self,
-        device: SurePetCareBase,
-        entry_options: MappingProxyType[str, Any],
-        value: Any,
-    ) -> Any:
+    def set(self, context: FieldContext, value: Any) -> Any:
         """Set the value on the device."""
         if self.set_fn:
             path_label = self.path or self.set_fn.__name__
             logger.debug(
-                "MethodField.set: device_id=%s, path=%s, value=%s",
-                device.id,
+                "MethodField.set: device_id=%s, path=%s, value=%s, entity_id=%s",
+                context.device.id,
                 path_label,
                 value,
+                context.entity_id,
             )
-            return self.set_fn(device, entry_options, value)
+            return self.set_fn(context, value)
         raise NotImplementedError("No set_fn or path defined")
 
-    def get_extra(
-        self, device: SurePetCareBase, entry_options: MappingProxyType[str, Any]
-    ) -> Any:
+    def get_extra(self, context: FieldContext) -> Any:
         """Get extra attributes from the device."""
         if self.get_extra_fn:
-            return self.get_extra_fn(device, entry_options)
+            return self.get_extra_fn(context)
         raise NotImplementedError("No get_extra_fn or path_extra defined")
 
     def get_entity_picture(self, device) -> Optional[str]:
         """Return the entity picture URL if set."""
         return get_by_path(device, self.entity_picture) if self.entity_picture else None
 
-    def __call__(
-        self,
-        device: SurePetCareBase,
-        entry_options: MappingProxyType[str, Any],
-        value: Any,
-    ) -> Any:
+    def __call__(self, context: FieldContext, value: Any) -> Any:
         """Call to set the value."""
-        return self.set(device, entry_options, value)
+        return self.set(context, value)
 
 
 @dataclass(frozen=True, slots=True)
@@ -167,30 +155,26 @@ class ButtonMethodField(MethodField):
 
     on: Any = True
 
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
+    def set(self, context: FieldContext, value: Any) -> Any:
         if value is True and self.on:
             value = self.on
-        return MethodField.set(self, device, entry_options, value)
+        return MethodField.set(self, context, value)
 
 
 @dataclass(frozen=True, slots=True)
 class SelectMethodField(MethodField):
     """MethodField for select-like entities, supporting options function."""
 
-    options_fn: Callable | None = None
+    options_fn: Callable[["FieldContext"], Any] | None = None
 
-    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+    def get(self, context: FieldContext) -> Any:
         if self.get_fn is None and self.path is None and self.options_fn is not None:
             # Bonky solution but this might return multiple values and therefore we just return None.
             return None
-        return MethodField.get(self, device, entry_options)
+        return MethodField.get(self, context)
 
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
-        return MethodField.set(self, device, entry_options, value)
+    def set(self, context: FieldContext, value: Any) -> Any:
+        return MethodField.set(self, context, value)
 
 
 @dataclass(frozen=True, slots=True)
@@ -200,17 +184,15 @@ class SwitchMethodField(MethodField):
     on: Any = True
     off: Any = False
 
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
+    def set(self, context: FieldContext, value: Any) -> Any:
         # Map True/False to on/off, otherwise pass value as-is
         if value is True:
             value = self.on
         elif value is False:
             value = self.off
         elif value is None:
-            raise ValueError("Cannot set switch to None for %s", device)
-        return MethodField.set(self, device, entry_options, value)
+            raise ValueError(f"Cannot set switch to None for {context.device}")
+        return MethodField.set(self, context, value)
 
 
 @dataclass(frozen=True)
@@ -231,23 +213,21 @@ class LockMethodField(MethodField):
             self, "_reverse_states", {v: k for k, v in self.states.items()}
         )
 
-    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+    def get(self, context: FieldContext) -> Any:
         """Get the value from the device and map it to LockState."""
-        raw_value = MethodField.get(self, device, entry_options)
+        raw_value = MethodField.get(self, context)
         # _reverse_states is guaranteed to be set in __post_init__
         assert self._reverse_states is not None
         return self._reverse_states.get(raw_value)
 
-    def set(
-        self, device: object, entry_options: MappingProxyType[str, Any], value: Any
-    ) -> Any:
+    def set(self, context: FieldContext, value: Any) -> Any:
         """Set the value on the device by mapping LockState to the corresponding value."""
         # states is guaranteed to be set (checked in __post_init__)
         assert self.states is not None
         if value not in self.states:
-            raise ValueError(f"Unknown lock state: {value} for {device}")
+            raise ValueError(f"Unknown lock state: {value} for {context.device}")
         mapped_value = self.states[value]
-        return MethodField.set(self, device, entry_options, mapped_value)
+        return MethodField.set(self, context, mapped_value)
 
 
 @dataclass(frozen=True, slots=True)
@@ -257,10 +237,10 @@ class BinarySensorMethodField(MethodField):
     on: Any = True
     off: Any = False
 
-    def get(self, device: object, entry_options: MappingProxyType[str, Any]) -> Any:
+    def get(self, context: FieldContext) -> Any:
         """Get the value and map it to True/False based on on/off values."""
         # Get the raw value using parent's get method
-        raw_value = MethodField.get(self, device, entry_options)
+        raw_value = MethodField.get(self, context)
 
         # Map the value to boolean
         if raw_value == self.on:

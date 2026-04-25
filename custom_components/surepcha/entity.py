@@ -9,7 +9,7 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from custom_components.surepcha.helper import serialize
-from custom_components.surepcha.method_field import MethodField
+from custom_components.surepcha.method_field import FieldContext, MethodField
 from .const import DOMAIN
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
@@ -68,11 +68,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def native_value(self) -> str | None:
         """Return the sensor value."""
-        return serialize(
-            self.entity_description.field.get(
-                self.coordinator.data, self.coordinator.config_entry.options
-            )
-        )
+        return serialize(self.entity_description.field.get(self.context))
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -86,10 +82,12 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         ):
             return None
 
-        return serialize(
-            self.entity_description.field.get_extra(
-                self.coordinator.data, self.coordinator.config_entry.options
-            )
+        return serialize(self.entity_description.field.get_extra(self.context))
+
+    @property
+    def context(self):
+        return FieldContext(
+            self.coordinator.data, self.coordinator.config_entry.options, self.entity_id
         )
 
     async def send_command(self, value: Any) -> None:
@@ -98,9 +96,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     async def _send_command(self, value: Any) -> None:
         """Send command to device."""
-        command = self.entity_description.field(
-            self._device, self.coordinator.config_entry.options, value
-        )
+        command = self.entity_description.field(self.context, value)
         logger.debug(
             "send_command for %s: %s=%s (command: %s)",
             self.entity_id,

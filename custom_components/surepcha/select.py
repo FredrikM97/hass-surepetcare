@@ -91,8 +91,8 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             translation_key="bowls_type",
             icon="mdi:bowl-mix",
             field=SelectMethodField(
-                get_fn=lambda device, r: device.get_bowl_type_option(),
-                set_fn=lambda device, r, option: device.set_bowl_type(
+                get_fn=lambda ctx: ctx.device.get_bowl_type_option(),
+                set_fn=lambda ctx, option: ctx.device.set_bowl_type(
                     BowlTypeOptions(option)
                 ),
             ),
@@ -106,7 +106,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             icon="mdi:restart",
             field=SelectMethodField(
                 path="control.tare",
-                options_fn=lambda device, r: device.status.tare_options,
+                options_fn=lambda ctx: ctx.device.status.tare_options,
             ),
             options=Tare,
             entity_category=EntityCategory.CONFIG,
@@ -129,17 +129,17 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             icon="mdi:link-variant-off",
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
-                set_fn=lambda pet, entry_data, option: (
-                    pet.set_tag(value, action=ModifyDeviceTag.REMOVE)
-                    if (value := find_entity_id_by_name(entry_data, option))
+                set_fn=lambda ctx, option: (
+                    ctx.device.set_tag(value, action=ModifyDeviceTag.REMOVE)
+                    if (value := find_entity_id_by_name(ctx.options, option))
                     else None
                 ),
-                options_fn=lambda device, r: list(
+                options_fn=lambda ctx: list(
                     filter(
                         None,
                         map_attr(
-                            list_attr(device.status, DEVICES, "items"),
-                            lambda d: option_name(r, d.id),
+                            list_attr(ctx.device.status, DEVICES, "items"),
+                            lambda d: option_name(ctx.options, d.id),
                         ),
                     )
                 ),
@@ -151,18 +151,19 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             icon="mdi:link-variant",
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
-                options_fn=lambda device, r: [
+                options_fn=lambda ctx: [
                     v.get(NAME)
-                    for k, v in r[OPTION_DEVICES].items()
+                    for k, v in ctx.options[OPTION_DEVICES].items()
                     if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
                     and k
                     not in {
-                        str(d.id) for d in list_attr(device.status, DEVICES, "items")
+                        str(d.id)
+                        for d in list_attr(ctx.device.status, DEVICES, "items")
                     }
                 ],
-                set_fn=lambda pet, entry_data, option: (
-                    pet.set_tag(value, action=ModifyDeviceTag.ADD)
-                    if (value := find_entity_id_by_name(entry_data, option))
+                set_fn=lambda ctx, option: (
+                    ctx.device.set_tag(value, action=ModifyDeviceTag.ADD)
+                    if (value := find_entity_id_by_name(ctx.options, option))
                     else None
                 ),
             ),
@@ -267,7 +268,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         # Use options_fn if present
         options_fn = getattr(desc.field, "options_fn", None)
         if options_fn:
-            return options_fn(self._device, self.coordinator.config_entry.options)
+            return options_fn(self.context)
 
         # Fallback to static options if present
         opts = desc.options
