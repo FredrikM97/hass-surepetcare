@@ -268,7 +268,7 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
         # Use options_fn if present
         options_fn = getattr(desc.field, "options_fn", None)
         if options_fn:
-            return options_fn(self._device, self.coordinator.config_entry.options)
+            return options_fn(self.context)
 
         # Fallback to static options if present
         opts = desc.options
