@@ -109,4 +109,5 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             command,
         )
         await self.coordinator.client.api(command)
-        self.async_write_ha_state()
+        # update entities with new data
+        await self.coordinator.async_request_refresh()
