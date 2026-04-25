@@ -4,9 +4,6 @@
   "remoteUser": "vscode",
   "customizations": {
     "vscode": {
-      "settings": {
-        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
-      },
       "extensions": [
         "ms-python.python",
         "charliermarsh.ruff",
@@ -14,9 +11,13 @@
       ]
     }
   },
+  "containerEnv": {
+    "UV_CACHE_DIR": "/home/vscode/.cache/uv",
+    "UV_LINK_MODE": "copy"
+  },
   "mounts": [
-    "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
+    "type=bind,source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-  "postCreateCommand": "pip install uv && uv sync --group dev && uv run pre-commit install",
+  "postCreateCommand": "command -v uv || curl -LsSf https://astral.sh/uv/install.sh | sh && uv sync --group dev",
   "postStartCommand": "git config --global --unset-all core.hooksPath || true"
 }
