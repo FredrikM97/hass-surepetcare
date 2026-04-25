@@ -2,11 +2,6 @@
   "name": "Python Dev Container",
   "image": "mcr.microsoft.com/devcontainers/python:3.13",
   "remoteUser": "vscode",
-  "features": {
-    "ghcr.io/astral-sh/uv:0": {
-      "version": "latest"
-    }
-  },
   "customizations": {
     "vscode": {
       "settings": {
@@ -22,6 +17,6 @@
   "mounts": [
     "type=bind,source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-  "postCreateCommand": "uv sync --group dev && uv run pre-commit install",
+  "postCreateCommand": "pip install uv && uv sync --group dev && uv run pre-commit install",
   "postStartCommand": "git config --global --unset-all core.hooksPath || true"
 }
