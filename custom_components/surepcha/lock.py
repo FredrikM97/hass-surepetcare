@@ -4,18 +4,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 import logging
 from homeassistant.components.lock import LockEntity, LockEntityDescription
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.components.lock.const import LockState
 from custom_components.surepcha.method_field import LockMethodField
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
 from surepcio.enums import ProductId, FlapLocking
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
 
 logger = logging.getLogger(__name__)
 
@@ -50,27 +48,21 @@ LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up SurePetCare lock for each matching device."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
+    coordinators = entry.runtime_data
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = LOCKS.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareLock(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    entities = [
+        SurePetCareLock(
+            coordinator,
+            description=description,
         )
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in LOCKS.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
@@ -80,16 +72,14 @@ class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareLockEntityDescription,
     ) -> None:
         super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
+            coordinator=coordinator,
         )
         self.entity_description = description
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     @property
     def is_locked(self) -> bool:

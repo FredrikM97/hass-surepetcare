@@ -2892,7 +2892,7 @@
     'state': '-74',
   })
 # ---
-# name: test_platform_setup_and_discovery[sensor.test_surepetcare_entry_rssi-entry]
+# name: test_platform_setup_and_discovery[sensor.rssi-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -2906,7 +2906,7 @@
     'disabled_by': None,
     'domain': 'sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'sensor.test_surepetcare_entry_rssi',
+    'entity_id': 'sensor.rssi',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -2929,7 +2929,7 @@
     'unit_of_measurement': 'dBm',
   })
 # ---
-# name: test_platform_setup_and_discovery[sensor.test_surepetcare_entry_rssi-state]
+# name: test_platform_setup_and_discovery[sensor.rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'signal_strength',
@@ -2937,7 +2937,7 @@
       'unit_of_measurement': 'dBm',
     }),
     'context': <ANY>,
-    'entity_id': 'sensor.test_surepetcare_entry_rssi',
+    'entity_id': 'sensor.rssi',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -5835,7 +5835,7 @@
     'state': '-74',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.test_surepetcare_entry_rssi-entry]
+# name: test_platform_setup_and_discovery_missing_entities[sensor.rssi-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -5849,7 +5849,7 @@
     'disabled_by': None,
     'domain': 'sensor',
     'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'sensor.test_surepetcare_entry_rssi',
+    'entity_id': 'sensor.rssi',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -5872,7 +5872,7 @@
     'unit_of_measurement': 'dBm',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[sensor.test_surepetcare_entry_rssi-state]
+# name: test_platform_setup_and_discovery_missing_entities[sensor.rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'signal_strength',
@@ -5880,7 +5880,7 @@
       'unit_of_measurement': 'dBm',
     }),
     'context': <ANY>,
-    'entity_id': 'sensor.test_surepetcare_entry_rssi',
+    'entity_id': 'sensor.rssi',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

@@ -1,11 +1,11 @@
 """TODO."""
 
+import asyncio
 import logging
 from typing import Any, List
 
 from surepcio import SurePetcareClient
 from surepcio import Household
-from surepcio.enums import ProductId
 
 from .services import _service_registry
 
@@ -18,16 +18,12 @@ from homeassistant.helpers import device_registry as dr
 
 from .const import (
     CLIENT_DEVICE_ID,
-    COORDINATOR,
-    COORDINATOR_DICT,
     DOMAIN,
-    FACTORY,
-    KEY_API,
     MANUAL_PROPERTIES,
     TOKEN,
     OPTION_PROPERTIES,
 )
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 
 logger = logging.getLogger(__name__)
 
@@ -79,16 +75,8 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
     return True
 
 
-async def async_setup_entry(
-    hass: HomeAssistant,
-    entry: ConfigEntry,
-) -> bool:
-    """Set up surepetcare from a config entry."""
-    logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
-
-    surepetcare_data: dict[str, Any] = {}
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = surepetcare_data
-
+async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
+    """Setup devices for a config entry."""
     client: SurePetcareClient = SurePetcareClient()
     try:
         await client.login(
@@ -96,8 +84,6 @@ async def async_setup_entry(
         )
     except Exception as exc:
         raise ConfigEntryAuthFailed from exc
-
-    surepetcare_data[FACTORY] = client
 
     async def on_hass_stop(event: Event) -> None:
         """Close connection when hass stops."""
@@ -107,6 +93,7 @@ async def async_setup_entry(
     entry.async_on_unload(
         hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, on_hass_stop)
     )
+    # Fetch initial devices
     try:
         households: List[Household] = await client.api(Household.get_households())
         entities = []
@@ -117,63 +104,55 @@ async def async_setup_entry(
     except Exception as exc:
         await client.close()
         raise Exception("Configuration not finished") from exc
+    return client, entities
 
-    remove_stale_devices(hass, entry, entities)
-    # Setup the device coordinators
-    coordinator_data = {
-        KEY_API: client,
-        COORDINATOR_DICT: {},
-    }
 
-    for device in entities:
-        if device.product != ProductId.HUB:
-            continue
-        entities.remove(device)
-        device_id = str(device.id)
-        if device_id not in coordinator_data[COORDINATOR_DICT]:
-            coordinator = SurePetCareDeviceDataUpdateCoordinator(
-                hass=hass,
-                config_entry=entry,
-                client=client,
-                device=device,
-            )
-            await coordinator.async_config_entry_first_refresh()
+async def async_setup_entry(
+    hass: HomeAssistant,
+    entry: SurePetcareConfigEntry,
+) -> bool:
+    """Set up surepetcare from a config entry."""
+    logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
 
-            coordinator_data[COORDINATOR_DICT][device_id] = coordinator
-        else:
-            logger.warning("Coordinator already exists for device %s", device_id)
+    client, entities = await setup_devices(hass, entry)
+    # Not sure if needed so disable for now
+    # remove_stale_devices(hass, entry, entities)
 
-    for device in entities:
-        device_id = str(device.id)
-        if device_id not in coordinator_data[COORDINATOR_DICT]:
-            coordinator = SurePetCareDeviceDataUpdateCoordinator(
-                hass=hass,
-                config_entry=entry,
-                client=client,
-                device=device,
-            )
-            await coordinator.async_config_entry_first_refresh()
+    coordinators: list[SurePetCareDeviceDataUpdateCoordinator] = [
+        SurePetCareDeviceDataUpdateCoordinator(hass, entry, client, device)
+        for device in entities
+    ]
 
-            coordinator_data[COORDINATOR_DICT][device_id] = coordinator
-        else:
-            logger.warning("Coordinator already exists for device %s", device_id)
+    await asyncio.gather(
+        *[
+            coordinator.async_config_entry_first_refresh()
+            for coordinator in coordinators
+        ]
+    )
 
-    surepetcare_data[COORDINATOR] = coordinator_data
+    device_registry = dr.async_get(hass)
+    for c in coordinators:
+        device = c._device
+        device_registry.async_get_or_create(
+            config_entry_id=entry.entry_id,
+            identifiers={(DOMAIN, f"{device.id}")},
+            manufacturer="SurePetCare",
+            model=device.product_name,
+            model_id=device.product_id,
+            name=device.name,
+        )
 
+    entry.runtime_data = coordinators
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+async def async_unload_entry(
+    hass: HomeAssistant, entry: SurePetcareConfigEntry
+) -> bool:
     """Unload a config entry."""
-    unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    if unload_ok:
-        surepetcare_data = hass.data[DOMAIN].pop(entry.entry_id)
-        client: SurePetcareClient = surepetcare_data[FACTORY]
-        await client.close()
-
-    return unload_ok
+    return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
 @callback

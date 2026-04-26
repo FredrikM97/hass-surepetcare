@@ -55,28 +55,28 @@
     'state': 'unlocked',
   })
 # ---
-# name: test_lock_toggle_and_snapshot[lock.test_surepetcare_entry_locking-locked]
+# name: test_lock_toggle_and_snapshot[lock.locking-locked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Locking',
+      'friendly_name': 'Locking',
       'supported_features': <LockEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unlocked',
   })
 # ---
-# name: test_lock_toggle_and_snapshot[lock.test_surepetcare_entry_locking-unlocked]
+# name: test_lock_toggle_and_snapshot[lock.locking-unlocked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Locking',
+      'friendly_name': 'Locking',
       'supported_features': <LockEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -185,7 +185,7 @@
     'state': 'unlocked',
   })
 # ---
-# name: test_platform_setup_and_discovery[lock.test_surepetcare_entry_locking-entry]
+# name: test_platform_setup_and_discovery[lock.locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -199,7 +199,7 @@
     'disabled_by': None,
     'domain': 'lock',
     'entity_category': None,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -222,14 +222,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery[lock.test_surepetcare_entry_locking-state]
+# name: test_platform_setup_and_discovery[lock.locking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Locking',
+      'friendly_name': 'Locking',
       'supported_features': <LockEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -338,7 +338,7 @@
     'state': 'unlocked',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[lock.test_surepetcare_entry_locking-entry]
+# name: test_platform_setup_and_discovery_missing_entities[lock.locking-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
       None,
@@ -352,7 +352,7 @@
     'disabled_by': None,
     'domain': 'lock',
     'entity_category': None,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'has_entity_name': True,
     'hidden_by': None,
     'icon': None,
@@ -375,14 +375,14 @@
     'unit_of_measurement': None,
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[lock.test_surepetcare_entry_locking-state]
+# name: test_platform_setup_and_discovery_missing_entities[lock.locking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Locking',
+      'friendly_name': 'Locking',
       'supported_features': <LockEntityFeature: 0>,
     }),
     'context': <ANY>,
-    'entity_id': 'lock.test_surepetcare_entry_locking',
+    'entity_id': 'lock.locking',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

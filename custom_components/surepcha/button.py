@@ -3,22 +3,14 @@
 from dataclasses import dataclass
 import logging
 from surepcio.enums import ProductId, HubPairMode
-from surepcio import SurePetcareClient
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepcha.method_field import ButtonMethodField
 
 
-from .const import (
-    COORDINATOR,
-    COORDINATOR_DICT,
-    DOMAIN,
-    KEY_API,
-)
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
@@ -48,27 +40,21 @@ BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up SurePetCare sensors for each matching device."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
+    coordinators = entry.runtime_data
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = BUTTONS.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareButton(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    entities = [
+        SurePetCareButton(
+            coordinator,
+            description=description,
         )
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in BUTTONS.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
@@ -78,17 +64,15 @@ class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client: SurePetcareClient,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareButtonEntityDescription,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
+            coordinator=coordinator,
         )
         self.entity_description = description
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     async def async_press(self) -> None:
         """Press the button."""

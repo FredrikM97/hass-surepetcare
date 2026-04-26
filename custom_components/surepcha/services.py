@@ -5,6 +5,7 @@ from surepcio.enums import PetDeviceLocationProfile
 from surepcio.enums import ModifyDeviceTag, PetLocation
 from surepcio.devices import Pet
 
+from custom_components.surepcha.const import DOMAIN
 from custom_components.surepcha.coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
@@ -122,10 +123,14 @@ async def set_pet_position(call) -> None:
 
 def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":
     device_registry = async_get_device_registry(hass)
-    device = device_registry.async_get(device_id)
-    domain, device_id = next(iter(device.identifiers))
-
-    coordinator = hass.data[domain][device.primary_config_entry]["coordinator"][
-        "coordinator_dict"
-    ][device_id]
-    return coordinator
+    config_entries = hass.config_entries.async_loaded_entries(DOMAIN)
+    for entry in config_entries:
+        for coordinator in getattr(entry, "runtime_data", []):
+            # Get the HA device registry entry for this coordinator's device
+            device_entry = device_registry.async_get_device(
+                identifiers={(DOMAIN, str(coordinator._device.id))}
+            )
+            # Match either by HA device registry ID or by integration device ID
+            if device_entry and device_entry.id == device_id:
+                return coordinator
+    raise ValueError(f"No coordinator found for device_id {device_id}")

@@ -5,20 +5,19 @@ from __future__ import annotations
 from typing import Any
 
 from homeassistant.core import HomeAssistant
-from homeassistant.config_entries import ConfigEntry
 
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.redact import async_redact_data
 
+from custom_components.surepcha.coordinator import SurePetcareConfigEntry
 from custom_components.surepcha.helper import serialize
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN
 
 TO_REDACT = {"token", "client_device_id"}
 
 
 async def async_get_config_entry_diagnostics(
-    hass: HomeAssistant, entry: ConfigEntry
+    hass: HomeAssistant, entry: SurePetcareConfigEntry
 ) -> dict[str, Any]:
     """Return diagnostics for a config entry."""
     return async_redact_data(
@@ -31,16 +30,20 @@ async def async_get_config_entry_diagnostics(
 
 
 async def async_get_device_diagnostics(
-    hass: HomeAssistant, entry: ConfigEntry, device: dr.DeviceEntry
+    hass: HomeAssistant, entry: SurePetcareConfigEntry, device: dr.DeviceEntry
 ) -> dict[str, Any]:
     """Return diagnostics for a device."""
     device_id = list(device.identifiers)[0][1]
-    integration_data = hass.data.get(DOMAIN, {}).get(entry.entry_id)
-    if not integration_data:
+    coordinators = getattr(entry, "runtime_data", None)
+
+    if not coordinators:
         return {}
 
-    device = integration_data[COORDINATOR][COORDINATOR_DICT][device_id].data
+    for coordinator in coordinators or []:
+        if str(getattr(coordinator._device, "id", "")) == str(device_id):
+            device_obj = coordinator.data
+            break
 
     return async_redact_data(
-        {"options": dict(entry.options), "device": serialize(device)}, TO_REDACT
+        {"options": dict(entry.options), "device": serialize(device_obj)}, TO_REDACT
     )

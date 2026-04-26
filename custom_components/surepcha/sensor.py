@@ -5,7 +5,6 @@ import logging
 from types import MappingProxyType
 from typing import Any
 
-from surepcio import SurePetcareClient
 from surepcio.enums import ProductId, PetLocation
 from surepcio.devices import Pet
 from surepcio.devices.pet import PetPositionResource
@@ -16,7 +15,6 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import PERCENTAGE, UnitOfMass, UnitOfVolume
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -24,10 +22,6 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from custom_components.surepcha.method_field import MethodField
 
 from .const import (
-    COORDINATOR,
-    COORDINATOR_DICT,
-    DOMAIN,
-    KEY_API,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     MANUAL_PROPERTIES,
@@ -36,7 +30,7 @@ from .const import (
     PRODUCT_ID,
     OPTION_PROPERTIES,
 )
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
@@ -414,27 +408,21 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up SurePetCare sensors for each matching device."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
+    coordinators = entry.runtime_data
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = SENSORS.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareSensor(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    entities = [
+        SurePetCareSensor(
+            coordinator,
+            description=description,
         )
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in SENSORS.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
@@ -444,17 +432,15 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client: SurePetcareClient,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareSensorEntityDescription,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
+            coordinator=coordinator,
         )
         self.entity_description = description
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     @property
     def entity_picture(self) -> str | None:
