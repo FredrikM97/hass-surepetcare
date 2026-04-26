@@ -20,12 +20,6 @@ jobs:
         with:
           fetch-depth: 0
 
-            - name: Move dev tag to latest commit
-              if: steps.check.outputs.has_changes == 'true'
-              run: |
-                git tag -f dev
-                git push -f origin dev
-
       - name: Check for changes
         id: check
         run: |
@@ -41,13 +35,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
 
+      - name: Move dev tag to latest commit
+          if: steps.check.outputs.has_changes == 'true'
+          run: |
+            git tag -f dev
+            git push -f origin dev
+
       - name: Zip ${{ env.COMPONENT_NAME }} dir
         if: steps.check.outputs.has_changes == 'true'
         run: |
           # Package from inside the component directory (archive root is files only)
           cd "${{ github.workspace }}/custom_components/${{ env.COMPONENT_NAME }}"
           zip "${{ env.COMPONENT_NAME }}.zip" -r ./ -x '*.pyc' '*__pycache__/*'
-
+    
       - name: Create release
         if: steps.check.outputs.has_changes == 'true'
         run: |
