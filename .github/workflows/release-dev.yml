@@ -20,6 +20,12 @@ jobs:
         with:
           fetch-depth: 0
 
+            - name: Move dev tag to latest commit
+              if: steps.check.outputs.has_changes == 'true'
+              run: |
+                git tag -f dev
+                git push -f origin dev
+
       - name: Check for changes
         id: check
         run: |
