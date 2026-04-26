@@ -87,7 +87,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=lambda device, _: device.is_curfew_active,
+                get_fn=lambda ctx: ctx.device.is_curfew_active,
                 get_extra_fn=lambda ctx: {
                     "curfew": [
                         {
@@ -114,7 +114,7 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=lambda device, _: device.is_curfew_active,
+                get_fn=lambda ctx: ctx.device.is_curfew_active,
                 path_extra="control.curfew",
             ),
         ),
