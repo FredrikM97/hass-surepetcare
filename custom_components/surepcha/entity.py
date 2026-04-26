@@ -28,6 +28,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     entity_description: SurePetCareBaseEntityDescription
     _attr_has_entity_name = True
+    _cached_value: Any | None = None
 
     def __init__(
         self,
@@ -51,6 +52,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             else None,
         )
 
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self._cached_value = None
+        super()._handle_coordinator_update()
+
     @property
     def available(self) -> bool:
         """Return if entity is available."""
@@ -63,7 +69,12 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def native_value(self) -> str | None:
         """Return the sensor value."""
-        return serialize(self.entity_description.field.get(self.context))
+        # Use cached value if available to avoid unnecessary processing on each update
+        if self._cached_value is None:
+            self._cached_value = serialize(
+                self.entity_description.field.get(self.context)
+            )
+        return self._cached_value
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
