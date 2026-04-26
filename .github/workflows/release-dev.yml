@@ -36,10 +36,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Move dev tag to latest commit
-          if: steps.check.outputs.has_changes == 'true'
-          run: |
-            git tag -f dev
-            git push -f origin dev
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git tag -f dev
+          git push -f origin dev
 
       - name: Zip ${{ env.COMPONENT_NAME }} dir
         if: steps.check.outputs.has_changes == 'true'
