@@ -15,7 +15,6 @@ from surepcio.enums import (
     Tare,
 )
 from homeassistant.components.sensor import SensorDeviceClass
-from surepcio import SurePetcareClient
 from homeassistant.helpers.entity import EntityCategory
 from custom_components.surepcha.helper import (
     find_entity_id_by_name,
@@ -27,22 +26,18 @@ from custom_components.surepcha.method_field import SelectMethodField
 
 from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
+    SurePetcareConfigEntry,
 )
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import (
-    COORDINATOR,
-    COORDINATOR_DICT,
     DEVICES,
-    DOMAIN,
-    KEY_API,
     NAME,
     OPTION_DEVICES,
     PRODUCT_ID,
@@ -195,27 +190,22 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up SurePetCare select for each matching device."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = SELECTS.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareSelect(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    coordinators = entry.runtime_data
+
+    entities = [
+        SurePetCareSelect(
+            coordinator,
+            description=description,
         )
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in SELECTS.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
@@ -225,17 +215,15 @@ class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client: SurePetcareClient,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareSelectEntityDescription,
     ) -> None:
         """Initialize a Surepetcare sensor."""
         super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
+            coordinator=coordinator,
         )
         self.entity_description = description
-        self._attr_unique_id: str = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     @property
     def current_option(self) -> str | None:

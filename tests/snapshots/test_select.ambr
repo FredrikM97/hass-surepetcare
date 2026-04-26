@@ -574,6 +574,72 @@
     'state': 'unlocked',
   })
 # ---
+# name: test_platform_setup_and_discovery[select.locking_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.locking_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Locking Mode',
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Locking Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'locking',
+    'unique_id': '260093-locking',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[select.locking_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
 # name: test_platform_setup_and_discovery[select.maui_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -1194,72 +1260,6 @@
     'state': 'unknown',
   })
 # ---
-# name: test_platform_setup_and_discovery[select.test_surepetcare_entry_locking_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Locking Mode',
-    'options': dict({
-    }),
-    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
-    'original_name': 'Locking Mode',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'locking',
-    'unique_id': '260093-locking',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[select.test_surepetcare_entry_locking_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
-  })
-# ---
 # name: test_platform_setup_and_discovery_missing_entities[select.ajax_add_assigned_device-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -1823,6 +1823,72 @@
     }),
     'context': <ANY>,
     'entity_id': 'select.laundry_door_locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.locking_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'select',
+    'entity_category': <EntityCategory.CONFIG: 'config'>,
+    'entity_id': 'select.locking_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Locking Mode',
+    'options': dict({
+    }),
+    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
+    'original_icon': None,
+    'original_name': 'Locking Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'locking',
+    'unique_id': '260093-locking',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[select.locking_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -2429,72 +2495,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.test_surepetcare_entry_locking_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': dict({
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'select',
-    'entity_category': <EntityCategory.CONFIG: 'config'>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Locking Mode',
-    'options': dict({
-    }),
-    'original_device_class': <SensorDeviceClass.ENUM: 'enum'>,
-    'original_icon': None,
-    'original_name': 'Locking Mode',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'locking',
-    'unique_id': '260093-locking',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[select.test_surepetcare_entry_locking_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
   })
 # ---
 # name: test_select_set_option_and_snapshot[select.ajax_add_assigned_device-DualScanConnect door]
@@ -3187,6 +3187,111 @@
     'state': 'unlocked',
   })
 # ---
+# name: test_select_set_option_and_snapshot[select.locking_mode-allow_in]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot[select.locking_mode-allow_out]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot[select.locking_mode-curfew_mode]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot[select.locking_mode-locked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
+# name: test_select_set_option_and_snapshot[select.locking_mode-unlocked]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'enum',
+      'friendly_name': 'Locking Mode',
+      'options': list([
+        'unlocked',
+        'allow_in',
+        'allow_out',
+        'locked',
+        'curfew_mode',
+      ]),
+    }),
+    'context': <ANY>,
+    'entity_id': 'select.locking_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unlocked',
+  })
+# ---
 # name: test_select_set_option_and_snapshot[select.maui_add_assigned_device-DualScanConnect door]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -3721,110 +3826,5 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unknown',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.test_surepetcare_entry_locking_mode-allow_in]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.test_surepetcare_entry_locking_mode-allow_out]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.test_surepetcare_entry_locking_mode-curfew_mode]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.test_surepetcare_entry_locking_mode-locked]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
-  })
-# ---
-# name: test_select_set_option_and_snapshot[select.test_surepetcare_entry_locking_mode-unlocked]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Test SurePetCare entry Locking Mode',
-      'options': list([
-        'unlocked',
-        'allow_in',
-        'allow_out',
-        'locked',
-        'curfew_mode',
-      ]),
-    }),
-    'context': <ANY>,
-    'entity_id': 'select.test_surepetcare_entry_locking_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unlocked',
   })
 # ---

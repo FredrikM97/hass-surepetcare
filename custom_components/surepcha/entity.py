@@ -3,7 +3,6 @@ from dataclasses import dataclass
 import logging
 from typing import Any, cast
 
-from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
@@ -32,15 +31,11 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client: SurePetcareClient,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
     ) -> None:
         """Initialize a device."""
-        super().__init__(device_coordinator)
-
-        self._device: DeviceBase | PetBase = device_coordinator.data
-        self._client = client
-        self._attr_unique_id = f"{self._device.id}"
+        super().__init__(coordinator)
+        self._device: DeviceBase | PetBase = coordinator.data
 
     @property
     def device_info(self) -> DeviceInfo:

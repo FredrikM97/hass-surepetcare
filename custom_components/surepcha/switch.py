@@ -3,7 +3,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -12,14 +11,14 @@ from custom_components.surepcha.helper import (
     option_product_id,
 )
 from custom_components.surepcha.method_field import SwitchMethodField
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
 from surepcio.command import Command
 from surepcio.enums import ProductId, PetDeviceLocationProfile, PetLocation
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, FLAP_PRODUCTS, KEY_API
+from .const import FLAP_PRODUCTS
 import logging
 
 logger = logging.getLogger(__name__)
@@ -110,27 +109,21 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up SurePetCare switch for each matching device."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
+    coordinators = entry.runtime_data
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = SWITCHES.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareSwitch(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    entities = [
+        SurePetCareSwitch(
+            coordinator,
+            description=description,
         )
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in SWITCHES.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
@@ -140,16 +133,12 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareSwitchEntityDescription,
     ) -> None:
-        super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
-        )
+        super().__init__(coordinator=coordinator)
         self.entity_description = description
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     @property
     def is_on(self) -> bool:

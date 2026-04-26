@@ -101,6 +101,56 @@
     'state': 'off',
   })
 # ---
+# name: test_platform_setup_and_discovery[switch.curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Curfew active',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '260093-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[switch.curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -460,56 +510,6 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_platform_setup_and_discovery[switch.test_surepetcare_entry_curfew_active-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'switch',
-    'entity_category': None,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Curfew active',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Curfew active',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew_enabled',
-    'unique_id': '260093-curfew_enabled',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[switch.test_surepetcare_entry_curfew_active-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Curfew active',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_indoor_only-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -606,6 +606,56 @@
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.curfew_active-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'switch',
+    'entity_category': None,
+    'entity_id': 'switch.curfew_active',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Curfew active',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Curfew active',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'curfew_enabled',
+    'unique_id': '260093-curfew_enabled',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[switch.curfew_active-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -968,56 +1018,6 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.test_surepetcare_entry_curfew_active-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'switch',
-    'entity_category': None,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Curfew active',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Curfew active',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'curfew_enabled',
-    'unique_id': '260093-curfew_enabled',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[switch.test_surepetcare_entry_curfew_active-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Curfew active',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
 # name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -1068,6 +1068,32 @@
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.curfew_active-off]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.curfew_active',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_switch_toggle_and_snapshot[switch.curfew_active-on]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Curfew active',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -1272,31 +1298,5 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.test_surepetcare_entry_curfew_active-off]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Curfew active',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.test_surepetcare_entry_curfew_active-on]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Test SurePetCare entry Curfew active',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.test_surepetcare_entry_curfew_active',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
   })
 # ---

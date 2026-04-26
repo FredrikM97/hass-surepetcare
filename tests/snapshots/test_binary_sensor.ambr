@@ -526,6 +526,56 @@
     'state': 'off',
   })
 # ---
+# name: test_platform_setup_and_discovery[binary_sensor.learn_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.learn_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Learn Mode',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Learn Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'learn_mode',
+    'unique_id': '260093-learn_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery[binary_sensor.learn_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Learn Mode',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.learn_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery[binary_sensor.maui_matlada_old_connectivity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -783,56 +833,6 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unavailable',
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.test_surepetcare_entry_learn_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.test_surepetcare_entry_learn_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Learn Mode',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Learn Mode',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'learn_mode',
-    'unique_id': '260093-learn_mode',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery[binary_sensor.test_surepetcare_entry_learn_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Learn Mode',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.test_surepetcare_entry_learn_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.ajax_presence-entry]
@@ -1362,6 +1362,56 @@
     'state': 'off',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.learn_mode-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': None,
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'binary_sensor',
+    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
+    'entity_id': 'binary_sensor.learn_mode',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Learn Mode',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': None,
+    'original_name': 'Learn Mode',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'learn_mode',
+    'unique_id': '260093-learn_mode',
+    'unit_of_measurement': None,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.learn_mode-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Learn Mode',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.learn_mode',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_matlada_old_connectivity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -1619,55 +1669,5 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': 'unavailable',
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.test_surepetcare_entry_learn_mode-entry]
-  EntityRegistryEntrySnapshot({
-    'aliases': list([
-      None,
-    ]),
-    'area_id': None,
-    'capabilities': None,
-    'config_entry_id': <ANY>,
-    'config_subentry_id': <ANY>,
-    'device_class': None,
-    'device_id': <ANY>,
-    'disabled_by': None,
-    'domain': 'binary_sensor',
-    'entity_category': <EntityCategory.DIAGNOSTIC: 'diagnostic'>,
-    'entity_id': 'binary_sensor.test_surepetcare_entry_learn_mode',
-    'has_entity_name': True,
-    'hidden_by': None,
-    'icon': None,
-    'id': <ANY>,
-    'labels': set({
-    }),
-    'name': None,
-    'object_id_base': 'Learn Mode',
-    'options': dict({
-    }),
-    'original_device_class': None,
-    'original_icon': None,
-    'original_name': 'Learn Mode',
-    'platform': 'surepcha',
-    'previous_unique_id': None,
-    'suggested_object_id': None,
-    'supported_features': 0,
-    'translation_key': 'learn_mode',
-    'unique_id': '260093-learn_mode',
-    'unit_of_measurement': None,
-  })
-# ---
-# name: test_platform_setup_and_discovery_missing_entities[binary_sensor.test_surepetcare_entry_learn_mode-state]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Learn Mode',
-    }),
-    'context': <ANY>,
-    'entity_id': 'binary_sensor.test_surepetcare_entry_learn_mode',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'off',
   })
 # ---

@@ -10,7 +10,6 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntity,
     BinarySensorEntityDescription,
 )
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -21,8 +20,7 @@ from custom_components.surepcha.helper import (
 )
 from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
 
-from .const import COORDINATOR, COORDINATOR_DICT, DOMAIN, KEY_API
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
@@ -134,28 +132,22 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up a Surepetcare config entry."""
-    coordinator_data = hass.data[DOMAIN][config_entry.entry_id][COORDINATOR]
-    client = coordinator_data[KEY_API]
 
-    entities = []
-    for device_coordinator in coordinator_data[COORDINATOR_DICT].values():
-        descriptions = SENSORS.get(device_coordinator.product_id, ())
-        entities.extend(
-            [
-                SurePetCareBinarySensor(
-                    device_coordinator,
-                    client,
-                    description=description,
-                )
-                for description in descriptions
-            ]
+    coordinators = entry.runtime_data
+
+    entities = [
+        SurePetCareBinarySensor(
+            coordinator,
+            description=description,
         )
-
-    async_add_entities(entities, update_before_add=True)
+        for coordinator in coordinators
+        for description in SENSORS.get(coordinator.product_id, ())
+    ]
+    async_add_entities(entities)
 
 
 class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
@@ -165,19 +157,17 @@ class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
 
     def __init__(
         self,
-        device_coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        client,
+        coordinator: SurePetCareDeviceDataUpdateCoordinator,
         description: SurePetCareBinarySensorEntityDescription,
     ) -> None:
         """Initialize a SurePetCare binary sensor."""
         super().__init__(
-            device_coordinator=device_coordinator,
-            client=client,
+            coordinator=coordinator,
         )
 
         self.entity_description = description
 
-        self._attr_unique_id = f"{self._attr_unique_id}-{description.key}"
+        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
 
     @property
     def is_on(self) -> bool | None:
