@@ -114,7 +114,7 @@ set_pet_access_mode:
               model: PET_DOOR
             - integration: surepcha
               model: FEEDER_CONNECT
-            - integration: surepetcare
+            - integration: surepcha
               model: DUAL_SCAN_CONNECT
             - integration: surepcha
               model: DUAL_SCAN_PET_DOOR
