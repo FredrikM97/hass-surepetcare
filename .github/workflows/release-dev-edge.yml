@@ -1,0 +1,83 @@
+name: Dev Release (Edge)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
+
+env:
+  COMPONENT_NAME: surepcha
+  PY_SUREPETCARE_REPO: FredrikM97/py-surepetcare
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'FredrikM97'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Get latest py-surepetcare commit
+        id: pysp
+        run: |
+          SHA=$(gh api repos/${{ env.PY_SUREPETCARE_REPO }}/commits/HEAD --jq '.sha')
+          echo "sha=$SHA" >> $GITHUB_OUTPUT
+          echo "short_sha=${SHA:0:7}" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Check for changes
+        id: check
+        run: |
+          CURRENT_SHA=$(git rev-parse --short HEAD)
+          LAST_NOTES=$(gh release view dev-edge --json body -q '.body' 2>/dev/null || echo "")
+
+          if echo "$LAST_NOTES" | grep -q "**Commit**: $CURRENT_SHA" && \
+             echo "$LAST_NOTES" | grep -q "**py-surepetcare**: ${{ steps.pysp.outputs.short_sha }}"; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Pin py-surepetcare to latest commit in manifest.json
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          jq --arg req "py-surepetcare @ git+https://github.com/${{ env.PY_SUREPETCARE_REPO }}.git@${{ steps.pysp.outputs.sha }}" \
+            '.requirements = [$req]' \
+            custom_components/${{ env.COMPONENT_NAME }}/manifest.json > tmp.json
+          mv tmp.json custom_components/${{ env.COMPONENT_NAME }}/manifest.json
+
+      - name: Move dev-edge tag to latest commit
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          git tag -f dev-edge
+          git push -f origin dev-edge
+
+      - name: Zip ${{ env.COMPONENT_NAME }} dir
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          cd "${{ github.workspace }}/custom_components/${{ env.COMPONENT_NAME }}"
+          zip "${{ env.COMPONENT_NAME }}.zip" -r ./ -x '*.pyc' '*__pycache__/*'
+
+      - name: Create release
+        if: steps.check.outputs.has_changes == 'true'
+        run: |
+          LAST_STABLE_TAG=$(gh release list --exclude-pre-releases --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // ""')
+          COMMIT_COUNT=$([ -n "$LAST_STABLE_TAG" ] && git rev-list --count $LAST_STABLE_TAG..HEAD || echo "N/A")
+
+          NOTES="⚠️ Development Build (Edge) - Uses latest py-surepetcare from GitHub."$'\n\n'"**Build**: $(date -u '+%Y-%m-%d %H:%M UTC')"$'\n'"**Commit**: $(git rev-parse --short HEAD)"$'\n'"**py-surepetcare**: ${{ steps.pysp.outputs.short_sha }}"$'\n'"**Changes**: $COMMIT_COUNT commits since last stable release"
+
+          if ! gh release view dev-edge >/dev/null 2>&1; then
+            gh release create dev-edge --title "Dev Release (Edge)" --notes "$NOTES" --prerelease
+          fi
+
+          gh release upload dev-edge "custom_components/${{ env.COMPONENT_NAME }}/${{ env.COMPONENT_NAME }}.zip" --clobber
+          gh release edit dev-edge --notes "$NOTES"
+        env:
+          GH_TOKEN: ${{ github.token }}
