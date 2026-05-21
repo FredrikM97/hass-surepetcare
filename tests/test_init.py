@@ -128,6 +128,10 @@ class DummyHousehold:
     def get_devices(self) -> str:
         return "devices_command"
 
+    def fetch_pet_device_assignments(self) -> None:
+        """Mirror the upstream household API used during setup."""
+        return None
+
 
 class FakeDevice:
     """A fake device for device registry tests."""
