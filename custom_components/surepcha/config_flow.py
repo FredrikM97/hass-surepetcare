@@ -74,6 +74,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                     },
                     options={
                         OPTION_DEVICES: entity_info,
+                        OPTION_PROPERTIES: {},
                     },
                 )
         return self.async_show_form(
@@ -121,8 +122,13 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         )
         entity_info, _ = await self._async_fetch_entities(client)
         await client.close()
+        option_properties = entry.options.get(OPTION_PROPERTIES, {})
         self.hass.config_entries.async_update_entry(
-            entry, options={OPTION_DEVICES: entity_info}
+            entry,
+            options={
+                OPTION_DEVICES: entity_info,
+                OPTION_PROPERTIES: option_properties,
+            },
         )
         logger.debug("Reconfiguration complete, updated entities: %s", entity_info)
         return self.async_abort(reason="entities_reconfigured")
