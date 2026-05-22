@@ -177,6 +177,12 @@
           'product_id': 8,
         }),
       }),
+      'properties': dict({
+        'manual_properties': dict({
+          'location_inside': 'Home',
+          'location_outside': 'Away',
+        }),
+      }),
     }),
     'pref_disable_new_entities': False,
     'pref_disable_polling': False,
@@ -249,6 +255,8 @@
           'product_id': 8,
         }),
       }),
+      'properties': dict({
+      }),
     }),
     'result': ConfigEntrySnapshot({
       'data': dict({
@@ -307,6 +315,8 @@
             'name': 'Poseidon connect',
             'product_id': 8,
           }),
+        }),
+        'properties': dict({
         }),
       }),
       'pref_disable_new_entities': False,
