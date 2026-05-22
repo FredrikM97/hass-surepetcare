@@ -102,6 +102,8 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
             await client.api(household.get_devices())
             entities.extend(household.data.get("pets", []))
             entities.extend(household.data.get("devices", []))
+            
+            await client.api(household.fetch_pet_device_assignments())
         await client.close()
     except Exception as exc:
         await client.close()
