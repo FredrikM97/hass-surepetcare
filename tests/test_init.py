@@ -281,6 +281,16 @@ async def test_async_setup_entry_and_unload():
         assert result is True
 
 
+@pytest.mark.asyncio
+async def test_async_setup_registers_global_services(hass: HomeAssistant) -> None:
+    """Ensure integration services are available before any config entry loads."""
+    result = await surepetcare_init.async_setup(hass, {})
+
+    assert result is True
+    for service_name, _, _ in surepetcare_init._service_registry:
+        assert hass.services.has_service(DOMAIN, service_name)
+
+
 def test_import_init():
     importlib.import_module("custom_components.surepcha.__init__")
 
