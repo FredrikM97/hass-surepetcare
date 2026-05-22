@@ -98,12 +98,11 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
         households: List[Household] = await client.api(Household.get_households())
         entities = []
         for household in households:
-            await client.api(household.get_pets())
-            await client.api(household.get_devices())
-            entities.extend(household.data.get("pets", []))
-            entities.extend(household.data.get("devices", []))
-            
-            await client.api(household.fetch_pet_device_assignments())
+            entities.extend(await client.api(household.get_pets()))
+            entities.extend(await client.api(household.get_devices()))
+
+            # Bind pet device assignments
+            household.fetch_pet_device_assignments()
         await client.close()
     except Exception as exc:
         await client.close()
