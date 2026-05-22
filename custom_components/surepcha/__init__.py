@@ -189,7 +189,8 @@ def remove_stale_devices(
             )
 
 
-async def async_setup(hass: HomeAssistant, config: ConfigEntry):
+async def async_setup(hass: HomeAssistant, config: ConfigEntry) -> bool:
+    """Register integration services before config entries load."""
     for name, func, schema in _service_registry:
         hass.services.async_register(DOMAIN, name, func, schema=schema)
     return True
