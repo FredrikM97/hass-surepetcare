@@ -125,7 +125,7 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
             device_class=SensorDeviceClass.ENUM,
             field=SelectMethodField(
                 set_fn=lambda ctx, option: (
-                    ctx.device.set_tag(value, action=ModifyDeviceTag.REMOVE)
+                    ctx.device.set_tag(int(value), action=ModifyDeviceTag.REMOVE)
                     if (value := find_entity_id_by_name(ctx.options, option))
                     else None
                 ),
@@ -150,14 +150,14 @@ SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
                     v.get(NAME)
                     for k, v in ctx.options[OPTION_DEVICES].items()
                     if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
-                    and k
+                    and str(k)
                     not in {
                         str(d.id)
                         for d in list_attr(ctx.device.status, DEVICES, "items")
                     }
                 ],
                 set_fn=lambda ctx, option: (
-                    ctx.device.set_tag(value, action=ModifyDeviceTag.ADD)
+                    ctx.device.set_tag(int(value), action=ModifyDeviceTag.ADD)
                     if (value := find_entity_id_by_name(ctx.options, option))
                     else None
                 ),
