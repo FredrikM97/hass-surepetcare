@@ -2,7 +2,7 @@
   "name": "SurePetcare",
   "content_in_root": false,
   "hide_default_branch": false,
-  "homeassistant": "2026.4.0",
+  "homeassistant": "2026.5.4",
   "zip_release": true,
   "filename": "surepcha.zip",
   "render_readme": true
