@@ -73,8 +73,9 @@ body:
       description: |
         Please confirm the following:
       options:
-        - I have provided both diagnostics and debug logs to help the developers fix the issue.
-        - I understand that if the information is not provided the issue will be closed. 
-          
+        - label: I have provided both diagnostics and debug logs to help the developers fix the issue.
+          required: true
+        - label: I understand that if the information is not provided the issue will be closed. 
+          required: true
     validations:
       required: true
