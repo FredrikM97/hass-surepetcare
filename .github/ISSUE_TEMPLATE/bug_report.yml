@@ -9,7 +9,6 @@ body:
     attributes:
       value: |
         **Note:** This form is for feature requests related to the Home Assistant integration only.
-        If your request is about the underlying IO package (API, login, etc.), please open an issue in the [py-surepetcare repository](https://github.com/FredrikM97/py-surepetcare) instead.
   - type: textarea
     id: problem
     attributes:
@@ -24,7 +23,8 @@ body:
       label: Product
       description: Which product does it concern? (e.g. Hub, DualScanConnect, Feeder Connect)
     validations:
-      required: true
+      required: false
+      
   - type: input
     id: homeassistantversion
     attributes:
@@ -36,7 +36,13 @@ body:
     id: version
     attributes:
       label: What version of integration?
-      placeholder: v1.2.3
+    validations:
+      required: true
+  
+  - type: input
+    id: last_version
+    attributes:
+      label: Last working version of integration?
     validations:
       required: true
 
@@ -54,19 +60,12 @@ body:
     id: diagnostics
     attributes:
       label: Diagnostic information
-      placeholder: "Device diagnostics"
+      placeholder: "Device diagnostics. Upload file here not raw text info"
       description: >-
          Diagnosic information from device. (Found under device information).
     validations:
-      required: false
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: Additional information, example stack trace, logs, etc..
-      description: >
-        If you have any additional information for us, use the field below.
-
+      required: true
+      
   - type: checkboxes
     id: confirm
     attributes:
@@ -74,9 +73,8 @@ body:
       description: |
         Please confirm the following:
       options:
-        - label: I am sure this is a bug or improvement, that is well enough described that it can be implemented.
-          required: true
-        - label: This is not related to missing device data ([Api requests here](https://github.com/FredrikM97/py-surepetcare))
-          required: true
+        - I have provided both diagnostics and debug logs to help the developers fix the issue.
+        - I understand that if the information is not provided the issue will be closed. 
+          
     validations:
       required: true
