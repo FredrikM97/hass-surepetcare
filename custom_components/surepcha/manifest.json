@@ -14,7 +14,7 @@
     "surepcio"
   ],
   "requirements": [
-      "py-surepetcare==0.6.1"
+      "py-surepetcare==0.6.2"
   ],
   "version": "0.0.0"
 }
