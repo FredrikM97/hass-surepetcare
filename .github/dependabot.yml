@@ -1,3 +1,4 @@
+
 version: 2
 updates:
   # Python dependencies managed by uv
@@ -5,19 +6,31 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 5
     commit-message:
       prefix: "deps"
     labels:
       - "dependencies"
-    
+    groups:
+      non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-    open-pull-requests-limit: 3
     commit-message:
       prefix: "ci"
     labels:
       - "dependencies"
+    groups:
+      non-major:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
