@@ -75,13 +75,13 @@ async def test_platform_setup_and_set_tag_service(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
-        and getattr(d, "model_id", None) != ProductId.PET
+        and getattr(d, "model_id", None) != str(ProductId.PET)
     ][0]
     pet_id = [
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
-        and getattr(d, "model_id", None) == ProductId.PET
+        and getattr(d, "model_id", None) == str(ProductId.PET)
     ][0]
     # Call add action
     await hass.services.async_call(
@@ -125,13 +125,13 @@ async def test_platform_setup_and_set_pet_access_mode_service(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
-        and getattr(d, "model_id", None) != ProductId.PET
+        and getattr(d, "model_id", None) != str(ProductId.PET)
     ][0]
     pet_id = [
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
-        and getattr(d, "model_id", None) == ProductId.PET
+        and getattr(d, "model_id", None) == str(ProductId.PET)
     ][0]
     await hass.services.async_call(
         DOMAIN,
@@ -167,7 +167,7 @@ async def test_platform_setup_and_set_pet_position_service(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
-        and getattr(d, "model_id", None) == ProductId.PET
+        and getattr(d, "model_id", None) == str(ProductId.PET)
     ][0]
     await hass.services.async_call(
         DOMAIN,
