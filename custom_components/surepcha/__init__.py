@@ -141,7 +141,7 @@ async def async_setup_entry(
             identifiers={(DOMAIN, f"{device.id}")},
             manufacturer="SurePetCare",
             model=device.product_name,
-            model_id=device.product_id,
+            model_id=str(device.product_id),
             name=device.name,
         )
 
