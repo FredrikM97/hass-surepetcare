@@ -281,7 +281,9 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 path="status.bowl_status[0].current_weight",
                 get_extra_fn=lambda ctx: {
                     "last_filled_at": ctx.device.status.bowl_status[0].last_filled_at,
-                    "last_zeroed_at": ctx.device.status.bowl_status[0].last_zeroed_at,
+                    "last_zeroed_at": ctx.device.status.bowl_status[
+                        0
+                    ].last_zeroed_at,  # Remove this later
                     "last_fill_weight": ctx.device.status.bowl_status[
                         0
                     ].last_fill_weight,
@@ -297,6 +299,26 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                 get_fn=lambda ctx: avg_attr(
                     getattr(ctx.device.status, "bowl_status", []), "fill_percent"
                 ),
+            ),
+        ),
+        SurePetCareSensorEntityDescription(
+            key="last_filled_at",
+            translation_key="last_filled_at",
+            field=MethodField(
+                get_fn=lambda ctx: ctx.device.status.bowl_status[0].last_filled_at,
+                get_extra_fn=lambda ctx: {
+                    "date": ctx.device.status.bowl_status[0].last_filled_at
+                },
+            ),
+        ),
+        SurePetCareSensorEntityDescription(
+            key="last_zeroed_at",
+            translation_key="last_zeroed_at",
+            field=MethodField(
+                get_fn=lambda ctx: ctx.device.status.bowl_status[0].last_zeroed_at,
+                get_extra_fn=lambda ctx: {
+                    "date": ctx.device.status.bowl_status[0].last_zeroed_at
+                },
             ),
         ),
         *SENSOR_DESCRIPTIONS_RSSI,
