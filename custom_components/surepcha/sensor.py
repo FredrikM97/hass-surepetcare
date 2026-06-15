@@ -306,9 +306,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="last_filled_at",
             field=MethodField(
                 get_fn=lambda ctx: ctx.device.status.bowl_status[0].last_filled_at,
-                get_extra_fn=lambda ctx: {
-                    "date": ctx.device.status.bowl_status[0].last_filled_at
-                },
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -316,9 +313,6 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             translation_key="last_zeroed_at",
             field=MethodField(
                 get_fn=lambda ctx: ctx.device.status.bowl_status[0].last_zeroed_at,
-                get_extra_fn=lambda ctx: {
-                    "date": ctx.device.status.bowl_status[0].last_zeroed_at
-                },
             ),
         ),
         *SENSOR_DESCRIPTIONS_RSSI,
