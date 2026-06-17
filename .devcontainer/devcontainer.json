@@ -1,6 +1,11 @@
 {
-  "name": "Python Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/python:3.13",
+  "name": "Superfast Python Dev Container",
+
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+
   "remoteUser": "vscode",
 
   "customizations": {
@@ -11,24 +16,14 @@
         "GitHub.copilot"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-        "python.terminal.activateEnvironment": true,
-        "python.venvPath": "${workspaceFolder}",
-        "python.venvFolders": [".venv"]
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
+        "python.terminal.activateEnvironment": true
       }
     }
-  },
-
-  "containerEnv": {
-    "UV_CACHE_DIR": "/home/vscode/.cache/uv",
-    "UV_LINK_MODE": "copy"
   },
 
   "mounts": [
     "type=bind,source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-
-  "postCreateCommand": "curl -Ls https://astral.sh/uv/install.sh | sh && uv sync --group dev && uv run pre-commit install",
-
-  "postStartCommand": "git config --global --unset-all core.hooksPath || true"
+  "postCreateCommand": "uv sync --frozen --python /usr/local/bin/python && uv run pre-commit install"
 }
