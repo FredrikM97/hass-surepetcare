@@ -2658,7 +2658,6 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'date': '2025-09-03 08:39:29+00:00',
       'friendly_name': 'Poseidon connect',
     }),
     'context': <ANY>,
@@ -5702,7 +5701,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'date': '2025-09-03 08:39:29+00:00',
       'friendly_name': 'Poseidon connect',
     }),
     'context': <ANY>,
