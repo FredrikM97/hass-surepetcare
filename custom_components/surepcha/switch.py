@@ -9,6 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from custom_components.surepcha.helper import (
     list_attr,
     option_product_id,
+    serialize,
 )
 from custom_components.surepcha.method_field import SwitchMethodField
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
@@ -142,7 +143,7 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool:
-        return self.native_value is True
+        return self.native_value == serialize(self.entity_description.field.on)
 
     async def async_turn_on(self, **kwargs):
         await self.send_command(True)
