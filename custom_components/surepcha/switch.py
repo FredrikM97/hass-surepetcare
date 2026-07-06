@@ -70,6 +70,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             key="indoor_only",
             translation_key="indoor_only",
             entity_registry_enabled_default=False,
+            on=PetDeviceLocationProfile.INDOOR_ONLY,
             field=SwitchMethodField(
                 get_fn=profile_is_indoor,
                 set_fn=set_profile,
@@ -89,6 +90,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             key="position",
             translation_key="position",
             entity_registry_enabled_default=False,
+            on=PetLocation.OUTSIDE,
             field=SwitchMethodField(
                 path="status.activity.where",
                 set_fn=lambda ctx, value: ctx.device.set_position(value),
@@ -102,6 +104,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
         SurePetCareSwitchEntityDescription(
             key="curfew_enabled",
             translation_key="curfew_enabled",
+            on=True,
             field=SwitchMethodField(path="control.curfew.enabled"),
         ),
     ),
@@ -143,7 +146,7 @@ class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
 
     @property
     def is_on(self) -> bool:
-        return self.native_value == serialize(self.entity_description.field.on)
+        return self.native_value == serialize(self.entity_description.on)
 
     async def async_turn_on(self, **kwargs):
         await self.send_command(True)

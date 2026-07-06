@@ -20,6 +20,7 @@ class SurePetCareBaseEntityDescription:
     """Describes SurePetCare Base entity."""
 
     field: MethodField
+    on: any = False
     frozen: bool = False
 
 
