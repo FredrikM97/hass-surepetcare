@@ -1018,7 +1018,7 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[inside-1][position-mapping-inside-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Ajax Position',
@@ -1032,7 +1032,7 @@
     'state': 'off',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[inside-1][position-mapping-inside-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Position',
@@ -1046,7 +1046,7 @@
     'state': 'off',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[none-None][position-mapping-none-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Ajax Position',
@@ -1060,7 +1060,7 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[none-None][position-mapping-none-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Position',
@@ -1074,7 +1074,7 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[outside-2][position-mapping-outside-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Ajax Position',
@@ -1088,7 +1088,7 @@
     'state': 'on',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[outside-2][position-mapping-outside-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Position',
@@ -1102,7 +1102,7 @@
     'state': 'on',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[unknown-999][position-mapping-unknown-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Ajax Position',
@@ -1116,7 +1116,7 @@
     'state': 'unavailable',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[unknown-999][position-mapping-unknown-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'friendly_name': 'Maui Position',
