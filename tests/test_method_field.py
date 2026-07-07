@@ -390,6 +390,60 @@ class TestSelectMethodField:
 class TestSwitchMethodField:
     """Tests for SwitchMethodField."""
 
+    @pytest.mark.parametrize(
+        ("raw_value", "expected"),
+        [
+            (True, True),
+            (False, False),
+            (None, None),
+            ("OUTSIDE", True),
+            ("INSIDE", False),
+            ("UNKNOWN", None),
+        ],
+    )
+    def test_get_mapping_values(self, raw_value: object, expected: bool | None) -> None:
+        """Map representative raw switch values to normalized boolean state."""
+
+        device = MagicMock()
+        device.status.activity.where = raw_value
+
+        field = SwitchMethodField(
+            path="status.activity.where", on="OUTSIDE", off="INSIDE"
+        )
+        options = MappingProxyType({})
+
+        assert field.get(FieldContext(device, options, None)) is expected
+
+    def test_get_maps_on_value_to_true(self):
+        """Test SwitchMethodField maps on value to True."""
+        device = MagicMock()
+        device.status.position = "OUTSIDE"
+
+        field = SwitchMethodField(path="status.position", on="OUTSIDE", off="INSIDE")
+        options = MappingProxyType({})
+
+        assert field.get(FieldContext(device, options, None)) is True
+
+    def test_get_maps_off_value_to_false(self):
+        """Test SwitchMethodField maps off value to False."""
+        device = MagicMock()
+        device.status.position = "INSIDE"
+
+        field = SwitchMethodField(path="status.position", on="OUTSIDE", off="INSIDE")
+        options = MappingProxyType({})
+
+        assert field.get(FieldContext(device, options, None)) is False
+
+    def test_get_maps_unknown_value_to_none(self):
+        """Test SwitchMethodField maps unknown value to None."""
+        device = MagicMock()
+        device.status.position = "UNKNOWN"
+
+        field = SwitchMethodField(path="status.position", on="OUTSIDE", off="INSIDE")
+        options = MappingProxyType({})
+
+        assert field.get(FieldContext(device, options, None)) is None
+
     def test_maps_true_to_on_value(self):
         """Test SwitchMethodField maps True to on value."""
         device = MagicMock()

@@ -184,6 +184,18 @@ class SwitchMethodField(MethodField):
     on: Any = True
     off: Any = False
 
+    def get(self, context: FieldContext) -> Any:
+        """Get the value and map it to True/False based on on/off values."""
+        value = MethodField.get(self, context)
+        if isinstance(value, bool) or value is None:
+            return value
+
+        if value == self.on:
+            return True
+        if value == self.off:
+            return False
+        return None
+
     def set(self, context: FieldContext, value: Any) -> Any:
         # Map True/False to on/off, otherwise pass value as-is
         if value is True:

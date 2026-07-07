@@ -1018,6 +1018,118 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.ajax_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.maui_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.ajax_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.maui_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.ajax_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.maui_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.ajax_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Ajax Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.ajax_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
+# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.maui_position]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Maui Position',
+      'icon': 'mdi:door',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.maui_position',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unavailable',
+  })
+# ---
 # name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
