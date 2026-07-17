@@ -17,7 +17,7 @@ requires-python = ">=3.14.2"
 dev = [
     "py-surepetcare==0.6.3",
     "pre-commit==4.6.0",
-    "pytest-homeassistant-custom-component==0.13.339"
+    "pytest-homeassistant-custom-component==0.13.346"
 ]
 
 [tool.setuptools.packages.find]
