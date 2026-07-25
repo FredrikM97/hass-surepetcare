@@ -30,6 +30,9 @@ DEVICES = "devices"
 NAME = "name"
 MANUAL_PROPERTIES = "manual_properties"
 
+HOUSEHOLD_ID = "household_id"
+HOUSEHOLD_SUBENTRY_TYPE = "household"
+
 FLAP_PRODUCTS = {
     ProductId.PET_DOOR,
     ProductId.DUAL_SCAN_PET_DOOR,

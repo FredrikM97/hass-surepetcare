@@ -108,6 +108,10 @@
         }),
       }),
       'properties': dict({
+        'manual_properties': dict({
+          'location_inside': 'Home',
+          'location_outside': 'Away',
+        }),
       }),
     }),
   })
@@ -136,6 +140,10 @@
         }),
       }),
       'properties': dict({
+        'manual_properties': dict({
+          'location_inside': 'Home',
+          'location_outside': 'Away',
+        }),
       }),
     }),
   })

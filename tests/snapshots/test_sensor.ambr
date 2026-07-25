@@ -230,6 +230,128 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.ajax_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.ajax_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '532070-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.ajax_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Ajax Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.ajax_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.ajax_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.ajax_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '532070-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.ajax_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Ajax Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.ajax_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.ajax_last_activity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -853,6 +975,120 @@
     'state': '149.0',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.household_222527_household_activity_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.household_222527_household_activity_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Household Activity Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:timeline-clock-outline',
+    'original_name': 'Household Activity Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'household_activity_today',
+    'unique_id': 'household-222527-activity_today',
+    'unit_of_measurement': 'events',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.household_222527_household_activity_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Household 222527 Household Activity Today',
+      'icon': 'mdi:timeline-clock-outline',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'unit_of_measurement': 'events',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.household_222527_household_activity_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.household_245684_household_activity_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.household_245684_household_activity_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Household Activity Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:timeline-clock-outline',
+    'original_name': 'Household Activity Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'household_activity_today',
+    'unique_id': 'household-245684-activity_today',
+    'unit_of_measurement': 'events',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.household_245684_household_activity_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Household 245684 Household Activity Today',
+      'icon': 'mdi:timeline-clock-outline',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'unit_of_measurement': 'events',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.household_245684_household_activity_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -1421,6 +1657,128 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '5.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '472721-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Maui Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '472721-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.maui_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Maui Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-entry]
@@ -2171,6 +2529,128 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_empty_status_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '222222-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with empty status Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_empty_status_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_empty_status_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '222222-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with empty status Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_empty_status_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
+  })
+# ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -2513,6 +2993,128 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '4.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '333333-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with only one change on status Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '333333-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with only one change on status Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-entry]
@@ -3275,6 +3877,128 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.ajax_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '532070-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Ajax Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.ajax_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.ajax_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '532070-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Ajax Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.ajax_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_last_activity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -3898,6 +4622,120 @@
     'state': '149.0',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.household_222527_household_activity_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.household_222527_household_activity_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Household Activity Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:timeline-clock-outline',
+    'original_name': 'Household Activity Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'household_activity_today',
+    'unique_id': 'household-222527-activity_today',
+    'unit_of_measurement': 'events',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.household_222527_household_activity_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Household 222527 Household Activity Today',
+      'icon': 'mdi:timeline-clock-outline',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'unit_of_measurement': 'events',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.household_222527_household_activity_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.household_245684_household_activity_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.household_245684_household_activity_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Household Activity Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:timeline-clock-outline',
+    'original_name': 'Household Activity Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'household_activity_today',
+    'unique_id': 'household-245684-activity_today',
+    'unit_of_measurement': 'events',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.household_245684_household_activity_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Household 245684 Household Activity Today',
+      'icon': 'mdi:timeline-clock-outline',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'unit_of_measurement': 'events',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.household_245684_household_activity_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -4466,6 +5304,128 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '5.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '472721-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Maui Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.maui_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '472721-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.maui_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Maui Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.maui_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-entry]
@@ -5215,6 +6175,128 @@
     'state': 'unavailable',
   })
 # ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_empty_status_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '222222-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with empty status Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_empty_status_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_empty_status_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '222222-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with empty status Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_empty_status_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
+  })
+# ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_last_activity-entry]
   EntityRegistryEntrySnapshot({
     'aliases': list([
@@ -5557,6 +6639,128 @@
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '4.23',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_feedings_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_feedings_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Feedings Today',
+    'options': dict({
+    }),
+    'original_device_class': None,
+    'original_icon': 'mdi:counter',
+    'original_name': 'Feedings Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'feedings_today',
+    'unique_id': '333333-feedings_today',
+    'unit_of_measurement': 'feedings',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_feedings_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with only one change on status Feedings Today',
+      'icon': 'mdi:counter',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_grams': 0.0,
+      'unit_of_measurement': 'feedings',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_feedings_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0',
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_food_today-entry]
+  EntityRegistryEntrySnapshot({
+    'aliases': list([
+      None,
+    ]),
+    'area_id': None,
+    'capabilities': dict({
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+    }),
+    'config_entry_id': <ANY>,
+    'config_subentry_id': <ANY>,
+    'device_class': None,
+    'device_id': <ANY>,
+    'disabled_by': None,
+    'domain': 'sensor',
+    'entity_category': None,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_food_today',
+    'has_entity_name': True,
+    'hidden_by': None,
+    'icon': None,
+    'id': <ANY>,
+    'labels': set({
+    }),
+    'name': None,
+    'object_id_base': 'Food Today',
+    'options': dict({
+      'sensor': dict({
+        'suggested_display_precision': 0,
+      }),
+    }),
+    'original_device_class': <SensorDeviceClass.WEIGHT: 'weight'>,
+    'original_icon': 'mdi:food-drumstick',
+    'original_name': 'Food Today',
+    'platform': 'surepcha',
+    'previous_unique_id': None,
+    'suggested_object_id': None,
+    'supported_features': 0,
+    'translation_key': 'food_today',
+    'unique_id': '333333-food_today',
+    'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+  })
+# ---
+# name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_food_today-state]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'count': 0,
+      'device_class': 'weight',
+      'events': list([
+      ]),
+      'friendly_name': 'Pet with only one change on status Food Today',
+      'icon': 'mdi:food-drumstick',
+      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'total_dry_grams': 0.0,
+      'total_wet_grams': 0.0,
+      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.pet_with_only_one_change_on_status_food_today',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-entry]

@@ -69,7 +69,7 @@
           "on": "Online",
           "off": "Offline"
         }
-        
+
       },
       "presence": {
           "name": "Presence",

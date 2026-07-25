@@ -10,7 +10,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 2,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '12345': dict({
@@ -83,7 +83,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 1,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -112,6 +112,15 @@
     'pref_disable_polling': False,
     'source': 'user',
     'subentries': list([
+      dict({
+        'data': dict({
+          'household_id': 222527,
+        }),
+        'subentry_id': 'test_household_subentry',
+        'subentry_type': 'household',
+        'title': 'Household 222527',
+        'unique_id': '222527',
+      }),
     ]),
     'title': 'Test SurePetCare entry',
     'unique_id': '12345',
@@ -129,7 +138,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 1,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -188,6 +197,15 @@
     'pref_disable_polling': False,
     'source': 'user',
     'subentries': list([
+      dict({
+        'data': dict({
+          'household_id': 222527,
+        }),
+        'subentry_id': 'test_household_subentry',
+        'subentry_type': 'household',
+        'title': 'Household 222527',
+        'unique_id': '222527',
+      }),
     ]),
     'title': 'Test SurePetCare entry',
     'unique_id': '12345',
@@ -207,7 +225,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 3,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -268,7 +286,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 3,
+      'minor_version': 4,
       'options': dict({
         'devices': dict({
           '1299453': dict({
@@ -323,13 +341,29 @@
       'pref_disable_polling': False,
       'source': 'user',
       'subentries': list([
+        dict({
+          'data': dict({
+            'household_id': 222527,
+          }),
+          'subentry_type': 'household',
+          'title': 'Household 222527',
+          'unique_id': '222527',
+        }),
       ]),
       'title': 'SurePetCare Devices',
       'unique_id': None,
       'version': 1,
     }),
-    'subentries': tuple(
-    ),
+    'subentries': list([
+      dict({
+        'data': dict({
+          'household_id': 222527,
+        }),
+        'subentry_type': 'household',
+        'title': 'Household 222527',
+        'unique_id': '222527',
+      }),
+    ]),
     'title': 'SurePetCare Devices',
     'type': <FlowResultType.CREATE_ENTRY: 'create_entry'>,
     'version': 1,

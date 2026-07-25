@@ -37,6 +37,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         """Initialize a device."""
         super().__init__(coordinator)
         self._device: DeviceBase | PetBase = coordinator.data
+        self._household_id: int | None = self._device.household_id
 
     @property
     def device_info(self) -> DeviceInfo:

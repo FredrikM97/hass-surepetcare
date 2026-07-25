@@ -32,6 +32,7 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
+from .subentries import add_entities_by_household
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -205,7 +206,7 @@ async def async_setup_entry(
         for coordinator in coordinators
         for description in SELECTS.get(coordinator.product_id, ())
     ]
-    async_add_entities(entities)
+    add_entities_by_household(async_add_entities, entry, entities)
 
 
 class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):

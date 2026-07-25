@@ -239,6 +239,42 @@
           }
         }
       },
+      "feedings_today": {
+        "name": "Fütterungen heute",
+        "state_attributes": {
+          "total_grams": {
+            "name": "Gramm gesamt"
+          },
+          "events": {
+            "name": "Ereignisse"
+          }
+        }
+      },
+      "food_today": {
+        "name": "Futter heute",
+        "state_attributes": {
+          "count": {
+            "name": "Anzahl"
+          },
+          "total_wet_grams": {
+            "name": "Gramm Nassfutter gesamt"
+          },
+          "total_dry_grams": {
+            "name": "Gramm Trockenfutter gesamt"
+          },
+          "events": {
+            "name": "Ereignisse"
+          }
+        }
+      },
+      "household_activity_today": {
+        "name": "Haushaltsaktivität heute",
+        "state_attributes": {
+          "events": {
+            "name": "Ereignisse"
+          }
+        }
+      },
       "position": {
         "name": "Position",
         "state": {

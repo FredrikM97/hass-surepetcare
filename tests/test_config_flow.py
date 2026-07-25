@@ -1,5 +1,6 @@
 import pytest
 from syrupy.assertion import SnapshotAssertion
+from syrupy.filters import props
 from homeassistant.core import HomeAssistant
 
 from custom_components.surepcha import async_migrate_entry
@@ -13,6 +14,7 @@ from custom_components.surepcha.const import (
     CONF_EMAIL,
     CONF_PASSWORD,
     ENTRY_ID,
+    HOUSEHOLD_SUBENTRY_TYPE,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     MANUAL_PROPERTIES,
@@ -30,7 +32,8 @@ from custom_components.surepcha.config_flow import (
 )
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from unittest.mock import patch
+from . import TEST_HOUSEHOLD_ID
+from unittest.mock import AsyncMock, MagicMock, patch
 from homeassistant.data_entry_flow import FlowResultType
 from surepcio import Household
 
@@ -175,7 +178,138 @@ async def test_user_flow(
 
     assert result2.get("type") is FlowResultType.CREATE_ENTRY
 
-    assert result2 == snapshot
+    # subentry_id is a freshly generated ULID on every real login, so it can't
+    # be snapshotted verbatim - everything else about the created entry can.
+    assert result2 == snapshot(exclude=props("subentry_id"))
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_user_flow_creates_one_subentry_per_household_with_devices(
+    hass: HomeAssistant, mock_pets, mock_devices
+) -> None:
+    """Households with devices become subentries; empty households are skipped."""
+    with (
+        patch(
+            "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
+        ) as client_mock,
+        patch(
+            "custom_components.surepcha.SurePetcareClient", autospec=True
+        ) as setup_mock,
+    ):
+        instance = client_mock.return_value
+        setup_mock.return_value = instance
+        instance.login = AsyncMock(return_value=True)
+        instance.token = "mocked_token"
+        instance.device_id = "mocked_device_id"
+
+        def api_side_effect(cmd):
+            if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
+                household_a = MagicMock()
+                household_a.id = 111
+                household_a.data = {"name": "Storm"}
+                household_a.get_devices.return_value = mock_devices
+                household_a.get_pets.return_value = mock_pets
+                household_b = MagicMock()
+                household_b.id = 222
+                household_b.data = {"name": "Empty Household"}
+                household_b.get_devices.return_value = []
+                household_b.get_pets.return_value = []
+                return [household_a, household_b]
+            return cmd
+
+        instance.api = AsyncMock(side_effect=api_side_effect)
+
+        result = await hass.config_entries.flow.async_init(
+            DOMAIN, context={"source": "user"}
+        )
+        result2 = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            user_input={CONF_EMAIL: "test@example.com", CONF_PASSWORD: "password123"},
+        )
+
+    assert result2["type"] is FlowResultType.CREATE_ENTRY
+    subentries = list(result2["subentries"])
+    assert len(subentries) == 1
+    assert subentries[0]["title"] == "Storm"
+    assert subentries[0]["unique_id"] == "111"
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_household_subentry_flow_adds_new_household(
+    hass: HomeAssistant, mock_config_entry, mock_pets, mock_devices
+) -> None:
+    """A household added after initial setup can be added as a subentry, no re-login needed."""
+    mock_config_entry.add_to_hass(hass)
+
+    with patch(
+        "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
+    ) as client_mock:
+        instance = client_mock.return_value
+        instance.login = AsyncMock(return_value=True)
+        instance.token = "mocked_token"
+        instance.device_id = "mocked_device_id"
+
+        def api_side_effect(cmd):
+            if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
+                existing = MagicMock()
+                existing.id = TEST_HOUSEHOLD_ID
+                existing.data = {"name": "Storm"}
+                existing.get_devices.return_value = mock_devices
+                existing.get_pets.return_value = mock_pets
+                new_household = MagicMock()
+                new_household.id = 999
+                new_household.data = {"name": "Second Home"}
+                new_household.get_devices.return_value = mock_devices
+                new_household.get_pets.return_value = mock_pets
+                return [existing, new_household]
+            return cmd
+
+        instance.api = AsyncMock(side_effect=api_side_effect)
+
+        result = await hass.config_entries.subentries.async_init(
+            (mock_config_entry.entry_id, HOUSEHOLD_SUBENTRY_TYPE),
+            context={"source": "user"},
+        )
+
+    assert result["type"] == FlowResultType.CREATE_ENTRY
+    assert result["title"] == "Second Home"
+    assert result["unique_id"] == "999"
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_household_subentry_flow_aborts_when_no_new_household(
+    hass: HomeAssistant, mock_config_entry, mock_pets, mock_devices
+) -> None:
+    """Nothing to add if every household with devices is already a subentry."""
+    mock_config_entry.add_to_hass(hass)
+
+    with patch(
+        "custom_components.surepcha.config_flow.SurePetcareClient", autospec=True
+    ) as client_mock:
+        instance = client_mock.return_value
+        instance.login = AsyncMock(return_value=True)
+        instance.token = "mocked_token"
+        instance.device_id = "mocked_device_id"
+
+        def api_side_effect(cmd):
+            if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
+                existing = MagicMock()
+                existing.id = TEST_HOUSEHOLD_ID
+                existing.data = {"name": "Storm"}
+                existing.get_devices.return_value = mock_devices
+                existing.get_pets.return_value = mock_pets
+                return [existing]
+            return cmd
+
+        instance.api = AsyncMock(side_effect=api_side_effect)
+
+        result = await hass.config_entries.subentries.async_init(
+            (mock_config_entry.entry_id, HOUSEHOLD_SUBENTRY_TYPE),
+            context={"source": "user"},
+        )
+
+    assert result["type"] == FlowResultType.ABORT
+    assert result["reason"] == "no_new_household_found"
 
 
 @pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
@@ -280,10 +414,22 @@ async def test_async_migrate_entry_adds_manual_properties(
     )
     entry.add_to_hass(hass)
 
-    migrated = await async_migrate_entry(hass, entry)
+    # The migration also fans households out into subentries (a separate step
+    # from the manual-properties migration this test focuses on) - mock the
+    # live fetch it performs so it completes without touching the network.
+    mock_client = MagicMock()
+    mock_client.login = AsyncMock(return_value=None)
+    mock_client.api = AsyncMock(return_value=[])
+    mock_client.close = AsyncMock(return_value=None)
+
+    with patch(
+        "custom_components.surepcha.SurePetcareClient", return_value=mock_client
+    ):
+        migrated = await async_migrate_entry(hass, entry)
+
     assert migrated
     assert MANUAL_PROPERTIES not in entry.options
-    assert entry.minor_version == 2
+    assert entry.minor_version == 4
     assert entry.version == 1
     assert OPTION_PROPERTIES in entry.options
     assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {

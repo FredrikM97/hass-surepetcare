@@ -13,6 +13,7 @@ from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
+from .subentries import add_entities_by_household
 from surepcio.enums import ProductId, FlapLocking
 
 logger = logging.getLogger(__name__)
@@ -62,7 +63,7 @@ async def async_setup_entry(
         for coordinator in coordinators
         for description in LOCKS.get(coordinator.product_id, ())
     ]
-    async_add_entities(entities)
+    add_entities_by_household(async_add_entities, entry, entities)
 
 
 class SurePetCareLock(SurePetCareBaseEntity, LockEntity):

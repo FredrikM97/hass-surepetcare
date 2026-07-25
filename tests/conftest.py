@@ -4,6 +4,8 @@ import pytest
 from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
+    HOUSEHOLD_ID,
+    HOUSEHOLD_SUBENTRY_TYPE,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     MANUAL_PROPERTIES,
@@ -13,7 +15,8 @@ from custom_components.surepcha.const import (
     PRODUCT_ID,
     TOKEN,
 )
-from . import DEVICE_MOCKS, PET_MOCKS
+from . import DEVICE_MOCKS, PET_MOCKS, TEST_HOUSEHOLD_ID
+from custom_components.surepcha.timeline import HouseholdTimelineData
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId
 from surepcio.devices.device import DeviceBase, PetBase
@@ -60,9 +63,18 @@ def mock_coordinator_update_data():
         # Return the current status/control or whatever your entities expect
         return self._device
 
-    with patch(
-        "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
-        new=return_device_data,
+    async def return_empty_timeline(self):
+        return HouseholdTimelineData()
+
+    with (
+        patch(
+            "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
+            new=return_device_data,
+        ),
+        patch(
+            "custom_components.surepcha.coordinator.SurePetCareTimelineCoordinator._async_update_data",
+            new=return_empty_timeline,
+        ),
     ):
         yield
 
@@ -148,6 +160,16 @@ def mock_config_entry() -> MockConfigEntry:
                 }
             },
         },
+        subentries_data=(
+            {
+                "data": {HOUSEHOLD_ID: TEST_HOUSEHOLD_ID},
+                "subentry_id": "test_household_subentry",
+                "subentry_type": HOUSEHOLD_SUBENTRY_TYPE,
+                "title": f"Household {TEST_HOUSEHOLD_ID}",
+                "unique_id": str(TEST_HOUSEHOLD_ID),
+            },
+        ),
+        minor_version=4,
         unique_id="12345",
     )
 
@@ -159,7 +181,17 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
         title="Test SurePetCare entry",
         domain=DOMAIN,
         data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
-        options={OPTION_DEVICES: {}},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        subentries_data=(
+            {
+                "data": {HOUSEHOLD_ID: TEST_HOUSEHOLD_ID},
+                "subentry_id": "test_household_subentry",
+                "subentry_type": HOUSEHOLD_SUBENTRY_TYPE,
+                "title": f"Household {TEST_HOUSEHOLD_ID}",
+                "unique_id": str(TEST_HOUSEHOLD_ID),
+            },
+        ),
+        minor_version=4,
         unique_id="12345",
     )
 
@@ -238,6 +270,8 @@ async def mock_surepetcare_login_control(
             """Return different data based on cmd.endpoint."""
             if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
                 household = MagicMock()
+                household.id = TEST_HOUSEHOLD_ID
+                household.data = {}
                 household.get_devices.return_value = mock_devices
                 household.get_pets.return_value = mock_pets
                 return [household]
