@@ -7,6 +7,7 @@ from typing import Any, Mapping
 from surepcio import SurePetcareClient
 from surepcio import Household
 from surepcio.enums import ProductId
+from surepcio.security.exceptions import AuthenticationError
 
 import voluptuous as vol
 from homeassistant.config_entries import ConfigFlowResult
@@ -52,12 +53,13 @@ async def _authenticate(
     """Authenticate a fresh client, returning it plus any error keyed for a form."""
     errors: dict = {}
     client = SurePetcareClient()
-    logged_in = await client.login(
-        email=email, password=password, token=token, device_id=device_id
-    )
-
-    if not logged_in:
+    try:
+        await client.login(
+            email=email, password=password, token=token, device_id=device_id
+        )
+    except AuthenticationError:
         errors["base"] = "auth_failed"
+        return client, errors
 
     token = getattr(client, TOKEN, None)
     if not token:
@@ -122,8 +124,10 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             )
             errors.update(error)
 
-            households, error = await _async_fetch_households(client)
-            errors.update(error)
+            households: list[dict] = []
+            if not errors:
+                households, error = await _async_fetch_households(client)
+                errors.update(error)
             await client.close()
             if not errors:
                 logger.debug(

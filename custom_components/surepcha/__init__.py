@@ -206,10 +206,12 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
         """Close connection when hass stops."""
         await client.close()
 
-    # Setup listeners
+    # Setup listeners. Entry unload/reload doesn't fire EVENT_HOMEASSISTANT_STOP,
+    # so close the session on both to avoid leaking it on every reload.
     entry.async_on_unload(
         hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, on_hass_stop)
     )
+    entry.async_on_unload(client.close)
     # Fetch devices only for households the user has added as a subentry.
     try:
         household_ids = {
