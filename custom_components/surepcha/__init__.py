@@ -5,7 +5,6 @@ import logging
 from types import MappingProxyType
 from typing import Any, List
 
-from surepcio import SurePetcareClient
 from surepcio import Household
 
 from .services import _service_registry
@@ -26,6 +25,7 @@ from .const import (
     TOKEN,
     OPTION_PROPERTIES,
 )
+from .client import SurePetcareClient
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
 from .subentries import subentry_id_for_household
 
@@ -192,6 +192,16 @@ def _move_device_to_subentry(
         )
 
 
+async def _load_household(client: SurePetcareClient, household: Household) -> list[Any]:
+    """Fetch one household's pets and devices, then bind pet-device assignments."""
+    pets, devices = await asyncio.gather(
+        client.api(household.get_pets()),
+        client.api(household.get_devices()),
+    )
+    await client.api(household.fetch_pet_device_assignments())
+    return [*pets, *devices]
+
+
 async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     """Setup devices for a config entry, scoped to its household subentries."""
     client: SurePetcareClient = SurePetcareClient()
@@ -218,15 +228,16 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
             subentry.data[HOUSEHOLD_ID] for subentry in entry.subentries.values()
         }
         households: List[Household] = await client.api(Household.get_households())
-        entities = []
-        for household in households:
-            if household.id not in household_ids:
-                continue
-            entities.extend(await client.api(household.get_pets()))
-            entities.extend(await client.api(household.get_devices()))
-
-            # Bind pet device assignments
-            await client.api(household.fetch_pet_device_assignments())
+        results = await asyncio.gather(
+            *(
+                _load_household(client, household)
+                for household in households
+                if household.id in household_ids
+            )
+        )
+        entities = [
+            entity for household_entities in results for entity in household_entities
+        ]
         await client.close()
     except Exception as exc:
         await client.close()
@@ -250,12 +261,10 @@ async def async_setup_entry(
         for device in entities
     ]
 
-    await asyncio.gather(
-        *[
-            coordinator.async_config_entry_first_refresh()
-            for coordinator in coordinators
-        ]
-    )
+    # setup_devices() already refreshed every device once via the household
+    # chain, so seed coordinators from that instead of fetching it all again.
+    for coordinator in coordinators:
+        coordinator.async_set_updated_data(coordinator._device)
 
     device_registry = dr.async_get(hass)
     for c in coordinators:

@@ -4,7 +4,6 @@ from copy import deepcopy
 import logging
 from typing import Any, Mapping
 
-from surepcio import SurePetcareClient
 from surepcio import Household
 from surepcio.enums import ProductId
 from surepcio.security.exceptions import AuthenticationError
@@ -29,6 +28,7 @@ from .const import (
     PRODUCT_ID,
     OPTION_PROPERTIES,
 )
+from .client import SurePetcareClient
 from .device_config_schema import (
     DEVICE_CONFIG_SCHEMAS,
     MANUAL_PROPERTIES,

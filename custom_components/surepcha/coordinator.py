@@ -54,10 +54,6 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[T]):
         self.client = client
         self._exception: Exception | None = None
 
-    async def _async_setup(self):
-        """Fetch initial data for the device."""
-        await self.client.api(self._device.refresh())
-
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
         logger.debug(
