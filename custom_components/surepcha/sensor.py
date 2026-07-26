@@ -640,8 +640,9 @@ class SurePetCareHouseholdActivitySensor(
     _attr_translation_key = "household_activity_today"
     _attr_icon = "mdi:timeline-clock-outline"
     _attr_native_unit_of_measurement = "events"
-    # See SurePetCareFeedingsTodaySensor for why TOTAL_INCREASING (not TOTAL).
-    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+    # No state_class: this count is redundant with feedings_today's per-pet
+    # statistics, and this entity's real value is the event feed in its
+    # attributes, not a number worth aggregating on its own.
 
     def __init__(
         self,
@@ -673,17 +674,15 @@ class SurePetCareHouseholdActivitySensor(
         data = self.coordinator.data
         return len(data.activity) if data else 0
 
-    def _pet_photo(self, pet_id: int | None) -> str | None:
-        """Return the pet's photo URL, if this event is tied to a known pet."""
-        return self._pet_photos.get(pet_id) if pet_id is not None else None
-
-    def _device_photo(self, device_id: int | None) -> str | None:
-        """Return the device's photo URL, if this event is tied to a known device."""
-        return self._device_photos.get(device_id) if device_id is not None else None
-
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
-        """Return today's combined feeding and bowl-maintenance activity feed."""
+        """Return today's combined feeding and bowl-maintenance activity feed.
+
+        Photo URLs are listed once per pet/device rather than repeated on
+        every event - with enough events in a day, duplicating a photo URL
+        on each one is what pushes this past the recorder's 16 KiB per-state
+        attribute limit (silently dropping the attributes from history).
+        """
         data = self.coordinator.data
         events = data.activity if data else []
         return {
@@ -691,9 +690,17 @@ class SurePetCareHouseholdActivitySensor(
                 {
                     **{key: value for key, value in event.items() if key != "at"},
                     "at": event["at"].isoformat(),
-                    "pet_photo": self._pet_photo(event.get("pet_id")),
-                    "device_photo": self._device_photo(event.get("device_id")),
                 }
                 for event in events
-            ]
+            ],
+            "pet_photos": {
+                str(pet_id): photo
+                for pet_id, photo in self._pet_photos.items()
+                if photo is not None
+            },
+            "device_photos": {
+                str(device_id): photo
+                for device_id, photo in self._device_photos.items()
+                if photo is not None
+            },
         }

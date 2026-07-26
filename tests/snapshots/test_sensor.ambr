@@ -981,9 +981,7 @@
       None,
     ]),
     'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
-    }),
+    'capabilities': None,
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
     'device_class': None,
@@ -1017,11 +1015,25 @@
 # name: test_platform_setup_and_discovery[sensor.household_222527_household_activity_today-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_photos': dict({
+        '22222': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '269654': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '295972': 'https://www.surepetcare.io/assets/assets/products/hub/hub.6475b3a385180ab8fb96731c4bfd1eda.png',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'events': list([
       ]),
       'friendly_name': 'Household 222527 Household Activity Today',
       'icon': 'mdi:timeline-clock-outline',
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'pet_photos': dict({
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'unit_of_measurement': 'events',
     }),
     'context': <ANY>,
@@ -1038,9 +1050,7 @@
       None,
     ]),
     'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
-    }),
+    'capabilities': None,
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
     'device_class': None,
@@ -1074,11 +1084,25 @@
 # name: test_platform_setup_and_discovery[sensor.household_245684_household_activity_today-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_photos': dict({
+        '22222': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '269654': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '295972': 'https://www.surepetcare.io/assets/assets/products/hub/hub.6475b3a385180ab8fb96731c4bfd1eda.png',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'events': list([
       ]),
       'friendly_name': 'Household 245684 Household Activity Today',
       'icon': 'mdi:timeline-clock-outline',
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'pet_photos': dict({
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'unit_of_measurement': 'events',
     }),
     'context': <ANY>,
@@ -4628,9 +4652,7 @@
       None,
     ]),
     'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
-    }),
+    'capabilities': None,
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
     'device_class': None,
@@ -4664,11 +4686,25 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.household_222527_household_activity_today-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_photos': dict({
+        '22222': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '269654': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '295972': 'https://www.surepetcare.io/assets/assets/products/hub/hub.6475b3a385180ab8fb96731c4bfd1eda.png',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'events': list([
       ]),
       'friendly_name': 'Household 222527 Household Activity Today',
       'icon': 'mdi:timeline-clock-outline',
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'pet_photos': dict({
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'unit_of_measurement': 'events',
     }),
     'context': <ANY>,
@@ -4685,9 +4721,7 @@
       None,
     ]),
     'area_id': None,
-    'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
-    }),
+    'capabilities': None,
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
     'device_class': None,
@@ -4721,11 +4755,25 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.household_245684_household_activity_today-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'device_photos': dict({
+        '22222': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '269654': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+        '295972': 'https://www.surepetcare.io/assets/assets/products/hub/hub.6475b3a385180ab8fb96731c4bfd1eda.png',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'events': list([
       ]),
       'friendly_name': 'Household 245684 Household Activity Today',
       'icon': 'mdi:timeline-clock-outline',
-      'state_class': <SensorStateClass.TOTAL_INCREASING: 'total_increasing'>,
+      'pet_photos': dict({
+        '222222': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '333333': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '472721': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+        '532070': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      }),
       'unit_of_measurement': 'events',
     }),
     'context': <ANY>,

@@ -273,6 +273,12 @@
         "state_attributes": {
           "events": {
             "name": "Events"
+          },
+          "pet_photos": {
+            "name": "Pet photos"
+          },
+          "device_photos": {
+            "name": "Device photos"
           }
         }
       },
