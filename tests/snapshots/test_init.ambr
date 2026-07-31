@@ -340,3 +340,65 @@
     'via_device_id': None,
   })
 # ---
+# name: test_device_registry[household-222527]
+  DeviceRegistryEntrySnapshot({
+    'area_id': None,
+    'config_entries': <ANY>,
+    'config_entries_subentries': <ANY>,
+    'configuration_url': None,
+    'connections': set({
+    }),
+    'disabled_by': None,
+    'entry_type': None,
+    'hw_version': None,
+    'id': <ANY>,
+    'identifiers': set({
+      tuple(
+        'surepcha',
+        'household-222527',
+      ),
+    }),
+    'labels': set({
+    }),
+    'manufacturer': 'SurePetCare',
+    'model': 'Household',
+    'model_id': None,
+    'name': 'Household 222527',
+    'name_by_user': None,
+    'primary_config_entry': <ANY>,
+    'serial_number': None,
+    'sw_version': None,
+    'via_device_id': None,
+  })
+# ---
+# name: test_device_registry[household-245684]
+  DeviceRegistryEntrySnapshot({
+    'area_id': None,
+    'config_entries': <ANY>,
+    'config_entries_subentries': <ANY>,
+    'configuration_url': None,
+    'connections': set({
+    }),
+    'disabled_by': None,
+    'entry_type': None,
+    'hw_version': None,
+    'id': <ANY>,
+    'identifiers': set({
+      tuple(
+        'surepcha',
+        'household-245684',
+      ),
+    }),
+    'labels': set({
+    }),
+    'manufacturer': 'SurePetCare',
+    'model': 'Household',
+    'model_id': None,
+    'name': 'Household 245684',
+    'name_by_user': None,
+    'primary_config_entry': <ANY>,
+    'serial_number': None,
+    'sw_version': None,
+    'via_device_id': None,
+  })
+# ---
