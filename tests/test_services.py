@@ -179,6 +179,7 @@ async def test_platform_setup_and_set_pet_position_service(
         blocking=True,
     )
 
+
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
 @pytest.mark.usefixtures(
     "enable_custom_integrations", "entity_registry_enabled_default"
