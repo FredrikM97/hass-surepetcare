@@ -185,7 +185,7 @@ async def test_platform_setup_and_set_pet_position_service(
     "enable_custom_integrations", "entity_registry_enabled_default"
 )
 @pytest.mark.asyncio
-async def test_platform_setup_and_refresh_pet_service(
+async def test_platform_setup_and_refresh_device_service(
     hass,
     mock_client,
     mock_config_entry: MockConfigEntry,
@@ -206,9 +206,9 @@ async def test_platform_setup_and_refresh_pet_service(
     ][0]
     await hass.services.async_call(
         DOMAIN,
-        "refresh_pet",
+        "refresh_device",
         {
-            "pet_id": pet_id,
+            "device_id": pet_id,
         },
         blocking=True,
     )

@@ -122,17 +122,17 @@ async def set_pet_position(call) -> None:
 
 
 @global_service(
-    "refresh_pet",
+    "refresh_device",
     schema=vol.Schema(
         {
-            vol.Required("pet_id"): str,
+            vol.Required("device_id"): str,
         }
     ),
 )
-async def refresh_pet(call) -> None:
-    """Refresh a pet"""
-    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
-    await pet_coordinator.async_refresh()
+async def refresh_device(call) -> None:
+    """Refresh a pet or device"""
+    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
+    await device_coordinator.async_refresh()
 
 
 def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":
