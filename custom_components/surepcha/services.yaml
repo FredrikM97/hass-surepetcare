@@ -46,7 +46,13 @@ set_control:
     control:
       description: Dictionary of control fields to set (e.g. training_mode, fast_polling, bowls, etc).
       required: true
-      example: {"training_mode": 1, "fast_polling": true, "bowls": {"settings": [{"food_type": 1, "target": 50}], "type": 0}}
+      example:
+        {
+          "training_mode": 1,
+          "fast_polling": true,
+          "bowls":
+            { "settings": [{ "food_type": 1, "target": 50 }], "type": 0 },
+        }
       selector:
         object: {}
 set_tag:
@@ -152,3 +158,16 @@ set_pet_position:
           options:
             - INSIDE
             - OUTSIDE
+
+refresh_device:
+  name: Refresh device
+  description: Refresh information for a pet or device on demand.
+  fields:
+    device_id:
+      name: Pet or device
+      description: Pet or device id to refresh.
+      required: true
+      selector:
+        device:
+          filter:
+            integration: surepcha
