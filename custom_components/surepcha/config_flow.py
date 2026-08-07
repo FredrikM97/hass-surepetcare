@@ -267,6 +267,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     ) -> ConfigFlowResult:
         """Dialog that informs the user that reauth is required."""
         reauth_entry = self._get_reauth_entry()
+        errors: dict = {}
         if user_input is not None:
             client, errors = await self._authenticate(
                 email=reauth_entry.data[CONF_EMAIL], password=user_input[CONF_PASSWORD]
