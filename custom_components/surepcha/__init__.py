@@ -105,6 +105,8 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
             )
             households = [h for h in all_households if h.id == household_id]
         else:
+            # Legacy entries pre-dating per-household splits have no HOUSEHOLD_ID;
+            # load all households so the entry keeps working until the user reconfigures.
             households = await client.api(Household.get_households())
         entities = []
         for household in households:
