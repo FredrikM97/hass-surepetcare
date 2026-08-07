@@ -59,8 +59,10 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             )
             errors.update(error)
 
-            entity_info, error = await self._async_fetch_entities(client)
-            errors.update(error)
+            entity_info: dict | None = None
+            if not errors:
+                entity_info, error = await self._async_fetch_entities(client)
+                errors.update(error)
             await client.close()
             if not errors:
                 logger.debug(

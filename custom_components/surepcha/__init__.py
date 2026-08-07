@@ -85,14 +85,16 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     except Exception as exc:
         raise ConfigEntryAuthFailed from exc
 
-    async def on_hass_stop(event: Event) -> None:
-        """Close connection when hass stops."""
+    async def close_client(event: Event | None = None) -> None:
+        """Close the client - on hass-stop, and again on entry unload/reload."""
         await client.close()
 
-    # Setup listeners
+    # Both listeners are needed: hass-stop doesn't unload entries, and
+    # unload/reload doesn't fire on a full hass stop.
     entry.async_on_unload(
-        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, on_hass_stop)
+        hass.bus.async_listen_once(EVENT_HOMEASSISTANT_STOP, close_client)
     )
+    entry.async_on_unload(close_client)
     # Fetch initial devices
     try:
         households: List[Household] = await client.api(Household.get_households())

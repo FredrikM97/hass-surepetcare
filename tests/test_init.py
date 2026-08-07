@@ -1,6 +1,6 @@
 import importlib
 import inspect
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 import custom_components.surepcha.__init__ as surepetcare_init
 from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
 import pytest
@@ -12,6 +12,7 @@ from surepcio.devices.device import PetBase, DeviceBase
 from syrupy.assertion import SnapshotAssertion
 
 from homeassistant.config_entries import ConfigEntryState
+from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 
@@ -426,3 +427,63 @@ async def test_device_registry(
                 include_disabled_entities=True,
             )
         )
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_client_closed_on_entry_unload(
+    hass: HomeAssistant,
+    mock_client: SurePetcareClient,
+    mock_config_entry: MockConfigEntry,
+    mock_devices: list[DeviceBase],
+    mock_pets: list[PetBase],
+) -> None:
+    """entry.async_on_unload(client.close) must actually run on a real
+    reload/unload - the case EVENT_HOMEASSISTANT_STOP alone doesn't cover,
+    since HA does not unload every entry on a full shutdown (see the
+    hass-stop test below). Regression test for the session leak this fixes:
+    previously the client was only ever closed on EVENT_HOMEASSISTANT_STOP,
+    so every reload (options change, manual reload, reauth) leaked the
+    previous client's aiohttp session.
+    """
+    mock_client.close = AsyncMock(return_value=None)
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+    )
+    # setup_devices() also closes the session once on its own success path
+    # (a separate, pre-existing quirk - the session gets lazily reopened by
+    # the next request) - so assert the *unload* causes one more close,
+    # rather than assuming zero closes happened before it.
+    calls_before_unload = mock_client.close.call_count
+
+    assert await hass.config_entries.async_unload(mock_config_entry.entry_id)
+    await hass.async_block_till_done()
+
+    assert mock_client.close.call_count == calls_before_unload + 1
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_client_closed_on_hass_stop(
+    hass: HomeAssistant,
+    mock_client: SurePetcareClient,
+    mock_config_entry: MockConfigEntry,
+    mock_devices: list[DeviceBase],
+    mock_pets: list[PetBase],
+) -> None:
+    """The EVENT_HOMEASSISTANT_STOP listener must keep closing the session too:
+    ConfigEntry.async_shutdown() - what actually runs for every entry on a
+    full HA stop - only cancels the retry-setup timer, it never processes
+    async_on_unload callbacks. Without this listener, a full shutdown would
+    leak the session even though entry.async_on_unload(client.close) is
+    wired up for the reload/unload case above.
+    """
+    mock_client.close = AsyncMock(return_value=None)
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+    )
+    # See the equivalent comment in test_client_closed_on_entry_unload above.
+    calls_before_stop = mock_client.close.call_count
+
+    hass.bus.async_fire(EVENT_HOMEASSISTANT_STOP)
+    await hass.async_block_till_done()
+
+    assert mock_client.close.call_count == calls_before_stop + 1

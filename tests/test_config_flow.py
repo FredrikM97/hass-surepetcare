@@ -30,7 +30,7 @@ from custom_components.surepcha.config_flow import (
 )
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from unittest.mock import patch
+from unittest.mock import AsyncMock, MagicMock, patch
 from homeassistant.data_entry_flow import FlowResultType
 from surepcio import Household
 
@@ -176,6 +176,60 @@ async def test_user_flow(
     assert result2.get("type") is FlowResultType.CREATE_ENTRY
 
     assert result2 == snapshot
+
+
+@pytest.mark.asyncio
+async def test_user_step_skips_fetch_when_auth_has_errors() -> None:
+    """A failed login must not attempt to fetch entities with an unauthenticated
+    client - regression test for the session-leak fix's auth-failure guard."""
+    flow = SurePetCareConfigFlow()
+
+    client = MagicMock()
+    client.close = AsyncMock()
+
+    with (
+        patch.object(
+            flow,
+            "_authenticate",
+            AsyncMock(return_value=(client, {"base": "auth_failed"})),
+        ),
+        patch.object(flow, "_async_fetch_entities", AsyncMock()) as fetch_mock,
+    ):
+        result = await flow.async_step_user(
+            {"email": "test@example.com", "password": "bad-password"}
+        )
+
+    assert result["type"] is FlowResultType.FORM
+    assert result["errors"]["base"] == "auth_failed"
+    fetch_mock.assert_not_awaited()
+    client.close.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_user_step_calls_fetch_when_auth_ok() -> None:
+    """A successful login still fetches entities and creates the entry."""
+    flow = SurePetCareConfigFlow()
+
+    client = MagicMock()
+    client.token = "tok"
+    client.device_id = "dev"
+    client.close = AsyncMock()
+
+    with (
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(
+            flow,
+            "_async_fetch_entities",
+            AsyncMock(return_value=({"123": {"name": "Device", "product_id": 4}}, {})),
+        ) as fetch_mock,
+    ):
+        result = await flow.async_step_user(
+            {"email": "test@example.com", "password": "good-password"}
+        )
+
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    fetch_mock.assert_awaited_once_with(client)
+    client.close.assert_awaited_once()
 
 
 @pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
