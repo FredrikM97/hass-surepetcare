@@ -611,7 +611,9 @@ async def test_trigger_discovery_flows(hass) -> None:
     mock_household = MagicMock(id=99)
     mock_household.data = {"name": "Second Home"}
 
-    with patch.object(hass.config_entries.flow, "async_init", AsyncMock(return_value=None)):
+    with patch.object(
+        hass.config_entries.flow, "async_init", AsyncMock(return_value=None)
+    ):
         flow._trigger_discovery_flows(
             "tok", "dev", [(mock_household, {"1": {NAME: "Cat flap"}})]
         )
