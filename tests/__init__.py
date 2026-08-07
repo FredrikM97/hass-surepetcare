@@ -33,6 +33,8 @@ async def initialize_entry(
         """Return different data based on cmd.endpoint."""
         if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
             household = MagicMock()
+            household.id = 12345
+            household.data = {"id": 12345, "name": "Test Household"}
             household.get_devices.return_value = mock_devices
             household.get_pets.return_value = mock_pets
             return [household]

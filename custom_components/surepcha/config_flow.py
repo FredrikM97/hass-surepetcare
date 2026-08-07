@@ -19,6 +19,7 @@ from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
 from .const import (
     DOMAIN,
     ENTRY_ID,
+    HOUSEHOLD_ID,
     NAME,
     OPTION_DEVICES,
     CLIENT_DEVICE_ID,
@@ -48,34 +49,47 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
-    MINOR_VERSION = 3
+    MINOR_VERSION = 4
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
-        """Handle the initial step to login the user"""
+        """Handle the initial step to login the user."""
         errors: dict = {}
         if user_input is not None:
-            client, error = await self._authenticate(
+            client, errors = await self._authenticate(
                 email=user_input.get(CONF_EMAIL), password=user_input.get(CONF_PASSWORD)
             )
-            errors.update(error)
-
-            entity_info: dict | None = None
+            household_data: list[tuple] = []
             if not errors:
-                entity_info, error = await self._async_fetch_entities(client)
-                errors.update(error)
+                household_data = await self._fetch_all_household_data(client)
+                if not household_data:
+                    errors["base"] = "no_devices_or_pet_found"
             await client.close()
             if not errors:
+                unconfigured, already_configured = self._split_by_configured(
+                    household_data
+                )
+                if not unconfigured:
+                    return self.async_abort(reason="already_configured")
+                (first_household, first_entity_info), *remaining = unconfigured
+                self._trigger_discovery_flows(
+                    client.token, client.device_id, remaining + already_configured
+                )
+                await self.async_set_unique_id(str(first_household.id))
+                self._abort_if_unique_id_configured()
                 logger.debug(
-                    "Configuration complete, updated entities: %s", entity_info
+                    "Configuration complete, household %s, entities: %s",
+                    first_household.id,
+                    first_entity_info,
                 )
                 return self.async_create_entry(
-                    title="SurePetCare Devices",
+                    title=self._household_title(first_household),
                     data={
                         CONF_TOKEN: client.token,
                         CLIENT_DEVICE_ID: client.device_id,
+                        HOUSEHOLD_ID: first_household.id,
                     },
                     options={
-                        OPTION_DEVICES: entity_info,
+                        OPTION_DEVICES: first_entity_info,
                         OPTION_PROPERTIES: {},
                     },
                 )
@@ -85,28 +99,114 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             errors=errors,
         )
 
-    async def _async_fetch_entities(self, client: SurePetcareClient):
-        """Authenticate and fetch devices/pets, return (entity_info, error)."""
-        errors = {}
+    async def async_step_integration_discovery(
+        self, discovery_info: dict[str, Any]
+    ) -> ConfigFlowResult:
+        """Handle a flow for an additional household discovered during user setup."""
+        await self.async_set_unique_id(str(discovery_info[HOUSEHOLD_ID]))
+        self._abort_if_unique_id_configured()
+        title = (
+            discovery_info.get(NAME) or f"SurePetCare {discovery_info[HOUSEHOLD_ID]}"
+        )
+        return self.async_create_entry(
+            title=title,
+            data={
+                CONF_TOKEN: discovery_info[CONF_TOKEN],
+                CLIENT_DEVICE_ID: discovery_info[CLIENT_DEVICE_ID],
+                HOUSEHOLD_ID: discovery_info[HOUSEHOLD_ID],
+            },
+            options={
+                OPTION_DEVICES: discovery_info[OPTION_DEVICES],
+                OPTION_PROPERTIES: {},
+            },
+        )
+
+    async def _fetch_all_household_data(
+        self, client: SurePetcareClient
+    ) -> list[tuple[Household, dict]]:
+        """Return (household, entity_info) pairs for all households."""
         households: list[Household] = await client.api(Household.get_households())
-        _devices = {}
+        result = []
         for household in households:
-            _devices.update(
-                {
-                    str(device.id): device
-                    for device in await client.api(household.get_devices())
-                }
+            entity_info, _ = await self._async_fetch_entities_for_household(
+                client, household
             )
-            _devices.update(
-                {
-                    str(device.id): device
-                    for device in await client.api(household.get_pets())
-                }
+            result.append((household, entity_info or {}))
+        return result
+
+    async def _fetch_entity_info_for_id(
+        self, client: SurePetcareClient, household_id: int
+    ) -> dict | None:
+        """Fetch entity info for the household matching household_id."""
+        households: list[Household] = await client.api(Household.get_households())
+        household = next((h for h in households if h.id == household_id), None)
+        if household is None:
+            return None
+        entity_info, _ = await self._async_fetch_entities_for_household(
+            client, household
+        )
+        return entity_info
+
+    def _split_by_configured(
+        self, household_data: list[tuple[Household, dict]]
+    ) -> tuple[list, list]:
+        """Split households into (unconfigured, already_configured) based on existing entries."""
+        unconfigured = [
+            (h, e)
+            for h, e in household_data
+            if not self.hass.config_entries.async_entry_for_domain_unique_id(
+                DOMAIN, str(h.id)
             )
+        ]
+        already_configured = [
+            (h, e) for h, e in household_data if (h, e) not in unconfigured
+        ]
+        return unconfigured, already_configured
+
+    def _trigger_discovery_flows(
+        self, token: str, device_id: str, households: list[tuple[Household, dict]]
+    ) -> None:
+        """Schedule integration-discovery flows for additional households."""
+        for household, entity_info in households:
+            self.hass.async_create_task(
+                self.hass.config_entries.flow.async_init(
+                    DOMAIN,
+                    context={"source": config_entries.SOURCE_INTEGRATION_DISCOVERY},
+                    data={
+                        CONF_TOKEN: token,
+                        CLIENT_DEVICE_ID: device_id,
+                        HOUSEHOLD_ID: household.id,
+                        NAME: household.data.get("name"),
+                        OPTION_DEVICES: entity_info,
+                    },
+                )
+            )
+
+    @staticmethod
+    def _household_title(household: Household) -> str:
+        """Return a display title for a household."""
+        return household.data.get("name") or f"SurePetCare {household.id}"
+
+    async def _async_fetch_entities_for_household(
+        self, client: SurePetcareClient, household: Household
+    ):
+        """Fetch devices/pets for a single household, return (entity_info, error)."""
+        errors: dict[str, str] = {}
+        _devices = {}
+        _devices.update(
+            {
+                str(device.id): device
+                for device in await client.api(household.get_devices())
+            }
+        )
+        _devices.update(
+            {
+                str(device.id): device
+                for device in await client.api(household.get_pets())
+            }
+        )
         if not _devices:
-            errors["base"] = "no_devices_or_pet_found"
-            return None, errors
-        # Append NAME and PRODUCT_ID to each device in OPTION_DEVICE
+            return {}, {}
         entity_info = {
             str(device.id): {
                 PRODUCT_ID: getattr(device, PRODUCT_ID, None),
@@ -117,22 +217,46 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         return entity_info, errors
 
     async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
-        """Migration step in case entities not populated/new device added."""
+        """Refresh entities; splits legacy all-household entries into per-household entries."""
         entry = self.hass.config_entries.async_get_entry(self.context[ENTRY_ID])
-        client, _ = await self._authenticate(
+        client, errors = await self._authenticate(
             token=entry.data[TOKEN], device_id=entry.data[CLIENT_DEVICE_ID]
         )
-        entity_info, _ = await self._async_fetch_entities(client)
-        await client.close()
+        if errors:
+            await client.close()
+            return self.async_abort(reason="auth_failed")
         option_properties = entry.options.get(OPTION_PROPERTIES, {})
-        self.hass.config_entries.async_update_entry(
-            entry,
-            options={
-                OPTION_DEVICES: entity_info,
-                OPTION_PROPERTIES: option_properties,
-            },
-        )
-        logger.debug("Reconfiguration complete, updated entities: %s", entity_info)
+        household_id = entry.data.get(HOUSEHOLD_ID)
+
+        if household_id:
+            entity_info = await self._fetch_entity_info_for_id(client, household_id)
+            await client.close()
+            self.hass.config_entries.async_update_entry(
+                entry,
+                options={
+                    OPTION_DEVICES: entity_info,
+                    OPTION_PROPERTIES: option_properties,
+                },
+            )
+        else:
+            household_data = await self._fetch_all_household_data(client)
+            await client.close()
+            if household_data:
+                (first_household, first_entity_info), *remaining = household_data
+                self._trigger_discovery_flows(
+                    entry.data[TOKEN], entry.data[CLIENT_DEVICE_ID], remaining
+                )
+                self.hass.config_entries.async_update_entry(
+                    entry,
+                    title=self._household_title(first_household),
+                    data={**entry.data, HOUSEHOLD_ID: first_household.id},
+                    options={
+                        OPTION_DEVICES: first_entity_info,
+                        OPTION_PROPERTIES: option_properties,
+                    },
+                )
+
+        logger.debug("Reconfiguration complete for entry %s", entry.entry_id)
         return self.async_abort(reason="entities_reconfigured")
 
     async def _authenticate(
@@ -164,6 +288,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     ) -> ConfigFlowResult:
         """Dialog that informs the user that reauth is required."""
         reauth_entry = self._get_reauth_entry()
+        errors: dict = {}
         if user_input is not None:
             client, errors = await self._authenticate(
                 email=reauth_entry.data[CONF_EMAIL], password=user_input[CONF_PASSWORD]

@@ -116,6 +116,7 @@
   dict({
     'entry_data': dict({
       'client_device_id': '**REDACTED**',
+      'household_id': 12345,
       'token': '**REDACTED**',
     }),
     'options': dict({

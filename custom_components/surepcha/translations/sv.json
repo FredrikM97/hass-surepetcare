@@ -18,6 +18,7 @@
     },
     "abort": {
       "already_configured": "Detta konto är redan konfigurerat.",
+      "auth_failed": "Autentisering misslyckades. Kontrollera dina uppgifter och konfigurera om integrationen.",
       "entities_reconfigured": "Sure Petcare-enheter har konfigurerats om."
     }
   },

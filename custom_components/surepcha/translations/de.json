@@ -18,6 +18,7 @@
     },
     "abort": {
       "already_configured": "Dieses Konto wurde bereits konfiguriert.",
+      "auth_failed": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten und konfiguriere die Integration neu.",
       "entities_reconfigured": "Sure Petcare Entitäten wurden neu konfiguriert."
     }
   },
