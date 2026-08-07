@@ -611,12 +611,11 @@ async def test_trigger_discovery_flows(hass) -> None:
     mock_household = MagicMock(id=99)
     mock_household.data = {"name": "Second Home"}
 
-    with patch.object(hass, "async_create_task") as mock_create:
+    with patch.object(hass.config_entries.flow, "async_init", AsyncMock(return_value=None)):
         flow._trigger_discovery_flows(
             "tok", "dev", [(mock_household, {"1": {NAME: "Cat flap"}})]
         )
-
-    mock_create.assert_called_once()
+        await hass.async_block_till_done()
 
 
 @pytest.mark.asyncio
