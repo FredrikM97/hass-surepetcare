@@ -170,7 +170,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         self, client: SurePetcareClient, household: Household
     ):
         """Fetch devices/pets for a single household, return (entity_info, error)."""
-        errors = {}
+        errors: dict[str, str] = {}
         _devices = {}
         _devices.update(
             {
