@@ -100,7 +100,9 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     try:
         household_id = entry.data.get(HOUSEHOLD_ID)
         if household_id:
-            all_households: List[Household] = await client.api(Household.get_households())
+            all_households: List[Household] = await client.api(
+                Household.get_households()
+            )
             households = [h for h in all_households if h.id == household_id]
         else:
             households = await client.api(Household.get_households())

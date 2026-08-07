@@ -227,7 +227,11 @@ async def test_user_step_calls_fetch_when_auth_ok() -> None:
         patch.object(
             flow,
             "_fetch_all_household_data",
-            AsyncMock(return_value=[(mock_household, {"123": {"name": "Device", "product_id": 4}})]),
+            AsyncMock(
+                return_value=[
+                    (mock_household, {"123": {"name": "Device", "product_id": 4}})
+                ]
+            ),
         ) as fetch_mock,
         patch.object(flow, "_trigger_discovery_flows"),
         patch.object(flow, "async_set_unique_id", AsyncMock()),

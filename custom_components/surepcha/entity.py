@@ -96,11 +96,14 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         for entry in self.hass.config_entries.async_entries(DOMAIN):
             merged_devices.update(entry.options.get(OPTION_DEVICES, {}))
         # Current entry takes priority
-        merged_devices.update(self.coordinator.config_entry.options.get(OPTION_DEVICES, {}))
-        options = {**self.coordinator.config_entry.options, OPTION_DEVICES: merged_devices}
-        return FieldContext(
-            self.coordinator.data, options, self.entity_id
+        merged_devices.update(
+            self.coordinator.config_entry.options.get(OPTION_DEVICES, {})
         )
+        options = {
+            **self.coordinator.config_entry.options,
+            OPTION_DEVICES: merged_devices,
+        }
+        return FieldContext(self.coordinator.data, options, self.entity_id)
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""

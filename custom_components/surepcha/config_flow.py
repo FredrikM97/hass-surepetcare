@@ -100,7 +100,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         """Handle a flow for an additional household discovered during user setup."""
         await self.async_set_unique_id(str(discovery_info[HOUSEHOLD_ID]))
         self._abort_if_unique_id_configured()
-        title = discovery_info.get(NAME) or f"SurePetCare {discovery_info[HOUSEHOLD_ID]}"
+        title = (
+            discovery_info.get(NAME) or f"SurePetCare {discovery_info[HOUSEHOLD_ID]}"
+        )
         return self.async_create_entry(
             title=title,
             data={
@@ -121,7 +123,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         households: list[Household] = await client.api(Household.get_households())
         result = []
         for household in households:
-            entity_info, _ = await self._async_fetch_entities_for_household(client, household)
+            entity_info, _ = await self._async_fetch_entities_for_household(
+                client, household
+            )
             result.append((household, entity_info or {}))
         return result
 
@@ -133,7 +137,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         household = next((h for h in households if h.id == household_id), None)
         if household is None:
             return None
-        entity_info, _ = await self._async_fetch_entities_for_household(client, household)
+        entity_info, _ = await self._async_fetch_entities_for_household(
+            client, household
+        )
         return entity_info
 
     def _trigger_discovery_flows(
@@ -206,7 +212,10 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             await client.close()
             self.hass.config_entries.async_update_entry(
                 entry,
-                options={OPTION_DEVICES: entity_info, OPTION_PROPERTIES: option_properties},
+                options={
+                    OPTION_DEVICES: entity_info,
+                    OPTION_PROPERTIES: option_properties,
+                },
             )
         else:
             household_data = await self._fetch_all_household_data(client)
