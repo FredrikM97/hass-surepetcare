@@ -65,9 +65,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                     errors["base"] = "no_devices_or_pet_found"
             await client.close()
             if not errors:
-                first_household, first_entity_info = household_data[0]
+                (first_household, first_entity_info), *remaining = household_data
                 self._trigger_discovery_flows(
-                    client.token, client.device_id, household_data[1:]
+                    client.token, client.device_id, remaining
                 )
                 await self.async_set_unique_id(str(first_household.id))
                 self._abort_if_unique_id_configured()
@@ -221,9 +221,9 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             household_data = await self._fetch_all_household_data(client)
             await client.close()
             if household_data:
-                first_household, first_entity_info = household_data[0]
+                (first_household, first_entity_info), *remaining = household_data
                 self._trigger_discovery_flows(
-                    entry.data[TOKEN], entry.data[CLIENT_DEVICE_ID], household_data[1:]
+                    entry.data[TOKEN], entry.data[CLIENT_DEVICE_ID], remaining
                 )
                 self.hass.config_entries.async_update_entry(
                     entry,
