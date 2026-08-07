@@ -1,12 +1,12 @@
 import logging
+
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from surepcio.enums import PetDeviceLocationProfile
-from surepcio.enums import ModifyDeviceTag, PetLocation
 from surepcio.devices import Pet
+from surepcio.enums import ModifyDeviceTag, PetDeviceLocationProfile, PetLocation
 
-from custom_components.surepcha.const import DOMAIN
-from custom_components.surepcha.coordinator import (
+from .const import DOMAIN
+from .coordinator import (
     SurePetCareDeviceDataUpdateCoordinator,
 )
 
@@ -119,6 +119,20 @@ async def set_pet_position(call) -> None:
     await pet_coordinator.client.api(
         device.set_position(PetLocation[call.data.get("action")])
     )
+
+
+@global_service(
+    "refresh_device",
+    schema=vol.Schema(
+        {
+            vol.Required("device_id"): str,
+        }
+    ),
+)
+async def refresh_device(call) -> None:
+    """Refresh a pet or device"""
+    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
+    await device_coordinator.async_refresh()
 
 
 def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":
