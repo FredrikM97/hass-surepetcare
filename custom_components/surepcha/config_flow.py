@@ -65,9 +65,14 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
                     errors["base"] = "no_devices_or_pet_found"
             await client.close()
             if not errors:
-                (first_household, first_entity_info), *remaining = household_data
+                unconfigured, already_configured = self._split_by_configured(
+                    household_data
+                )
+                if not unconfigured:
+                    return self.async_abort(reason="already_configured")
+                (first_household, first_entity_info), *remaining = unconfigured
                 self._trigger_discovery_flows(
-                    client.token, client.device_id, remaining
+                    client.token, client.device_id, remaining + already_configured
                 )
                 await self.async_set_unique_id(str(first_household.id))
                 self._abort_if_unique_id_configured()
@@ -141,6 +146,22 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             client, household
         )
         return entity_info
+
+    def _split_by_configured(
+        self, household_data: list[tuple[Household, dict]]
+    ) -> tuple[list, list]:
+        """Split households into (unconfigured, already_configured) based on existing entries."""
+        unconfigured = [
+            (h, e)
+            for h, e in household_data
+            if not self.hass.config_entries.async_entry_for_domain_unique_id(
+                DOMAIN, str(h.id)
+            )
+        ]
+        already_configured = [
+            (h, e) for h, e in household_data if (h, e) not in unconfigured
+        ]
+        return unconfigured, already_configured
 
     def _trigger_discovery_flows(
         self, token: str, device_id: str, households: list[tuple[Household, dict]]

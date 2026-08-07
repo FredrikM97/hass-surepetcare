@@ -212,9 +212,10 @@ async def test_user_step_skips_fetch_when_auth_has_errors() -> None:
 
 
 @pytest.mark.asyncio
-async def test_user_step_calls_fetch_when_auth_ok() -> None:
+async def test_user_step_calls_fetch_when_auth_ok(hass: HomeAssistant) -> None:
     """A successful login still fetches entities and creates the entry."""
     flow = SurePetCareConfigFlow()
+    flow.hass = hass
 
     client = MagicMock()
     client.token = "tok"
@@ -385,6 +386,42 @@ async def test_user_step_no_devices_found() -> None:
 
     assert result["type"] is FlowResultType.FORM
     assert result["errors"]["base"] == "no_devices_or_pet_found"
+    client.close.assert_awaited_once()
+
+
+@pytest.mark.asyncio
+async def test_user_step_aborts_when_all_households_already_configured(
+    hass: HomeAssistant,
+) -> None:
+    """async_step_user aborts when every returned household already has a config entry."""
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    client = MagicMock()
+    client.token = "tok"
+    client.device_id = "dev"
+    client.close = AsyncMock()
+    mock_household = MagicMock(id=999)
+
+    existing_entry = MagicMock()
+    with (
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(
+            flow,
+            "_fetch_all_household_data",
+            AsyncMock(return_value=[(mock_household, {})]),
+        ),
+        patch.object(
+            hass.config_entries,
+            "async_entry_for_domain_unique_id",
+            return_value=existing_entry,
+        ),
+    ):
+        result = await flow.async_step_user(
+            {"email": "test@example.com", "password": "pass"}
+        )
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "already_configured"
     client.close.assert_awaited_once()
 
 
