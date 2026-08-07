@@ -7,6 +7,11 @@ from surepcio.devices.device import SurePetCareBase
 
 
 from .const import OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
+from .timeline import (
+    HouseholdTimelineData,
+    fetch_household_name,
+    fetch_household_timeline_today,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -60,3 +65,36 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[T]):
         )
         await self.client.api(self._device.refresh())
         return self._device
+
+
+class SurePetCareTimelineCoordinator(DataUpdateCoordinator[HouseholdTimelineData]):
+    """Coordinator aggregating today's feeding stats and activity feed for a household."""
+
+    config_entry: SurePetcareConfigEntry
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: SurePetcareConfigEntry,
+        client: SurePetcareClient,
+        household_id: int,
+    ) -> None:
+        """Initialize household timeline coordinator."""
+        super().__init__(
+            hass,
+            logger,
+            config_entry=entry,
+            name=f"surepetcare timeline household {household_id}",
+            update_interval=timedelta(seconds=SCAN_INTERVAL),
+        )
+        self.client = client
+        self.household_id = household_id
+        self.household_name: str | None = None
+
+    async def _async_update_data(self) -> HouseholdTimelineData:
+        """Fetch and aggregate today's feeding stats and activity feed for the household."""
+        if self.household_name is None:
+            self.household_name = await fetch_household_name(
+                self.client, self.household_id
+            )
+        return await fetch_household_timeline_today(self.client, self.household_id)

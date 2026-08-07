@@ -239,6 +239,48 @@
           }
         }
       },
+      "feedings_today": {
+        "name": "Utfodringar idag",
+        "state_attributes": {
+          "total_grams": {
+            "name": "Gram totalt"
+          },
+          "events": {
+            "name": "Händelser"
+          }
+        }
+      },
+      "food_today": {
+        "name": "Mat idag",
+        "state_attributes": {
+          "count": {
+            "name": "Antal"
+          },
+          "total_wet_grams": {
+            "name": "Blötfoder totalt"
+          },
+          "total_dry_grams": {
+            "name": "Torrfoder totalt"
+          },
+          "events": {
+            "name": "Händelser"
+          }
+        }
+      },
+      "household_activity_today": {
+        "name": "Hushållsaktivitet idag",
+        "state_attributes": {
+          "events": {
+            "name": "Händelser"
+          },
+          "pet_photos": {
+            "name": "Husdjursfoton"
+          },
+          "device_photos": {
+            "name": "Enhetsfoton"
+          }
+        }
+      },
       "position": {
         "name": "Position",
         "state": {

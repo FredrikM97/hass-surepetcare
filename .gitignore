@@ -154,6 +154,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Local diagnostic dumps (contain real account data)
+timeline_dump*.json
+
 # pytype static type analyzer
 .pytype/
 

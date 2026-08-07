@@ -14,6 +14,7 @@ from custom_components.surepcha.const import (
     TOKEN,
 )
 from . import DEVICE_MOCKS, PET_MOCKS
+from custom_components.surepcha.timeline import HouseholdTimelineData
 from surepcio import SurePetcareClient
 from surepcio.enums import ProductId
 from surepcio.devices.device import DeviceBase, PetBase
@@ -60,9 +61,18 @@ def mock_coordinator_update_data():
         # Return the current status/control or whatever your entities expect
         return self._device
 
-    with patch(
-        "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
-        new=return_device_data,
+    async def return_empty_timeline(self):
+        return HouseholdTimelineData()
+
+    with (
+        patch(
+            "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
+            new=return_device_data,
+        ),
+        patch(
+            "custom_components.surepcha.coordinator.SurePetCareTimelineCoordinator._async_update_data",
+            new=return_empty_timeline,
+        ),
     ):
         yield
 

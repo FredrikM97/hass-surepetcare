@@ -15,6 +15,8 @@ PET_MOCKS = [
     "pet",
 ]
 
+TEST_HOUSEHOLD_ID = 222527
+
 
 async def initialize_entry(
     hass: HomeAssistant,
@@ -33,6 +35,7 @@ async def initialize_entry(
         """Return different data based on cmd.endpoint."""
         if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
             household = MagicMock()
+            household.id = TEST_HOUSEHOLD_ID
             household.get_devices.return_value = mock_devices
             household.get_pets.return_value = mock_pets
             return [household]
