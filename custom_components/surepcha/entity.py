@@ -9,7 +9,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from custom_components.surepcha.helper import serialize
 from custom_components.surepcha.method_field import FieldContext, MethodField
-from .const import DOMAIN
+from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
@@ -92,8 +92,14 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     @property
     def context(self):
+        merged_devices = {}
+        for entry in self.hass.config_entries.async_entries(DOMAIN):
+            merged_devices.update(entry.options.get(OPTION_DEVICES, {}))
+        # Current entry takes priority
+        merged_devices.update(self.coordinator.config_entry.options.get(OPTION_DEVICES, {}))
+        options = {**self.coordinator.config_entry.options, OPTION_DEVICES: merged_devices}
         return FieldContext(
-            self.coordinator.data, self.coordinator.config_entry.options, self.entity_id
+            self.coordinator.data, options, self.entity_id
         )
 
     async def send_command(self, value: Any) -> None:
