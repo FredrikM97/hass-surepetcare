@@ -198,7 +198,7 @@ async def test_user_step_skips_fetch_when_auth_has_errors() -> None:
             "_authenticate",
             AsyncMock(return_value=(client, {"base": "auth_failed"})),
         ),
-        patch.object(flow, "_async_fetch_entities", AsyncMock()) as fetch_mock,
+        patch.object(flow, "_fetch_all_household_data", AsyncMock()) as fetch_mock,
     ):
         result = await flow.async_step_user(
             {"email": "test@example.com", "password": "bad-password"}
@@ -220,13 +220,18 @@ async def test_user_step_calls_fetch_when_auth_ok() -> None:
     client.device_id = "dev"
     client.close = AsyncMock()
 
+    mock_household = MagicMock(id=123, data={"name": "Test Household"})
+
     with (
         patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
         patch.object(
             flow,
-            "_async_fetch_entities",
-            AsyncMock(return_value=({"123": {"name": "Device", "product_id": 4}}, {})),
+            "_fetch_all_household_data",
+            AsyncMock(return_value=[(mock_household, {"123": {"name": "Device", "product_id": 4}})]),
         ) as fetch_mock,
+        patch.object(flow, "_trigger_discovery_flows"),
+        patch.object(flow, "async_set_unique_id", AsyncMock()),
+        patch.object(flow, "_abort_if_unique_id_configured"),
     ):
         result = await flow.async_step_user(
             {"email": "test@example.com", "password": "good-password"}
