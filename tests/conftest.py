@@ -4,6 +4,7 @@ import pytest
 from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
+    HOUSEHOLD_ID,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     MANUAL_PROPERTIES,
@@ -123,7 +124,7 @@ def mock_config_entry() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 12345},
         options={
             OPTION_DEVICES: {
                 "1299453": {
@@ -158,7 +159,7 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 12345},
         options={OPTION_DEVICES: {}},
         unique_id="12345",
     )
@@ -238,6 +239,8 @@ async def mock_surepetcare_login_control(
             """Return different data based on cmd.endpoint."""
             if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
                 household = MagicMock()
+                household.id = 12345
+                household.data = {"id": 12345, "name": "Test Household"}
                 household.get_devices.return_value = mock_devices
                 household.get_pets.return_value = mock_pets
                 return [household]

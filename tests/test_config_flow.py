@@ -57,7 +57,7 @@ class MockClient:
 
     async def api(self, command):
         if "household" in command.endpoint:
-            return [Household({"id": 1})]
+            return [Household({"id": 1, "name": "Test Household"})]
         if "device" in command.endpoint:
             return [MockDevice(device_id=444, product_id=10)]
         if "pet" in command.endpoint:
@@ -70,7 +70,12 @@ class MockClient:
 @pytest.mark.asyncio
 async def test_setup_complete_flow(hass):
     flow = SurePetCareConfigFlow()
-    with patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient):
+    flow.hass = hass
+    with (
+        patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient),
+        patch.object(flow, "async_set_unique_id", return_value=None),
+        patch.object(flow, "_abort_if_unique_id_configured"),
+    ):
         result = await flow.async_step_user(
             {"email": "test@example.com", "password": "password123"}
         )
@@ -283,7 +288,7 @@ async def test_async_migrate_entry_adds_manual_properties(
     migrated = await async_migrate_entry(hass, entry)
     assert migrated
     assert MANUAL_PROPERTIES not in entry.options
-    assert entry.minor_version == 2
+    assert entry.minor_version == 4
     assert entry.version == 1
     assert OPTION_PROPERTIES in entry.options
     assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {

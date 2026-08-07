@@ -19,6 +19,7 @@ from homeassistant.helpers import device_registry as dr
 from .const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
+    HOUSEHOLD_ID,
     MANUAL_PROPERTIES,
     TOKEN,
     OPTION_PROPERTIES,
@@ -64,7 +65,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
                 }
             )
         hass.config_entries.async_update_entry(
-            config_entry, data=new_data, options=new_options, minor_version=2, version=1
+            config_entry, data=new_data, options=new_options, minor_version=4, version=1
         )
 
     logger.debug(
@@ -95,7 +96,12 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     )
     # Fetch initial devices
     try:
-        households: List[Household] = await client.api(Household.get_households())
+        household_id = entry.data.get(HOUSEHOLD_ID)
+        if household_id:
+            all_households: List[Household] = await client.api(Household.get_households())
+            households = [h for h in all_households if h.id == household_id]
+        else:
+            households = await client.api(Household.get_households())
         entities = []
         for household in households:
             entities.extend(await client.api(household.get_pets()))

@@ -29,6 +29,7 @@ PRODUCT_ID = "product_id"
 DEVICES = "devices"
 NAME = "name"
 MANUAL_PROPERTIES = "manual_properties"
+HOUSEHOLD_ID = "household_id"
 
 FLAP_PRODUCTS = {
     ProductId.PET_DOOR,

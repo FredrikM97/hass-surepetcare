@@ -18,6 +18,7 @@
     },
     "abort": {
       "already_configured": "This account is already configured.",
+      "auth_failed": "Authentication failed. Please check your credentials and reconfigure the integration.",
       "entities_reconfigured": "Sure Petcare entities have been reconfigured."
     }
   },

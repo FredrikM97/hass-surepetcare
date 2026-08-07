@@ -10,7 +10,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 2,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '12345': dict({
@@ -76,6 +76,7 @@
   ConfigEntrySnapshot({
     'data': dict({
       'client_device_id': '123',
+      'household_id': 12345,
       'token': 'abc',
     }),
     'disabled_by': None,
@@ -122,6 +123,7 @@
   ConfigEntrySnapshot({
     'data': dict({
       'client_device_id': '123',
+      'household_id': 12345,
       'token': 'abc',
     }),
     'disabled_by': None,
@@ -198,16 +200,18 @@
   FlowResultSnapshot({
     'context': dict({
       'source': 'user',
+      'unique_id': '12345',
     }),
     'data': dict({
       'client_device_id': 'mocked_device_id',
+      'household_id': 12345,
       'token': 'mocked_token',
     }),
     'description': None,
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 3,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -261,6 +265,7 @@
     'result': ConfigEntrySnapshot({
       'data': dict({
         'client_device_id': 'mocked_device_id',
+        'household_id': 12345,
         'token': 'mocked_token',
       }),
       'disabled_by': None,
@@ -268,7 +273,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 3,
+      'minor_version': 4,
       'options': dict({
         'devices': dict({
           '1299453': dict({
@@ -324,13 +329,13 @@
       'source': 'user',
       'subentries': list([
       ]),
-      'title': 'SurePetCare Devices',
-      'unique_id': None,
+      'title': 'Test Household',
+      'unique_id': '12345',
       'version': 1,
     }),
     'subentries': tuple(
     ),
-    'title': 'SurePetCare Devices',
+    'title': 'Test Household',
     'type': <FlowResultType.CREATE_ENTRY: 'create_entry'>,
     'version': 1,
   })
