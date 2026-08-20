@@ -1,11 +1,12 @@
 name: Release
 
-# One workflow handles both jobs previously split across release-draft.yml/release.yml:
-#   - push to main (direct or via merged PR)  -> refresh a rolling draft release
-#   - workflow_dispatch                       -> publish that release for real
-# The changelog/version bump is computed here from actual commit messages
-# (Conventional Commits) since the last vX.Y.Z tag, not from PR titles/labels,
-# so it works the same whether commits land via a PR merge or a direct push.
+# Two independent jobs, gated by trigger/action so only one ever runs:
+#   - update_draft: push to main (direct or via merged PR), or manual dispatch
+#                   with action=update_draft (default) -> refresh rolling draft
+#   - publish:      manual dispatch with action=publish -> cut a real release
+# The changelog is computed from actual commit messages (Conventional Commits)
+# since the last vX.Y.Z tag, not from PR titles/labels, so it works the same
+# whether commits land via a PR merge or a direct push.
 on:
   push:
     branches:
@@ -29,11 +30,6 @@ on:
           - patch
           - minor
           - major
-      confirm:
-        description: 'I confirm this will publish a real, non-draft release (only used for publish)'
-        required: true
-        type: boolean
-        default: false
 
 env:
   COMPONENT_NAME: surepcha
@@ -42,8 +38,10 @@ permissions:
   contents: write
 
 jobs:
-  release_notes:
-    if: github.repository == 'FredrikM97/hass-surepetcare' && github.repository_owner == 'FredrikM97'
+  update_draft:
+    if: |
+      github.repository == 'FredrikM97/hass-surepetcare' && github.repository_owner == 'FredrikM97' &&
+      (github.event_name == 'push' || github.event.inputs.action == 'update_draft')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -51,50 +49,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Determine mode
-        id: mode
-        run: |
-          MODE="notes"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.action }}" = "publish" ]; then
-            if [ "${{ github.event.inputs.confirm }}" != "true" ]; then
-              echo "::error::Re-run with 'confirm' checked to publish a real release."
-              exit 1
-            fi
-            MODE="release"
-          fi
-          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-
-      - name: Build changelog and determine version
-        id: notes
+      - name: Build changelog
         run: |
           LAST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -1)
           RANGE="HEAD"
           [ -n "$LAST_TAG" ] && RANGE="$LAST_TAG..HEAD"
 
-          BUMP="patch"
           CHANGELOG=""
           CHORES=""
-          COUNT=0
 
           while IFS=$'\x1f' read -r hash subject; do
             [ -z "$subject" ] && continue
-            COUNT=$((COUNT + 1))
 
             LOGIN=$(gh api "repos/${{ github.repository }}/commits/$hash" --jq '.author.login // empty' 2>/dev/null || true)
             author="@${LOGIN:-$(git log -1 --format='%an' "$hash")}"
 
-            if echo "$subject" | grep -qE '^[a-zA-Z]+(\([^)]*\))?!:'; then
-              BUMP="major"
-            fi
-
-            if echo "$subject" | grep -qiE '^feat(\([^)]*\))?!?:'; then
-              [ "$BUMP" != "major" ] && BUMP="minor"
-              DESC=$(echo "$subject" | sed -E 's/^feat(\([^)]*\))?!?:[[:space:]]*//I')
-              CHANGELOG="${CHANGELOG}- ${DESC} (${author})"$'\n'
-            elif echo "$subject" | grep -qiE '^fix(\([^)]*\))?!?:'; then
-              DESC=$(echo "$subject" | sed -E 's/^fix(\([^)]*\))?!?:[[:space:]]*//I')
-              CHANGELOG="${CHANGELOG}- ${DESC} (${author})"$'\n'
-            elif echo "$subject" | grep -qiE '^deps(\([^)]*\))?!?:'; then
+            if echo "$subject" | grep -qiE '^deps(\([^)]*\))?!?:'; then
               # Dependabot commits (deps(package), deps(workflow)) go to Maintenance
               DESC=$(echo "$subject" | sed -E 's/^deps(\([^)]*\))?!?:[[:space:]]*//I')
               CHORES="${CHORES}- ${DESC} (${author})"$'\n'
@@ -102,26 +72,6 @@ jobs:
               CHANGELOG="${CHANGELOG}- ${subject} (${author})"$'\n'
             fi
           done <<< "$(git log $RANGE --no-merges --pretty=format:'%H%x1f%s')"
-
-          if git log $RANGE --no-merges --pretty=format:'%b' | grep -q 'BREAKING CHANGE'; then
-            BUMP="major"
-          fi
-
-          # Manual dispatch always forces the chosen bump instead of the detected one
-          OVERRIDE="${{ github.event.inputs.bump }}"
-          if [ -n "$OVERRIDE" ]; then
-            BUMP="$OVERRIDE"
-          fi
-
-          BASE="${LAST_TAG#v}"
-          BASE="${BASE:-0.0.0}"
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$BASE"
-          case "$BUMP" in
-            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
-            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
-            *) PATCH=$((PATCH + 1)) ;;
-          esac
-          TAG="v$MAJOR.$MINOR.$PATCH"
 
           : > release-notes.md
           [ -n "$CHANGELOG" ] && { echo "## Changelog"; printf '%s' "$CHANGELOG"; echo; } >> release-notes.md
@@ -132,44 +82,19 @@ jobs:
           fi
           echo >> release-notes.md
 
-          # Draft compares against main since it isn't tagged yet; publishing
-          # swaps this for the real previous-tag -> new-tag comparison.
-          DIFF_TO="main"
-          [ "${{ steps.mode.outputs.mode }}" = "release" ] && DIFF_TO="$TAG"
           if [ -n "$LAST_TAG" ]; then
-            COMPARE_URL="https://github.com/${{ github.repository }}/compare/${LAST_TAG}...${DIFF_TO}"
+            COMPARE_URL="https://github.com/${{ github.repository }}/compare/${LAST_TAG}...main"
           else
-            COMPARE_URL="https://github.com/${{ github.repository }}/commits/${DIFF_TO}"
+            COMPARE_URL="https://github.com/${{ github.repository }}/commits/main"
           fi
           echo "---" >> release-notes.md
           echo "**Full Changelog**: $COMPARE_URL" >> release-notes.md
-
-          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Find existing draft
-        id: draft
-        run: |
-          if gh release view unreleased >/dev/null 2>&1; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Require an existing draft to publish
-        if: steps.mode.outputs.mode == 'release' && steps.draft.outputs.exists == 'false'
-        run: |
-          echo "::error::No draft release found to publish. Push to main first to prepare one."
-          exit 1
 
       - name: Update rolling draft release
-        if: steps.mode.outputs.mode == 'notes'
         run: |
-          if [ "${{ steps.draft.outputs.exists }}" = "true" ]; then
+          if gh release view unreleased >/dev/null 2>&1; then
             gh release edit unreleased \
               --title "Unreleased" \
               --notes-file release-notes.md \
@@ -185,8 +110,49 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  publish:
+    if: |
+      github.repository == 'FredrikM97/hass-surepetcare' && github.repository_owner == 'FredrikM97' &&
+      github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'publish'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Require an existing draft to publish
+        run: |
+          if ! gh release view unreleased >/dev/null 2>&1; then
+            echo "::error::No draft release found to publish. Push to main first to prepare one."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine next version
+        id: notes
+        run: |
+          LAST_TAG=$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-v:refname | head -1)
+          BASE="${LAST_TAG#v}"
+          BASE="${BASE:-0.0.0}"
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$BASE"
+          case "${{ github.event.inputs.bump }}" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            *) PATCH=$((PATCH + 1)) ;;
+          esac
+          TAG="v$MAJOR.$MINOR.$PATCH"
+
+          gh release view unreleased --json body -q .body > release-notes.md
+          # Draft compared against main since it wasn't tagged yet; swap in the real tag now
+          sed -i "s#/compare/\(.*\)\.\.\.main#/compare/\1...${TAG}#; s#/commits/main#/commits/${TAG}#" release-notes.md
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build component package
-        if: steps.mode.outputs.mode == 'release'
         run: |
           version="${{ steps.notes.outputs.tag }}"
           yq e -P -o=json \
@@ -197,7 +163,6 @@ jobs:
           zip "${{ env.COMPONENT_NAME }}.zip" -r ./
 
       - name: Publish release
-        if: steps.mode.outputs.mode == 'release'
         run: |
           gh release edit unreleased \
             --tag "${{ steps.notes.outputs.tag }}" \
