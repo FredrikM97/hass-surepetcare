@@ -7,7 +7,7 @@ updates:
     schedule:
       interval: "monthly"
     commit-message:
-      prefix: "deps"
+      prefix: "deps(package)"
     labels:
       - "dependencies"
     groups:
@@ -24,7 +24,7 @@ updates:
     schedule:
       interval: "monthly"
     commit-message:
-      prefix: "ci"
+      prefix: "deps(workflow)"
     labels:
       - "dependencies"
     groups:

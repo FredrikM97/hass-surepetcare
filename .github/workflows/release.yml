@@ -94,9 +94,9 @@ jobs:
             elif echo "$subject" | grep -qiE '^fix(\([^)]*\))?!?:'; then
               DESC=$(echo "$subject" | sed -E 's/^fix(\([^)]*\))?!?:[[:space:]]*//I')
               CHANGELOG="${CHANGELOG}- ${DESC} (${author})"$'\n'
-            elif echo "$subject" | grep -qiE '^build(\([^)]*\))?!?:'; then
-              # Dependabot/renovate commits use the "build" conventional-commit type
-              DESC=$(echo "$subject" | sed -E 's/^build(\([^)]*\))?!?:[[:space:]]*//I')
+            elif echo "$subject" | grep -qiE '^deps(\([^)]*\))?!?:'; then
+              # Dependabot commits (deps(package), deps(workflow)) go to Maintenance
+              DESC=$(echo "$subject" | sed -E 's/^deps(\([^)]*\))?!?:[[:space:]]*//I')
               CHORES="${CHORES}- ${DESC} (${author})"$'\n'
             else
               CHANGELOG="${CHANGELOG}- ${subject} (${author})"$'\n'
