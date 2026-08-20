@@ -4,6 +4,9 @@ from types import MappingProxyType
 from unittest.mock import MagicMock
 
 import pytest
+from homeassistant.components.lock.const import LockState
+from surepcio.enums import FlapLocking
+
 from custom_components.surepcha.method_field import (
     BinarySensorMethodField,
     ButtonMethodField,
@@ -15,8 +18,6 @@ from custom_components.surepcha.method_field import (
     build_nested_dict,
     get_by_path,
 )
-from homeassistant.components.lock.const import LockState
-from surepcio.enums import FlapLocking
 
 
 class TestBuildNestedDict:

@@ -1,25 +1,28 @@
 """Switch platform for SurePetCare integration."""
 
 from __future__ import annotations
+
+import logging
 from dataclasses import dataclass
+
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from surepcio.command import Command
+from surepcio.enums import PetDeviceLocationProfile, PetLocation, ProductId
 
 from custom_components.surepcha.helper import (
     list_attr,
     option_product_id,
 )
 from custom_components.surepcha.method_field import SwitchMethodField
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+
+from .const import FLAP_PRODUCTS
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from surepcio.command import Command
-from surepcio.enums import ProductId, PetDeviceLocationProfile, PetLocation
-from .const import FLAP_PRODUCTS
-import logging
 
 logger = logging.getLogger(__name__)
 

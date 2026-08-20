@@ -5,13 +5,11 @@ from __future__ import annotations
 from typing import Any
 
 from homeassistant.core import HomeAssistant
-
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.redact import async_redact_data
 
 from custom_components.surepcha.coordinator import SurePetcareConfigEntry
 from custom_components.surepcha.helper import serialize
-
 
 TO_REDACT = {"token", "client_device_id"}
 
@@ -33,7 +31,7 @@ async def async_get_device_diagnostics(
     hass: HomeAssistant, entry: SurePetcareConfigEntry, device: dr.DeviceEntry
 ) -> dict[str, Any]:
     """Return diagnostics for a device."""
-    device_id = list(device.identifiers)[0][1]
+    device_id = next(iter(device.identifiers))[1]
     coordinators = getattr(entry, "runtime_data", None)
 
     if not coordinators:

@@ -1,16 +1,17 @@
 """Support for Sure Petcare Button."""
 
-from dataclasses import dataclass
 import logging
-from surepcio.enums import ProductId, HubPairMode
+from dataclasses import dataclass
+
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from surepcio.enums import HubPairMode, ProductId
+
 from custom_components.surepcha.method_field import ButtonMethodField
 
-
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,

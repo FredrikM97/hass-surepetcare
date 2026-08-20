@@ -1,7 +1,7 @@
 import json
-from pathlib import Path
 import sys
 import tomllib
+from pathlib import Path
 
 
 def get_homeassistant_version_from_pyproject(pyproject):
@@ -25,7 +25,7 @@ def main():
         if not ha_version:
             print("Home Assistant version not found in pyproject.toml dependencies.")
             sys.exit(1)
-    except Exception as e:
+    except (OSError, tomllib.TOMLDecodeError, KeyError) as e:
         print(f"Error reading pyproject.toml: {e}")
         sys.exit(1)
 
@@ -36,13 +36,13 @@ def main():
         if not hacs_ha_version:
             print("Home Assistant min_version not found in hacs.json.")
             sys.exit(1)
-    except Exception as e:
+    except (OSError, json.JSONDecodeError) as e:
         print(f"Error reading hacs.json: {e}")
         sys.exit(1)
 
-    assert (
-        ha_version == hacs_ha_version
-    ), f"Version mismatch: pyproject.toml={ha_version} hacs.json={hacs_ha_version}"
+    assert ha_version == hacs_ha_version, (
+        f"Version mismatch: pyproject.toml={ha_version} hacs.json={hacs_ha_version}"
+    )
 
 
 if __name__ == "__main__":

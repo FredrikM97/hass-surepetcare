@@ -1,9 +1,10 @@
 import json
-import sys
 import re
+import sys
 import tomllib
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as get_version
 from pathlib import Path
-from importlib.metadata import version as get_version, PackageNotFoundError
 
 
 def parse_version(version):
@@ -40,9 +41,9 @@ def main():
         ha_inst = get_version("homeassistant")
     except PackageNotFoundError:
         sys.exit("homeassistant is not installed")
-    assert parse_version(ha_inst) >= parse_version(
-        min_ha
-    ), f"Installed homeassistant ({ha_inst}) < hacs.json min_version ({min_ha})"
+    assert parse_version(ha_inst) >= parse_version(min_ha), (
+        f"Installed homeassistant ({ha_inst}) < hacs.json min_version ({min_ha})"
+    )
 
     with open(root / "pyproject.toml", "rb") as f:
         pyproject = tomllib.load(f)
@@ -61,9 +62,9 @@ def main():
     assert pyproject_ver, "py-surepetcare not found in pyproject.toml dev dependencies"
     assert manifest_ver, "py-surepetcare not found in manifest.json requirements"
 
-    assert (
-        manifest_ver == pyproject_ver
-    ), f"py-surepetcare: manifest.json ({manifest_ver}) != pyproject.toml ({pyproject_ver})"
+    assert manifest_ver == pyproject_ver, (
+        f"py-surepetcare: manifest.json ({manifest_ver}) != pyproject.toml ({pyproject_ver})"
+    )
 
 
 if __name__ == "__main__":

@@ -1,19 +1,23 @@
 """Lock platform for SurePetCare integration."""
 
 from __future__ import annotations
-from dataclasses import dataclass
+
 import logging
+from dataclasses import dataclass
+
 from homeassistant.components.lock import LockEntity, LockEntityDescription
+from homeassistant.components.lock.const import LockState
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.components.lock.const import LockState
+from surepcio.enums import FlapLocking, ProductId
+
 from custom_components.surepcha.method_field import LockMethodField
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
-from surepcio.enums import ProductId, FlapLocking
 
 logger = logging.getLogger(__name__)
 

@@ -1,23 +1,25 @@
 import pytest
-from pytest_homeassistant_custom_component.common import MockConfigEntry
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
-from syrupy.filters import props
-from surepcio.devices.device import DeviceBase, PetBase
-from . import initialize_entry
-from surepcio import SurePetcareClient
+from pytest_homeassistant_custom_component.common import MockConfigEntry
 from pytest_homeassistant_custom_component.components.diagnostics import (
-    get_diagnostics_for_device,
     get_diagnostics_for_config_entry,
+    get_diagnostics_for_device,
 )
+from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
+from surepcio import SurePetcareClient
+from surepcio.devices.device import DeviceBase, PetBase
+from syrupy.assertion import SnapshotAssertion
+from syrupy.filters import props
+
 from custom_components.surepcha.const import (
     DOMAIN,
     MANUAL_PROPERTIES,
     OPTION_DEVICES,
     OPTION_PROPERTIES,
 )
-from syrupy.assertion import SnapshotAssertion
-from homeassistant.core import HomeAssistant
-from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
+
+from . import initialize_entry
 
 
 @pytest.mark.parametrize("mock_device_name", ["feeder_connect"])

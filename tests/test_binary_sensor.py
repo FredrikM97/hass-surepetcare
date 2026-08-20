@@ -1,19 +1,17 @@
-import pytest
 from unittest.mock import patch
-from surepcio import SurePetcareClient
 
-from syrupy.assertion import SnapshotAssertion
-
+import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-
-from . import initialize_entry
-
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
     snapshot_platform,
 )
+from surepcio import SurePetcareClient
+from syrupy.assertion import SnapshotAssertion
+
+from . import initialize_entry
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.BINARY_SENSOR])

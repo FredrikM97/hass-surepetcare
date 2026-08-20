@@ -1,8 +1,10 @@
 import logging
-from types import MappingProxyType
-from pydantic import BaseModel
 from enum import Enum
+from types import MappingProxyType
 from typing import Any
+
+from pydantic import BaseModel
+
 from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
 
 logger = logging.getLogger(__name__)
@@ -33,7 +35,7 @@ def index_attr(seq, idx, attr=None, default=None):
         if attr is None:
             return seq[idx]
         return getattr(seq[idx], attr, default)
-    except (IndexError, TypeError, AttributeError):
+    except IndexError, TypeError, AttributeError:
         return default
 
 

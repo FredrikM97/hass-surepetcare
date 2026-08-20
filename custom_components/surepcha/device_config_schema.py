@@ -1,5 +1,12 @@
 """Device configuration schemas for Sure Petcare devices."""
 
+from typing import Any
+
+from homeassistant.data_entry_flow import section
+from homeassistant.helpers.selector import AreaSelector
+from surepcio.enums import ProductId
+from voluptuous import All, Optional, Range, Schema
+
 from custom_components.surepcha.const import (
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
@@ -7,10 +14,6 @@ from custom_components.surepcha.const import (
     POLLING_SPEED,
     SCAN_INTERVAL,
 )
-from homeassistant.helpers.selector import AreaSelector
-from surepcio.enums import ProductId
-from voluptuous import Optional, Range, All, Schema
-from homeassistant.data_entry_flow import section
 
 area_fields = {
     Optional(LOCATION_INSIDE): AreaSelector(),
@@ -18,7 +21,7 @@ area_fields = {
 }
 
 
-DEVICE_CONFIG_SCHEMAS = {
+DEVICE_CONFIG_SCHEMAS: dict[ProductId, dict[Any, Any]] = {
     ProductId.DUAL_SCAN_CONNECT: {**area_fields},
     ProductId.DUAL_SCAN_PET_DOOR: {**area_fields},
     ProductId.PET_DOOR: {**area_fields},

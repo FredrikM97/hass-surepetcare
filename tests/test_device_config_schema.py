@@ -1,11 +1,12 @@
+import voluptuous as vol
+from surepcio.enums import ProductId
+
 from custom_components.surepcha.const import (
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     POLLING_SPEED,
 )
 from custom_components.surepcha.device_config_schema import DEVICE_CONFIG_SCHEMAS
-from surepcio.enums import ProductId
-import voluptuous as vol
 
 
 def test_snapshot_schema(snapshot):

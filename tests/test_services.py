@@ -1,24 +1,25 @@
 import logging
-import pytest
 from unittest.mock import patch
-from syrupy.assertion import SnapshotAssertion
-from surepcio.enums import (
-    ProductId,
-    PetLocation,
-    ModifyDeviceTag,
-    PetDeviceLocationProfile,
-)
+
+import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from custom_components.surepcha.const import DOMAIN
-
-from . import initialize_entry
-
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
 )
+from surepcio.enums import (
+    ModifyDeviceTag,
+    PetDeviceLocationProfile,
+    PetLocation,
+    ProductId,
+)
+from syrupy.assertion import SnapshotAssertion
+
+from custom_components.surepcha.const import DOMAIN
+
+from . import initialize_entry
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
@@ -71,18 +72,18 @@ async def test_platform_setup_and_set_tag_service(
         hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
     device_registry = async_get_device_registry(hass)
-    device_id = [
+    device_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
-    ][0]
-    pet_id = [
+    )
+    pet_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
-    ][0]
+    )
     # Call add action
     await hass.services.async_call(
         DOMAIN,
@@ -121,18 +122,18 @@ async def test_platform_setup_and_set_pet_access_mode_service(
         hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
     device_registry = async_get_device_registry(hass)
-    device_id = [
+    device_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
-    ][0]
-    pet_id = [
+    )
+    pet_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
-    ][0]
+    )
     await hass.services.async_call(
         DOMAIN,
         "set_pet_access_mode",
@@ -163,12 +164,12 @@ async def test_platform_setup_and_set_pet_position_service(
         hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
     device_registry = async_get_device_registry(hass)
-    pet_id = [
+    pet_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
-    ][0]
+    )
     await hass.services.async_call(
         DOMAIN,
         "set_pet_position",
@@ -198,12 +199,12 @@ async def test_platform_setup_and_refresh_device_service(
         hass, mock_client, mock_config_entry, mock_devices, mock_pets
     )
     device_registry = async_get_device_registry(hass)
-    pet_id = [
+    pet_id = next(
         d.id
         for d in device_registry.devices.values()
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
-    ][0]
+    )
     await hass.services.async_call(
         DOMAIN,
         "refresh_device",

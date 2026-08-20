@@ -2,29 +2,25 @@
 
 import asyncio
 import logging
-from typing import Any, List
-
-from surepcio import SurePetcareClient
-from surepcio import Household
-
-from .services import _service_registry
-
-from homeassistant.exceptions import ConfigEntryAuthFailed
+from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
+from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
+from surepcio import Household, SurePetcareClient
 
 from .const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
     HOUSEHOLD_ID,
     MANUAL_PROPERTIES,
-    TOKEN,
     OPTION_PROPERTIES,
+    TOKEN,
 )
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
+from .services import _service_registry
 
 logger = logging.getLogger(__name__)
 
@@ -100,7 +96,7 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     try:
         household_id = entry.data.get(HOUSEHOLD_ID)
         if household_id:
-            all_households: List[Household] = await client.api(
+            all_households: list[Household] = await client.api(
                 Household.get_households()
             )
             households = [h for h in all_households if h.id == household_id]
@@ -118,7 +114,7 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
         await client.close()
     except Exception as exc:
         await client.close()
-        raise Exception("Configuration not finished") from exc
+        raise ConfigEntryNotReady("Configuration not finished") from exc
     return client, entities
 
 

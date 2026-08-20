@@ -1,21 +1,22 @@
 """Support for Sure Petcare number entity."""
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 
-from surepcio.enums import ProductId
 from homeassistant.components.number import (
     NumberEntity,
     NumberEntityDescription,
+    NumberMode,
 )
 from homeassistant.const import UnitOfMass
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from surepcio.enums import ProductId
 
 from custom_components.surepcha.method_field import MethodField
 
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
@@ -37,7 +38,7 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             key="bowl_0_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
-            mode="slider",
+            mode=NumberMode.SLIDER,
             icon="mdi:scale",
             native_max_value=300,
             field=MethodField(path="control.bowls.settings[0].target"),
@@ -48,7 +49,7 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
-            mode="slider",
+            mode=NumberMode.SLIDER,
             icon="mdi:scale",
             native_max_value=300,
             field=MethodField(path="control.bowls.settings[1].target"),
@@ -98,3 +99,9 @@ class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
     async def async_set_native_value(self, value: float) -> None:  # type: ignore[override]
         """Set new value."""
         await self.send_command(value)
+
+    @property
+    def native_value(self) -> float | None:  # type: ignore[override]
+        """Return the current value."""
+        value = super().native_value
+        return float(value) if value is not None else None

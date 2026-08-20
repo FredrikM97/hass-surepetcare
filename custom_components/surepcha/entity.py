@@ -1,14 +1,16 @@
 from __future__ import annotations
-from dataclasses import dataclass
+
 import logging
+from dataclasses import dataclass
 from typing import Any, cast
 
-from surepcio.devices.device import DeviceBase, PetBase
-from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from surepcio.devices.device import DeviceBase, PetBase
 
 from custom_components.surepcha.helper import serialize
 from custom_components.surepcha.method_field import FieldContext, MethodField
+
 from .const import DOMAIN, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
@@ -16,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)
-class SurePetCareBaseEntityDescription:
+class SurePetCareBaseEntityDescription(EntityDescription):
     """Describes SurePetCare Base entity."""
 
     field: MethodField
@@ -41,15 +43,17 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     @property
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
+        parent_device_id = self._device.entity_info.parent_device_id
+        via_device = (
+            (DOMAIN, str(parent_device_id)) if parent_device_id is not None else None
+        )
         return DeviceInfo(
             identifiers={(DOMAIN, f"{self._device.id}")},
             manufacturer="SurePetCare",
             model=self._device.product_name,
             model_id=str(self._device.product_id),
             name=self._device.name,
-            via_device=(DOMAIN, str(self._device.entity_info.parent_device_id))
-            if self._device.entity_info.parent_device_id is not None
-            else None,
+            **({"via_device": via_device} if via_device is not None else {}),
         )
 
     def _handle_coordinator_update(self) -> None:

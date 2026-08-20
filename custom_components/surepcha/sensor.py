@@ -1,23 +1,23 @@
 """Support for Sure Petcare sensors."""
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any
 
-from surepcio.enums import ProductId, PetLocation
-from surepcio.devices import Pet
-from surepcio.devices.pet import PetPositionResource
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
     SensorEntityDescription,
     SensorStateClass,
 )
-from homeassistant.helpers.entity import EntityCategory
 from homeassistant.const import PERCENTAGE, UnitOfMass, UnitOfVolume
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from surepcio.devices import Pet
+from surepcio.devices.pet import PetPositionResource
+from surepcio.enums import PetLocation, ProductId
 
 from custom_components.surepcha.method_field import MethodField
 
@@ -27,10 +27,10 @@ from .const import (
     MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
-    PRODUCT_ID,
     OPTION_PROPERTIES,
+    PRODUCT_ID,
 )
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
@@ -236,10 +236,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 get_fn=lambda ctx: sum(
-                    w.target
-                    for w in getattr(
-                        getattr(getattr(ctx.device, "control"), "bowls"), "settings", []
-                    )
+                    w.target for w in getattr(ctx.device.control.bowls, "settings", [])
                 ),
                 get_extra_fn=lambda ctx: {
                     "bowls_0_target": index_attr(

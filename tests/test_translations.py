@@ -38,9 +38,9 @@ def test_translation_files_exist():
     translations_dir = Path("custom_components/surepcha/translations")
     files = list(translations_dir.glob("*.json"))
     assert files, "No translation files found"
-    assert any(
-        f.name == "en.json" for f in files
-    ), "en.json should exist as the main translation file"
+    assert any(f.name == "en.json" for f in files), (
+        "en.json should exist as the main translation file"
+    )
 
 
 def test_translation_key_consistency(translation_file):

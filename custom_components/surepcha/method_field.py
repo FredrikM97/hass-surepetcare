@@ -1,12 +1,12 @@
 """MethodField classes for SurePetCare entities."""
 
-from collections.abc import Callable
-from dataclasses import dataclass
 import logging
 import re
-from typing import Any, Optional
-from homeassistant.components.lock.const import LockState
+from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any
 
+from homeassistant.components.lock.const import LockState
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ def get_by_path(obj, path):
                 return None
             try:
                 obj = obj[int(idx)]
-            except (IndexError, ValueError, TypeError, KeyError):
+            except IndexError, ValueError, TypeError, KeyError:
                 return None
         else:
             if isinstance(obj, dict):
@@ -72,12 +72,12 @@ class MethodField:
     """Field that uses provided functions or paths to get/set values."""
 
     entity_id: str | None = None  # Will be injected by the entity if needed
-    get_fn: Optional[Callable[["FieldContext"], Any]] = None
-    set_fn: Optional[Callable[["FieldContext", Any], Any]] = None
-    path: Optional[str] = None
-    path_extra: Optional[str | dict] = None
-    get_extra_fn: Optional[Callable[["FieldContext"], Any]] = None
-    entity_picture: Optional[str] = None
+    get_fn: Callable[[FieldContext], Any] | None = None
+    set_fn: Callable[[FieldContext, Any], Any] | None = None
+    path: str | None = None
+    path_extra: str | dict | None = None
+    get_extra_fn: Callable[[FieldContext], Any] | None = None
+    entity_picture: str | None = None
 
     def __post_init__(self):
         """Set default get_fn and set_fn if not provided but path is."""
@@ -140,7 +140,7 @@ class MethodField:
             return self.get_extra_fn(context)
         raise NotImplementedError("No get_extra_fn or path_extra defined")
 
-    def get_entity_picture(self, device) -> Optional[str]:
+    def get_entity_picture(self, device) -> str | None:
         """Return the entity picture URL if set."""
         return get_by_path(device, self.entity_picture) if self.entity_picture else None
 
@@ -165,7 +165,7 @@ class ButtonMethodField(MethodField):
 class SelectMethodField(MethodField):
     """MethodField for select-like entities, supporting options function."""
 
-    options_fn: Callable[["FieldContext"], Any] | None = None
+    options_fn: Callable[[FieldContext], Any] | None = None
 
     def get(self, context: FieldContext) -> Any:
         if self.get_fn is None and self.path is None and self.options_fn is not None:

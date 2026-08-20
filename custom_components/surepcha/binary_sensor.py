@@ -1,9 +1,8 @@
 """Support for Sure Petcare binary sensors."""
 
-from dataclasses import dataclass
 import logging
+from dataclasses import dataclass
 
-from surepcio.enums import ProductId, PetLocation
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
@@ -12,13 +11,14 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from surepcio.enums import PetLocation, ProductId
 
 from custom_components.surepcha.helper import (
     list_attr,
 )
 from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
 
-from .coordinator import SurePetCareDeviceDataUpdateCoordinator, SurePetcareConfigEntry
+from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,

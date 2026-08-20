@@ -1,31 +1,29 @@
 """Config flow for SurePetCare integration."""
 
-from copy import deepcopy
 import logging
-from typing import Any, Mapping
-
-from surepcio import SurePetcareClient
-from surepcio import Household
-from surepcio.enums import ProductId
+from collections.abc import Mapping
+from copy import deepcopy
+from typing import Any, cast
 
 import voluptuous as vol
-from homeassistant.config_entries import ConfigFlowResult
 from homeassistant import config_entries
+from homeassistant.config_entries import ConfigFlowResult
+from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, CONF_TOKEN
 from homeassistant.data_entry_flow import section
 from homeassistant.helpers.device_registry import callback
-from homeassistant.const import CONF_PASSWORD, CONF_TOKEN, CONF_EMAIL
-
+from surepcio import Household, SurePetcareClient
+from surepcio.enums import ProductId
 
 from .const import (
+    CLIENT_DEVICE_ID,
     DOMAIN,
     ENTRY_ID,
     HOUSEHOLD_ID,
     NAME,
     OPTION_DEVICES,
-    CLIENT_DEVICE_ID,
-    TOKEN,
-    PRODUCT_ID,
     OPTION_PROPERTIES,
+    PRODUCT_ID,
+    TOKEN,
 )
 from .device_config_schema import (
     DEVICE_CONFIG_SCHEMAS,
@@ -218,7 +216,11 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 
     async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
         """Refresh entities; splits legacy all-household entries into per-household entries."""
-        entry = self.hass.config_entries.async_get_entry(self.context[ENTRY_ID])
+        entry = self.hass.config_entries.async_get_entry(
+            cast(dict[str, Any], self.context)[ENTRY_ID]
+        )
+        if entry is None:
+            return self.async_abort(reason="reconfigure_entry_not_found")
         client, errors = await self._authenticate(
             token=entry.data[TOKEN], device_id=entry.data[CLIENT_DEVICE_ID]
         )
@@ -419,7 +421,7 @@ def _device_picker_options(devices: dict[str, dict[str, Any]]) -> list[tuple[str
         product_id = device.get(PRODUCT_ID)
         try:
             product_name = ProductId(product_id).name
-        except (TypeError, ValueError):
+        except TypeError, ValueError:
             product_name = str(product_id) if product_id is not None else "UNKNOWN"
 
         label = (

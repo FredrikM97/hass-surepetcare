@@ -1,20 +1,19 @@
-from datetime import timedelta
 import logging
-from typing import Any, TypeAlias, TypeVar
+from datetime import timedelta
+from typing import Any, TypeVar
 
-from surepcio import SurePetcareClient
-from surepcio.devices.device import SurePetCareBase
-
-
-from .const import OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from surepcio import SurePetcareClient
+from surepcio.devices.device import SurePetCareBase
+
+from .const import OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
 
 logger = logging.getLogger(__name__)
 
 
-SurePetcareConfigEntry: TypeAlias = ConfigEntry[
+type SurePetcareConfigEntry = ConfigEntry[
     list["SurePetCareDeviceDataUpdateCoordinator"]
 ]
 T = TypeVar("T", bound=SurePetCareBase)

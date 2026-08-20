@@ -1,22 +1,24 @@
 import importlib
 import inspect
+from typing import ClassVar
 from unittest.mock import AsyncMock, MagicMock, patch
-import custom_components.surepcha.__init__ as surepetcare_init
-from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
+
 import pytest
-from custom_components.surepcha import remove_stale_devices, DOMAIN
-from surepcio.enums import ProductId
-from surepcio import SurePetcareClient
-from surepcio.devices.device import PetBase, DeviceBase
-
-from syrupy.assertion import SnapshotAssertion
-
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import device_registry as dr, entity_registry as er
-
+from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers import entity_registry as er
 from pytest_homeassistant_custom_component.common import MockConfigEntry
+from surepcio import SurePetcareClient
+from surepcio.devices.device import DeviceBase, PetBase
+from surepcio.enums import ProductId
+from syrupy.assertion import SnapshotAssertion
+
+import custom_components.surepcha.__init__ as surepetcare_init
+from custom_components.surepcha import DOMAIN, remove_stale_devices
+from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
+
 from . import initialize_entry
 
 
@@ -39,9 +41,9 @@ class DummyDevice:
     parent_device_id = None
     available = True
     product_name = "Feeder Connect"
-    raw_data = {"status": {"learn_mode": False}}
+    raw_data: ClassVar = {"status": {"learn_mode": False}}
 
-    async def refresh(self) -> "DummyDevice":
+    async def refresh(self) -> DummyDevice:
         """Simulate async refresh, returning self."""
         return self
 
@@ -63,9 +65,7 @@ class DummyClient:
                 return None
         if arg == DummyHousehold.get_households():
             return [DummyHousehold()]
-        elif arg == "pets_command":
-            return []
-        elif arg == "devices_command":
+        elif arg == "pets_command" or arg == "devices_command":
             return []
         return "data"
 
@@ -77,7 +77,6 @@ class DummyClient:
 
     async def close(self) -> None:
         """Simulate closing the client."""
-        pass
 
 
 class DummyConfigEntry:
@@ -91,7 +90,6 @@ class DummyConfigEntry:
         self.state = ConfigEntryState.SETUP_IN_PROGRESS
 
     def async_on_unload(self, _):
-        pass
         self.options = {}
 
 
@@ -131,7 +129,7 @@ class DummyHousehold:
 
     def fetch_pet_device_assignments(self) -> None:
         """Mirror the upstream household API used during setup."""
-        return None
+        return
 
 
 class FakeDevice:
@@ -162,9 +160,9 @@ class DummyFeedingEvent:
 class DummyDeviceWithFeeding:
     """A dummy device with feeding events for feeding event tests."""
 
-    feeding = [DummyFeedingEvent()]
+    feeding: ClassVar = [DummyFeedingEvent()]
     product_name = "Feeder Connect"
-    raw_data = {"status": {"learn_mode": False}}
+    raw_data: ClassVar = {"status": {"learn_mode": False}}
 
 
 @pytest.fixture
@@ -217,7 +215,7 @@ class ExceptionClient(DummyClient):
         return True
 
     async def api(self, arg=None):
-        raise Exception("API error")
+        raise RuntimeError("API error")
 
     async def close(self) -> None:
         pass
@@ -263,10 +261,12 @@ async def test_async_setup_entry_and_unload():
     entry = DummyConfigEntry()
     # Patch async_forward_entry_setups to async helper
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
-    with patch(
-        "custom_components.surepcha.__init__.SurePetcareClient", DummyClient
-    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
-        "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+    with (
+        patch("custom_components.surepcha.__init__.SurePetcareClient", DummyClient),
+        patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch(
+            "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+        ),
     ):
         if hasattr(surepetcare_init, "remove_stale_devices"):
             with patch(
@@ -301,14 +301,16 @@ async def test_async_setup_entry_login_failure():
     hass = DummyHass()
     entry = DummyConfigEntry()
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
-    with patch(
-        "custom_components.surepcha.__init__.SurePetcareClient", FailingClient
-    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
-        "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+    with (
+        patch("custom_components.surepcha.__init__.SurePetcareClient", FailingClient),
+        patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch(
+            "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+        ),
     ):
         try:
             await surepetcare_init.async_setup_entry(hass, entry)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - asserting on any of several possible failure messages
             assert (
                 "Configuration not finished" in str(exc)
                 or "Frame helper not set up" in str(exc)
@@ -323,14 +325,16 @@ async def test_async_setup_entry_api_exception():
     hass = DummyHass()
     entry = DummyConfigEntry()
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
-    with patch(
-        "custom_components.surepcha.__init__.SurePetcareClient", ExceptionClient
-    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
-        "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+    with (
+        patch("custom_components.surepcha.__init__.SurePetcareClient", ExceptionClient),
+        patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch(
+            "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+        ),
     ):
         try:
             await surepetcare_init.async_setup_entry(hass, entry)
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - asserting on any of several possible failure messages
             assert (
                 "object has no attribute 'close'" in str(exc)
                 or "API error" in str(exc)
@@ -351,13 +355,16 @@ async def test_remove_stale_devices_called():
     def fake_remove_stale_devices(*a, **kw):
         called["called"] = True
 
-    with patch(
-        "custom_components.surepcha.__init__.remove_stale_devices",
-        fake_remove_stale_devices,
-    ), patch(
-        "custom_components.surepcha.__init__.SurePetcareClient", DummyClient
-    ), patch("custom_components.surepcha.__init__.Household", DummyHousehold), patch(
-        "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+    with (
+        patch(
+            "custom_components.surepcha.__init__.remove_stale_devices",
+            fake_remove_stale_devices,
+        ),
+        patch("custom_components.surepcha.__init__.SurePetcareClient", DummyClient),
+        patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch(
+            "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
+        ),
     ):
         await surepetcare_init.async_setup_entry(hass, entry)
         assert called.get("called")
@@ -377,12 +384,15 @@ def test_remove_stale_devices_logic():
     # Device registry mock
     device_registry = MagicMock()
     # Patch async_get and async_entries_for_config_entry
-    with patch(
-        "custom_components.surepcha.__init__.dr.async_get",
-        return_value=device_registry,
-    ), patch(
-        "custom_components.surepcha.__init__.dr.async_entries_for_config_entry",
-        return_value=[matching_entry, stale_entry],
+    with (
+        patch(
+            "custom_components.surepcha.__init__.dr.async_get",
+            return_value=device_registry,
+        ),
+        patch(
+            "custom_components.surepcha.__init__.dr.async_entries_for_config_entry",
+            return_value=[matching_entry, stale_entry],
+        ),
     ):
         remove_stale_devices(MagicMock(), MagicMock(entry_id="dummy_entry_id"), devices)
         # Should call async_update_device for stale_entry only
@@ -416,7 +426,7 @@ async def test_device_registry(
 
     for device_registry_entry in device_registry_entries:
         assert device_registry_entry == snapshot(
-            name=list(device_registry_entry.identifiers)[0][1]
+            name=next(iter(device_registry_entry.identifiers))[1]
         )
 
         # Ensure model is suffixed with "(unsupported)" when no entities are generated

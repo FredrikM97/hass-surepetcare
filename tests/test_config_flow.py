@@ -1,17 +1,24 @@
+from unittest.mock import AsyncMock, MagicMock, patch
+
 import pytest
-from syrupy.assertion import SnapshotAssertion
 from homeassistant.core import HomeAssistant
+from homeassistant.data_entry_flow import FlowResultType
+from homeassistant.helpers.area_registry import async_get as async_get_area_registry
+from pytest_homeassistant_custom_component.common import MockConfigEntry
+from surepcio import Household
+from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha import async_migrate_entry
-
-from homeassistant.helpers.area_registry import async_get as async_get_area_registry
-
-
+from custom_components.surepcha.config_flow import (
+    SurePetCareConfigFlow,
+    SurePetCareOptionsFlow,
+    _device_picker_options,
+)
 from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
-    DOMAIN,
     CONF_EMAIL,
     CONF_PASSWORD,
+    DOMAIN,
     ENTRY_ID,
     HOUSEHOLD_ID,
     LOCATION_INSIDE,
@@ -24,16 +31,6 @@ from custom_components.surepcha.const import (
     PRODUCT_ID,
     TOKEN,
 )
-from custom_components.surepcha.config_flow import (
-    SurePetCareConfigFlow,
-    SurePetCareOptionsFlow,
-    _device_picker_options,
-)
-from pytest_homeassistant_custom_component.common import MockConfigEntry
-
-from unittest.mock import AsyncMock, MagicMock, patch
-from homeassistant.data_entry_flow import FlowResultType
-from surepcio import Household
 
 
 class MockDevice:
@@ -52,7 +49,11 @@ class MockClient:
         self._login_success = login_success
 
     async def login(
-        self, email: str = None, password: str = None, token=None, device_id: str = None
+        self,
+        email: str | None = None,
+        password: str | None = None,
+        token=None,
+        device_id: str | None = None,
     ):
         return self._login_success
 

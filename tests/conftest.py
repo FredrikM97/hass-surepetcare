@@ -1,6 +1,21 @@
 from collections.abc import Generator
+from enum import Enum
 from unittest.mock import AsyncMock, MagicMock, patch
+
 import pytest
+import surepcio.enums
+from homeassistant.core import HomeAssistant
+from pytest_homeassistant_custom_component.common import (
+    MockConfigEntry,
+    load_json_value_fixture,
+)
+from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
+from surepcio import SurePetcareClient
+from surepcio.devices import load_device_class
+from surepcio.devices.device import DeviceBase, PetBase
+from surepcio.enums import ProductId
+from syrupy.assertion import SnapshotAssertion
+
 from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
@@ -14,20 +29,8 @@ from custom_components.surepcha.const import (
     PRODUCT_ID,
     TOKEN,
 )
+
 from . import DEVICE_MOCKS, PET_MOCKS
-from surepcio import SurePetcareClient
-from surepcio.enums import ProductId
-from surepcio.devices.device import DeviceBase, PetBase
-from homeassistant.core import HomeAssistant
-from surepcio.devices import load_device_class
-from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
-from pytest_homeassistant_custom_component.common import (
-    load_json_value_fixture,
-    MockConfigEntry,
-)
-from syrupy.assertion import SnapshotAssertion
-from enum import Enum
-import surepcio.enums
 
 # Auto-detect common enum fields by importing all enums from surepcio
 _KNOWN_ENUMS = {
@@ -193,7 +196,7 @@ def mock_setup_entry(monkeypatch):
 
 
 @pytest.fixture
-def entity_registry_enabled_default() -> Generator[AsyncMock, None, None]:
+def entity_registry_enabled_default() -> Generator[AsyncMock]:
     """Test fixture that ensures all entities are enabled in the registry."""
     """Can't find this fixture so created it for now"""
     with patch(
@@ -217,7 +220,7 @@ def mock_device_name() -> str:
 async def mock_surepetcare_login_control(
     mock_pets,
     mock_devices,
-) -> Generator[MagicMock, None, None]:
+) -> Generator[MagicMock]:
     """Return a mocked SurePetcareClient for config_flow login."""
     with (
         patch(
@@ -271,7 +274,7 @@ def convert_enum_names(data):
                         result[key] = getattr(enum_class, value).value
                         converted = True
                         break
-                    except (AttributeError, KeyError):
+                    except AttributeError, KeyError:
                         continue
                 if not converted:
                     result[key] = convert_enum_names(value)

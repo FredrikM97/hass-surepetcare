@@ -1,17 +1,16 @@
-import pytest
 from unittest.mock import patch
-from syrupy.assertion import SnapshotAssertion
 
+import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-
-from . import initialize_entry
-
 from pytest_homeassistant_custom_component.common import (
     MockConfigEntry,
     snapshot_platform,
 )
+from syrupy.assertion import SnapshotAssertion
+
+from . import initialize_entry
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.NUMBER])
@@ -86,7 +85,7 @@ async def test_number_set_and_snapshot(
                 max_value = float(max_value)
                 mid_value = (min_value + max_value) / 2
                 values = [min_value, mid_value, max_value]
-            except Exception:
+            except TypeError, ValueError:
                 values = [state.state]
         else:
             values = [state.state]

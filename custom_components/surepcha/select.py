@@ -1,21 +1,27 @@
 """Select platform for SurePetCare integration."""
 
 from __future__ import annotations
+
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any, cast
+
+from homeassistant.components.select import SelectEntity, SelectEntityDescription
+from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers.entity import EntityCategory
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import (
-    ProductId,
+    BowlTypeOptions,
     CloseDelay,
     FeederTrainingMode,
     FlapLocking,
     HubLedMode,
     ModifyDeviceTag,
-    BowlTypeOptions,
+    ProductId,
     Tare,
 )
-from homeassistant.components.sensor import SensorDeviceClass
-from homeassistant.helpers.entity import EntityCategory
+
 from custom_components.surepcha.helper import (
     find_entity_id_by_name,
     list_attr,
@@ -24,23 +30,19 @@ from custom_components.surepcha.helper import (
 )
 from custom_components.surepcha.method_field import SelectMethodField
 
-from .coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
-    SurePetcareConfigEntry,
-)
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
-from homeassistant.components.select import SelectEntity, SelectEntityDescription
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-
 from .const import (
     DEVICES,
     NAME,
     OPTION_DEVICES,
     PRODUCT_ID,
+)
+from .coordinator import (
+    SurePetcareConfigEntry,
+    SurePetCareDeviceDataUpdateCoordinator,
+)
+from .entity import (
+    SurePetCareBaseEntity,
+    SurePetCareBaseEntityDescription,
 )
 
 

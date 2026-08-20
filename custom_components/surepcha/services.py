@@ -1,4 +1,6 @@
 import logging
+from collections.abc import Callable, Coroutine
+from typing import Any
 
 import voluptuous as vol
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
@@ -12,7 +14,9 @@ from .coordinator import (
 
 logger = logging.getLogger(__name__)
 
-_service_registry = []
+_service_registry: list[
+    tuple[str, Callable[..., Coroutine[Any, Any, None]], vol.Schema | None]
+] = []
 
 
 def global_service(name, schema=None):
@@ -135,7 +139,7 @@ async def refresh_device(call) -> None:
     await device_coordinator.async_refresh()
 
 
-def get_coordinator(hass, device_id) -> "SurePetCareDeviceDataUpdateCoordinator":
+def get_coordinator(hass, device_id) -> SurePetCareDeviceDataUpdateCoordinator:
     device_registry = async_get_device_registry(hass)
     config_entries = hass.config_entries.async_loaded_entries(DOMAIN)
     for entry in config_entries:
