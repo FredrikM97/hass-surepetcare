@@ -1,12 +1,5 @@
 name: Release
 
-# Two independent jobs, gated by trigger/action so only one ever runs:
-#   - update_draft: push to main (direct or via merged PR), or manual dispatch
-#                   with action=update_draft (default) -> refresh rolling draft
-#   - publish:      manual dispatch with action=publish -> cut a real release
-# The changelog is computed from actual commit messages (Conventional Commits)
-# since the last vX.Y.Z tag, not from PR titles/labels, so it works the same
-# whether commits land via a PR merge or a direct push.
 on:
   push:
     branches:
@@ -65,9 +58,8 @@ jobs:
             author="@${LOGIN:-$(git log -1 --format='%an' "$hash")}"
 
             if echo "$subject" | grep -qiE '^deps(\([^)]*\))?!?:'; then
-              # Dependabot commits (deps(package), deps(workflow)) go to Maintenance
-              DESC=$(echo "$subject" | sed -E 's/^deps(\([^)]*\))?!?:[[:space:]]*//I')
-              CHORES="${CHORES}- ${DESC} (${author})"$'\n'
+              # Dependabot commits (deps(package), deps(workflow)) go to Maintenance, prefix kept
+              CHORES="${CHORES}- ${subject} (${author})"$'\n'
             else
               CHANGELOG="${CHANGELOG}- ${subject} (${author})"$'\n'
             fi
