@@ -1,0 +1,144 @@
+# serializer version: 1
+# name: test_event_payload_includes_movement_details
+  dict({
+    'created_at': '2025-11-12T13:16:35+00:00',
+    'devices': list([
+      555,
+      100,
+    ]),
+    'household_id': 7777,
+    'id': 100001,
+    'movements': list([
+      dict({
+        'device_id': 555,
+        'direction': 'LOOKED_THROUGH',
+        'side': 'INSIDE',
+      }),
+    ]),
+    'pets': list([
+      3001,
+    ]),
+    'type': 'MOVEMENT',
+    'users': list([
+    ]),
+  })
+# ---
+# name: test_real_feeding_events_with_empty_pets
+  list([
+    dict({
+      'created_at': '2026-08-07T14:50:27+00:00',
+      'devices': list([
+        1376800,
+        1225898,
+      ]),
+      'household_id': 7777,
+      'id': 17350904002,
+      'pets': list([
+      ]),
+      'type': 'WEIGHT_CHANGED',
+      'users': list([
+      ]),
+      'weights': list([
+        dict({
+          'device_id': 1376800,
+          'duration': 13,
+          'frames': list([
+          ]),
+        }),
+      ]),
+    }),
+    dict({
+      'created_at': '2026-08-20T17:16:16+00:00',
+      'devices': list([
+        1376800,
+        1225898,
+      ]),
+      'household_id': 7777,
+      'id': 17504397556,
+      'pets': list([
+        472721,
+      ]),
+      'type': 'FEEDING',
+      'users': list([
+      ]),
+      'weights': list([
+        dict({
+          'device_id': 1376800,
+          'duration': 54,
+          'frames': list([
+          ]),
+        }),
+      ]),
+    }),
+  ])
+# ---
+# name: test_real_household_events_with_no_devices_or_pets
+  list([
+    dict({
+      'created_at': '2023-10-01T13:44:45+00:00',
+      'devices': list([
+      ]),
+      'household_id': 7777,
+      'id': 4863755091,
+      'pets': list([
+      ]),
+      'type': 'ACCOUNT_CREATED',
+      'users': list([
+        3139194435,
+      ]),
+    }),
+    dict({
+      'created_at': '2026-01-15T12:42:36+00:00',
+      'devices': list([
+      ]),
+      'household_id': 7777,
+      'id': 14896711959,
+      'pets': list([
+      ]),
+      'type': 'USER_JOINED_HOUSEHOLD',
+      'users': list([
+        3139194472,
+      ]),
+    }),
+  ])
+# ---
+# name: test_second_poll_fires_only_new_events_sorted_by_created_at
+  list([
+    dict({
+      'created_at': '2025-11-11T23:00:00+00:00',
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 100004,
+      'pets': list([
+      ]),
+      'type': 'DOOR_LOCKING_MODE',
+      'users': list([
+        4001,
+      ]),
+    }),
+    dict({
+      'created_at': '2025-11-12T09:44:11+00:00',
+      'devices': list([
+        555,
+        100,
+      ]),
+      'household_id': 7777,
+      'id': 100003,
+      'movements': list([
+        dict({
+          'device_id': 555,
+          'direction': 'LEFT',
+          'side': 'INSIDE',
+        }),
+      ]),
+      'pets': list([
+        3001,
+      ]),
+      'type': 'MOVEMENT',
+      'users': list([
+      ]),
+    }),
+  ])
+# ---

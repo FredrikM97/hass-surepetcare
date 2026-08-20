@@ -22,6 +22,7 @@ from .const import (
     NAME,
     OPTION_DEVICES,
     OPTION_PROPERTIES,
+    OPTION_TIMELINE,
     PRODUCT_ID,
     TOKEN,
 )
@@ -29,6 +30,7 @@ from .device_config_schema import (
     DEVICE_CONFIG_SCHEMAS,
     MANUAL_PROPERTIES,
     OPTION_CONFIG_SCHEMAS,
+    TIMELINE_CONFIG_SCHEMA,
 )
 
 logger = logging.getLogger(__name__)
@@ -325,14 +327,19 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         self._options = deepcopy(dict(config_entry.options))
 
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
-        """Show the top-level options menu."""
+        """Show the top-level options menu.
 
-        if not self._options[OPTION_DEVICES]:
-            return self.async_abort(reason="no_devices_or_pet_found")
+        Timeline/manual-properties settings are household-wide and don't
+        require any devices to exist, so only "devices" is hidden (rather
+        than aborting the whole flow) when there's nothing to configure.
+        """
+        menu_options = ["manual_properties", "timeline"]
+        if self._options[OPTION_DEVICES]:
+            menu_options.append("devices")
 
         return self.async_show_menu(
             step_id="init",
-            menu_options=["manual_properties", "devices"],
+            menu_options=menu_options,
         )
 
     async def async_step_manual_properties(
@@ -356,6 +363,22 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         return self.async_show_form(
             step_id="manual_properties",
             data_schema=vol.Schema(manual_form_schema),
+        )
+
+    async def async_step_timeline(self, user_input: dict[str, Any] | None = None):
+        """Configure the household timeline polling interval."""
+
+        if user_input is not None:
+            self._options[OPTION_TIMELINE] = user_input
+            return self.async_create_entry(title="", data=self._options)
+
+        timeline_options = self._options.get(OPTION_TIMELINE, {})
+        timeline_form_schema, _ = _build_schema_and_defaults(
+            TIMELINE_CONFIG_SCHEMA, timeline_options
+        )
+        return self.async_show_form(
+            step_id="timeline",
+            data_schema=vol.Schema(timeline_form_schema),
         )
 
     async def async_step_devices(self, user_input: dict[str, Any] | None = None):

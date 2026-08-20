@@ -29,10 +29,12 @@
         "description": "Choose whether to configure manual location names or per-device overrides.",
         "menu_options": {
           "manual_properties": "Manual properties",
+          "timeline": "Timeline events",
           "devices": "Devices"
         },
         "menu_option_descriptions": {
           "manual_properties": "Set the fallback names used for manually updated pet position.",
+          "timeline": "Configure how often household timeline events are polled.",
           "devices": "Choose a device and configure its override settings."
         }
       },
@@ -42,6 +44,13 @@
         "data": {
           "location_inside": "Inside location",
           "location_outside": "Outside location"
+        }
+      },
+      "timeline": {
+        "title": "Timeline events",
+        "description": "Configure how often household timeline events are polled.",
+        "data": {
+          "timeline_polling_speed": "Update interval (seconds)"
         }
       },
       "devices": {
@@ -57,9 +66,6 @@
           "location_outside": "Outside location"
         }
       }
-    },
-    "error": {
-      "no_devices_or_pet_found": "The OptionFlow cant find any configurable devices or pets."
     }
   },
   "entity": {

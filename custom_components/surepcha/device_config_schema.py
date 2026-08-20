@@ -13,6 +13,7 @@ from custom_components.surepcha.const import (
     MANUAL_PROPERTIES,
     POLLING_SPEED,
     SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
 )
 
 area_fields = {
@@ -20,6 +21,11 @@ area_fields = {
     Optional(LOCATION_OUTSIDE): AreaSelector(),
 }
 
+TIMELINE_CONFIG_SCHEMA = {
+    Optional(TIMELINE_POLLING_SPEED, default=SCAN_INTERVAL): All(
+        int, Range(min=5, max=86400)
+    )
+}
 
 DEVICE_CONFIG_SCHEMAS: dict[ProductId, dict[Any, Any]] = {
     ProductId.DUAL_SCAN_CONNECT: {**area_fields},
