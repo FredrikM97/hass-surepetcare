@@ -20,8 +20,11 @@ def get_requirement_version(requirements, name):
     """Extract version from requirement string list."""
     for req in requirements:
         if name in req:
-            # Try git URL format first (e.g., package@git+https://...@v1.2.3)
-            git_match = re.search(rf"{name}@git\+https://[^@]+@v?([\w\.\-]+)", req)
+            # Try git URL format first (e.g., package @ git+https://...@v1.2.3
+            # or package@git+https://...@v1.2.3 - PEP 508 allows either spacing)
+            git_match = re.search(
+                rf"{name}\s*@\s*git\+https://[^@]+@v?([\w\.\-]+)", req
+            )
             if git_match:
                 return git_match.group(1).replace("-", ".")
             # Fall back to standard format (e.g., package==1.2.3)
