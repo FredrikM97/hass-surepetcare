@@ -1,5 +1,6 @@
 """Tests for the household timeline coordinator."""
 
+from datetime import timedelta
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -10,7 +11,12 @@ from pytest_homeassistant_custom_component.common import (
 from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
-from custom_components.surepcha.const import EVENT_TIMELINE
+from custom_components.surepcha.const import (
+    EVENT_TIMELINE,
+    OPTION_TIMELINE,
+    SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
+)
 from custom_components.surepcha.coordinator import (
     SurePetCareHouseholdTimelineCoordinator,
 )
@@ -42,6 +48,26 @@ def timeline_coordinator(hass) -> SurePetCareHouseholdTimelineCoordinator:
     entry = MagicMock()
     entry.options = {}
     return SurePetCareHouseholdTimelineCoordinator(hass, entry, client, household)
+
+
+def test_update_interval_defaults_to_scan_interval(hass) -> None:
+    """With no configured option, the timeline coordinator uses SCAN_INTERVAL."""
+    entry = MagicMock()
+    entry.options = {}
+    coordinator = SurePetCareHouseholdTimelineCoordinator(
+        hass, entry, MagicMock(), MagicMock(id=7777)
+    )
+    assert coordinator.update_interval == timedelta(seconds=SCAN_INTERVAL)
+
+
+def test_update_interval_uses_configured_polling_speed(hass) -> None:
+    """A configured OPTION_TIMELINE polling speed overrides the default."""
+    entry = MagicMock()
+    entry.options = {OPTION_TIMELINE: {TIMELINE_POLLING_SPEED: 120}}
+    coordinator = SurePetCareHouseholdTimelineCoordinator(
+        hass, entry, MagicMock(), MagicMock(id=7777)
+    )
+    assert coordinator.update_interval == timedelta(seconds=120)
 
 
 async def test_first_poll_sets_cursor_without_firing_events(

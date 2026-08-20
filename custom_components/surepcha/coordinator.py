@@ -12,7 +12,14 @@ from surepcio.devices.device import SurePetCareBase
 from surepcio.enums import TimelineEventType
 from surepcio.timeline import MovementResource, TimelineEvent, WeightResource
 
-from .const import EVENT_TIMELINE, OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
+from .const import (
+    EVENT_TIMELINE,
+    OPTION_DEVICES,
+    OPTION_TIMELINE,
+    POLLING_SPEED,
+    SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -171,7 +178,11 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             logger,
             config_entry=entry,
             name=f"{household.id} timeline",
-            update_interval=timedelta(seconds=SCAN_INTERVAL),
+            update_interval=timedelta(
+                seconds=entry.options.get(OPTION_TIMELINE, {}).get(
+                    TIMELINE_POLLING_SPEED, SCAN_INTERVAL
+                )
+            ),
         )
         self.client = client
         self.household = household

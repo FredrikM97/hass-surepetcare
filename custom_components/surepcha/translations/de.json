@@ -29,10 +29,12 @@
         "description": "Wähle, ob du manuelle Standortnamen oder gerätespezifische Überschreibungen konfigurieren möchtest.",
         "menu_options": {
           "manual_properties": "Manuelle Eigenschaften",
+          "timeline": "Zeitachsen-Ereignisse",
           "devices": "Geräte"
         },
         "menu_option_descriptions": {
           "manual_properties": "Lege die Ersatznamen fest, die für manuell aktualisierte Haustierpositionen verwendet werden.",
+          "timeline": "Lege fest, wie oft Zeitachsen-Ereignisse des Haushalts abgerufen werden.",
           "devices": "Wähle ein Gerät und konfiguriere dessen Überschreibungen."
         }
       },
@@ -42,6 +44,13 @@
         "data": {
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
+        }
+      },
+      "timeline": {
+        "title": "Zeitachsen-Ereignisse",
+        "description": "Lege fest, wie oft Zeitachsen-Ereignisse des Haushalts abgerufen werden.",
+        "data": {
+          "timeline_polling_speed": "Aktualisierungsintervall (Sekunden)"
         }
       },
       "devices": {
@@ -57,9 +66,6 @@
           "location_outside": "Standort draußen"
         }
       }
-    },
-    "error": {
-      "no_devices_or_pet_found": "Die OptionFlow kann keine konfigurierbaren Geräte oder Haustiere finden."
     }
   },
   "entity": {
