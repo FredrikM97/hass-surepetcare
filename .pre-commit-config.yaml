@@ -1,28 +1,34 @@
 repos:
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.2
+  - repo: local
     hooks:
       - id: pyupgrade
-        args: [--py37-plus]
-  - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.6
-    hooks:
+        name: pyupgrade
+        entry: uv run pyupgrade --py37-plus
+        language: system
+        types: [python]
       - id: codespell
+        name: codespell
+        entry: uv run codespell
+        language: system
         args:
           - --ignore-words-list=hass,alot,datas,dof,dur,farenheit,hist,iff,ines,ist,lightsensor,mut,nd,pres,referer,ser,serie,te,technik,ue,uint,visability,wan,wanna,withing
           - --skip="./.*,*.csv,*.json"
           - --quiet-level=2
         exclude_types: [csv, json]
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.4.8
-    hooks:
-      - id: ruff
-        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-check
+        name: ruff check
+        entry: uv run ruff check --fix --exit-non-zero-on-fix
+        language: system
+        types: [python]
       - id: ruff-format
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
-    hooks:
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
       - id: mypy
+        name: mypy
+        entry: uv run mypy
+        language: system
         args:
           - --pretty
           - --show-error-codes

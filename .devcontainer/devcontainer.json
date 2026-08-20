@@ -1,5 +1,5 @@
 {
-  "name": "Superfast Python Dev Container",
+  "name": "Python Dev Container",
 
   "build": {
     "dockerfile": "Dockerfile",
@@ -17,7 +17,10 @@
       ],
       "settings": {
         "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
-        "python.terminal.activateEnvironment": true
+        "python.terminal.activateEnvironment": true,
+        "terminal.integrated.env.linux": {
+          "PATH": "/home/vscode/.venv/bin:${env:PATH}"
+        }
       }
     }
   },
@@ -25,5 +28,5 @@
   "mounts": [
     "type=bind,source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-  "postCreateCommand": "uv sync --frozen --python /usr/local/bin/python && uv run pre-commit install"
+  "postCreateCommand": "git config --global --unset-all core.hooksPath || true && git config --local --unset-all core.hooksPath || true && uv sync --group dev --python /usr/local/bin/python && uv run pre-commit install --install-hooks"
 }
