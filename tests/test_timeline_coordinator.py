@@ -1,6 +1,5 @@
 """Tests for the household timeline coordinator."""
 
-from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -8,6 +7,7 @@ from pytest_homeassistant_custom_component.common import (
     async_capture_events,
     load_json_value_fixture,
 )
+from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import EVENT_TIMELINE
@@ -16,60 +16,20 @@ from custom_components.surepcha.coordinator import (
 )
 
 
-class DummyEnumValue:
-    """Minimal stand-in for a surepcio enum member; only .name is used."""
+def _load_scenario(name: str) -> list[TimelineEvent]:
+    """Load one scenario (movement/feeding/household) from timeline.json as TimelineEvents.
 
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-
-# The real surepcio enum member names aren't relevant here: the coordinator only
-# ever forwards whatever `.name` the library gives it, so any distinct labels
-# are enough to verify our own dedupe/ordering/payload logic.
-_DIRECTION_NAMES = {0: "LOOKED_THROUGH", 1: "ENTERED", 2: "LEFT"}
-
-
-class DummyEntityRef:
-    """Minimal stand-in for a TimelineEntityInfo; only .id is used."""
-
-    def __init__(self, data: dict) -> None:
-        self.id = data["id"]
-
-
-class DummyMovement:
-    """Minimal stand-in for a MovementResource."""
-
-    def __init__(self, data: dict) -> None:
-        self.device_id = data.get("device_id")
-        direction = data.get("direction")
-        self.direction = (
-            DummyEnumValue(_DIRECTION_NAMES[direction])
-            if direction in _DIRECTION_NAMES
-            else None
-        )
-        self.side = None
-
-
-class DummyTimelineEvent:
-    """Minimal stand-in for a TimelineEvent, built from a fixture dict."""
-
-    def __init__(self, data: dict) -> None:
-        self.id = data["id"]
-        self.event_type = DummyEnumValue(f"TYPE_{data['type']}")
-        self.created_at = (
-            datetime.fromisoformat(data["created_at"]) if data.get("created_at") else None
-        )
-        self.pets = [DummyEntityRef(p) for p in data.get("pets", [])]
-        self.devices = [DummyEntityRef(d) for d in data.get("devices", [])]
-        self.users = [DummyEntityRef(u) for u in data.get("users", [])]
-        self.movements = [DummyMovement(m) for m in data.get("movements", [])]
+    get_timeline()'s Command always applies its parse step, so it returns
+    TimelineEvent objects, matching what's built here from the raw fixture.
+    """
+    raw = load_json_value_fixture("timeline.json")
+    return [TimelineEvent(**item) for item in raw[name]]
 
 
 @pytest.fixture
-def timeline_events() -> list[DummyTimelineEvent]:
-    """Load the timeline fixture as a list of dummy TimelineEvent-like objects."""
-    raw = load_json_value_fixture("timeline.json")
-    return [DummyTimelineEvent(item) for item in raw]
+def timeline_events() -> list[TimelineEvent]:
+    """Load the "movement" scenario events."""
+    return _load_scenario("movement")
 
 
 @pytest.fixture
@@ -172,3 +132,58 @@ async def test_no_events_returned_is_a_no_op(hass, timeline_coordinator) -> None
 
     assert events == []
     assert timeline_coordinator._cursor is None
+
+
+async def test_real_feeding_events_with_empty_pets(
+    hass, timeline_coordinator, snapshot: SnapshotAssertion
+) -> None:
+    """Real feeding events have no "movements"; a WEIGHT_CHANGED event has no pets.
+
+    The "feeding" scenario in timeline.json is a redacted sample of real
+    production data: two FEEDING events with populated pets/devices, plus a
+    WEIGHT_CHANGED event with populated devices but an empty pets list.
+    """
+    real_events = _load_scenario("feeding")
+    events = async_capture_events(hass, EVENT_TIMELINE)
+
+    # First poll: baseline, consumed without firing.
+    timeline_coordinator.client.api.return_value = real_events[:1]
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+    assert events == []
+
+    # Second poll: the remaining real events arrive, including the one with
+    # an empty pets list - must not raise and must fire both.
+    timeline_coordinator.client.api.return_value = real_events
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+
+    assert len(events) == 2
+    assert [event.data for event in events] == snapshot
+
+
+async def test_real_household_events_with_no_devices_or_pets(
+    hass, timeline_coordinator, snapshot: SnapshotAssertion
+) -> None:
+    """Household-membership events populate households/users but nothing else.
+
+    The "household" scenario in timeline.json is a redacted sample of real
+    production data (USER_JOINED_HOUSEHOLD, ACCOUNT_CREATED), including one
+    event with an empty "households" list.
+    """
+    real_events = _load_scenario("household")
+    events = async_capture_events(hass, EVENT_TIMELINE)
+
+    # First poll: baseline, consumed without firing.
+    timeline_coordinator.client.api.return_value = real_events[:1]
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+    assert events == []
+
+    # Second poll: the remaining real events arrive and must fire correctly.
+    timeline_coordinator.client.api.return_value = real_events
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+
+    assert len(events) == 2
+    assert [event.data for event in events] == snapshot

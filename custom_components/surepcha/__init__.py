@@ -150,12 +150,22 @@ async def async_setup_entry(
         *[
             coordinator.async_config_entry_first_refresh()
             for coordinator in coordinators
-        ],
-        *[
-            coordinator.async_config_entry_first_refresh()
-            for coordinator in timeline_coordinators
-        ],
+        ]
     )
+
+    # Timeline coordinators are supplementary (bus events only, no entities
+    # depend on them), so a failure here must not raise ConfigEntryNotReady
+    # and trigger the whole entry's fast setup-retry loop; it keeps retrying
+    # on its own update_interval like any other failed coordinator refresh.
+    for coordinator in timeline_coordinators:
+        try:
+            await coordinator.async_config_entry_first_refresh()
+        except ConfigEntryNotReady:
+            logger.warning(
+                "Initial timeline refresh failed for household %s; "
+                "will keep retrying in the background",
+                coordinator.household.id,
+            )
 
     device_registry = dr.async_get(hass)
     for c in coordinators:
