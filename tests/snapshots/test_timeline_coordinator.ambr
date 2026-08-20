@@ -1,0 +1,67 @@
+# serializer version: 1
+# name: test_event_payload_includes_movement_details
+  dict({
+    'created_at': '2025-11-12T13:16:35+00:00',
+    'devices': list([
+      555,
+      100,
+    ]),
+    'household_id': 7777,
+    'id': 100001,
+    'movements': list([
+      dict({
+        'device_id': 555,
+        'direction': 'LOOKED_THROUGH',
+        'side': None,
+      }),
+    ]),
+    'pets': list([
+      3001,
+    ]),
+    'type': 'TYPE_0',
+    'users': list([
+    ]),
+  })
+# ---
+# name: test_second_poll_fires_only_new_events_sorted_by_created_at
+  list([
+    dict({
+      'created_at': '2025-11-11T23:00:00+00:00',
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 100004,
+      'movements': list([
+      ]),
+      'pets': list([
+      ]),
+      'type': 'TYPE_6',
+      'users': list([
+        4001,
+      ]),
+    }),
+    dict({
+      'created_at': '2025-11-12T09:44:11+00:00',
+      'devices': list([
+        555,
+        100,
+      ]),
+      'household_id': 7777,
+      'id': 100003,
+      'movements': list([
+        dict({
+          'device_id': 555,
+          'direction': 'LEFT',
+          'side': None,
+        }),
+      ]),
+      'pets': list([
+        3001,
+      ]),
+      'type': 'TYPE_0',
+      'users': list([
+      ]),
+    }),
+  ])
+# ---

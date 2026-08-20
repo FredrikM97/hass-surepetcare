@@ -18,6 +18,7 @@ COORDINATOR = "coordinator"
 ENTRY_ID = "entry_id"
 SCAN_INTERVAL = 300
 POLLING_SPEED = "polling_speed"
+EVENT_TIMELINE = f"{DOMAIN}_timeline_event"
 LOCATION_INSIDE = "location_inside"
 LOCATION_OUTSIDE = "location_outside"
 OPTION_DEVICES = "devices"

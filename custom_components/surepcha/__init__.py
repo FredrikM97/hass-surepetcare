@@ -19,7 +19,12 @@ from .const import (
     OPTION_PROPERTIES,
     TOKEN,
 )
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import (
+    SurePetcareConfigEntry,
+    SurePetCareDeviceDataUpdateCoordinator,
+    SurePetCareHouseholdTimelineCoordinator,
+    SurePetCareRuntimeData,
+)
 from .services import _service_registry
 
 logger = logging.getLogger(__name__)
@@ -72,7 +77,9 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
     return True
 
 
-async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
+async def setup_devices(
+    hass, entry
+) -> tuple[SurePetcareClient, list[Any], list[Household]]:
     """Setup devices for a config entry."""
     client: SurePetcareClient = SurePetcareClient()
     try:
@@ -115,7 +122,7 @@ async def setup_devices(hass, entry) -> tuple[SurePetcareClient, list[Any]]:
     except Exception as exc:
         await client.close()
         raise ConfigEntryNotReady("Configuration not finished") from exc
-    return client, entities
+    return client, entities, households
 
 
 async def async_setup_entry(
@@ -125,7 +132,7 @@ async def async_setup_entry(
     """Set up surepetcare from a config entry."""
     logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
 
-    client, entities = await setup_devices(hass, entry)
+    client, entities, households = await setup_devices(hass, entry)
     # Not sure if needed so disable for now
     # remove_stale_devices(hass, entry, entities)
 
@@ -134,11 +141,20 @@ async def async_setup_entry(
         for device in entities
     ]
 
+    timeline_coordinators = [
+        SurePetCareHouseholdTimelineCoordinator(hass, entry, client, household)
+        for household in households
+    ]
+
     await asyncio.gather(
         *[
             coordinator.async_config_entry_first_refresh()
             for coordinator in coordinators
-        ]
+        ],
+        *[
+            coordinator.async_config_entry_first_refresh()
+            for coordinator in timeline_coordinators
+        ],
     )
 
     device_registry = dr.async_get(hass)
@@ -153,7 +169,9 @@ async def async_setup_entry(
             name=device.name,
         )
 
-    entry.runtime_data = coordinators
+    entry.runtime_data = SurePetCareRuntimeData(
+        device_coordinators=coordinators, timeline_coordinators=timeline_coordinators
+    )
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True

@@ -65,7 +65,7 @@ class DummyClient:
                 return None
         if arg == DummyHousehold.get_households():
             return [DummyHousehold()]
-        elif arg == "pets_command" or arg == "devices_command":
+        elif arg in ("pets_command", "devices_command", "timeline_command"):
             return []
         return "data"
 
@@ -130,6 +130,10 @@ class DummyHousehold:
     def fetch_pet_device_assignments(self) -> None:
         """Mirror the upstream household API used during setup."""
         return
+
+    def get_timeline(self, since_id=None, before_id=None, page_size=None) -> str:
+        """Mirror the upstream household timeline API used during setup."""
+        return "timeline_command"
 
 
 class FakeDevice:

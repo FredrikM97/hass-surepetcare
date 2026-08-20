@@ -1,21 +1,33 @@
 import logging
-from datetime import timedelta
+from collections import OrderedDict
+from dataclasses import dataclass, field
+from datetime import UTC, datetime, timedelta
 from typing import Any, TypeVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from surepcio import SurePetcareClient
+from surepcio import Household, SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
 
-from .const import OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
+from .const import EVENT_TIMELINE, OPTION_DEVICES, POLLING_SPEED, SCAN_INTERVAL
 
 logger = logging.getLogger(__name__)
 
 
-type SurePetcareConfigEntry = ConfigEntry[
-    list["SurePetCareDeviceDataUpdateCoordinator"]
-]
+@dataclass
+class SurePetCareRuntimeData:
+    """Runtime data stored on the config entry."""
+
+    device_coordinators: list[SurePetCareDeviceDataUpdateCoordinator] = field(
+        default_factory=list
+    )
+    timeline_coordinators: list[SurePetCareHouseholdTimelineCoordinator] = field(
+        default_factory=list
+    )
+
+
+type SurePetcareConfigEntry = ConfigEntry[SurePetCareRuntimeData]
 T = TypeVar("T", bound=SurePetCareBase)
 
 
@@ -59,3 +71,99 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[T]):
         )
         await self.client.api(self._device.refresh())
         return self._device
+
+
+class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
+    """Polls a household's timeline and fires each new entry as a bus event.
+
+    Events are not bound to any device/pet entity; consumers subscribe to
+    EVENT_TIMELINE directly (e.g. via automations) rather than entity state.
+    """
+
+    config_entry: SurePetcareConfigEntry
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: SurePetcareConfigEntry,
+        client: SurePetcareClient,
+        household: Household,
+    ) -> None:
+        """Initialize the household timeline coordinator."""
+        super().__init__(
+            hass,
+            logger,
+            config_entry=entry,
+            name=f"{household.id} timeline",
+            update_interval=timedelta(seconds=SCAN_INTERVAL),
+        )
+        self.client = client
+        self.household = household
+        # Timeline ids are not strictly monotonic in created_at order (rare
+        # cross-household id/time inversions), so a naive "cursor = highest id
+        # seen" can permanently skip a late-arriving event with a lower id.
+        # The cursor therefore lags one poll behind, and a bounded set of
+        # recently-seen ids provides the dedupe that makes the lag safe.
+        self._cursor: int | None = None
+        self._pending_cursor: int | None = None
+        self._seen_ids: OrderedDict[int, None] = OrderedDict()
+        self._seen_ids_limit = 500
+
+    def _seen_before(self, event_id: int) -> bool:
+        """Record an event id as seen; return whether it was already known."""
+        if event_id in self._seen_ids:
+            return True
+        self._seen_ids[event_id] = None
+        if len(self._seen_ids) > self._seen_ids_limit:
+            self._seen_ids.popitem(last=False)
+        return False
+
+    async def _async_update_data(self) -> None:
+        """Fetch new timeline events since the last known cursor and fire them."""
+        events = list(
+            await self.client.api(self.household.get_timeline(since_id=self._cursor))
+        )
+        if not events:
+            return
+
+        newest_id = max(event.id for event in events)
+
+        if self._cursor is None and self._pending_cursor is None:
+            # First poll after startup/reload: hook into the stream without
+            # replaying existing history as if it just happened.
+            for event in events:
+                self._seen_before(event.id)
+            self._cursor = self._pending_cursor = newest_id
+            return
+
+        for event in sorted(
+            events, key=lambda e: e.created_at or datetime.min.replace(tzinfo=UTC)
+        ):
+            if self._seen_before(event.id):
+                continue
+            self.hass.bus.async_fire(
+                EVENT_TIMELINE,
+                {
+                    "household_id": self.household.id,
+                    "id": event.id,
+                    "type": event.event_type.name if event.event_type else None,
+                    "created_at": event.created_at.isoformat()
+                    if event.created_at
+                    else None,
+                    "pets": [pet.id for pet in event.pets],
+                    "devices": [device.id for device in event.devices],
+                    "users": [user.id for user in event.users],
+                    "movements": [
+                        {
+                            "device_id": movement.device_id,
+                            "direction": movement.direction.name
+                            if movement.direction
+                            else None,
+                            "side": movement.side.name if movement.side else None,
+                        }
+                        for movement in event.movements
+                    ],
+                },
+            )
+        self._cursor, self._pending_cursor = self._pending_cursor, newest_id
+        return
