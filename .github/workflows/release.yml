@@ -76,7 +76,7 @@ jobs:
           CHORES=""
           COUNT=0
 
-          while IFS= read -r subject; do
+          while IFS=$'\x1f' read -r subject author; do
             [ -z "$subject" ] && continue
             COUNT=$((COUNT + 1))
 
@@ -87,18 +87,18 @@ jobs:
             if echo "$subject" | grep -qiE '^feat(\([^)]*\))?!?:'; then
               [ "$BUMP" != "major" ] && BUMP="minor"
               DESC=$(echo "$subject" | sed -E 's/^feat(\([^)]*\))?!?:[[:space:]]*//I')
-              CHANGELOG="${CHANGELOG}- ${DESC}"$'\n'
+              CHANGELOG="${CHANGELOG}- ${DESC} (${author})"$'\n'
             elif echo "$subject" | grep -qiE '^fix(\([^)]*\))?!?:'; then
               DESC=$(echo "$subject" | sed -E 's/^fix(\([^)]*\))?!?:[[:space:]]*//I')
-              CHANGELOG="${CHANGELOG}- ${DESC}"$'\n'
+              CHANGELOG="${CHANGELOG}- ${DESC} (${author})"$'\n'
             elif echo "$subject" | grep -qiE '^build(\([^)]*\))?!?:'; then
               # Dependabot/renovate commits use the "build" conventional-commit type
               DESC=$(echo "$subject" | sed -E 's/^build(\([^)]*\))?!?:[[:space:]]*//I')
-              CHORES="${CHORES}- ${DESC}"$'\n'
+              CHORES="${CHORES}- ${DESC} (${author})"$'\n'
             else
-              CHANGELOG="${CHANGELOG}- ${subject}"$'\n'
+              CHANGELOG="${CHANGELOG}- ${subject} (${author})"$'\n'
             fi
-          done <<< "$(git log $RANGE --no-merges --pretty=format:'%s')"
+          done <<< "$(git log $RANGE --no-merges --pretty=format:'%s%x1f%an')"
 
           if git log $RANGE --no-merges --pretty=format:'%b' | grep -q 'BREAKING CHANGE'; then
             BUMP="major"
@@ -126,24 +126,6 @@ jobs:
           if [ ! -s release-notes.md ]; then
             echo "## Changes" >> release-notes.md
             echo "- No changes" >> release-notes.md
-          fi
-
-          echo "## Contributors" >> release-notes.md
-          CONTRIBUTORS=""
-          while IFS= read -r hash; do
-            [ -z "$hash" ] && continue
-            LOGIN=$(gh api "repos/${{ github.repository }}/commits/$hash" --jq '.author.login // empty' 2>/dev/null || true)
-            if [ -n "$LOGIN" ]; then
-              CONTRIBUTORS="${CONTRIBUTORS}@${LOGIN}"$'\n'
-            else
-              CONTRIBUTORS="${CONTRIBUTORS}$(git log -1 --format='%an' "$hash")"$'\n'
-            fi
-          done <<< "$(git log $RANGE --no-merges --pretty=format:'%H')"
-          CONTRIBUTORS=$(echo "$CONTRIBUTORS" | sed '/^$/d' | sort -u)
-          if [ -n "$CONTRIBUTORS" ]; then
-            echo "$CONTRIBUTORS" | sed 's/^/- /' >> release-notes.md
-          else
-            echo "- No contributors" >> release-notes.md
           fi
           echo >> release-notes.md
 
