@@ -1,3 +1,4 @@
+import asyncio
 import importlib
 import inspect
 from typing import ClassVar
@@ -88,9 +89,11 @@ class DummyConfigEntry:
         self.data = {TOKEN: "tok", CLIENT_DEVICE_ID: "dev"}
         self.options = {}
         self.state = ConfigEntryState.SETUP_IN_PROGRESS
+        self.pref_disable_polling = False
+        self.unload_callbacks = []
 
-    def async_on_unload(self, _):
-        self.options = {}
+    def async_on_unload(self, callback):
+        self.unload_callbacks.append(callback)
 
 
 class DummyHass:
@@ -98,6 +101,8 @@ class DummyHass:
 
     def __init__(self):
         self.data = {}
+        self.loop = asyncio.get_running_loop()
+        self.is_stopping = False
         self.config_entries = MagicMock()
         self.config_entries.async_unload_platforms = async_unload_platforms
         self.bus = MagicMock()
@@ -280,10 +285,16 @@ async def test_async_setup_entry_and_unload():
                 await surepetcare_init.async_setup_entry(hass, entry)
         else:
             await surepetcare_init.async_setup_entry(hass, entry)
+            assert len(entry.runtime_data.timeline_coordinators) == 1
+            assert len(entry.runtime_data.timeline_coordinators[0]._listeners) == 1
         # Test unload
         hass.data[DOMAIN] = {entry.entry_id: {FACTORY: DummyClient()}}
         result = await surepetcare_init.async_unload_entry(hass, entry)
         assert result is True
+        for cleanup_callback in entry.unload_callbacks:
+            result = cleanup_callback()
+            if inspect.isawaitable(result):
+                await result
 
 
 @pytest.mark.asyncio

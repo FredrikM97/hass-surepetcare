@@ -82,6 +82,7 @@ async def test_first_poll_sets_cursor_without_firing_events(
 
     assert events == []
     assert timeline_coordinator._cursor == max(e.id for e in timeline_events)
+    assert set(timeline_coordinator._seen_ids) == {e.id for e in timeline_events}
 
 
 async def test_second_poll_fires_only_new_events_sorted_by_created_at(

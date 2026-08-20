@@ -158,6 +158,7 @@ async def async_setup_entry(
     # and trigger the whole entry's fast setup-retry loop; it keeps retrying
     # on its own update_interval like any other failed coordinator refresh.
     for coordinator in timeline_coordinators:
+        entry.async_on_unload(coordinator.async_add_listener(lambda: None))
         try:
             await coordinator.async_config_entry_first_refresh()
         except ConfigEntryNotReady:

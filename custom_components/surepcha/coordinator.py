@@ -23,11 +23,15 @@ from .const import (
 
 logger = logging.getLogger(__name__)
 
+
+# TODO: Move or remove this later to separate file
 # Event types that carry door movement data (event.movements).
 _MOVEMENT_EVENT_TYPES = {
     TimelineEventType.MOVEMENT,
     TimelineEventType.INTRUDER_MOVEMENT,
 }
+
+# TODO: Move or remove this later to separate file
 # Event types that carry feeder/fountain weight data (event.weights).
 _FEEDING_EVENT_TYPES = {
     TimelineEventType.FEEDING,
@@ -36,6 +40,8 @@ _FEEDING_EVENT_TYPES = {
     TimelineEventType.TARGET_WEIGHT_SET,
     TimelineEventType.TARE,
 }
+
+# TODO: Move or remove this later to separate file
 _DRINKING_EVENT_TYPES = {
     TimelineEventType.POSEIDON_DRINKING,
     TimelineEventType.POSEIDON_WEIGHT_CHANGED,
@@ -43,6 +49,7 @@ _DRINKING_EVENT_TYPES = {
 }
 
 
+# TODO: Move or remove this later to separate file
 def _movement_details(movement: MovementResource) -> dict[str, Any]:
     """Build the payload for a single door movement entry."""
     return {
@@ -54,6 +61,7 @@ def _movement_details(movement: MovementResource) -> dict[str, Any]:
     }
 
 
+# TODO: Move or remove this later to separate file
 def _weight_details(weight: WeightResource) -> dict[str, Any]:
     """Build the payload for a single feeder/fountain weight reading."""
     return {
@@ -70,6 +78,7 @@ def _weight_details(weight: WeightResource) -> dict[str, Any]:
     }
 
 
+# TODO: Move or remove this later to separate file
 def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
     """Build the fields common to every timeline event, regardless of type."""
     return {
@@ -85,6 +94,7 @@ def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, An
     }
 
 
+# TODO: Move or remove this later to separate file
 def build_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
     """Build the EVENT_TIMELINE payload for one event, by event category."""
     payload = _base_event_payload(household_id, event)
@@ -196,21 +206,24 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         self._seen_ids: OrderedDict[int, None] = OrderedDict()
         self._seen_ids_limit = 500
 
-    def _seen_before(self, event_id: int) -> bool:
-        """Record an event id as seen; return whether it was already known."""
-        if event_id in self._seen_ids:
-            return True
+    def _mark_seen(self, event_id: int) -> None:
+        """Record an event id as seen after it has been fired."""
         self._seen_ids[event_id] = None
         if len(self._seen_ids) > self._seen_ids_limit:
             self._seen_ids.popitem(last=False)
-        return False
 
     async def _async_update_data(self) -> None:
         """Fetch new timeline events since the last known cursor and fire them."""
+        logger.debug(
+            "Fetching timeline for household %s (since_id=%s)",
+            self.household.id,
+            self._cursor,
+        )
         events = list(
             await self.client.api(self.household.get_timeline(since_id=self._cursor))
         )
         if not events:
+            logger.debug("No timeline events for household %s", self.household.id)
             return
 
         newest_id = max(event.id for event in events)
@@ -219,17 +232,31 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             # First poll after startup/reload: hook into the stream without
             # replaying existing history as if it just happened.
             for event in events:
-                self._seen_before(event.id)
+                self._mark_seen(event.id)
             self._cursor = self._pending_cursor = newest_id
+            logger.debug(
+                "Timeline baseline set for household %s (cursor=%s)",
+                self.household.id,
+                newest_id,
+            )
             return
 
+        fired = 0
         for event in sorted(
             events, key=lambda e: e.created_at or datetime.min.replace(tzinfo=UTC)
         ):
-            if self._seen_before(event.id):
+            if event.id in self._seen_ids:
                 continue
             self.hass.bus.async_fire(
                 EVENT_TIMELINE, build_event_payload(self.household.id, event)
             )
+            self._mark_seen(event.id)
+            fired += 1
+        logger.debug(
+            "Fired %d/%d new timeline event(s) for household %s",
+            fired,
+            len(events),
+            self.household.id,
+        )
         self._cursor, self._pending_cursor = self._pending_cursor, newest_id
         return
