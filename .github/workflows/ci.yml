@@ -1,0 +1,58 @@
+name: CI
+
+# PR/push quality gate: linting (pre-commit) and tests+coverage.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: Install pre-commit
+        run: pip install pre-commit
+      - name: Run pre-commit on changed files (PR)
+        if: github.event_name == 'pull_request'
+        run: pre-commit run --show-diff-on-failure --color=always --from-ref origin/${{ github.base_ref }} --to-ref HEAD
+      - name: Run pre-commit on all files (push/dispatch)
+        if: github.event_name != 'pull_request'
+        run: pre-commit run --show-diff-on-failure --color=always --all-files
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install uv
+          uv sync --group dev
+      - name: Verify manifest and hacs to match toml dependencies
+        run: |
+          uv run python scripts/verify_packages.py
+
+      - name: Run tests with coverage
+        run: |
+          uv run pytest --cov=custom_components --cov-branch --cov-report=xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

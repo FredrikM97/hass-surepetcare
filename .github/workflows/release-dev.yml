@@ -14,7 +14,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'FredrikM97'
+    if: github.repository == 'FredrikM97/hass-surepetcare' && github.repository_owner == 'FredrikM97'
     steps:
       - uses: actions/checkout@v7
         with:

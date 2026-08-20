@@ -40,7 +40,7 @@ Star ⭐ the repository to help others discover the integration.
 
 
 
-[tests-shield]: https://img.shields.io/github/actions/workflow/status/FredrikM97/hass-surepetcare/test-and-coverage.yml?style=for-the-badge&label=Tests
+[tests-shield]: https://img.shields.io/github/actions/workflow/status/FredrikM97/hass-surepetcare/ci.yml?style=for-the-badge&label=Tests
 [tests]: https://github.com/FredrikM97/hass-surepetcare/actions
 
 [codecov-shield]: https://img.shields.io/codecov/c/github/FredrikM97/hass-surepetcare?style=for-the-badge&label=Coverage
