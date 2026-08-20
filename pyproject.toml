@@ -19,8 +19,6 @@ dev = [
     "pre-commit==4.6.1",
     "pytest-homeassistant-custom-component==0.13.339",
     "ruff==0.16.3",
-    "pyupgrade==3.21.2",
-    "codespell==2.4.3",
     "mypy==2.1.0"
 ]
 

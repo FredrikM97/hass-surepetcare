@@ -1,20 +1,6 @@
 repos:
   - repo: local
     hooks:
-      - id: pyupgrade
-        name: pyupgrade
-        entry: uv run pyupgrade --py37-plus
-        language: system
-        types: [python]
-      - id: codespell
-        name: codespell
-        entry: uv run codespell
-        language: system
-        args:
-          - --ignore-words-list=hass,alot,datas,dof,dur,farenheit,hist,iff,ines,ist,lightsensor,mut,nd,pres,referer,ser,serie,te,technik,ue,uint,visability,wan,wanna,withing
-          - --skip="./.*,*.csv,*.json"
-          - --quiet-level=2
-        exclude_types: [csv, json]
       - id: ruff-check
         name: ruff check
         entry: uv run ruff check --fix --exit-non-zero-on-fix
@@ -35,4 +21,8 @@ repos:
           - --show-error-context
           - --explicit-package-bases
           - --ignore-missing-imports
+          - custom_components/surepcha
         files: ^custom_components/surepcha/.*\.py$
+        # Single whole-package invocation: per-file invocations race on the shared
+        # .mypy_cache sqlite store and intermittently corrupt it.
+        pass_filenames: false
