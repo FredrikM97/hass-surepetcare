@@ -27,8 +27,10 @@ from custom_components.surepcha.const import (
     NAME,
     OPTION_DEVICES,
     OPTION_PROPERTIES,
+    OPTION_TIMELINE,
     POLLING_SPEED,
     PRODUCT_ID,
+    TIMELINE_POLLING_SPEED,
     TOKEN,
 )
 
@@ -97,7 +99,7 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
     result = await flow.async_step_init()
     assert result["type"] == FlowResultType.MENU
     assert result["step_id"] == "init"
-    assert result["menu_options"] == ["manual_properties", "devices"]
+    assert result["menu_options"] == ["manual_properties", "timeline", "devices"]
 
     result2 = await flow.async_step_manual_properties()
     assert result2["type"] == FlowResultType.FORM
@@ -117,6 +119,18 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
         LOCATION_INSIDE: "Kitchen",
         LOCATION_OUTSIDE: "Garden",
     }
+
+    flow = SurePetCareOptionsFlow(mock_config_entry)
+    flow.hass = hass
+
+    result_timeline = await flow.async_step_timeline()
+    assert result_timeline["type"] == FlowResultType.FORM
+    assert result_timeline["step_id"] == "timeline"
+    assert TIMELINE_POLLING_SPEED in result_timeline["data_schema"].schema
+
+    result_timeline2 = await flow.async_step_timeline({TIMELINE_POLLING_SPEED: 120})
+    assert result_timeline2["type"] == FlowResultType.CREATE_ENTRY
+    assert flow._options[OPTION_TIMELINE] == {TIMELINE_POLLING_SPEED: 120}
 
     flow = SurePetCareOptionsFlow(mock_config_entry)
     flow.hass = hass
@@ -293,7 +307,7 @@ async def test_options_flow_full(
     result = await flow.async_step_init()
     assert result["type"] == "menu"
     assert result["step_id"] == "init"
-    assert result["menu_options"] == ["manual_properties", "devices"]
+    assert result["menu_options"] == ["manual_properties", "timeline", "devices"]
 
     assert helper_fetch_area_options(area_registry) == [
         {"value": "kitchen", "label": "Kitchen"},
@@ -615,18 +629,22 @@ async def test_reauth_confirm_success(hass) -> None:
 
 
 @pytest.mark.asyncio
-async def test_options_init_aborts_when_no_devices(
+async def test_options_init_hides_devices_menu_when_no_devices(
     hass: HomeAssistant, mock_config_entry_missing_entities
 ) -> None:
-    """Options init aborts with no_devices_or_pet_found when OPTION_DEVICES is empty."""
+    """Options init still shows manual_properties/timeline when OPTION_DEVICES is empty.
+
+    Those settings are household-wide, so only the "devices" option is
+    hidden - the whole flow no longer aborts.
+    """
     mock_config_entry_missing_entities.add_to_hass(hass)
     flow = SurePetCareOptionsFlow(mock_config_entry_missing_entities)
     flow.hass = hass
 
     result = await flow.async_step_init()
 
-    assert result["type"] is FlowResultType.ABORT
-    assert result["reason"] == "no_devices_or_pet_found"
+    assert result["type"] == FlowResultType.MENU
+    assert result["menu_options"] == ["manual_properties", "timeline"]
 
 
 def test_device_picker_unknown_product_id() -> None:

@@ -29,10 +29,12 @@
         "description": "Välj om du vill konfigurera manuella platsnamn eller enhetsspecifika inställningar.",
         "menu_options": {
           "manual_properties": "Manuella egenskaper",
+          "timeline": "Tidslinjehändelser",
           "devices": "Enheter"
         },
         "menu_option_descriptions": {
           "manual_properties": "Ange reservnamn som används för manuellt uppdaterad husdjursposition.",
+          "timeline": "Ställ in hur ofta hushållets tidslinjehändelser hämtas.",
           "devices": "Välj en enhet och konfigurera dess åsidosatta inställningar."
         }
       },
@@ -42,6 +44,13 @@
         "data": {
           "location_inside": "Inomhusplats",
           "location_outside": "Utomhusplats"
+        }
+      },
+      "timeline": {
+        "title": "Tidslinjehändelser",
+        "description": "Ställ in hur ofta hushållets tidslinjehändelser hämtas.",
+        "data": {
+          "timeline_polling_speed": "Uppdateringsintervall (sekunder)"
         }
       },
       "devices": {
@@ -57,9 +66,6 @@
           "location_outside": "Utomhusplats"
         }
       }
-    },
-    "error": {
-      "no_devices_or_pet_found": "OptionFlow kan inte hitta några konfigurerbara enheter eller husdjur."
     }
   },
   "entity": {

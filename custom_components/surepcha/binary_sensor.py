@@ -129,7 +129,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up a Surepetcare config entry."""
 
-    coordinators = entry.runtime_data
+    coordinators = entry.runtime_data.device_coordinators
 
     entities = [
         SurePetCareBinarySensor(

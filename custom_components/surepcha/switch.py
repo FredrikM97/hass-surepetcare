@@ -116,7 +116,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up SurePetCare switch for each matching device."""
-    coordinators = entry.runtime_data
+    coordinators = entry.runtime_data.device_coordinators
 
     entities = [
         SurePetCareSwitch(

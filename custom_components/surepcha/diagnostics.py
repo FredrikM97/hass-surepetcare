@@ -32,7 +32,8 @@ async def async_get_device_diagnostics(
 ) -> dict[str, Any]:
     """Return diagnostics for a device."""
     device_id = next(iter(device.identifiers))[1]
-    coordinators = getattr(entry, "runtime_data", None)
+    runtime_data = getattr(entry, "runtime_data", None)
+    coordinators = runtime_data.device_coordinators if runtime_data else None
 
     if not coordinators:
         return {}

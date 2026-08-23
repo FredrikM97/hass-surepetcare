@@ -143,7 +143,8 @@ def get_coordinator(hass, device_id) -> SurePetCareDeviceDataUpdateCoordinator:
     device_registry = async_get_device_registry(hass)
     config_entries = hass.config_entries.async_loaded_entries(DOMAIN)
     for entry in config_entries:
-        for coordinator in getattr(entry, "runtime_data", []):
+        runtime_data = getattr(entry, "runtime_data", None)
+        for coordinator in runtime_data.device_coordinators if runtime_data else []:
             # Get the HA device registry entry for this coordinator's device
             device_entry = device_registry.async_get_device(
                 identifiers={(DOMAIN, str(coordinator._device.id))}

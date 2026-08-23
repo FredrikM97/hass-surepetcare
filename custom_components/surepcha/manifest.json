@@ -14,7 +14,7 @@
     "surepcio"
   ],
   "requirements": [
-      "py-surepetcare==0.6.3"
+      "py-surepetcare @ git+https://github.com/FredrikM97/py-surepetcare.git@main"
   ],
   "version": "0.0.0"
 }
