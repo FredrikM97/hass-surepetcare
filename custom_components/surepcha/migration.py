@@ -3,7 +3,11 @@
 import logging
 from typing import Any
 
-from homeassistant.config_entries import SOURCE_INTEGRATION_DISCOVERY, ConfigEntry
+from homeassistant.config_entries import (
+    SOURCE_INTEGRATION_DISCOVERY,
+    ConfigEntry,
+    ConfigEntryDisabler,
+)
 from homeassistant.const import CONF_TOKEN
 from homeassistant.core import HomeAssistant
 from surepcio import Household, SurePetcareClient
@@ -45,7 +49,7 @@ async def create_sibling_entries(
     """
     for household, entity_info in households:
         try:
-            await hass.config_entries.flow.async_init(
+            result = await hass.config_entries.flow.async_init(
                 DOMAIN,
                 context={"source": SOURCE_INTEGRATION_DISCOVERY},
                 data={
@@ -64,6 +68,13 @@ async def create_sibling_entries(
                 exc_info=True,
             )
             return False
+
+        # No devices/pets to show yet, so there's no point enabling it by default.
+        new_entry = result.get("result")
+        if not entity_info and new_entry is not None:
+            await hass.config_entries.async_set_disabled_by(
+                new_entry.entry_id, ConfigEntryDisabler.USER
+            )
     return True
 
 

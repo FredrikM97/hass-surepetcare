@@ -33,7 +33,10 @@ from custom_components.surepcha.const import (
     TIMELINE_POLLING_SPEED,
     TOKEN,
 )
-from custom_components.surepcha.migration import _ensure_household_split
+from custom_components.surepcha.migration import (
+    _ensure_household_split,
+    create_sibling_entries,
+)
 
 
 class MockDevice:
@@ -312,7 +315,9 @@ async def test_reconfigure_refreshes_title_for_already_split_entry(
 
     with (
         patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient),
-        patch.object(hass.config_entries.flow, "async_init", AsyncMock()) as init_mock,
+        patch.object(
+            hass.config_entries.flow, "async_init", AsyncMock(return_value={})
+        ) as init_mock,
     ):
         result = await flow.async_step_reconfigure()
 
@@ -573,7 +578,7 @@ async def test_ensure_household_split_splits_remaining_households(
             MultiHouseholdClient,
         ),
         patch.object(
-            hass.config_entries.flow, "async_init", AsyncMock()
+            hass.config_entries.flow, "async_init", AsyncMock(return_value={})
         ) as flow_init_mock,
     ):
         await _ensure_household_split(hass, entry)
@@ -583,6 +588,40 @@ async def test_ensure_household_split_splits_remaining_households(
     assert entry.title == "First Household"
     flow_init_mock.assert_awaited_once()
     assert flow_init_mock.call_args.kwargs["data"][HOUSEHOLD_ID] == 2
+
+
+@pytest.mark.asyncio
+async def test_create_sibling_entries_disables_entry_with_no_devices(
+    hass: HomeAssistant,
+) -> None:
+    """A household with no devices/pets has nothing to show, so its new entry
+    is disabled by default instead of being enabled with zero entities."""
+    empty_household = Household({"id": 2, "name": "Empty Household"})
+    populated_household = Household({"id": 3, "name": "Populated Household"})
+
+    created_entries = {}
+
+    async def fake_async_init(domain, *, context, data):
+        entry = MockConfigEntry(
+            domain=domain, data=data, unique_id=str(data[HOUSEHOLD_ID])
+        )
+        entry.add_to_hass(hass)
+        created_entries[data[HOUSEHOLD_ID]] = entry
+        return {"type": "create_entry", "result": entry}
+
+    with patch.object(
+        hass.config_entries.flow, "async_init", side_effect=fake_async_init
+    ):
+        result = await create_sibling_entries(
+            hass,
+            "tok",
+            "dev",
+            [(empty_household, {}), (populated_household, {"1": {"name": "Feeder"}})],
+        )
+
+    assert result is True
+    assert created_entries[2].disabled_by is not None
+    assert created_entries[3].disabled_by is None
 
 
 @pytest.mark.asyncio
