@@ -147,6 +147,19 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         )
         return entity_info
 
+    async def _fetch_household_and_entities(
+        self, client: SurePetcareClient, household_id: int
+    ) -> tuple[Household | None, dict]:
+        """Fetch the household matching household_id and its entity info."""
+        households: list[Household] = await client.api(Household.get_households())
+        household = next((h for h in households if h.id == household_id), None)
+        if household is None:
+            return None, {}
+        entity_info, _ = await self._async_fetch_entities_for_household(
+            client, household
+        )
+        return household, entity_info
+
     def _split_by_configured(
         self, household_data: list[tuple[Household, dict]]
     ) -> tuple[list, list]:
@@ -237,15 +250,19 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         household_id = entry.data.get(HOUSEHOLD_ID)
 
         if household_id:
-            entity_info = await self._fetch_entity_info_for_id(client, household_id)
-            await client.close()
-            self.hass.config_entries.async_update_entry(
-                entry,
-                options={
-                    OPTION_DEVICES: entity_info,
-                    OPTION_PROPERTIES: option_properties,
-                },
+            household, entity_info = await self._fetch_household_and_entities(
+                client, household_id
             )
+            await client.close()
+            if household is not None:
+                self.hass.config_entries.async_update_entry(
+                    entry,
+                    title=self._household_title(household),
+                    options={
+                        OPTION_DEVICES: entity_info,
+                        OPTION_PROPERTIES: option_properties,
+                    },
+                )
         else:
             household_data = await self._fetch_all_household_data(client)
             await client.close()

@@ -290,6 +290,38 @@ async def test_reconfiguration_flow(
     assert mock_config_entry == snapshot
 
 
+@pytest.mark.asyncio
+async def test_reconfigure_refreshes_title_for_already_split_entry(
+    hass: HomeAssistant,
+) -> None:
+    """Reconfiguring an already-split entry must refresh a stale title to match
+    the current household name; discovering other households is out of scope
+    for reconfigure (only the legacy pre-split path does that)."""
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        title="Stale Title",
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 1},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="1",
+    )
+    entry.add_to_hass(hass)
+
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    flow.context = {ENTRY_ID: entry.entry_id}
+
+    with (
+        patch("custom_components.surepcha.config_flow.SurePetcareClient", MockClient),
+        patch.object(hass.config_entries.flow, "async_init", AsyncMock()) as init_mock,
+    ):
+        result = await flow.async_step_reconfigure()
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "entities_reconfigured"
+    assert entry.title == "Test Household"
+    init_mock.assert_not_called()
+
+
 @pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
 async def test_options_flow_full(
     mock_config_entry,
