@@ -49,7 +49,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
-    MINOR_VERSION = 4
+    MINOR_VERSION = 5
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user."""
@@ -134,32 +134,6 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             result.append((household, entity_info or {}))
         return result
 
-    async def _fetch_entity_info_for_id(
-        self, client: SurePetcareClient, household_id: int
-    ) -> dict | None:
-        """Fetch entity info for the household matching household_id."""
-        households: list[Household] = await client.api(Household.get_households())
-        household = next((h for h in households if h.id == household_id), None)
-        if household is None:
-            return None
-        entity_info, _ = await self._async_fetch_entities_for_household(
-            client, household
-        )
-        return entity_info
-
-    async def _fetch_household_and_entities(
-        self, client: SurePetcareClient, household_id: int
-    ) -> tuple[Household | None, dict]:
-        """Fetch the household matching household_id and its entity info."""
-        households: list[Household] = await client.api(Household.get_households())
-        household = next((h for h in households if h.id == household_id), None)
-        if household is None:
-            return None, {}
-        entity_info, _ = await self._async_fetch_entities_for_household(
-            client, household
-        )
-        return household, entity_info
-
     def _split_by_configured(
         self, household_data: list[tuple[Household, dict]]
     ) -> tuple[list, list]:
@@ -231,9 +205,8 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
 
     async def async_step_reconfigure(self, user_input: dict[str, Any] | None = None):
         """Refresh entities; splits legacy all-household entries into per-household entries."""
-        # Deferred import: .migration imports this module, so importing it at
-        # module level here would create a circular import.
-        from .migration import create_sibling_entries
+        # Deferred import to avoid a circular import: .migration imports this module.
+        from .migration import create_household_config_entries
 
         entry = self.hass.config_entries.async_get_entry(
             cast(dict[str, Any], self.context)[ENTRY_ID]
@@ -246,48 +219,55 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         if errors:
             await client.close()
             return self.async_abort(reason="auth_failed")
+
         option_properties = entry.options.get(OPTION_PROPERTIES, {})
         household_id = entry.data.get(HOUSEHOLD_ID)
+        household_data = await self._fetch_all_household_data(client)
+        await client.close()
 
         if household_id:
-            household, entity_info = await self._fetch_household_and_entities(
-                client, household_id
+            own = next(
+                (h_e for h_e in household_data if h_e[0].id == household_id), None
             )
-            await client.close()
-            if household is not None:
+            if own is None:
+                logger.warning(
+                    "Household %s for entry %s was not found on this account",
+                    household_id,
+                    entry.entry_id,
+                )
+                return self.async_abort(reason="entities_reconfigured")
+            household, entity_info = own
+            self.hass.config_entries.async_update_entry(
+                entry,
+                title=self._household_title(household),
+                options={
+                    OPTION_DEVICES: entity_info,
+                    OPTION_PROPERTIES: option_properties,
+                },
+            )
+        else:
+            # Households already claimed elsewhere are skipped, not re-triggered.
+            unconfigured, _ = self._split_by_configured(household_data)
+            if not unconfigured:
+                logger.warning(
+                    "No unclaimed household found on this account for entry %s",
+                    entry.entry_id,
+                )
+                return self.async_abort(reason="entities_reconfigured")
+            (first_household, first_entity_info), *remaining = unconfigured
+            if await create_household_config_entries(
+                self.hass, entry.data[TOKEN], entry.data[CLIENT_DEVICE_ID], remaining
+            ):
                 self.hass.config_entries.async_update_entry(
                     entry,
-                    title=self._household_title(household),
+                    title=self._household_title(first_household),
+                    data={**entry.data, HOUSEHOLD_ID: first_household.id},
                     options={
-                        OPTION_DEVICES: entity_info,
+                        OPTION_DEVICES: first_entity_info,
                         OPTION_PROPERTIES: option_properties,
                     },
                 )
-        else:
-            household_data = await self._fetch_all_household_data(client)
-            await client.close()
-            # Only households not already claimed by another entry are ours to
-            # take/discover; the rest are skipped instead of re-triggered.
-            unconfigured, _ = self._split_by_configured(household_data)
-            if unconfigured:
-                (first_household, first_entity_info), *remaining = unconfigured
-                if await create_sibling_entries(
-                    self.hass,
-                    entry.data[TOKEN],
-                    entry.data[CLIENT_DEVICE_ID],
-                    remaining,
-                ):
-                    self.hass.config_entries.async_update_entry(
-                        entry,
-                        title=self._household_title(first_household),
-                        data={**entry.data, HOUSEHOLD_ID: first_household.id},
-                        options={
-                            OPTION_DEVICES: first_entity_info,
-                            OPTION_PROPERTIES: option_properties,
-                        },
-                    )
 
-        logger.debug("Reconfiguration complete for entry %s", entry.entry_id)
         return self.async_abort(reason="entities_reconfigured")
 
     async def _authenticate(

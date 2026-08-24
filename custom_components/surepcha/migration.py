@@ -35,18 +35,13 @@ def migrate_legacy_manual_properties(new_options: dict[str, Any]) -> None:
     )
 
 
-async def create_sibling_entries(
+async def create_household_config_entries(
     hass: HomeAssistant,
     token: str,
     device_id: str,
     households: list[tuple[Household, dict]],
 ) -> bool:
-    """Create discovery-flow entries for the given households.
-
-    Idempotent: the discovery step aborts on its own once a household is
-    already configured, so calling this again for the same households is
-    safe. Returns False if a create failed, so the caller can retry later.
-    """
+    """Create discovery-flow entries for the given households; returns False if a create failed."""
     for household, entity_info in households:
         try:
             result = await hass.config_entries.flow.async_init(
@@ -81,11 +76,7 @@ async def create_sibling_entries(
 async def _fetch_unconfigured_households(
     hass: HomeAssistant, token: str | None, device_id: str | None
 ) -> list[tuple[Household, dict]] | None:
-    """Fetch households not yet claimed by another config entry.
-
-    Returns None if there's nothing to do: the fetch failed, or every
-    household is already represented by an entry.
-    """
+    """Fetch households not yet claimed by another entry; None if there's nothing to do."""
     client = SurePetcareClient()
     flow = SurePetCareConfigFlow()
     flow.hass = hass
@@ -115,15 +106,12 @@ async def migrate_household_split(
     new_data: dict[str, Any],
     new_options: dict[str, Any],
 ) -> tuple[str, str | None]:
-    """Split a legacy multi-household entry into per-household entries.
+    """Split a legacy multi-household entry into per-household entries during migration.
 
-    Called from async_migrate_entry for entries genuinely below minor_version 4.
     Mutates new_data/new_options in place with the first household's info and
-    creates sibling entries for any remaining households, so the split lands in
-    the same async_update_entry call the rest of the migration already does.
-    Returns the (title, unique_id) to apply there (unchanged if the split
-    couldn't be completed yet, e.g. a network failure - it will be retried by
-    _ensure_household_split on the next setup).
+    creates sibling entries for the rest, so it lands in the same
+    async_update_entry call the rest of the migration already does. Returns
+    the (title, unique_id) to apply there (unchanged if the split failed).
     """
     if HOUSEHOLD_ID in new_data:
         return config_entry.title, config_entry.unique_id
@@ -135,7 +123,7 @@ async def migrate_household_split(
         return config_entry.title, config_entry.unique_id
 
     (first_household, first_entity_info), *remaining = unconfigured
-    if not await create_sibling_entries(
+    if not await create_household_config_entries(
         hass, new_data[TOKEN], new_data[CLIENT_DEVICE_ID], remaining
     ):
         return config_entry.title, config_entry.unique_id
@@ -148,14 +136,7 @@ async def migrate_household_split(
 
 
 async def _ensure_household_split(hass: HomeAssistant, entry: ConfigEntry) -> None:
-    """Split a legacy multi-household entry into per-household entries.
-
-    Runs on every setup rather than being gated behind a config-entry version
-    bump, so entries that were previously left without a HOUSEHOLD_ID (e.g. from
-    a prior release that bumped minor_version without performing the split, or
-    a split that partially failed) keep retrying until it succeeds, without
-    requiring another version increment.
-    """
+    """Split a legacy multi-household entry into per-household entries directly on the entry."""
     if HOUSEHOLD_ID in entry.data:
         return
 
@@ -166,7 +147,7 @@ async def _ensure_household_split(hass: HomeAssistant, entry: ConfigEntry) -> No
         return
 
     (first_household, first_entity_info), *remaining = unconfigured
-    if not await create_sibling_entries(
+    if not await create_household_config_entries(
         hass, entry.data[TOKEN], entry.data[CLIENT_DEVICE_ID], remaining
     ):
         return

@@ -63,11 +63,8 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         new_unique_id = config_entry.unique_id
         if config_entry.minor_version < 3:
             migrate_legacy_manual_properties(new_options)
-        if config_entry.minor_version < 4:
-            # Fold the legacy single-hub (multiple households/devices) split
-            # into this same migration pass. Entries already stuck on 4 from a
-            # prior buggy release are no longer auto-fixed; only a manual
-            # reconfigure will split them now.
+        if config_entry.minor_version < 5:
+            # Bumped to force re-migration of entries stuck on a prior version.
             new_title, new_unique_id = await migrate_household_split(
                 hass, config_entry, new_data, new_options
             )
@@ -77,7 +74,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             options=new_options,
             title=new_title,
             unique_id=new_unique_id,
-            minor_version=4,
+            minor_version=5,
             version=1,
         )
 

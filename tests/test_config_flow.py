@@ -35,7 +35,7 @@ from custom_components.surepcha.const import (
 )
 from custom_components.surepcha.migration import (
     _ensure_household_split,
-    create_sibling_entries,
+    create_household_config_entries,
 )
 
 
@@ -407,7 +407,7 @@ async def test_async_migrate_entry_adds_manual_properties(
         migrated = await async_migrate_entry(hass, entry)
     assert migrated
     assert MANUAL_PROPERTIES not in entry.options
-    assert entry.minor_version == 4
+    assert entry.minor_version == 5
     assert entry.version == 1
     assert OPTION_PROPERTIES in entry.options
     assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {
@@ -421,11 +421,34 @@ async def test_async_migrate_entry_adds_manual_properties(
 
 
 @pytest.mark.asyncio
-async def test_async_migrate_entry_skips_household_split_when_already_stuck_on_4(
+async def test_async_migrate_entry_renames_entry_to_household_name(
     hass: HomeAssistant,
 ) -> None:
-    """Entries already at minor_version 4 (from the prior buggy release) are no
-    longer auto-fixed by migration; only a manual reconfigure will split them."""
+    """Migration must rename the entry's title to match the account's household name."""
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=1,
+        title="SurePetCare Devices",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="legacy",
+    )
+    entry.add_to_hass(hass)
+
+    with patch("custom_components.surepcha.migration.SurePetcareClient", MockClient):
+        await async_migrate_entry(hass, entry)
+
+    assert entry.title == "Test Household"
+
+
+@pytest.mark.asyncio
+async def test_async_migrate_entry_fixes_entries_stuck_on_4(
+    hass: HomeAssistant,
+) -> None:
+    """Entries stuck at minor_version 4 (from a prior release that bumped the
+    version without ever splitting them) get migrated once MINOR_VERSION is
+    bumped to 5, since that's what makes HA re-invoke migration for them."""
     entry = MockConfigEntry(
         version=1,
         minor_version=4,
@@ -437,13 +460,39 @@ async def test_async_migrate_entry_skips_household_split_when_already_stuck_on_4
     )
     entry.add_to_hass(hass)
 
+    with patch("custom_components.surepcha.migration.SurePetcareClient", MockClient):
+        migrated = await async_migrate_entry(hass, entry)
+
+    assert migrated
+    assert entry.minor_version == 5
+    assert entry.data[HOUSEHOLD_ID] == 1
+    assert entry.unique_id == "1"
+    assert entry.title == "Test Household"
+
+
+@pytest.mark.asyncio
+async def test_async_migrate_entry_is_noop_once_household_id_present(
+    hass: HomeAssistant,
+) -> None:
+    """An entry that already has a HOUSEHOLD_ID must not be re-split or re-fetched."""
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=4,
+        title="Test Household",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 1},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="1",
+    )
+    entry.add_to_hass(hass)
+
     with patch("custom_components.surepcha.migration.SurePetcareClient") as client_cls:
         migrated = await async_migrate_entry(hass, entry)
 
     assert migrated
     client_cls.assert_not_called()
-    assert HOUSEHOLD_ID not in entry.data
-    assert entry.title == "Test SurePetCare entry"
+    assert entry.minor_version == 5
+    assert entry.title == "Test Household"
 
 
 @pytest.mark.asyncio
@@ -453,10 +502,10 @@ async def test_async_migrate_entry_handles_every_historical_minor_version(
 ) -> None:
     """Exercise every `if config_entry.minor_version < N` branch in async_migrate_entry.
 
-    An entry below 3 must get its legacy manual_properties migrated; an entry
-    below 4 must get the household split; an entry already at 4 must get
-    neither (skipped, since HA won't re-invoke migration for it - see
-    test_async_migrate_entry_skips_household_split_when_already_stuck_on_4).
+    An entry below 3 must get its legacy manual_properties migrated. Every
+    entry without a HOUSEHOLD_ID - including one already stuck on minor_version
+    4 - must get the household split, since the MINOR_VERSION bump to 5 makes
+    HA re-invoke migration for all of them.
     """
     options: dict = {OPTION_DEVICES: {}}
     if minor_version < 3:
@@ -480,17 +529,12 @@ async def test_async_migrate_entry_handles_every_historical_minor_version(
 
     assert migrated
     assert entry.version == 1
-    assert entry.minor_version == 4
+    assert entry.minor_version == 5
     assert MANUAL_PROPERTIES not in entry.options
     assert OPTION_PROPERTIES in entry.options
-
-    if minor_version < 4:
-        assert entry.data[HOUSEHOLD_ID] == 1
-        assert entry.unique_id == "1"
-        assert entry.title == "Test Household"
-    else:
-        assert HOUSEHOLD_ID not in entry.data
-        assert entry.title == "Test SurePetCare entry"
+    assert entry.data[HOUSEHOLD_ID] == 1
+    assert entry.unique_id == "1"
+    assert entry.title == "Test Household"
 
 
 @pytest.mark.asyncio
@@ -591,7 +635,7 @@ async def test_ensure_household_split_splits_remaining_households(
 
 
 @pytest.mark.asyncio
-async def test_create_sibling_entries_disables_entry_with_no_devices(
+async def test_create_household_config_entries_disables_entry_with_no_devices(
     hass: HomeAssistant,
 ) -> None:
     """A household with no devices/pets has nothing to show, so its new entry
@@ -612,7 +656,7 @@ async def test_create_sibling_entries_disables_entry_with_no_devices(
     with patch.object(
         hass.config_entries.flow, "async_init", side_effect=fake_async_init
     ):
-        result = await create_sibling_entries(
+        result = await create_household_config_entries(
             hass,
             "tok",
             "dev",
@@ -827,20 +871,6 @@ async def test_async_fetch_entities_no_devices() -> None:
 
     assert entity_info == {}
     assert errors == {}
-
-
-@pytest.mark.asyncio
-async def test_fetch_entity_info_for_id_not_found() -> None:
-    """_fetch_entity_info_for_id returns None when the household_id is not present."""
-    flow = SurePetCareConfigFlow()
-    mock_household = MagicMock()
-    mock_household.id = 1
-    client = MagicMock()
-    client.api = AsyncMock(return_value=[mock_household])
-
-    result = await flow._fetch_entity_info_for_id(client, household_id=999)
-
-    assert result is None
 
 
 @pytest.mark.asyncio
