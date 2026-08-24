@@ -11,11 +11,13 @@ from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
 from surepcio import Household, SurePetcareClient
 
+from .config_flow import SurePetCareConfigFlow
 from .const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
     HOUSEHOLD_ID,
     MANUAL_PROPERTIES,
+    OPTION_DEVICES,
     OPTION_PROPERTIES,
     TOKEN,
 )
@@ -65,8 +67,20 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
                     )
                 }
             )
+        new_unique_id = config_entry.unique_id
+        if HOUSEHOLD_ID not in new_data:
+            # Entries stuck on minor_version 4 from a prior release that bumped
+            # the version without ever performing the split are re-migrated here too.
+            new_unique_id = await _migrate_household_split(
+                hass, config_entry, new_data, new_options
+            )
         hass.config_entries.async_update_entry(
-            config_entry, data=new_data, options=new_options, minor_version=4, version=1
+            config_entry,
+            data=new_data,
+            options=new_options,
+            unique_id=new_unique_id,
+            minor_version=5,
+            version=1,
         )
 
     logger.debug(
@@ -75,6 +89,49 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         config_entry.minor_version,
     )
     return True
+
+
+async def _migrate_household_split(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    new_data: dict[str, Any],
+    new_options: dict[str, Any],
+) -> str | None:
+    """Split a legacy multi-household entry into per-household entries.
+
+    Mutates new_data/new_options in place with the first household's info and
+    schedules discovery flows for any remaining households. Returns the unique_id
+    to assign to this entry (unchanged if the split could not be performed).
+    """
+    client = SurePetcareClient()
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    try:
+        await client.login(
+            token=new_data.get(TOKEN), device_id=new_data.get(CLIENT_DEVICE_ID)
+        )
+        household_data = await flow._fetch_all_household_data(client)
+    except Exception:
+        logger.warning(
+            "Could not split households for entry %s during migration; "
+            "it will keep loading all households until a manual reconfigure",
+            config_entry.entry_id,
+            exc_info=True,
+        )
+        return config_entry.unique_id
+    finally:
+        await client.close()
+
+    if not household_data:
+        return config_entry.unique_id
+
+    (first_household, first_entity_info), *remaining = household_data
+    flow._trigger_discovery_flows(
+        new_data[TOKEN], new_data[CLIENT_DEVICE_ID], remaining
+    )
+    new_data[HOUSEHOLD_ID] = first_household.id
+    new_options[OPTION_DEVICES] = first_entity_info
+    return str(first_household.id)
 
 
 async def setup_devices(

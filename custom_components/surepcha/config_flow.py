@@ -49,7 +49,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
-    MINOR_VERSION = 4
+    MINOR_VERSION = 5
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user."""

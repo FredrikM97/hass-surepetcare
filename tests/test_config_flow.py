@@ -365,17 +365,174 @@ async def test_async_migrate_entry_adds_manual_properties(
     )
     entry.add_to_hass(hass)
 
-    migrated = await async_migrate_entry(hass, entry)
+    with patch("custom_components.surepcha.SurePetcareClient", MockClient):
+        migrated = await async_migrate_entry(hass, entry)
     assert migrated
     assert MANUAL_PROPERTIES not in entry.options
-    assert entry.minor_version == 4
+    assert entry.minor_version == 5
     assert entry.version == 1
     assert OPTION_PROPERTIES in entry.options
     assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {
         LOCATION_INSIDE: "Home",
         LOCATION_OUTSIDE: "Away",
     }
+    assert entry.data[HOUSEHOLD_ID] == 1
+    assert entry.unique_id == "1"
     assert entry == snapshot
+
+
+@pytest.mark.asyncio
+async def test_async_migrate_entry_splits_remaining_households(
+    hass: HomeAssistant,
+) -> None:
+    """Migrating a legacy multi-household entry triggers discovery flows for the rest."""
+
+    class MultiHouseholdClient(MockClient):
+        async def api(self, command):
+            if "household" in command.endpoint:
+                return [
+                    Household({"id": 1, "name": "First Household"}),
+                    Household({"id": 2, "name": "Second Household"}),
+                ]
+            return await super().api(command)
+
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=4,
+        title="Test SurePetCare entry",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="12345",
+    )
+    entry.add_to_hass(hass)
+
+    with (
+        patch("custom_components.surepcha.SurePetcareClient", MultiHouseholdClient),
+        patch.object(
+            hass.config_entries.flow, "async_init", AsyncMock()
+        ) as flow_init_mock,
+    ):
+        migrated = await async_migrate_entry(hass, entry)
+
+    assert migrated
+    assert entry.data[HOUSEHOLD_ID] == 1
+    assert entry.unique_id == "1"
+    await hass.async_block_till_done()
+    flow_init_mock.assert_awaited_once()
+    assert flow_init_mock.call_args.kwargs["data"][HOUSEHOLD_ID] == 2
+
+
+@pytest.mark.asyncio
+async def test_async_migrate_entry_keeps_legacy_data_on_fetch_failure(
+    hass: HomeAssistant,
+) -> None:
+    """A failed household fetch during migration must not break the entry."""
+
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=1,
+        title="Test SurePetCare entry",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="12345",
+    )
+    entry.add_to_hass(hass)
+
+    client = MagicMock()
+    client.login = AsyncMock(side_effect=ConnectionError("boom"))
+    client.close = AsyncMock()
+
+    with patch("custom_components.surepcha.SurePetcareClient", return_value=client):
+        migrated = await async_migrate_entry(hass, entry)
+
+    assert migrated
+    assert entry.minor_version == 5
+    assert HOUSEHOLD_ID not in entry.data
+    assert entry.unique_id == "12345"
+
+
+# Legacy `options` payload representative of an entry stuck on that minor_version,
+# right before migrating away from it. Every minor_version prior to the current
+# SurePetCareConfigFlow.MINOR_VERSION must have an entry here: bumping MINOR_VERSION
+# without adding one fails test_migration_cases_cover_every_prior_minor_version below,
+# so a new migration step can never ship without a matching regression test.
+MIGRATION_LEGACY_OPTIONS: dict[int, dict] = {
+    1: {OPTION_DEVICES: {}, MANUAL_PROPERTIES: {LOCATION_INSIDE: "Home"}},
+    2: {OPTION_DEVICES: {}, MANUAL_PROPERTIES: {LOCATION_INSIDE: "Home"}},
+    3: {OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+    4: {OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+}
+
+
+def test_migration_cases_cover_every_prior_minor_version() -> None:
+    """Fail if MINOR_VERSION was bumped without registering a MIGRATION_LEGACY_OPTIONS case."""
+    expected = set(range(1, SurePetCareConfigFlow.MINOR_VERSION))
+    missing = expected - set(MIGRATION_LEGACY_OPTIONS)
+    assert not missing, (
+        f"MIGRATION_LEGACY_OPTIONS is missing minor_version(s) {sorted(missing)}. "
+        "Add a case describing an entry stuck on that version, and extend "
+        "async_migrate_entry's assertions/test coverage to prove it is migrated."
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("minor_version", sorted(MIGRATION_LEGACY_OPTIONS))
+async def test_async_migrate_entry_from_every_prior_version_reaches_current_target(
+    hass: HomeAssistant, minor_version: int
+) -> None:
+    """Guard against a migration step being skipped for any historical minor_version.
+
+    Regression test for entries that were previously left at minor_version=4
+    without ever being split into per-household entries. Every entry, no matter
+    which prior minor_version it starts on, must end up fully migrated: bumped to
+    the current version/minor_version, with a HOUSEHOLD_ID/unique_id assigned,
+    and without legacy top-level manual_properties.
+    """
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=minor_version,
+        title="Test SurePetCare entry",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123"},
+        options=MIGRATION_LEGACY_OPTIONS[minor_version],
+        unique_id="legacy-unique-id",
+    )
+    entry.add_to_hass(hass)
+
+    with patch("custom_components.surepcha.SurePetcareClient", MockClient):
+        migrated = await async_migrate_entry(hass, entry)
+
+    assert migrated
+    assert entry.version == SurePetCareConfigFlow.VERSION
+    assert entry.minor_version == SurePetCareConfigFlow.MINOR_VERSION
+    assert MANUAL_PROPERTIES not in entry.options
+    assert HOUSEHOLD_ID in entry.data
+    assert entry.unique_id == str(entry.data[HOUSEHOLD_ID])
+
+
+@pytest.mark.asyncio
+async def test_async_migrate_entry_is_noop_once_household_id_present(
+    hass: HomeAssistant,
+) -> None:
+    """Once HOUSEHOLD_ID is set, migration must not re-fetch or re-split households."""
+    entry = MockConfigEntry(
+        version=1,
+        minor_version=SurePetCareConfigFlow.MINOR_VERSION,
+        title="Test SurePetCare entry",
+        domain=DOMAIN,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 1},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+        unique_id="1",
+    )
+    entry.add_to_hass(hass)
+
+    with patch("custom_components.surepcha.SurePetcareClient") as client_cls:
+        migrated = await async_migrate_entry(hass, entry)
+
+    assert migrated
+    client_cls.assert_not_called()
 
 
 def helper_fetch_area_options(area_registry):
