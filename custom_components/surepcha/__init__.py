@@ -127,7 +127,7 @@ async def _migrate_household_split(
 
     (first_household, first_entity_info), *remaining = household_data
     flow._trigger_discovery_flows(
-        new_data.get(TOKEN), new_data.get(CLIENT_DEVICE_ID), remaining
+        new_data[TOKEN], new_data[CLIENT_DEVICE_ID], remaining
     )
     new_data[HOUSEHOLD_ID] = first_household.id
     new_options[OPTION_DEVICES] = first_entity_info
