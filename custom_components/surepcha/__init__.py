@@ -8,7 +8,9 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, Platform
 from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryAuthFailed, ConfigEntryNotReady
+from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.typing import ConfigType
 from surepcio import Household, SurePetcareClient
 
 from .config_flow import SurePetCareConfigFlow
@@ -30,6 +32,9 @@ from .coordinator import (
 from .services import _service_registry
 
 logger = logging.getLogger(__name__)
+
+# This integration is only configurable through config entries, not YAML.
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 PLATFORMS = [
     Platform.BINARY_SENSOR,
@@ -283,7 +288,7 @@ def remove_stale_devices(
             )
 
 
-async def async_setup(hass: HomeAssistant, config: ConfigEntry) -> bool:
+async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Register integration services before config entries load."""
     for name, func, schema in _service_registry:
         hass.services.async_register(DOMAIN, name, func, schema=schema)
