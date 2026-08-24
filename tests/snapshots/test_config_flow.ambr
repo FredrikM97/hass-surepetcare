@@ -3,6 +3,7 @@
   ConfigEntrySnapshot({
     'data': dict({
       'client_device_id': '123',
+      'household_id': 1,
       'token': 'abc',
     }),
     'disabled_by': None,
@@ -10,12 +11,16 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 4,
+    'minor_version': 5,
     'options': dict({
       'devices': dict({
-        '12345': dict({
+        '111': dict({
           'name': 'Test Device',
           'product_id': 1,
+        }),
+        '444': dict({
+          'name': 'Test Device',
+          'product_id': 10,
         }),
       }),
       'properties': dict({
@@ -31,7 +36,7 @@
     'subentries': list([
     ]),
     'title': 'Test SurePetCare entry',
-    'unique_id': '12345',
+    'unique_id': '1',
     'version': 1,
   })
 # ---
@@ -211,7 +216,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 4,
+    'minor_version': 5,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -273,7 +278,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 4,
+      'minor_version': 5,
       'options': dict({
         'devices': dict({
           '1299453': dict({
