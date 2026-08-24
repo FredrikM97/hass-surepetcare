@@ -11,7 +11,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 5,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '111': dict({
@@ -35,7 +35,7 @@
     'source': 'user',
     'subentries': list([
     ]),
-    'title': 'Test SurePetCare entry',
+    'title': 'Test Household',
     'unique_id': '1',
     'version': 1,
   })
@@ -216,7 +216,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 5,
+    'minor_version': 4,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -278,7 +278,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 5,
+      'minor_version': 4,
       'options': dict({
         'devices': dict({
           '1299453': dict({

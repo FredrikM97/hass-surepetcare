@@ -273,6 +273,7 @@ async def test_async_setup_entry_and_unload():
     with (
         patch("custom_components.surepcha.__init__.SurePetcareClient", DummyClient),
         patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch("custom_components.surepcha.migration.SurePetcareClient", DummyClient),
         patch(
             "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
         ),
@@ -319,6 +320,7 @@ async def test_async_setup_entry_login_failure():
     with (
         patch("custom_components.surepcha.__init__.SurePetcareClient", FailingClient),
         patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch("custom_components.surepcha.migration.SurePetcareClient", DummyClient),
         patch(
             "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
         ),
@@ -343,6 +345,7 @@ async def test_async_setup_entry_api_exception():
     with (
         patch("custom_components.surepcha.__init__.SurePetcareClient", ExceptionClient),
         patch("custom_components.surepcha.__init__.Household", DummyHousehold),
+        patch("custom_components.surepcha.migration.SurePetcareClient", DummyClient),
         patch(
             "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
         ),
