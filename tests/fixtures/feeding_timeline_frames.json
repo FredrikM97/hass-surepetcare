@@ -1,0 +1,141 @@
+{
+  "feeding_wet_and_dry": {
+    "id": 17581000001,
+    "type": 22,
+    "data": "{\"encounter_source\":null,\"weight\":{\"count\":2,\"food_type\":[1,2],\"plate\":{\"half\":21.9,\"full\":54.3},\"bowl\":{\"half\":31.3,\"full\":57.18},\"target\":[75,75],\"tare_value\":null},\"tare_type\":null}",
+    "created_at": "2026-08-27T11:07:15Z",
+    "updated_at": "2026-08-27T11:07:15Z",
+    "households": [{"id": 222527, "name": "Household"}],
+    "devices": [
+      {"id": 1376800, "name": "Feeder", "household_id": 222527, "product_id": 4},
+      {"id": 1225898, "name": "Hub", "household_id": 222527, "product_id": 1}
+    ],
+    "movements": [],
+    "pets": [
+      {"id": 472721, "name": "Maui", "household_id": 222527, "tag_id": 60978}
+    ],
+    "tags": [{"id": 60978}],
+    "users": [],
+    "weights": [
+      {
+        "id": 1570000001,
+        "device_id": 1376800,
+        "tag_id": 60978,
+        "context": 1,
+        "duration": 209,
+        "created_at": "2026-08-27T11:07:15Z",
+        "updated_at": "2026-08-27T11:07:36Z",
+        "frames": [
+          {
+            "id": 3076000001,
+            "index": 0,
+            "current_weight": 20,
+            "change": -12,
+            "created_at": "2026-08-27T11:07:15Z",
+            "updated_at": "2026-08-27T11:07:36Z"
+          },
+          {
+            "id": 3076000002,
+            "index": 1,
+            "current_weight": 45,
+            "change": -1,
+            "created_at": "2026-08-27T11:07:15Z",
+            "updated_at": "2026-08-27T11:07:36Z"
+          }
+        ]
+      }
+    ]
+  },
+  "feeding_wet_only": {
+    "id": 17581000002,
+    "type": 22,
+    "data": "{\"encounter_source\":null,\"weight\":{\"count\":2,\"food_type\":[1,2],\"plate\":{\"half\":21.9,\"full\":54.3},\"bowl\":{\"half\":31.3,\"full\":57.18},\"target\":[75,75],\"tare_value\":null},\"tare_type\":null}",
+    "created_at": "2026-08-27T05:07:58Z",
+    "updated_at": "2026-08-27T05:07:58Z",
+    "households": [{"id": 245684, "name": "Household"}],
+    "devices": [
+      {"id": 1376802, "name": "Feeder", "household_id": 245684, "product_id": 4},
+      {"id": 1225899, "name": "Hub", "household_id": 245684, "product_id": 1}
+    ],
+    "movements": [],
+    "pets": [
+      {"id": 532070, "name": "Ajax", "household_id": 245684, "tag_id": 1270143}
+    ],
+    "tags": [{"id": 1270143}],
+    "users": [],
+    "weights": [
+      {
+        "id": 1570000002,
+        "device_id": 1376802,
+        "tag_id": 1270143,
+        "context": 1,
+        "duration": 142,
+        "created_at": "2026-08-27T05:07:58Z",
+        "updated_at": "2026-08-27T05:10:04Z",
+        "frames": [
+          {
+            "id": 3076000003,
+            "index": 0,
+            "current_weight": 3,
+            "change": -3,
+            "created_at": "2026-08-27T05:07:58Z",
+            "updated_at": "2026-08-27T05:10:04Z"
+          },
+          {
+            "id": 3076000004,
+            "index": 1,
+            "current_weight": 29,
+            "change": -2,
+            "created_at": "2026-08-27T05:07:58Z",
+            "updated_at": "2026-08-27T05:10:04Z"
+          }
+        ]
+      }
+    ]
+  },
+  "bowl_filled": {
+    "id": 17581000003,
+    "type": 21,
+    "data": "{\"weight\":{\"count\":2,\"food_type\":[1,2],\"plate\":{\"half\":21,\"full\":54},\"bowl\":{\"half\":31,\"full\":57},\"target\":[75,75],\"tare_value\":null}}",
+    "created_at": "2026-08-27T06:35:46Z",
+    "updated_at": "2026-08-27T06:35:46Z",
+    "households": [{"id": 222527, "name": "Household"}],
+    "devices": [
+      {"id": 1376800, "name": "Feeder", "household_id": 222527, "product_id": 4},
+      {"id": 1225898, "name": "Hub", "household_id": 222527, "product_id": 1}
+    ],
+    "movements": [],
+    "pets": [],
+    "tags": [],
+    "users": [],
+    "weights": [
+      {
+        "id": 1570000003,
+        "device_id": 1376800,
+        "tag_id": 0,
+        "context": 5,
+        "duration": 109,
+        "created_at": "2026-08-27T06:35:46Z",
+        "updated_at": "2026-08-27T06:36:53Z",
+        "frames": [
+          {
+            "id": 3076000005,
+            "index": 0,
+            "current_weight": 83,
+            "change": 83,
+            "created_at": "2026-08-27T06:35:46Z",
+            "updated_at": "2026-08-27T06:36:53Z"
+          },
+          {
+            "id": 3076000006,
+            "index": 1,
+            "current_weight": 45,
+            "change": 45,
+            "created_at": "2026-08-27T06:35:46Z",
+            "updated_at": "2026-08-27T06:36:53Z"
+          }
+        ]
+      }
+    ]
+  }
+}
