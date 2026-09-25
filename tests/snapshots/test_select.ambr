@@ -6,7 +6,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -45,10 +45,10 @@
 # name: test_platform_setup_and_discovery[select.ajax_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -69,7 +69,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -105,10 +105,10 @@
 # name: test_platform_setup_and_discovery[select.ajax_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -126,7 +126,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -168,10 +168,10 @@
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -195,7 +195,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -234,10 +234,10 @@
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -258,7 +258,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -297,9 +297,9 @@
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -320,7 +320,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -361,9 +361,9 @@
 # name: test_platform_setup_and_discovery[select.feeder_with_different_fill_percent_training_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -386,7 +386,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -425,10 +425,10 @@
 # name: test_platform_setup_and_discovery[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Hem-hub LED Mode',
-      'icon': 'mdi:led-variant-on',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub LED Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:led-variant-on',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -449,7 +449,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -490,9 +490,9 @@
 # name: test_platform_setup_and_discovery[select.katzenklappe_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -515,7 +515,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -556,9 +556,9 @@
 # name: test_platform_setup_and_discovery[select.laundry_door_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -581,7 +581,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -622,9 +622,9 @@
 # name: test_platform_setup_and_discovery[select.locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -647,7 +647,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
       ]),
     }),
@@ -684,10 +684,10 @@
 # name: test_platform_setup_and_discovery[select.maui_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
       ]),
     }),
@@ -706,7 +706,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -748,10 +748,10 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -775,7 +775,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -814,10 +814,10 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -838,7 +838,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -877,9 +877,9 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -900,7 +900,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -941,9 +941,9 @@
 # name: test_platform_setup_and_discovery[select.maui_matlada_old_training_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -966,7 +966,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'PetDoor',
         'Feeder',
       ]),
@@ -1004,10 +1004,10 @@
 # name: test_platform_setup_and_discovery[select.maui_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'PetDoor',
         'Feeder',
       ]),
@@ -1027,7 +1027,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1066,10 +1066,10 @@
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1090,7 +1090,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1126,10 +1126,10 @@
 # name: test_platform_setup_and_discovery[select.pet_with_empty_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -1147,7 +1147,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1186,10 +1186,10 @@
 # name: test_platform_setup_and_discovery[select.pet_with_only_one_change_on_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -1210,7 +1210,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1246,10 +1246,10 @@
 # name: test_platform_setup_and_discovery[select.pet_with_only_one_change_on_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -1267,7 +1267,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1303,10 +1303,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.ajax_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -1324,7 +1324,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1360,10 +1360,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.ajax_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -1381,7 +1381,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -1423,10 +1423,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -1450,7 +1450,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -1489,10 +1489,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -1513,7 +1513,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -1552,9 +1552,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -1575,7 +1575,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -1616,9 +1616,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.feeder_with_different_fill_percent_training_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -1641,7 +1641,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -1680,10 +1680,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.hem_hub_led_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Hem-hub LED Mode',
-      'icon': 'mdi:led-variant-on',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub LED Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:led-variant-on',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -1704,7 +1704,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1745,9 +1745,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.katzenklappe_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1770,7 +1770,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1811,9 +1811,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.laundry_door_locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1836,7 +1836,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1877,9 +1877,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.locking_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -1902,7 +1902,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -1938,10 +1938,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -1959,7 +1959,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2001,10 +2001,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_bowls_type-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2028,7 +2028,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -2067,10 +2067,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_lid_close_delay-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -2091,7 +2091,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -2130,9 +2130,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_reset_bowl_weight_require_open_lid-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -2153,7 +2153,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2194,9 +2194,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_matlada_old_training_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2219,7 +2219,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2255,10 +2255,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.maui_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -2276,7 +2276,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2312,10 +2312,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -2333,7 +2333,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2369,10 +2369,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_empty_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -2390,7 +2390,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2426,10 +2426,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_only_one_change_on_status_add_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -2447,7 +2447,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'options': list([
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'config_entry_id': <ANY>,
@@ -2483,10 +2483,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[select.pet_with_only_one_change_on_status_remove_assigned_device-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
       ]),
     }),
     'context': <ANY>,
@@ -2500,10 +2500,10 @@
 # name: test_select_set_option_and_snapshot[select.ajax_add_assigned_device-DualScanConnect door]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2520,10 +2520,10 @@
 # name: test_select_set_option_and_snapshot[select.ajax_add_assigned_device-Feeder]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2540,10 +2540,10 @@
 # name: test_select_set_option_and_snapshot[select.ajax_add_assigned_device-PetDoor]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Ajax Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -2560,10 +2560,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-large_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2583,10 +2583,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-large_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2606,10 +2606,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-two_small_dry_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2629,10 +2629,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-two_small_dry_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2652,10 +2652,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-two_small_wet_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2675,10 +2675,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_bowls_type-two_small_wet_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -2698,10 +2698,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_lid_close_delay-faster]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -2718,10 +2718,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_lid_close_delay-normal]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -2738,10 +2738,10 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_lid_close_delay-slower]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Feeder with different fill percent Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -2758,9 +2758,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-reset_both]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -2777,9 +2777,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-reset_left]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -2796,9 +2796,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_reset_bowl_weight_require_open_lid-reset_right]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -2815,9 +2815,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_training_mode-disabled]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2836,9 +2836,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_training_mode-step_1]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2857,9 +2857,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_training_mode-step_2]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2878,9 +2878,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_training_mode-step_3]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2899,9 +2899,9 @@
 # name: test_select_set_option_and_snapshot[select.feeder_with_different_fill_percent_training_mode-step_4]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -2920,10 +2920,10 @@
 # name: test_select_set_option_and_snapshot[select.hem_hub_led_mode-none]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Hem-hub LED Mode',
-      'icon': 'mdi:led-variant-on',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub LED Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:led-variant-on',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -2940,10 +2940,10 @@
 # name: test_select_set_option_and_snapshot[select.hem_hub_led_mode-strong]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Hem-hub LED Mode',
-      'icon': 'mdi:led-variant-on',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub LED Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:led-variant-on',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -2960,10 +2960,10 @@
 # name: test_select_set_option_and_snapshot[select.hem_hub_led_mode-weak]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Hem-hub LED Mode',
-      'icon': 'mdi:led-variant-on',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub LED Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:led-variant-on',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'none',
         'strong',
         'weak',
@@ -2980,9 +2980,9 @@
 # name: test_select_set_option_and_snapshot[select.katzenklappe_locking_mode-allow_in]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3001,9 +3001,9 @@
 # name: test_select_set_option_and_snapshot[select.katzenklappe_locking_mode-allow_out]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3022,9 +3022,9 @@
 # name: test_select_set_option_and_snapshot[select.katzenklappe_locking_mode-curfew_mode]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3043,9 +3043,9 @@
 # name: test_select_set_option_and_snapshot[select.katzenklappe_locking_mode-locked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3064,9 +3064,9 @@
 # name: test_select_set_option_and_snapshot[select.katzenklappe_locking_mode-unlocked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Katzenklappe Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3085,9 +3085,9 @@
 # name: test_select_set_option_and_snapshot[select.laundry_door_locking_mode-allow_in]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3106,9 +3106,9 @@
 # name: test_select_set_option_and_snapshot[select.laundry_door_locking_mode-allow_out]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3127,9 +3127,9 @@
 # name: test_select_set_option_and_snapshot[select.laundry_door_locking_mode-curfew_mode]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3148,9 +3148,9 @@
 # name: test_select_set_option_and_snapshot[select.laundry_door_locking_mode-locked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3169,9 +3169,9 @@
 # name: test_select_set_option_and_snapshot[select.laundry_door_locking_mode-unlocked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Laundry Door Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3190,9 +3190,9 @@
 # name: test_select_set_option_and_snapshot[select.locking_mode-allow_in]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3211,9 +3211,9 @@
 # name: test_select_set_option_and_snapshot[select.locking_mode-allow_out]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3232,9 +3232,9 @@
 # name: test_select_set_option_and_snapshot[select.locking_mode-curfew_mode]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3253,9 +3253,9 @@
 # name: test_select_set_option_and_snapshot[select.locking_mode-locked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3274,9 +3274,9 @@
 # name: test_select_set_option_and_snapshot[select.locking_mode-unlocked]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Locking Mode',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Locking Mode',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'unlocked',
         'allow_in',
         'allow_out',
@@ -3295,10 +3295,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_add_assigned_device-DualScanConnect door]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
       ]),
     }),
@@ -3313,10 +3313,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-large_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3336,10 +3336,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-large_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3359,10 +3359,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-two_small_dry_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3382,10 +3382,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-two_small_dry_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3405,10 +3405,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-two_small_wet_dry]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3428,10 +3428,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_bowls_type-two_small_wet_wet]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Bowls Type',
-      'icon': 'mdi:bowl-mix',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowls Type',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:bowl-mix',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'large_wet',
         'large_dry',
         'two_small_wet_wet',
@@ -3451,10 +3451,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_lid_close_delay-faster]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -3471,10 +3471,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_lid_close_delay-normal]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -3491,10 +3491,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_lid_close_delay-slower]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui matlåda (old)  Lid close delay',
-      'icon': 'mdi:timer-sand',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Lid close delay',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:timer-sand',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'faster',
         'normal',
         'slower',
@@ -3511,9 +3511,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_reset_bowl_weight_require_open_lid-reset_both]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -3530,9 +3530,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_reset_bowl_weight_require_open_lid-reset_left]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -3549,9 +3549,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_reset_bowl_weight_require_open_lid-reset_right]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Reset bowl weight (require open lid)',
-      'icon': 'mdi:restart',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Reset bowl weight (require open lid)',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:restart',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'reset_left',
         'reset_right',
         'reset_both',
@@ -3568,9 +3568,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_training_mode-disabled]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -3589,9 +3589,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_training_mode-step_1]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -3610,9 +3610,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_training_mode-step_2]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -3631,9 +3631,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_training_mode-step_3]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -3652,9 +3652,9 @@
 # name: test_select_set_option_and_snapshot[select.maui_matlada_old_training_mode-step_4]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Training Mode',
-      'icon': 'mdi:school',
-      'options': list([
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Training Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'disabled',
         'step_1',
         'step_2',
@@ -3673,10 +3673,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_remove_assigned_device-Feeder]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'PetDoor',
         'Feeder',
       ]),
@@ -3692,10 +3692,10 @@
 # name: test_select_set_option_and_snapshot[select.maui_remove_assigned_device-PetDoor]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Maui Remove assigned device',
-      'icon': 'mdi:link-variant-off',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Remove assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant-off',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'PetDoor',
         'Feeder',
       ]),
@@ -3711,10 +3711,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_empty_status_add_assigned_device-DualScanConnect door]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3731,10 +3731,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_empty_status_add_assigned_device-Feeder]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3751,10 +3751,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_empty_status_add_assigned_device-PetDoor]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with empty status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3771,10 +3771,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_only_one_change_on_status_add_assigned_device-DualScanConnect door]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3791,10 +3791,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_only_one_change_on_status_add_assigned_device-Feeder]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',
@@ -3811,10 +3811,10 @@
 # name: test_select_set_option_and_snapshot[select.pet_with_only_one_change_on_status_add_assigned_device-PetDoor]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'enum',
-      'friendly_name': 'Pet with only one change on status Add assigned device',
-      'icon': 'mdi:link-variant',
-      'options': list([
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'enum',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Add assigned device',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:link-variant',
+      <SelectEntityCapabilityAttribute.OPTIONS: 'options'>: list([
         'DualScanConnect door',
         'Feeder',
         'PetDoor',

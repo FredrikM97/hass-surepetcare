@@ -39,8 +39,8 @@
 # name: test_platform_setup_and_discovery[switch.ajax_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_indoor_only',
@@ -90,8 +90,8 @@
 # name: test_platform_setup_and_discovery[switch.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -141,7 +141,7 @@
 # name: test_platform_setup_and_discovery[switch.curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.curfew_active',
@@ -191,7 +191,7 @@
 # name: test_platform_setup_and_discovery[switch.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.laundry_door_curfew_active',
@@ -244,8 +244,8 @@
       'flap_devices': list([
         '727608',
       ]),
-      'friendly_name': 'Maui Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_indoor_only',
@@ -295,8 +295,8 @@
 # name: test_platform_setup_and_discovery[switch.maui_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -346,8 +346,8 @@
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
@@ -397,8 +397,8 @@
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_position',
@@ -448,8 +448,8 @@
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
@@ -499,8 +499,8 @@
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_position',
@@ -550,8 +550,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_indoor_only',
@@ -601,8 +601,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -652,7 +652,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.curfew_active',
@@ -702,7 +702,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.laundry_door_curfew_active',
@@ -752,8 +752,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_indoor_only',
@@ -803,8 +803,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -854,8 +854,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
@@ -905,8 +905,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_position',
@@ -956,8 +956,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_indoor_only-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
@@ -1007,8 +1007,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_position',
@@ -1021,8 +1021,8 @@
 # name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1035,8 +1035,8 @@
 # name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1049,8 +1049,8 @@
 # name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1063,8 +1063,8 @@
 # name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1077,8 +1077,8 @@
 # name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1091,8 +1091,8 @@
 # name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1105,8 +1105,8 @@
 # name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1119,8 +1119,8 @@
 # name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1133,8 +1133,8 @@
 # name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_indoor_only',
@@ -1147,8 +1147,8 @@
 # name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_indoor_only',
@@ -1161,8 +1161,8 @@
 # name: test_switch_toggle_and_snapshot[switch.ajax_position-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1175,8 +1175,8 @@
 # name: test_switch_toggle_and_snapshot[switch.ajax_position-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.ajax_position',
@@ -1189,7 +1189,7 @@
 # name: test_switch_toggle_and_snapshot[switch.curfew_active-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.curfew_active',
@@ -1202,7 +1202,7 @@
 # name: test_switch_toggle_and_snapshot[switch.curfew_active-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.curfew_active',
@@ -1215,7 +1215,7 @@
 # name: test_switch_toggle_and_snapshot[switch.laundry_door_curfew_active-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.laundry_door_curfew_active',
@@ -1228,7 +1228,7 @@
 # name: test_switch_toggle_and_snapshot[switch.laundry_door_curfew_active-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'switch.laundry_door_curfew_active',
@@ -1244,8 +1244,8 @@
       'flap_devices': list([
         '727608',
       ]),
-      'friendly_name': 'Maui Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_indoor_only',
@@ -1261,8 +1261,8 @@
       'flap_devices': list([
         '727608',
       ]),
-      'friendly_name': 'Maui Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_indoor_only',
@@ -1275,8 +1275,8 @@
 # name: test_switch_toggle_and_snapshot[switch.maui_position-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1289,8 +1289,8 @@
 # name: test_switch_toggle_and_snapshot[switch.maui_position-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.maui_position',
@@ -1303,8 +1303,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
@@ -1317,8 +1317,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_indoor_only',
@@ -1331,8 +1331,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_position',
@@ -1345,8 +1345,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_empty_status_position',
@@ -1359,8 +1359,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
@@ -1373,8 +1373,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Indoor Only',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
@@ -1387,8 +1387,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-off]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_position',
@@ -1401,8 +1401,8 @@
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-on]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:door',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
     }),
     'context': <ANY>,
     'entity_id': 'switch.pet_with_only_one_change_on_status_position',

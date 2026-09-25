@@ -413,10 +413,8 @@ def test_remove_stale_devices_logic():
         ),
     ):
         remove_stale_devices(MagicMock(), MagicMock(entry_id="dummy_entry_id"), devices)
-        # Should call async_update_device for stale_entry only
-        device_registry.async_update_device.assert_called_once_with(
-            stale_entry.id, remove_config_entry_id="dummy_entry_id"
-        )
+        # Should remove stale_entry only
+        device_registry.async_remove_device.assert_called_once_with(stale_entry.id)
 
 
 @pytest.mark.usefixtures("enable_custom_integrations")

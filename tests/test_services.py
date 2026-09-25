@@ -74,13 +74,13 @@ async def test_platform_setup_and_set_tag_service(
     device_registry = async_get_device_registry(hass)
     device_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
     )
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -124,13 +124,13 @@ async def test_platform_setup_and_set_pet_access_mode_service(
     device_registry = async_get_device_registry(hass)
     device_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
     )
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -166,7 +166,7 @@ async def test_platform_setup_and_set_pet_position_service(
     device_registry = async_get_device_registry(hass)
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -201,7 +201,7 @@ async def test_platform_setup_and_refresh_device_service(
     device_registry = async_get_device_registry(hass)
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )

@@ -230,9 +230,7 @@ def remove_stale_devices(
                 device_entry.id,
                 config_entry.entry_id,
             )
-            device_registry.async_update_device(
-                device_entry.id, remove_config_entry_id=config_entry.entry_id
-            )
+            device_registry.async_remove_device(device_entry.id)
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:

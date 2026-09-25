@@ -42,9 +42,9 @@
       'devices': list([
         '695379',
       ]),
-      'friendly_name': 'Ajax Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_assigned_devices',
@@ -61,7 +61,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -99,11 +99,11 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume',
-      'friendly_name': 'Ajax Drinking',
-      'icon': 'mdi:water',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_drinking',
@@ -153,10 +153,10 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
-      'friendly_name': 'Ajax Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Entity Information',
       'household_id': '245684',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
@@ -178,7 +178,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -216,11 +216,11 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Ajax Feeding',
-      'icon': 'mdi:food-drumstick',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_feeding',
@@ -270,8 +270,8 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_last_activity',
@@ -322,8 +322,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_id': '695379',
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
       'id': '5241973826',
       'since': '2025-11-18 09:36:44+00:00',
       'tag_id': '1270143',
@@ -344,7 +344,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -379,10 +379,10 @@
 # name: test_platform_setup_and_discovery[sensor.battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.battery',
@@ -432,8 +432,8 @@
 # name: test_platform_setup_and_discovery[sensor.entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Entity Information',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Entity Information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.entity_information',
@@ -450,7 +450,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -485,10 +485,10 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Feeder with different fill percent Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
@@ -505,7 +505,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -543,15 +543,15 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_one_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Feeder with different fill percent Bowl One Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'one',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
@@ -568,7 +568,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -606,16 +606,16 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowl Two Weight',
       'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'two',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
@@ -665,10 +665,10 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
-      'friendly_name': 'Feeder with different fill percent Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
       'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
@@ -688,7 +688,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -728,10 +728,10 @@
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': 74.94949494949495,
-      'friendly_name': 'Feeder with different fill percent Fill Percent',
-      'icon': 'mdi:percent-outline',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Fill Percent',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
@@ -781,9 +781,9 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Feeder with different fill percent RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
@@ -800,7 +800,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -840,10 +840,10 @@
     'attributes': ReadOnlyDict({
       'bowls_0_target': 50.0,
       'bowls_1_target': 99.0,
-      'device_class': 'weight',
-      'friendly_name': 'Feeder with different fill percent Total Weight Limit',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
@@ -860,7 +860,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -895,10 +895,10 @@
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Katzenklappe Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -948,9 +948,9 @@
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Katzenklappe Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Entity Information',
       'household_id': '287000',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '1299453',
       'parent_device_id': '1202413',
       'photo': None,
@@ -1003,9 +1003,9 @@
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Katzenklappe RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_rssi',
@@ -1022,7 +1022,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1057,10 +1057,10 @@
 # name: test_platform_setup_and_discovery[sensor.laundry_door_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Laundry Door Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -1110,9 +1110,9 @@
 # name: test_platform_setup_and_discovery[sensor.laundry_door_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Entity Information',
       'household_id': '7777',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '727608',
       'parent_device_id': None,
       'photo': None,
@@ -1165,9 +1165,9 @@
 # name: test_platform_setup_and_discovery[sensor.laundry_door_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Laundry Door RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_rssi',
@@ -1223,9 +1223,9 @@
         '271836',
         '1181149',
       ]),
-      'friendly_name': 'Maui Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_assigned_devices',
@@ -1242,7 +1242,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1283,14 +1283,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
       'device_id': '269654',
-      'friendly_name': 'Maui Drinking',
-      'icon': 'mdi:water',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
       'id': '1210761432',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_drinking',
@@ -1340,10 +1340,10 @@
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Maui Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -1365,7 +1365,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1406,14 +1406,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 5.23,
       'change_1': 0,
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'device_id': '269654',
-      'friendly_name': 'Maui Feeding',
-      'icon': 'mdi:food-drumstick',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
       'id': '1210761432',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_feeding',
@@ -1464,8 +1464,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device': '269654',
-      'friendly_name': 'Maui Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
@@ -1482,7 +1482,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1517,10 +1517,10 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Maui matlåda (old)  Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',
@@ -1537,7 +1537,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1575,15 +1575,15 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_one_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'one',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
@@ -1600,7 +1600,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1638,16 +1638,16 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl Two Weight',
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'two',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
@@ -1697,10 +1697,10 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
-      'friendly_name': 'Maui matlåda (old)  Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
       'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
@@ -1720,7 +1720,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1760,10 +1760,10 @@
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
-      'friendly_name': 'Maui matlåda (old)  Fill Percent',
-      'icon': 'mdi:percent-outline',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Fill Percent',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_fill_percent',
@@ -1813,9 +1813,9 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Maui matlåda (old)  RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
@@ -1832,7 +1832,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -1872,10 +1872,10 @@
     'attributes': ReadOnlyDict({
       'bowls_0_target': 50.0,
       'bowls_1_target': 0.0,
-      'device_class': 'weight',
-      'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
@@ -1926,8 +1926,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_id': '269654',
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -1983,9 +1983,9 @@
     'attributes': ReadOnlyDict({
       'devices': list([
       ]),
-      'friendly_name': 'Pet with empty status Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_assigned_devices',
@@ -2002,7 +2002,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2040,11 +2040,11 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume',
-      'friendly_name': 'Pet with empty status Drinking',
-      'icon': 'mdi:water',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_drinking',
@@ -2094,10 +2094,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Pet with empty status Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -2119,7 +2119,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2157,11 +2157,11 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Pet with empty status Feeding',
-      'icon': 'mdi:food-drumstick',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_feeding',
@@ -2211,8 +2211,8 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_last_activity',
@@ -2262,8 +2262,8 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_position',
@@ -2315,9 +2315,9 @@
     'attributes': ReadOnlyDict({
       'devices': list([
       ]),
-      'friendly_name': 'Pet with only one change on status Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_assigned_devices',
@@ -2334,7 +2334,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2375,14 +2375,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
       'device_id': '269654',
-      'friendly_name': 'Pet with only one change on status Drinking',
-      'icon': 'mdi:water',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
       'id': '1210761432',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_drinking',
@@ -2432,10 +2432,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Pet with only one change on status Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -2457,7 +2457,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2498,14 +2498,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 4.23,
       'change_1': 0,
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'device_id': '269654',
-      'friendly_name': 'Pet with only one change on status Feeding',
-      'icon': 'mdi:food-drumstick',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
       'id': '1210761432',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_feeding',
@@ -2556,8 +2556,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device': '269654',
-      'friendly_name': 'Pet with only one change on status Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -2607,8 +2607,8 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_position',
@@ -2658,7 +2658,7 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect',
@@ -2708,7 +2708,7 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_2',
@@ -2725,7 +2725,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2760,10 +2760,10 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Poseidon connect Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_battery',
@@ -2816,12 +2816,12 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_bowl_volume-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume_storage',
-      'friendly_name': 'Poseidon connect Bowl Volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume_storage',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Bowl Volume',
       'last_fill_weight': 1071.92,
       'last_filled_at': '2025-09-03 08:39:29+00:00',
       'last_zeroed_at': None,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_bowl_volume',
@@ -2871,9 +2871,9 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Entity Information',
       'household_id': '7777',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '734730',
       'parent_device_id': None,
       'photo': None,
@@ -2893,7 +2893,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -2928,9 +2928,9 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect Fill Percent',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Fill Percent',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_fill_percent',
@@ -2980,9 +2980,9 @@
 # name: test_platform_setup_and_discovery[sensor.poseidon_connect_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Poseidon connect RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_rssi',
@@ -3032,9 +3032,9 @@
 # name: test_platform_setup_and_discovery[sensor.rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.rssi',
@@ -3087,9 +3087,9 @@
       'devices': list([
         '695379',
       ]),
-      'friendly_name': 'Ajax Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_assigned_devices',
@@ -3106,7 +3106,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3144,11 +3144,11 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume',
-      'friendly_name': 'Ajax Drinking',
-      'icon': 'mdi:water',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_drinking',
@@ -3198,10 +3198,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
-      'friendly_name': 'Ajax Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Entity Information',
       'household_id': '245684',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '532070',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139226750/8YflEvJWEcbrcPrfn1ztq53inPl4xPNJms1pFi84wU.jpg',
@@ -3223,7 +3223,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3261,11 +3261,11 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Ajax Feeding',
-      'icon': 'mdi:food-drumstick',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_feeding',
@@ -3315,8 +3315,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Ajax Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_last_activity',
@@ -3367,8 +3367,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_id': '695379',
-      'friendly_name': 'Ajax Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
       'id': '5241973826',
       'since': '2025-11-18 09:36:44+00:00',
       'tag_id': '1270143',
@@ -3389,7 +3389,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3424,10 +3424,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.battery',
@@ -3477,8 +3477,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Entity Information',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Entity Information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.entity_information',
@@ -3495,7 +3495,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3530,10 +3530,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Feeder with different fill percent Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_battery',
@@ -3550,7 +3550,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3588,15 +3588,15 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_one_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Feeder with different fill percent Bowl One Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'one',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_one_weight',
@@ -3613,7 +3613,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3651,16 +3651,16 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Feeder with different fill percent Bowl Two Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Bowl Two Weight',
       'last_fill_weight': 74.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'two',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_bowl_two_weight',
@@ -3710,10 +3710,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
-      'friendly_name': 'Feeder with different fill percent Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
       'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
@@ -3733,7 +3733,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3773,10 +3773,10 @@
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': 74.94949494949495,
-      'friendly_name': 'Feeder with different fill percent Fill Percent',
-      'icon': 'mdi:percent-outline',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Fill Percent',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_fill_percent',
@@ -3826,9 +3826,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Feeder with different fill percent RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_rssi',
@@ -3845,7 +3845,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3885,10 +3885,10 @@
     'attributes': ReadOnlyDict({
       'bowls_0_target': 50.0,
       'bowls_1_target': 99.0,
-      'device_class': 'weight',
-      'friendly_name': 'Feeder with different fill percent Total Weight Limit',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.feeder_with_different_fill_percent_total_weight_limit',
@@ -3905,7 +3905,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -3940,10 +3940,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Katzenklappe Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_battery',
@@ -3993,9 +3993,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Katzenklappe Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Entity Information',
       'household_id': '287000',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '1299453',
       'parent_device_id': '1202413',
       'photo': None,
@@ -4048,9 +4048,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Katzenklappe RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.katzenklappe_rssi',
@@ -4067,7 +4067,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4102,10 +4102,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Laundry Door Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_battery',
@@ -4155,9 +4155,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Entity Information',
       'household_id': '7777',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '727608',
       'parent_device_id': None,
       'photo': None,
@@ -4210,9 +4210,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.laundry_door_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Laundry Door RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.laundry_door_rssi',
@@ -4268,9 +4268,9 @@
         '271836',
         '1181149',
       ]),
-      'friendly_name': 'Maui Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_assigned_devices',
@@ -4287,7 +4287,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4328,14 +4328,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
       'device_id': '269654',
-      'friendly_name': 'Maui Drinking',
-      'icon': 'mdi:water',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
       'id': '1210761432',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_drinking',
@@ -4385,10 +4385,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Maui Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -4410,7 +4410,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4451,14 +4451,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 5.23,
       'change_1': 0,
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'device_id': '269654',
-      'friendly_name': 'Maui Feeding',
-      'icon': 'mdi:food-drumstick',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
       'id': '1210761432',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_feeding',
@@ -4508,8 +4508,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
@@ -4526,7 +4526,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4561,10 +4561,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Maui matlåda (old)  Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_battery',
@@ -4581,7 +4581,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4619,15 +4619,15 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_one_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Maui matlåda (old)  Bowl One Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl One Weight',
       'last_fill_weight': 32.16,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'one',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_bowl_one_weight',
@@ -4644,7 +4644,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4682,16 +4682,16 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'food_type': 'wet',
-      'friendly_name': 'Maui matlåda (old)  Bowl Two Weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl Two Weight',
       'last_fill_weight': -27.2,
       'last_filled_at': '2025-07-07 10:29:29+00:00',
       'last_zeroed_at': '2025-05-23 10:25:29+00:00',
       'position': 'two',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'substance_type': 'FOOD',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_bowl_two_weight',
@@ -4741,10 +4741,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
-      'friendly_name': 'Maui matlåda (old)  Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
       'photo': 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
@@ -4764,7 +4764,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4804,10 +4804,10 @@
     'attributes': ReadOnlyDict({
       'bowl_0_fill_percent': 64.32,
       'bowl_1_fill_percent': None,
-      'friendly_name': 'Maui matlåda (old)  Fill Percent',
-      'icon': 'mdi:percent-outline',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Fill Percent',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_fill_percent',
@@ -4857,9 +4857,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Maui matlåda (old)  RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_rssi',
@@ -4876,7 +4876,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -4916,10 +4916,10 @@
     'attributes': ReadOnlyDict({
       'bowls_0_target': 50.0,
       'bowls_1_target': 0.0,
-      'device_class': 'weight',
-      'friendly_name': 'Maui matlåda (old)  Total Weight Limit',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_matlada_old_total_weight_limit',
@@ -4970,8 +4970,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_id': '269654',
-      'friendly_name': 'Maui Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -5027,9 +5027,9 @@
     'attributes': ReadOnlyDict({
       'devices': list([
       ]),
-      'friendly_name': 'Pet with empty status Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_assigned_devices',
@@ -5046,7 +5046,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5084,11 +5084,11 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume',
-      'friendly_name': 'Pet with empty status Drinking',
-      'icon': 'mdi:water',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_drinking',
@@ -5138,10 +5138,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Pet with empty status Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '222222',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -5163,7 +5163,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5201,11 +5201,11 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'weight',
-      'friendly_name': 'Pet with empty status Feeding',
-      'icon': 'mdi:food-drumstick',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_feeding',
@@ -5255,8 +5255,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_last_activity',
@@ -5306,8 +5306,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with empty status Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_empty_status_position',
@@ -5359,9 +5359,9 @@
     'attributes': ReadOnlyDict({
       'devices': list([
       ]),
-      'friendly_name': 'Pet with only one change on status Assigned devices',
-      'icon': 'mdi:devices',
-      'unit_of_measurement': 'pcs',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Assigned devices',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:devices',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'pcs',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_assigned_devices',
@@ -5378,7 +5378,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5419,14 +5419,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 3.23,
       'change_1': 0,
-      'device_class': 'volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
       'device_id': '269654',
-      'friendly_name': 'Pet with only one change on status Drinking',
-      'icon': 'mdi:water',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Drinking',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
       'id': '1210761432',
-      'state_class': <SensorStateClass.TOTAL: 'total'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_drinking',
@@ -5476,10 +5476,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'entity_picture': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
-      'friendly_name': 'Pet with only one change on status Entity Information',
+      <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Entity Information',
       'household_id': '222527',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
       'photo': 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
@@ -5501,7 +5501,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5542,14 +5542,14 @@
       'at': '2020-03-11 14:21:07+00:00',
       'change_0': 4.23,
       'change_1': 0,
-      'device_class': 'weight',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       'device_id': '269654',
-      'friendly_name': 'Pet with only one change on status Feeding',
-      'icon': 'mdi:food-drumstick',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Feeding',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
       'id': '1210761432',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       'tag_id': '2039802',
-      'unit_of_measurement': <UnitOfMass.GRAMS: 'g'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_feeding',
@@ -5599,8 +5599,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Last Activity',
-      'icon': 'mdi:history',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -5650,8 +5650,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Pet with only one change on status Position',
-      'icon': 'mdi:map-marker',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Position',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_position',
@@ -5701,7 +5701,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect',
@@ -5751,7 +5751,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_2-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_2',
@@ -5768,7 +5768,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5803,10 +5803,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_battery-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'battery',
-      'friendly_name': 'Poseidon connect Battery',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'battery',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Battery',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_battery',
@@ -5859,12 +5859,12 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_bowl_volume-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'volume_storage',
-      'friendly_name': 'Poseidon connect Bowl Volume',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume_storage',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Bowl Volume',
       'last_fill_weight': 1071.92,
       'last_filled_at': '2025-09-03 08:39:29+00:00',
       'last_zeroed_at': None,
-      'unit_of_measurement': <UnitOfVolume.MILLILITERS: 'mL'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_bowl_volume',
@@ -5914,9 +5914,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_entity_information-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect Entity Information',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Entity Information',
       'household_id': '7777',
-      'icon': 'mdi:information',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '734730',
       'parent_device_id': None,
       'photo': None,
@@ -5936,7 +5936,7 @@
     ]),
     'area_id': None,
     'capabilities': dict({
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
     }),
     'config_entry_id': <ANY>,
     'config_subentry_id': <ANY>,
@@ -5971,9 +5971,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Poseidon connect Fill Percent',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': '%',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect Fill Percent',
+      <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: '%',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_fill_percent',
@@ -6023,9 +6023,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.poseidon_connect_rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'Poseidon connect RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Poseidon connect RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.poseidon_connect_rssi',
@@ -6075,9 +6075,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.rssi-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'signal_strength',
-      'friendly_name': 'RSSI',
-      'unit_of_measurement': 'dBm',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'signal_strength',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'RSSI',
+      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: 'dBm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.rssi',
