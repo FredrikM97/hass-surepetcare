@@ -30,12 +30,14 @@
         "menu_options": {
           "manual_properties": "Manual properties",
           "timeline": "Timeline events",
-          "devices": "Devices"
+          "devices": "Devices",
+          "reset_polling": "Reset polling intervals"
         },
         "menu_option_descriptions": {
           "manual_properties": "Set the fallback names used for manually updated pet position.",
           "timeline": "Configure how often household timeline events are polled.",
-          "devices": "Choose a device and configure its override settings."
+          "devices": "Choose a device and configure its override settings.",
+          "reset_polling": "Restore device and timeline polling intervals to 300 seconds."
         }
       },
       "manual_properties": {
@@ -56,6 +58,10 @@
       "devices": {
         "title": "Choose device",
         "description": "Select the device you want to configure."
+      },
+      "reset_polling": {
+        "title": "Reset polling intervals",
+        "description": "Restore all device and timeline polling intervals to 300 seconds. Other settings will not change."
       },
       "configure_device": {
         "title": "Configure {device_name}",
