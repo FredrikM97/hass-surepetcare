@@ -247,6 +247,48 @@
           }
         }
       },
+      "feedings_today": {
+        "name": "Feedings Today",
+        "state_attributes": {
+          "total_grams": {
+            "name": "Total Grams"
+          },
+          "events": {
+            "name": "Events"
+          }
+        }
+      },
+      "food_today": {
+        "name": "Food Today",
+        "state_attributes": {
+          "count": {
+            "name": "Count"
+          },
+          "total_wet_grams": {
+            "name": "Total Wet Grams"
+          },
+          "total_dry_grams": {
+            "name": "Total Dry Grams"
+          },
+          "events": {
+            "name": "Events"
+          }
+        }
+      },
+      "household_activity_today": {
+        "name": "Household Activity Today",
+        "state_attributes": {
+          "events": {
+            "name": "Events"
+          },
+          "pet_photos": {
+            "name": "Pet photos"
+          },
+          "device_photos": {
+            "name": "Device photos"
+          }
+        }
+      },
       "position": {
         "name": "Position",
         "state": {

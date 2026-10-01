@@ -1,12 +1,13 @@
 import logging
 from collections import OrderedDict
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from typing import Any, TypeVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.util import dt as dt_util
 from surepcio import Household, SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
 
@@ -17,6 +18,13 @@ from .const import (
     POLLING_SPEED,
     SCAN_INTERVAL,
     TIMELINE_POLLING_SPEED,
+)
+from .feeding_timeline import (
+    HouseholdTimelineData,
+    fetch_household_name,
+    fetch_household_timeline_today,
+    fetch_new_events,
+    fold_new_events,
 )
 from .timeline import build_event_payload
 
@@ -175,3 +183,82 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         )
         self._cursor, self._pending_cursor = self._pending_cursor, newest_id
         return
+
+
+class SurePetCareFeedingTimelineCoordinator(
+    DataUpdateCoordinator[HouseholdTimelineData]
+):
+    """Coordinator exposing today's feeding stats and activity feed for a household.
+
+    Rebuilds from scratch (a backward walk to local midnight) on the first
+    poll, after local midnight, or when there's no cursor yet; otherwise
+    polls incrementally via a single since_id request. The cursor lags one
+    poll behind, like SurePetCareHouseholdTimelineCoordinator above, since
+    timeline ids aren't strictly ordered by created_at.
+    """
+
+    config_entry: SurePetcareConfigEntry
+
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        entry: SurePetcareConfigEntry,
+        client: SurePetcareClient,
+        household_id: int,
+    ) -> None:
+        """Initialize household feeding-timeline coordinator."""
+        super().__init__(
+            hass,
+            logger,
+            config_entry=entry,
+            name=f"surepetcare feeding timeline household {household_id}",
+            update_interval=timedelta(
+                seconds=entry.options.get(OPTION_TIMELINE, {}).get(
+                    TIMELINE_POLLING_SPEED, SCAN_INTERVAL
+                )
+            ),
+        )
+        self.client = client
+        self.household_id = household_id
+        self.household_name: str | None = None
+        self._today_date: date | None = None
+        self._cursor: int | None = None
+        self._pending_cursor: int | None = None
+        self._seen_ids: OrderedDict[int, None] = OrderedDict()
+        self._seen_ids_limit = 500
+
+    def _mark_seen(self, event_id: int) -> None:
+        """Record an event id as folded in, bounding memory to the most recent ones."""
+        self._seen_ids[event_id] = None
+        if len(self._seen_ids) > self._seen_ids_limit:
+            self._seen_ids.popitem(last=False)
+
+    async def _async_update_data(self) -> HouseholdTimelineData:
+        """Fetch today's feeding stats and activity feed for the household."""
+        # Refresh the display name each poll so a household rename is picked up,
+        # but keep the last known name if a fetch fails transiently.
+        if (
+            name := await fetch_household_name(self.client, self.household_id)
+        ) is not None:
+            self.household_name = name
+
+        today = dt_util.start_of_local_day().date()
+        if self.data is None or self._today_date != today or self._cursor is None:
+            data = await fetch_household_timeline_today(self.client, self.household_id)
+            self._today_date = today
+            self._seen_ids.clear()
+            self._cursor = self._pending_cursor = data.cursor
+            return data
+
+        data = self.data
+        new_events = await fetch_new_events(
+            self.client, self.household_id, self._cursor
+        )
+        if new_events:
+            newest_id = max(event.id for event in new_events)
+            unseen = [event for event in new_events if event.id not in self._seen_ids]
+            fold_new_events(data, unseen)
+            for event in new_events:
+                self._mark_seen(event.id)
+            self._cursor, self._pending_cursor = self._pending_cursor, newest_id
+        return data

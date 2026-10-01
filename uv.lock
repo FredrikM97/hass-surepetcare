@@ -1068,7 +1068,7 @@ dev = [
 dev = [
     { name = "mypy", specifier = "==2.1.0" },
     { name = "pre-commit", specifier = "==4.6.1" },
-    { name = "py-surepetcare", git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main" },
+    { name = "py-surepetcare", specifier = "==0.6.4" },
     { name = "pytest-homeassistant-custom-component", specifier = "==0.13.339" },
     { name = "ruff", specifier = "==0.16.3" },
 ]
@@ -1756,11 +1756,15 @@ wheels = [
 
 [[package]]
 name = "py-surepetcare"
-version = "0.5.8.dev12"
-source = { git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main#8652e307fce5b6cc4b6beacad2ca963dbf3913be" }
+version = "0.6.4"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
     { name = "pydantic" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/61/dd/20bf20210c275acdcaa61e342f23b7d3a101cc8483c020f6ef3296a6e382/py_surepetcare-0.6.4.tar.gz", hash = "sha256:979727ae2820cc5905afb5a18632f9f3d3bdce6309e99e0dedd46d5fb41a0e5a", size = 29718, upload-time = "2026-08-26T13:04:51.792Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/11/9b075448057d74da346b2f0f8f87c279f4e9a98b682ca89ff05f255d1f7c/py_surepetcare-0.6.4-py3-none-any.whl", hash = "sha256:40f611b6be97a67576890af3d7620e767c36dcb85f37ea15fc2be7d45d06be42", size = 44784, upload-time = "2026-08-26T13:04:50.525Z" },
 ]
 
 [[package]]

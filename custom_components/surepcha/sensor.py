@@ -3,7 +3,7 @@
 import logging
 from dataclasses import dataclass
 from types import MappingProxyType
-from typing import Any
+from typing import Any, cast
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -13,8 +13,10 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.const import PERCENTAGE, UnitOfMass, UnitOfVolume
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity import EntityCategory
+from homeassistant.exceptions import ConfigEntryNotReady
+from homeassistant.helpers.entity import DeviceInfo, EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from surepcio.devices import Pet
 from surepcio.devices.pet import PetPositionResource
 from surepcio.enums import PetLocation, ProductId
@@ -22,6 +24,7 @@ from surepcio.enums import PetLocation, ProductId
 from custom_components.surepcha.method_field import MethodField
 
 from .const import (
+    DOMAIN,
     LOCATION_INSIDE,
     LOCATION_OUTSIDE,
     MANUAL_PROPERTIES,
@@ -30,11 +33,16 @@ from .const import (
     OPTION_PROPERTIES,
     PRODUCT_ID,
 )
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
+from .coordinator import (
+    SurePetcareConfigEntry,
+    SurePetCareDeviceDataUpdateCoordinator,
+    SurePetCareFeedingTimelineCoordinator,
+)
 from .entity import (
     SurePetCareBaseEntity,
     SurePetCareBaseEntityDescription,
 )
+from .feeding_timeline import PetFeedingStats
 from .helper import (
     abs_sum_attr,
     avg_attr,
@@ -427,7 +435,7 @@ async def async_setup_entry(
     """Set up SurePetCare sensors for each matching device."""
     coordinators = entry.runtime_data.device_coordinators
 
-    entities = [
+    entities: list[SensorEntity] = [
         SurePetCareSensor(
             coordinator,
             description=description,
@@ -435,6 +443,58 @@ async def async_setup_entry(
         for coordinator in coordinators
         for description in SENSORS.get(coordinator.product_id, ())
     ]
+
+    feeding_timeline_coordinators: dict[int, SurePetCareFeedingTimelineCoordinator] = {}
+    for coordinator in coordinators:
+        if coordinator.product_id != ProductId.PET:
+            continue
+        household_id = coordinator.data.household_id
+        feeding_timeline_coordinator = feeding_timeline_coordinators.get(household_id)
+        if feeding_timeline_coordinator is None:
+            feeding_timeline_coordinator = SurePetCareFeedingTimelineCoordinator(
+                hass, entry, coordinator.client, household_id
+            )
+            # Supplementary data - a failure here shouldn't block the sensor
+            # platform; it just keeps retrying on its own update_interval.
+            try:
+                await feeding_timeline_coordinator.async_config_entry_first_refresh()
+            except ConfigEntryNotReady:
+                logger.warning(
+                    "Initial feeding-timeline refresh failed for household %s; "
+                    "will keep retrying in the background",
+                    household_id,
+                )
+            feeding_timeline_coordinators[household_id] = feeding_timeline_coordinator
+
+            pet_photos = {
+                pet.data.id: pet.data.photo
+                for pet in coordinators
+                if pet.product_id == ProductId.PET
+                and pet.data.household_id == household_id
+            }
+            # Not every device has a photo (only feeders/hubs get a stock
+            # image from surepcio); None filtering happens below, like pet_photos.
+            device_photos = {
+                device.data.id: device.data.photo
+                for device in coordinators
+                if device.product_id != ProductId.PET
+                and device.data.household_id == household_id
+            }
+            entities.append(
+                SurePetCareHouseholdActivitySensor(
+                    feeding_timeline_coordinator,
+                    household_id,
+                    pet_photos,
+                    device_photos,
+                )
+            )
+        entities.append(
+            SurePetCareFeedingsTodaySensor(coordinator, feeding_timeline_coordinator)
+        )
+        entities.append(
+            SurePetCareFoodTodaySensor(coordinator, feeding_timeline_coordinator)
+        )
+
     async_add_entities(entities)
 
 
@@ -463,3 +523,196 @@ class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
         ):
             return entity_picture
         return None
+
+
+class SurePetCareTimelineSensorBase(
+    CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator], SensorEntity
+):
+    """Base for per-pet sensors backed by the household feeding-timeline coordinator."""
+
+    _attr_has_entity_name = True
+    _key: str
+
+    def __init__(
+        self,
+        pet_coordinator: SurePetCareDeviceDataUpdateCoordinator,
+        feeding_timeline_coordinator: SurePetCareFeedingTimelineCoordinator,
+    ) -> None:
+        """Initialize a timeline-backed sensor."""
+        super().__init__(pet_coordinator)
+        self._pet = pet_coordinator.data
+        self._feeding_timeline_coordinator = feeding_timeline_coordinator
+        self._attr_unique_id = f"{self._pet.id}-{self._key}"
+        self._attr_translation_key = self._key
+
+    async def async_added_to_hass(self) -> None:
+        """Also refresh when the household feeding-timeline coordinator updates."""
+        await super().async_added_to_hass()
+        self.async_on_remove(
+            self._feeding_timeline_coordinator.async_add_listener(
+                self._handle_coordinator_update
+            )
+        )
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return a device description for device registry."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, f"{self._pet.id}")},
+            manufacturer="SurePetCare",
+            model=self._pet.product_name,
+            model_id=str(self._pet.product_id),
+            name=self._pet.name,
+        )
+
+    @property
+    def _stats(self) -> PetFeedingStats:
+        """Return today's feeding stats for this pet (zeroed if none yet)."""
+        data = self._feeding_timeline_coordinator.data
+        feeding_stats = data.feeding_stats if data else {}
+        return feeding_stats.get(self._pet.id, PetFeedingStats())
+
+    @property
+    def available(self) -> bool:
+        """Return if entity is available."""
+        return (
+            cast(bool, self._pet.available)
+            and super().available
+            and self._feeding_timeline_coordinator.last_update_success
+        )
+
+    def _events_attribute(self) -> list[dict[str, Any]]:
+        """Return today's individual feeding events, for use in graphing cards."""
+        return [
+            {
+                "at": event["at"].isoformat(),
+                "device_id": event["device_id"],
+                "grams": event["grams"],
+                "wet_grams": event["wet_grams"],
+                "dry_grams": event["dry_grams"],
+                "duration_seconds": event["duration_seconds"],
+            }
+            for event in self._stats.events
+        ]
+
+
+class SurePetCareFeedingsTodaySensor(SurePetCareTimelineSensorBase):
+    """Number of feeder visits for a pet since local midnight."""
+
+    _key = "feedings_today"
+    _attr_icon = "mdi:counter"
+    _attr_native_unit_of_measurement = "feedings"
+    # Resets to 0 at local midnight - TOTAL_INCREASING lets the recorder
+    # detect that from the drop itself; plain TOTAL needs an explicit
+    # last_reset we don't provide, and would corrupt the running sum instead.
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+
+    @property
+    def native_value(self) -> int:
+        """Return the number of feedings today."""
+        return self._stats.count
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return today's individual feeding events for graphing."""
+        return {
+            "total_grams": self._stats.total_grams,
+            "events": self._events_attribute(),
+        }
+
+
+class SurePetCareFoodTodaySensor(SurePetCareTimelineSensorBase):
+    """Total grams eaten by a pet since local midnight."""
+
+    _key = "food_today"
+    _attr_icon = "mdi:food-drumstick"
+    _attr_device_class = SensorDeviceClass.WEIGHT
+    _attr_native_unit_of_measurement = UnitOfMass.GRAMS
+    # See SurePetCareFeedingsTodaySensor for why TOTAL_INCREASING (not TOTAL).
+    _attr_state_class = SensorStateClass.TOTAL_INCREASING
+
+    @property
+    def native_value(self) -> float:
+        """Return the total grams eaten today."""
+        return self._stats.total_grams
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return today's individual feeding events for graphing."""
+        return {
+            "count": self._stats.count,
+            "total_wet_grams": self._stats.total_wet_grams,
+            "total_dry_grams": self._stats.total_dry_grams,
+            "events": self._events_attribute(),
+        }
+
+
+class SurePetCareHouseholdActivitySensor(
+    CoordinatorEntity[SurePetCareFeedingTimelineCoordinator], SensorEntity
+):
+    """Household-wide chronological feed of feeding and bowl-maintenance activity today."""
+
+    _attr_has_entity_name = True
+    _attr_translation_key = "household_activity_today"
+    _attr_icon = "mdi:timeline-clock-outline"
+    _attr_native_unit_of_measurement = "events"
+    # No state_class: redundant with feedings_today's own per-pet statistics.
+
+    def __init__(
+        self,
+        feeding_timeline_coordinator: SurePetCareFeedingTimelineCoordinator,
+        household_id: int,
+        pet_photos: dict[int, str | None],
+        device_photos: dict[int, str | None],
+    ) -> None:
+        """Initialize the household activity sensor."""
+        super().__init__(feeding_timeline_coordinator)
+        self._household_id = household_id
+        self._pet_photos = pet_photos
+        self._device_photos = device_photos
+        self._attr_unique_id = f"household-{household_id}-activity_today"
+
+    @property
+    def device_info(self) -> DeviceInfo:
+        """Return a device description for the household itself."""
+        return DeviceInfo(
+            identifiers={(DOMAIN, f"household-{self._household_id}")},
+            manufacturer="SurePetCare",
+            model="Household",
+            name=self.coordinator.household_name or f"Household {self._household_id}",
+        )
+
+    @property
+    def native_value(self) -> int:
+        """Return the number of activity events recorded today."""
+        data = self.coordinator.data
+        return len(data.activity) if data else 0
+
+    @property
+    def extra_state_attributes(self) -> dict[str, Any]:
+        """Return today's combined feeding and bowl-maintenance activity feed.
+
+        Photos are listed once per pet/device, not repeated per event - that
+        duplication is what pushes past the recorder's 16 KiB attribute limit.
+        """
+        data = self.coordinator.data
+        events = data.activity if data else []
+        return {
+            "events": [
+                {
+                    **{key: value for key, value in event.items() if key != "at"},
+                    "at": event["at"].isoformat(),
+                }
+                for event in events
+            ],
+            "pet_photos": {
+                str(pet_id): photo
+                for pet_id, photo in self._pet_photos.items()
+                if photo is not None
+            },
+            "device_photos": {
+                str(device_id): photo
+                for device_id, photo in self._device_photos.items()
+                if photo is not None
+            },
+        }
