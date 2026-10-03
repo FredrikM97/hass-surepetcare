@@ -3,7 +3,7 @@ from collections.abc import Callable, Coroutine
 from typing import Any
 
 import voluptuous as vol
-from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+from homeassistant.helpers import device_registry as dr
 from surepcio.devices import Pet
 from surepcio.enums import ModifyDeviceTag, PetDeviceLocationProfile, PetLocation
 
@@ -140,16 +140,24 @@ async def refresh_device(call) -> None:
 
 
 def get_coordinator(hass, device_id) -> SurePetCareDeviceDataUpdateCoordinator:
-    device_registry = async_get_device_registry(hass)
-    config_entries = hass.config_entries.async_loaded_entries(DOMAIN)
-    for entry in config_entries:
+    device_entry, config_entry = dr.async_get_device_and_config_entry_for_domain(
+        hass, device_id, domain=DOMAIN
+    )
+    if device_entry is None or config_entry is None:
+        raise ValueError(f"No coordinator found for device_id {device_id}")
+
+    device_identifiers = {
+        identifier for identifier in device_entry.identifiers if identifier[0] == DOMAIN
+    }
+    if not device_identifiers:
+        raise ValueError(f"No coordinator found for device_id {device_id}")
+
+    for entry in hass.config_entries.async_loaded_entries(DOMAIN):
+        if entry.entry_id != config_entry.entry_id:
+            continue
         runtime_data = getattr(entry, "runtime_data", None)
         for coordinator in runtime_data.device_coordinators if runtime_data else []:
-            # Get the HA device registry entry for this coordinator's device
-            device_entry = device_registry.async_get_device(
-                identifiers={(DOMAIN, str(coordinator._device.id))}
-            )
-            # Match either by HA device registry ID or by integration device ID
-            if device_entry and device_entry.id == device_id:
+            if (DOMAIN, str(coordinator._device.id)) in device_identifiers:
                 return coordinator
+
     raise ValueError(f"No coordinator found for device_id {device_id}")

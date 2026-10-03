@@ -39,9 +39,9 @@
 # name: test_platform_setup_and_discovery[binary_sensor.ajax_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
       'device_id': '695379',
-      'friendly_name': 'Ajax Presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Presence',
       'id': '5241973826',
       'since': '2025-11-18 09:36:44+00:00',
       'tag_id': '1270143',
@@ -95,7 +95,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'enabled': False,
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
       'lock_time': '11:10',
       'unlock_time': '11:20',
     }),
@@ -147,8 +147,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.feeder_with_different_fill_percent_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Feeder with different fill percent Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_connectivity',
@@ -198,8 +198,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.feeder_with_different_fill_percent_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Learn Mode',
-      'icon': 'mdi:school',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Learn Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_learn_mode',
@@ -249,8 +249,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.hem_hub_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Hem-hub Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.hem_hub_connectivity',
@@ -300,8 +300,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Katzenklappe Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_connectivity',
@@ -363,7 +363,7 @@
           'unlock_time': '23:06:00',
         }),
       ]),
-      'friendly_name': 'Katzenklappe Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_curfew_active',
@@ -413,7 +413,7 @@
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Katzenklappe Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_learn_mode',
@@ -464,7 +464,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'enabled': False,
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
       'lock_time': '08:00',
       'unlock_time': '17:00',
     }),
@@ -516,7 +516,7 @@
 # name: test_platform_setup_and_discovery[binary_sensor.laundry_door_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_learn_mode',
@@ -566,7 +566,7 @@
 # name: test_platform_setup_and_discovery[binary_sensor.learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.learn_mode',
@@ -616,8 +616,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.maui_matlada_old_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Maui matlåda (old)  Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_connectivity',
@@ -667,8 +667,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.maui_matlada_old_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Learn Mode',
-      'icon': 'mdi:school',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Learn Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_learn_mode',
@@ -718,9 +718,9 @@
 # name: test_platform_setup_and_discovery[binary_sensor.maui_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
       'device_id': '269654',
-      'friendly_name': 'Maui Presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Presence',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -773,8 +773,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.pet_with_empty_status_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Pet with empty status Presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Presence',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.pet_with_empty_status_presence',
@@ -824,8 +824,8 @@
 # name: test_platform_setup_and_discovery[binary_sensor.pet_with_only_one_change_on_status_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Pet with only one change on status Presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Presence',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',
@@ -875,9 +875,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.ajax_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
       'device_id': '695379',
-      'friendly_name': 'Ajax Presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Presence',
       'id': '5241973826',
       'since': '2025-11-18 09:36:44+00:00',
       'tag_id': '1270143',
@@ -931,7 +931,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'enabled': False,
-      'friendly_name': 'Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
       'lock_time': '11:10',
       'unlock_time': '11:20',
     }),
@@ -983,8 +983,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.feeder_with_different_fill_percent_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Feeder with different fill percent Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_connectivity',
@@ -1034,8 +1034,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.feeder_with_different_fill_percent_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Feeder with different fill percent Learn Mode',
-      'icon': 'mdi:school',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Learn Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.feeder_with_different_fill_percent_learn_mode',
@@ -1085,8 +1085,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.hem_hub_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Hem-hub Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.hem_hub_connectivity',
@@ -1136,8 +1136,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Katzenklappe Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_connectivity',
@@ -1199,7 +1199,7 @@
           'unlock_time': '23:06:00',
         }),
       ]),
-      'friendly_name': 'Katzenklappe Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Curfew active',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_curfew_active',
@@ -1249,7 +1249,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Katzenklappe Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_learn_mode',
@@ -1300,7 +1300,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'enabled': False,
-      'friendly_name': 'Laundry Door Curfew active',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
       'lock_time': '08:00',
       'unlock_time': '17:00',
     }),
@@ -1352,7 +1352,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Laundry Door Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_learn_mode',
@@ -1402,7 +1402,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Learn Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Learn Mode',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.learn_mode',
@@ -1452,8 +1452,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_matlada_old_connectivity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'connectivity',
-      'friendly_name': 'Maui matlåda (old)  Connectivity',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'connectivity',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Connectivity',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_connectivity',
@@ -1503,8 +1503,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_matlada_old_learn_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Maui matlåda (old)  Learn Mode',
-      'icon': 'mdi:school',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Learn Mode',
+      <EntityStateAttribute.ICON: 'icon'>: 'mdi:school',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_matlada_old_learn_mode',
@@ -1554,9 +1554,9 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.maui_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
       'device_id': '269654',
-      'friendly_name': 'Maui Presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Presence',
       'id': '5045077041',
       'since': '2020-03-11 14:21:07+00:00',
       'tag_id': '1725049',
@@ -1609,8 +1609,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_empty_status_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Pet with empty status Presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Presence',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.pet_with_empty_status_presence',
@@ -1660,8 +1660,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_only_one_change_on_status_presence-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
-      'friendly_name': 'Pet with only one change on status Presence',
+      <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Presence',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.pet_with_only_one_change_on_status_presence',

@@ -1,5 +1,6 @@
 import logging
-from unittest.mock import patch
+from types import SimpleNamespace
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from homeassistant.const import Platform
@@ -18,8 +19,80 @@ from surepcio.enums import (
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import DOMAIN
+from custom_components.surepcha.services import async_set_control, get_coordinator
 
 from . import initialize_entry
+
+
+def test_get_coordinator_unknown_device(hass: HomeAssistant) -> None:
+    """Reject a device that is not present in the registry."""
+    with (
+        patch(
+            "custom_components.surepcha.services.dr.async_get_device_and_config_entry_for_domain",
+            return_value=(None, None),
+        ),
+        pytest.raises(ValueError, match="No coordinator found"),
+    ):
+        get_coordinator(hass, "unknown")
+
+
+def test_get_coordinator_non_integration_device(hass: HomeAssistant) -> None:
+    """Reject a device without a SurePetCare identifier."""
+    device_entry = MagicMock(identifiers={("other", "device")})
+    config_entry = MagicMock(entry_id="entry")
+    with (
+        patch(
+            "custom_components.surepcha.services.dr.async_get_device_and_config_entry_for_domain",
+            return_value=(device_entry, config_entry),
+        ),
+        pytest.raises(ValueError, match="No coordinator found"),
+    ):
+        get_coordinator(hass, "device")
+
+
+def test_get_coordinator_without_matching_coordinator(hass: HomeAssistant) -> None:
+    """Reject a registered device with no matching loaded coordinator."""
+    device_entry = SimpleNamespace(identifiers={(DOMAIN, "device")})
+    config_entry = SimpleNamespace(entry_id="entry")
+    coordinator = SimpleNamespace(_device=SimpleNamespace(id="other"))
+    unrelated_entry = SimpleNamespace(entry_id="unrelated", runtime_data=None)
+    loaded_entry = SimpleNamespace(
+        entry_id="entry",
+        runtime_data=SimpleNamespace(device_coordinators=[coordinator]),
+    )
+    with (
+        patch(
+            "custom_components.surepcha.services.dr.async_get_device_and_config_entry_for_domain",
+            return_value=(device_entry, config_entry),
+        ),
+        patch.object(
+            hass.config_entries,
+            "async_loaded_entries",
+            return_value=[unrelated_entry, loaded_entry],
+        ),
+        pytest.raises(ValueError, match="No coordinator found"),
+    ):
+        get_coordinator(hass, "device")
+
+
+@pytest.mark.asyncio
+async def test_set_control_service(hass: HomeAssistant) -> None:
+    """Send a control update through the selected device coordinator."""
+    coordinator = MagicMock()
+    coordinator._device.set_control.return_value = "command"
+    coordinator.client.api = AsyncMock()
+    call = SimpleNamespace(
+        hass=hass,
+        data={"device_id": "device", "control": {"curfew": {"enabled": True}}},
+    )
+    with patch(
+        "custom_components.surepcha.services.get_coordinator",
+        return_value=coordinator,
+    ):
+        await async_set_control(call)
+
+    coordinator._device.set_control.assert_called_once_with(curfew={"enabled": True})
+    coordinator.client.api.assert_awaited_once_with("command")
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
@@ -74,13 +147,13 @@ async def test_platform_setup_and_set_tag_service(
     device_registry = async_get_device_registry(hass)
     device_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
     )
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -124,13 +197,13 @@ async def test_platform_setup_and_set_pet_access_mode_service(
     device_registry = async_get_device_registry(hass)
     device_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) != str(ProductId.PET)
     )
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -166,7 +239,7 @@ async def test_platform_setup_and_set_pet_position_service(
     device_registry = async_get_device_registry(hass)
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )
@@ -201,7 +274,7 @@ async def test_platform_setup_and_refresh_device_service(
     device_registry = async_get_device_registry(hass)
     pet_id = next(
         d.id
-        for d in device_registry.devices.values()
+        for d in device_registry.devices
         if any(ident[0] == DOMAIN for ident in d.identifiers)
         and getattr(d, "model_id", None) == str(ProductId.PET)
     )

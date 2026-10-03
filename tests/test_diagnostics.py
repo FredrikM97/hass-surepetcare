@@ -69,8 +69,8 @@ async def test_device_diagnostics(
     """Test device diagnostics."""
     await initialize_entry(hass, mock_client, mock_config_entry, mock_device, mock_pet)
 
-    device = device_registry.async_get_device(
-        identifiers={(DOMAIN, f"{mock_device[0].id}")}
+    device = device_registry.async_get_device_by_identifier(
+        (DOMAIN, f"{mock_device[0].id}"), mock_config_entry.entry_id
     )
     assert device, repr(device_registry.devices)
 

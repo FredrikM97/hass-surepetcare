@@ -4,6 +4,7 @@ import logging
 from dataclasses import dataclass
 from typing import Any, cast
 
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from surepcio.devices.device import DeviceBase, PetBase
@@ -44,17 +45,29 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
     def device_info(self) -> DeviceInfo:
         """Return a device description for device registry."""
         parent_device_id = self._device.entity_info.parent_device_id
-        via_device = (
-            (DOMAIN, str(parent_device_id)) if parent_device_id is not None else None
-        )
-        return DeviceInfo(
+        device_info = DeviceInfo(
             identifiers={(DOMAIN, f"{self._device.id}")},
             manufacturer="SurePetCare",
             model=self._device.product_name,
             model_id=str(self._device.product_id),
             name=self._device.name,
-            **({"via_device": via_device} if via_device is not None else {}),
         )
+        if parent_device_id is not None:
+            parent_identifier = (DOMAIN, str(parent_device_id))
+            try:
+                device_info["via_device_id"] = dr.async_get_device_id_by_identifier(
+                    self.hass,
+                    parent_identifier,
+                    config_entry_id=self.coordinator.config_entry.entry_id,
+                )
+            except ValueError:
+                logger.debug(
+                    "Skipping via_device_id for %s: parent %s not found in config entry %s",
+                    self._device.id,
+                    parent_identifier,
+                    self.coordinator.config_entry.entry_id,
+                )
+        return device_info
 
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
