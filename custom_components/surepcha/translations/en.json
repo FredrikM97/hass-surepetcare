@@ -48,9 +48,9 @@
       },
       "timeline": {
         "title": "Timeline events",
-        "description": "Configure how often household timeline events are polled.",
+        "description": "Set how often Sure Petcare is asked for household timeline events. The default is 300 seconds (5 minutes). Shorter intervals mean more frequent requests; for example, 15 seconds means 20 times as many requests as 300 seconds. Enter any value from 5 to 86400 seconds.",
         "data": {
-          "timeline_polling_speed": "Update interval (seconds)"
+          "timeline_polling_speed": "Timeline update interval (seconds)"
         }
       },
       "devices": {
@@ -58,9 +58,9 @@
         "description": "Select the device you want to configure."
       },
       "configure_device": {
-        "title": "Configure {device_name}",
+        "title": "Configure {device_name}",        "description": "Set how often this device is refreshed. The default is 300 seconds (5 minutes). Shorter intervals mean more frequent requests; for example, 15 seconds means 20 times as many requests as 300 seconds. Enter any value from 5 to 86400 seconds.",
         "data": {
-          "polling_speed": "Update interval (seconds)",
+          "polling_speed": "Device update interval (seconds)",
           "location": "Location",
           "location_inside": "Inside location",
           "location_outside": "Outside location"

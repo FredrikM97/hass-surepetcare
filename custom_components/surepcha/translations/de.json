@@ -48,9 +48,9 @@
       },
       "timeline": {
         "title": "Zeitachsen-Ereignisse",
-        "description": "Lege fest, wie oft Zeitachsen-Ereignisse des Haushalts abgerufen werden.",
+        "description": "Lege fest, wie oft Sure Petcare Ereignisse der Haushalt-Timeline abfragt. Der Standardwert beträgt 300 Sekunden (5 Minuten). Kürzere Intervalle bedeuten häufigere Anfragen; bei 15 Sekunden sind es beispielsweise 20-mal so viele Anfragen wie bei 300 Sekunden. Gib einen beliebigen Wert zwischen 5 und 86400 Sekunden ein.",
         "data": {
-          "timeline_polling_speed": "Aktualisierungsintervall (Sekunden)"
+          "timeline_polling_speed": "Aktualisierungsintervall der Timeline (Sekunden)"
         }
       },
       "devices": {
@@ -58,9 +58,9 @@
         "description": "Wähle das Gerät aus, das du konfigurieren möchtest."
       },
       "configure_device": {
-        "title": "Konfiguriere {device_name}",
+        "title": "Konfiguriere {device_name}",        "description": "Lege fest, wie oft dieses Gerät aktualisiert wird. Der Standardwert beträgt 300 Sekunden (5 Minuten). Kürzere Intervalle bedeuten häufigere Anfragen; bei 15 Sekunden sind es beispielsweise 20-mal so viele Anfragen wie bei 300 Sekunden. Gib einen beliebigen Wert zwischen 5 und 86400 Sekunden ein.",
         "data": {
-          "polling_speed": "Aktualisierungsintervall (Sekunden)",
+          "polling_speed": "Aktualisierungsintervall des Geräts (Sekunden)",
           "location": "Standort",
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
