@@ -49,7 +49,7 @@
       },
       "timeline": {
         "title": "Tidslinjehändelser",
-        "description": "Ange hur ofta Sure Petcare ska hämta hushållets händelser i tidslinjen. Standardvärdet är 300 sekunder (5 minuter). Kortare intervall innebär fler förfrågningar; 15 sekunder ger till exempel 20 gånger fler förfrågningar än 300 sekunder. Ange ett valfritt värde mellan 5 och 86400 sekunder.",
+        "description": "Tidslinjens uppdateringsintervall. Lägre värden innebär fler förfrågningar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
         "data": {
           "timeline_polling_speed": "Uppdateringsintervall för tidslinjen (sekunder)"
         }

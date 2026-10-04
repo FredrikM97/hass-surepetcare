@@ -48,7 +48,7 @@
       },
       "timeline": {
         "title": "Zeitachsen-Ereignisse",
-        "description": "Lege fest, wie oft Sure Petcare Ereignisse der Haushalt-Timeline abfragt. Der Standardwert beträgt 300 Sekunden (5 Minuten). Kürzere Intervalle bedeuten häufigere Anfragen; bei 15 Sekunden sind es beispielsweise 20-mal so viele Anfragen wie bei 300 Sekunden. Gib einen beliebigen Wert zwischen 5 und 86400 Sekunden ein.",
+        "description": "Aktualisierungsintervall der Timeline. Kürzere Intervalle bedeuten häufigere Anfragen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
         "data": {
           "timeline_polling_speed": "Aktualisierungsintervall der Timeline (Sekunden)"
         }

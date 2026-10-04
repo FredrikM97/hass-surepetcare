@@ -48,7 +48,7 @@
       },
       "timeline": {
         "title": "Timeline events",
-        "description": "Set how often Sure Petcare is asked for household timeline events. The default is 300 seconds (5 minutes). Shorter intervals mean more frequent requests; for example, 15 seconds means 20 times as many requests as 300 seconds. Enter any value from 5 to 86400 seconds.",
+        "description": "Timeline refresh interval. Lower values mean more frequent requests. Default: 300 seconds. Range: 5–86,400 seconds.",
         "data": {
           "timeline_polling_speed": "Timeline update interval (seconds)"
         }
