@@ -48,9 +48,9 @@
       },
       "timeline": {
         "title": "Timeline events",
-        "description": "Configure how often household timeline events are polled.",
+        "description": "Timeline refresh interval. Lower values mean more frequent requests. Default: 300 seconds. Range: 5–86,400 seconds.",
         "data": {
-          "timeline_polling_speed": "Update interval (seconds)"
+          "timeline_polling_speed": "Timeline update interval (seconds)"
         }
       },
       "devices": {
@@ -58,9 +58,9 @@
         "description": "Select the device you want to configure."
       },
       "configure_device": {
-        "title": "Configure {device_name}",
+        "title": "Configure {device_name}",        "description": "Device refresh interval. Lower values mean more frequent refreshes. Default: 300 seconds. Range: 5–86,400 seconds.",
         "data": {
-          "polling_speed": "Update interval (seconds)",
+          "polling_speed": "Device update interval (seconds)",
           "location": "Location",
           "location_inside": "Inside location",
           "location_outside": "Outside location"

@@ -48,7 +48,7 @@
       },
       "timeline": {
         "title": "Événements de la chronologie",
-        "description": "Configurez la fréquence de récupération des événements de la chronologie du foyer.",
+        "description": "Intervalle d’actualisation de la chronologie. Une valeur plus basse entraîne des requêtes plus fréquentes. Valeur par défaut : 300 secondes. Plage : 5–86 400 secondes.",
         "data": {
           "timeline_polling_speed": "Intervalle de mise à jour de la chronologie (secondes)"
         }
@@ -59,6 +59,7 @@
       },
       "configure_device": {
         "title": "Configurer {device_name}",
+        "description": "Intervalle d’actualisation de l’appareil. Une valeur plus basse entraîne des actualisations plus fréquentes. Valeur par défaut : 300 secondes. Plage : 5–86 400 secondes.",
         "data": {
           "polling_speed": "Intervalle de mise à jour de l’appareil (secondes)",
           "location": "Lieu",

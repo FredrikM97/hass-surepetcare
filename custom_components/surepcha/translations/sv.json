@@ -1,3 +1,4 @@
+
 {
   "config": {
     "step": {
@@ -48,9 +49,9 @@
       },
       "timeline": {
         "title": "Tidslinjehändelser",
-        "description": "Ställ in hur ofta hushållets tidslinjehändelser hämtas.",
+        "description": "Tidslinjens uppdateringsintervall. Lägre värden innebär fler förfrågningar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
         "data": {
-          "timeline_polling_speed": "Uppdateringsintervall (sekunder)"
+          "timeline_polling_speed": "Uppdateringsintervall för tidslinjen (sekunder)"
         }
       },
       "devices": {
@@ -58,9 +59,9 @@
         "description": "Välj den enhet du vill konfigurera."
       },
       "configure_device": {
-        "title": "Konfigurera {device_name}",
+        "title": "Konfigurera {device_name}",        "description": "Enhetens uppdateringsintervall. Kortare intervall innebär tätare uppdateringar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
         "data": {
-          "polling_speed": "Uppdateringsintervall (sekunder)",
+          "polling_speed": "Uppdateringsintervall för enheten (sekunder)",
           "location": "Plats",
           "location_inside": "Inomhusplats",
           "location_outside": "Utomhusplats"

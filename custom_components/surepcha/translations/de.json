@@ -48,9 +48,9 @@
       },
       "timeline": {
         "title": "Zeitachsen-Ereignisse",
-        "description": "Lege fest, wie oft Zeitachsen-Ereignisse des Haushalts abgerufen werden.",
+        "description": "Aktualisierungsintervall der Timeline. Kürzere Intervalle bedeuten häufigere Anfragen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
         "data": {
-          "timeline_polling_speed": "Aktualisierungsintervall (Sekunden)"
+          "timeline_polling_speed": "Aktualisierungsintervall der Timeline (Sekunden)"
         }
       },
       "devices": {
@@ -58,9 +58,9 @@
         "description": "Wähle das Gerät aus, das du konfigurieren möchtest."
       },
       "configure_device": {
-        "title": "Konfiguriere {device_name}",
+        "title": "Konfiguriere {device_name}",        "description": "Aktualisierungsintervall des Geräts. Kürzere Intervalle bedeuten häufigere Aktualisierungen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
         "data": {
-          "polling_speed": "Aktualisierungsintervall (Sekunden)",
+          "polling_speed": "Aktualisierungsintervall des Geräts (Sekunden)",
           "location": "Standort",
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
