@@ -16,5 +16,6 @@
   "requirements": [
       "py-surepetcare==0.6.4"
   ],
+  "homeassistant": "2026.9.0",
   "version": "0.0.0"
 }

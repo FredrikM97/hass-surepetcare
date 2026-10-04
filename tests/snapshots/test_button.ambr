@@ -2,7 +2,7 @@
 # name: test_button_press_and_snapshot[button.hem_hub_pairing_mode-press]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub Pairing Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
     'entity_id': 'button.hem_hub_pairing_mode',
@@ -51,7 +51,7 @@
 # name: test_platform_setup_and_discovery[button.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub Pairing Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
     'entity_id': 'button.hem_hub_pairing_mode',
@@ -101,7 +101,7 @@
 # name: test_platform_setup_and_discovery_missing_entities[button.hem_hub_pairing_mode-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Hem-hub Pairing Mode',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Hem-hub Pairing Mode',
     }),
     'context': <ANY>,
     'entity_id': 'button.hem_hub_pairing_mode',
