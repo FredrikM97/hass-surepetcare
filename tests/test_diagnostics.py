@@ -76,9 +76,7 @@ async def test_device_diagnostics(
     assert device, repr(device_registry.devices)
 
     result = json.loads(
-        json_bytes(
-            await async_get_device_diagnostics(hass, mock_config_entry, device)
-        )
+        json_bytes(await async_get_device_diagnostics(hass, mock_config_entry, device))
     )
 
     # Device diagnostics includes entry options, so validate the same contract here.

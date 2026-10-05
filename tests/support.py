@@ -241,7 +241,12 @@ class HomeAssistantSnapshotSerializer(AmberDataSerializer):
                 "options": {key: dict(value) for key, value in data.options.items()},
             }
         )
-        for key in ("categories", "compat_aliases", "original_name_unprefixed", "_cache"):
+        for key in (
+            "categories",
+            "compat_aliases",
+            "original_name_unprefixed",
+            "_cache",
+        ):
             serialized.pop(key, None)
         serialized["aliases"] = er._serialize_aliases(serialized["aliases"])
         return cls._remove_timestamps(serialized)
