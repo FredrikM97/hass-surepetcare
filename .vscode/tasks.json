@@ -34,7 +34,7 @@
     {
       "label": "Lint (Ruff)",
       "type": "shell",
-      "command": "ruff .",
+      "command": "uv run ruff check .",
       "group": "test",
       "presentation": {
         "reveal": "always",

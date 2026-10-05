@@ -10,7 +10,6 @@ from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from surepcio.enums import ProductId
@@ -21,6 +20,7 @@ from custom_components.surepcha import DOMAIN, remove_stale_devices
 from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
 
 from . import initialize_entry
+from .support import MockConfigEntry
 
 
 class DummyEntry:

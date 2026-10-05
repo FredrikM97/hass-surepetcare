@@ -15,11 +15,17 @@ requires-python = ">=3.14.2"
 
 [dependency-groups]
 dev = [
+    "attrs==26.1.0",
+    "homeassistant==2026.9.3",
     "py-surepetcare==0.6.4",
     "pre-commit==4.6.1",
-    "pytest-homeassistant-custom-component==0.13.366",
+    "probatio==0.11.4",
+    "pytest==9.0.3",
+    "pytest-asyncio==1.3.0",
     "ruff==0.16.3",
-    "mypy==2.1.0"
+    "mypy==2.1.0",
+    "syrupy==5.2.0",
+    "voluptuous==0.15.2",
 ]
 
 [tool.setuptools.packages.find]

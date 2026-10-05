@@ -1,12 +1,9 @@
+import json
+
 import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
-from pytest_homeassistant_custom_component.common import MockConfigEntry
-from pytest_homeassistant_custom_component.components.diagnostics import (
-    get_diagnostics_for_config_entry,
-    get_diagnostics_for_device,
-)
-from pytest_homeassistant_custom_component.typing import ClientSessionGenerator
+from homeassistant.helpers.json import json_bytes
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from syrupy.assertion import SnapshotAssertion
@@ -18,8 +15,13 @@ from custom_components.surepcha.const import (
     OPTION_DEVICES,
     OPTION_PROPERTIES,
 )
+from custom_components.surepcha.diagnostics import (
+    async_get_config_entry_diagnostics,
+    async_get_device_diagnostics,
+)
 
 from . import initialize_entry
+from .support import MockConfigEntry
 
 
 @pytest.mark.parametrize("mock_device_name", ["feeder_connect"])
@@ -30,15 +32,15 @@ async def test_entry_diagnostics(
     mock_config_entry: MockConfigEntry,
     mock_device: list[DeviceBase],
     mock_pet: list[PetBase],
-    hass_client: ClientSessionGenerator,
     snapshot: SnapshotAssertion,
 ) -> None:
     """Test config entry diagnostics."""
     await initialize_entry(hass, mock_client, mock_config_entry, mock_device, mock_pet)
 
-    result = await get_diagnostics_for_config_entry(
-        hass, hass_client, mock_config_entry
+    result = json_bytes(
+        await async_get_config_entry_diagnostics(hass, mock_config_entry)
     )
+    result = json.loads(result)
 
     # Verify sensitive data is redacted
     assert result["entry_data"]["token"] == "**REDACTED**"
@@ -62,7 +64,6 @@ async def test_device_diagnostics(
     mock_config_entry: MockConfigEntry,
     mock_device: list[DeviceBase],
     mock_pet: list[PetBase],
-    hass_client: ClientSessionGenerator,
     device_registry: dr.DeviceRegistry,
     snapshot: SnapshotAssertion,
 ) -> None:
@@ -74,8 +75,10 @@ async def test_device_diagnostics(
     )
     assert device, repr(device_registry.devices)
 
-    result = await get_diagnostics_for_device(
-        hass, hass_client, mock_config_entry, device
+    result = json.loads(
+        json_bytes(
+            await async_get_device_diagnostics(hass, mock_config_entry, device)
+        )
     )
 
     # Device diagnostics includes entry options, so validate the same contract here.

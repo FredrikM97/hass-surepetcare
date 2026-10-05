@@ -1,15 +1,27 @@
-from collections.abc import Generator
+import logging
+from collections.abc import AsyncGenerator, Generator
 from enum import Enum
+from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import surepcio.enums
+from homeassistant import loader
+from homeassistant.config_entries import ConfigEntries, ConfigEntryState
 from homeassistant.core import HomeAssistant
-from pytest_homeassistant_custom_component.common import (
-    MockConfigEntry,
-    load_json_value_fixture,
+from homeassistant.helpers import (
+    area_registry as area_registry_module,
 )
-from pytest_homeassistant_custom_component.syrupy import HomeAssistantSnapshotExtension
+from homeassistant.helpers import (
+    device_registry as device_registry_module,
+)
+from homeassistant.helpers import (
+    entity,
+    frame,
+)
+from homeassistant.helpers import (
+    entity_registry as entity_registry_module,
+)
 from surepcio import SurePetcareClient
 from surepcio.devices import load_device_class
 from surepcio.devices.device import DeviceBase, PetBase
@@ -31,6 +43,11 @@ from custom_components.surepcha.const import (
 )
 
 from . import DEVICE_MOCKS, PET_MOCKS
+from .support import (
+    HomeAssistantSnapshotExtension,
+    MockConfigEntry,
+    load_json_value_fixture,
+)
 
 # Auto-detect common enum fields by importing all enums from surepcio
 _KNOWN_ENUMS = {
@@ -41,9 +58,61 @@ _KNOWN_ENUMS = {
 
 
 @pytest.fixture
+async def hass(tmp_path: Path) -> AsyncGenerator[HomeAssistant]:
+    """Create a minimal Home Assistant instance for integration tests."""
+    instance = HomeAssistant(str(tmp_path))
+    instance.data[loader.DATA_CUSTOM_COMPONENTS] = {}
+    instance.config_entries = ConfigEntries(instance, {"_": "test"})
+    await instance.config_entries.async_initialize()
+    entity.async_setup(instance)
+    loader.async_setup(instance)
+    device_registry_module.async_setup(instance)
+    await device_registry_module.async_get(instance).async_load()
+    await entity_registry_module.async_get(instance).async_load()
+    await area_registry_module.async_get(instance).async_load()
+    frame.async_setup(instance)
+    await instance.async_start()
+    logging.getLogger("custom_components.surepcha").setLevel(logging.INFO)
+    logging.getLogger("surepcio").setLevel(logging.INFO)
+    try:
+        yield instance
+    finally:
+        for entry in instance.config_entries.async_entries():
+            if entry.state is ConfigEntryState.LOADED:
+                await instance.config_entries.async_unload(entry.entry_id)
+        await instance.async_stop(force=True)
+        await instance.async_block_till_done()
+
+
+@pytest.fixture
 def snapshot(snapshot: SnapshotAssertion) -> SnapshotAssertion:
     """Return snapshot assertion fixture with the Home Assistant extension. Required by package"""
     return snapshot.use_extension(HomeAssistantSnapshotExtension)
+
+
+@pytest.fixture
+def enable_custom_integrations(hass: HomeAssistant) -> None:
+    """Ensure the test Home Assistant instance allows local integrations."""
+    hass.data.pop(loader.DATA_CUSTOM_COMPONENTS, None)
+
+
+@pytest.fixture
+def device_registry(
+    hass: HomeAssistant,
+) -> device_registry_module.DeviceRegistry:
+    return device_registry_module.async_get(hass)
+
+
+@pytest.fixture
+def entity_registry(
+    hass: HomeAssistant,
+) -> entity_registry_module.EntityRegistry:
+    return entity_registry_module.async_get(hass)
+
+
+@pytest.fixture
+def area_registry(hass: HomeAssistant) -> area_registry_module.AreaRegistry:
+    return area_registry_module.async_get(hass)
 
 
 @pytest.fixture
@@ -220,7 +289,7 @@ def mock_device_name() -> str:
 async def mock_surepetcare_login_control(
     mock_pets,
     mock_devices,
-) -> Generator[MagicMock]:
+) -> AsyncGenerator[MagicMock]:
     """Return a mocked SurePetcareClient for config_flow login."""
     with (
         patch(

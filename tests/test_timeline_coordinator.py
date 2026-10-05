@@ -4,10 +4,6 @@ from datetime import timedelta
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from pytest_homeassistant_custom_component.common import (
-    async_capture_events,
-    load_json_value_fixture,
-)
 from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
@@ -20,6 +16,8 @@ from custom_components.surepcha.const import (
 from custom_components.surepcha.coordinator import (
     SurePetCareHouseholdTimelineCoordinator,
 )
+
+from .support import async_capture_events, load_json_value_fixture
 
 
 def _load_scenario(name: str) -> list[TimelineEvent]:

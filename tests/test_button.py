@@ -4,13 +4,10 @@ import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-from pytest_homeassistant_custom_component.common import (
-    MockConfigEntry,
-    snapshot_platform,
-)
 from syrupy.assertion import SnapshotAssertion
 
 from . import initialize_entry
+from .support import MockConfigEntry, snapshot_platform
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.BUTTON])

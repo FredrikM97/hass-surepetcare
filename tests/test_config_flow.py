@@ -4,7 +4,6 @@ import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers.area_registry import async_get as async_get_area_registry
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 from surepcio import Household
 from syrupy.assertion import SnapshotAssertion
 
@@ -37,6 +36,8 @@ from custom_components.surepcha.migration import (
     _ensure_household_split,
     create_household_config_entries,
 )
+
+from .support import MockConfigEntry
 
 
 class MockDevice:

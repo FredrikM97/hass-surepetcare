@@ -12,7 +12,7 @@ jobs:
     if: |
       github.repository_owner == 'FredrikM97' &&
       github.actor == 'dependabot[bot]' &&
-      contains(github.event.pull_request.head.ref, 'pytest-homeassistant-custom-component')
+      contains(github.event.pull_request.head.ref, 'homeassistant')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout dependabot branch
@@ -24,15 +24,9 @@ jobs:
         shell: bash
         run: |
 
-          dep_ver=$(grep -oE 'pytest-homeassistant-custom-component==[^" ]+' pyproject.toml | head -1 | cut -d= -f3)
+          dep_ver=$(python -c 'import tomllib; print(next(dep.split("==", 1)[1] for dep in tomllib.load(open("pyproject.toml", "rb"))["dependency-groups"]["dev"] if dep.startswith("homeassistant==")))')
           [[ -n "$dep_ver" ]] || { echo "Dependency version not found"; exit 0; }
-
-          req=$(curl -fsSL "https://pypi.org/pypi/pytest-homeassistant-custom-component/${dep_ver}/json" \
-            | jq -r '.info.requires_dist[]? | select(startswith("homeassistant"))' | head -1)
-          [[ -n "$req" && "$req" != "null" ]] || { echo "No homeassistant requirement found"; exit 0; }
-
-          ha_ver=$(echo "$req" | grep -oE '[0-9]{4}\.[0-9]+\.[0-9]+([a-z]+[0-9]+)?' | head -1)
-          [[ -n "$ha_ver" ]] || { echo "No Home Assistant version found"; exit 0; }
+          ha_ver="$dep_ver"
 
           [[ "$ha_ver" =~ ^[0-9]{4}\.[0-9]+\.[0-9]+$ ]] || { echo "Prerelease detected (${ha_ver}), skipping"; exit 0; }
 

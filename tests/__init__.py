@@ -1,9 +1,10 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from homeassistant.core import HomeAssistant
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
+
+from .support import MockConfigEntry
 
 DEVICE_MOCKS = [
     "feeder_connect",

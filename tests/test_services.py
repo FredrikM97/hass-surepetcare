@@ -7,9 +7,6 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from pytest_homeassistant_custom_component.common import (
-    MockConfigEntry,
-)
 from surepcio.enums import (
     ModifyDeviceTag,
     PetDeviceLocationProfile,
@@ -22,6 +19,7 @@ from custom_components.surepcha.const import DOMAIN
 from custom_components.surepcha.services import async_set_control, get_coordinator
 
 from . import initialize_entry
+from .support import MockConfigEntry
 
 
 def test_get_coordinator_unknown_device(hass: HomeAssistant) -> None:
