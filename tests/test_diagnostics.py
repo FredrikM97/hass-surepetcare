@@ -1,4 +1,5 @@
 import json
+from types import SimpleNamespace
 
 import pytest
 from homeassistant.core import HomeAssistant
@@ -87,3 +88,19 @@ async def test_device_diagnostics(
     assert result == snapshot(
         exclude=props("last_changed", "last_reported", "last_updated")
     )
+
+
+async def test_device_diagnostics_without_matching_coordinator(
+    hass: HomeAssistant, mock_config_entry: MockConfigEntry
+) -> None:
+    """Return no diagnostics when this entry has no coordinator for the device."""
+    mock_config_entry.runtime_data = SimpleNamespace(
+        device_coordinators=[
+            SimpleNamespace(_device=SimpleNamespace(id="other"), data=object())
+        ]
+    )
+    device = SimpleNamespace(identifiers={(DOMAIN, "missing")})
+
+    result = await async_get_device_diagnostics(hass, mock_config_entry, device)
+
+    assert result == {}

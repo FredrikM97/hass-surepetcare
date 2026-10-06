@@ -5,7 +5,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers.area_registry import async_get as async_get_area_registry
 from surepcio import Household
-from surepcio.security.exceptions import AuthenticationError
+from surepcio.security.exceptions import ApiError, AuthenticationError
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha import async_migrate_entry
@@ -904,6 +904,103 @@ async def test_reconfigure_auth_failure(hass) -> None:
     client.close.assert_awaited_once()
 
 
+async def test_reconfigure_entry_not_found(hass: HomeAssistant) -> None:
+    """Reconfigure aborts cleanly if its config entry was removed."""
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    flow.context = {ENTRY_ID: "missing-entry"}
+
+    result = await flow.async_step_reconfigure()
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "reconfigure_entry_not_found"
+
+
+async def test_reconfigure_household_not_found(
+    hass: HomeAssistant,
+) -> None:
+    """Reconfigure keeps the entry when its household is no longer available."""
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        data={TOKEN: "tok", CLIENT_DEVICE_ID: "dev", HOUSEHOLD_ID: 123},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+    )
+    entry.add_to_hass(hass)
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    flow.context = {ENTRY_ID: entry.entry_id}
+    client = MagicMock(close=AsyncMock())
+
+    with (
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(flow, "_fetch_all_household_data", AsyncMock(return_value=[])),
+    ):
+        result = await flow.async_step_reconfigure()
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "entities_reconfigured"
+    client.close.assert_awaited_once()
+
+
+async def test_reconfigure_no_unclaimed_household(hass: HomeAssistant) -> None:
+    """Legacy reconfigure aborts when all households belong to other entries."""
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        data={TOKEN: "tok", CLIENT_DEVICE_ID: "dev"},
+        options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
+    )
+    entry.add_to_hass(hass)
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    flow.context = {ENTRY_ID: entry.entry_id}
+    client = MagicMock(close=AsyncMock())
+
+    with (
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(flow, "_fetch_all_household_data", AsyncMock(return_value=[])),
+    ):
+        result = await flow.async_step_reconfigure()
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "entities_reconfigured"
+    client.close.assert_awaited_once()
+
+
+@pytest.mark.parametrize(
+    ("error", "expected"),
+    [
+        (AuthenticationError("Expired"), "auth_failed"),
+        (ApiError("get", "households", 401, "Unauthorized"), "auth_failed"),
+        (ApiError("get", "households", 500, "Server error"), "cannot_connect"),
+        (TimeoutError(), "cannot_connect"),
+    ],
+)
+async def test_reauth_household_lookup_errors(
+    hass: HomeAssistant,
+    mock_config_entry: MockConfigEntry,
+    error: Exception,
+    expected: str,
+) -> None:
+    """Authentication, API, and connection errors keep the reauth form open."""
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    mock_config_entry.add_to_hass(hass)
+    client = MagicMock(close=AsyncMock())
+    client.api = AsyncMock(side_effect=error)
+
+    with (
+        patch.object(flow, "_get_reauth_entry", return_value=mock_config_entry),
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+    ):
+        result = await flow.async_step_reauth_confirm(
+            {CONF_EMAIL: "test@example.com", CONF_PASSWORD: "password"}
+        )
+
+    assert result["type"] is FlowResultType.FORM
+    assert result["errors"] == {"base": expected}
+    client.close.assert_awaited_once()
+
+
 @pytest.mark.usefixtures("mock_surepetcare_login_control", "enable_custom_integrations")
 async def test_reconfigure_legacy_no_household_id(hass: HomeAssistant) -> None:
     """async_step_reconfigure migrates a legacy entry that has no HOUSEHOLD_ID."""
@@ -933,6 +1030,21 @@ async def test_authenticate_cannot_connect() -> None:
     client = MagicMock()
     client.token = None
     client.login = AsyncMock(return_value=True)
+
+    with patch(
+        "custom_components.surepcha.config_flow.SurePetcareClient",
+        return_value=client,
+    ):
+        _, errors = await flow._authenticate(email="a@b.com", password="pw")
+
+    assert errors["base"] == "cannot_connect"
+
+
+async def test_authenticate_connection_error() -> None:
+    """A network timeout during login is reported as a connection error."""
+    flow = SurePetCareConfigFlow()
+    client = MagicMock()
+    client.login = AsyncMock(side_effect=TimeoutError)
 
     with patch(
         "custom_components.surepcha.config_flow.SurePetcareClient",

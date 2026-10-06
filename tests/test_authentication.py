@@ -133,6 +133,7 @@ async def test_timeline_auth_error(
     "coordinator_type",
     [SurePetCareDeviceDataUpdateCoordinator, SurePetCareHouseholdTimelineCoordinator],
 )
+@pytest.mark.usefixtures("enable_custom_integrations")
 async def test_polling_starts_reauth(
     hass: HomeAssistant,
     mock_config_entry: MockConfigEntry,
@@ -146,8 +147,11 @@ async def test_polling_starts_reauth(
     client.api = AsyncMock(side_effect=ApiError("get", "resource", 401, "Unauthorized"))
     coordinator = coordinator_type(hass, mock_config_entry, client, MagicMock())
 
-    with patch.object(MockConfigEntry, "async_start_reauth") as start_reauth:
-        await coordinator.async_refresh()
+    await coordinator.async_refresh()
+    await hass.async_block_till_done()
 
-    start_reauth.assert_called_once()
+    flows = hass.config_entries.flow.async_progress()
+    assert len(flows) == 1
+    assert flows[0]["step_id"] == "reauth_confirm"
+    assert flows[0]["context"]["entry_id"] == mock_config_entry.entry_id
     assert not coordinator.last_update_success

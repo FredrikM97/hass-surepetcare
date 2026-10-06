@@ -42,6 +42,8 @@ async def async_get_device_diagnostics(
         if str(getattr(coordinator._device, "id", "")) == str(device_id):
             device_obj = coordinator.data
             break
+    else:
+        return {}
 
     return async_redact_data(
         {"options": dict(entry.options), "device": serialize(device_obj)}, TO_REDACT
