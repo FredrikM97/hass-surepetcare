@@ -5,6 +5,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers.area_registry import async_get as async_get_area_registry
 from surepcio import Household
+from surepcio.security.exceptions import AuthenticationError
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha import async_migrate_entry
@@ -975,13 +976,13 @@ async def test_reauth_confirm_shows_form(hass) -> None:
 
 
 @pytest.mark.asyncio
-async def test_reauth_confirm_success(hass) -> None:
+async def test_reauth_confirm_success(hass: HomeAssistant) -> None:
     """async_step_reauth_confirm with valid credentials calls update_reload_and_abort."""
     flow = SurePetCareConfigFlow()
     flow.hass = hass
     reauth_entry = MockConfigEntry(
         domain=DOMAIN,
-        data={TOKEN: "old", CLIENT_DEVICE_ID: "dev", CONF_EMAIL: "a@b.com"},
+        data={TOKEN: "old", CLIENT_DEVICE_ID: "dev"},
         options={OPTION_DEVICES: {}, OPTION_PROPERTIES: {}},
     )
     reauth_entry.add_to_hass(hass)
@@ -993,17 +994,122 @@ async def test_reauth_confirm_success(hass) -> None:
 
     with (
         patch.object(flow, "_get_reauth_entry", return_value=reauth_entry),
-        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))) as authenticate,
         patch.object(
             flow,
             "async_update_reload_and_abort",
             return_value={"type": "abort", "reason": "reauth_successful"},
         ) as mock_abort,
     ):
-        result = await flow.async_step_reauth_confirm({CONF_PASSWORD: "new_pass"})
+        result = await flow.async_step_reauth_confirm(
+            {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "new_pass"}
+        )
 
     assert result["reason"] == "reauth_successful"
-    mock_abort.assert_called_once()
+    authenticate.assert_awaited_once_with(email="a@b.com", password="new_pass")
+    mock_abort.assert_called_once_with(
+        reauth_entry,
+        data_updates={TOKEN: "new_token", CLIENT_DEVICE_ID: "new_dev"},
+    )
+    client.close.assert_awaited_once()
+
+
+async def test_reauth_invalid_credentials(hass: HomeAssistant) -> None:
+    """Rejected credentials keep the form open without changing the entry."""
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    entry = MockConfigEntry(domain=DOMAIN, data={TOKEN: "old", CLIENT_DEVICE_ID: "dev"})
+    entry.add_to_hass(hass)
+    client = MagicMock()
+    client.login = AsyncMock(side_effect=AuthenticationError("Unauthorized"))
+    client.close = AsyncMock()
+
+    with (
+        patch.object(flow, "_get_reauth_entry", return_value=entry),
+        patch("custom_components.surepcha.config_flow.SurePetcareClient", return_value=client),
+    ):
+        result = await flow.async_step_reauth_confirm(
+            {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "wrong"}
+        )
+
+    assert result["type"] is FlowResultType.FORM
+    assert result["errors"] == {"base": "auth_failed"}
+    assert entry.data[TOKEN] == "old"
+    client.close.assert_awaited_once()
+
+
+@pytest.mark.parametrize(
+    ("household_id", "errors"),
+    [(12345, {}), (99999, {"base": "wrong_account"})],
+)
+async def test_reauth_checks_household(
+    hass: HomeAssistant,
+    mock_config_entry: MockConfigEntry,
+    household_id: int,
+    errors: dict[str, str],
+) -> None:
+    """Only an account with access to the existing household can replace credentials."""
+    flow = SurePetCareConfigFlow()
+    flow.hass = hass
+    mock_config_entry.add_to_hass(hass)
+    client = MagicMock()
+    client.token = "new_token"
+    client.device_id = "new_dev"
+    client.api = AsyncMock(return_value=[Household({"id": household_id})])
+    client.close = AsyncMock()
+
+    with (
+        patch.object(flow, "_get_reauth_entry", return_value=mock_config_entry),
+        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
+        patch.object(flow, "async_update_reload_and_abort", return_value={"errors": {}}),
+    ):
+        result = await flow.async_step_reauth_confirm(
+            {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "new_pass"}
+        )
+
+    assert result["errors"] == errors
+    client.close.assert_awaited_once()
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_reauth_updates_existing_entry(
+    hass: HomeAssistant, mock_config_entry: MockConfigEntry
+) -> None:
+    """A completed reauth replaces credentials, preserves options, and reloads."""
+    mock_config_entry.add_to_hass(hass)
+    old_options = dict(mock_config_entry.options)
+    client = MagicMock()
+    client.token = "new_token"
+    client.device_id = "new_device_id"
+    client.login = AsyncMock(return_value=client)
+    client.api = AsyncMock(return_value=[Household({"id": 12345})])
+    client.close = AsyncMock()
+
+    with (
+        patch("custom_components.surepcha.config_flow.SurePetcareClient", return_value=client),
+        patch.object(hass.config_entries, "async_reload", AsyncMock(return_value=True)) as reload_entry,
+    ):
+        result = await hass.config_entries.flow.async_init(
+            DOMAIN,
+            context={"source": "reauth", "entry_id": mock_config_entry.entry_id},
+            data=mock_config_entry.data,
+        )
+        assert result["step_id"] == "reauth_confirm"
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "new_pass"},
+        )
+
+    assert result["type"] is FlowResultType.ABORT
+    assert result["reason"] == "reauth_successful"
+    assert mock_config_entry.data == {
+        TOKEN: "new_token",
+        CLIENT_DEVICE_ID: "new_device_id",
+        HOUSEHOLD_ID: 12345,
+    }
+    assert mock_config_entry.options == old_options
+    assert hass.config_entries.async_entries(DOMAIN) == [mock_config_entry]
+    reload_entry.assert_awaited_once_with(mock_config_entry.entry_id)
     client.close.assert_awaited_once()
 
 

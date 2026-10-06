@@ -8,17 +8,28 @@
           "email": "Email",
           "password": "Password"
         }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate Sure Petcare",
+        "description": "Your session has expired. Sign in with the account that has access to this household.",
+        "data": {
+          "email": "Email",
+          "password": "Password"
+        }
       }
     },
     "error": {
       "invalid_auth": "Authentication failed. Please check your credentials.",
       "unknown": "Unknown error occurred.",
       "auth_failed": "Authentication failed. Please check your credentials.",
+      "cannot_connect": "Unable to connect to Sure Petcare. Please try again.",
+      "wrong_account": "This account does not have access to the configured household.",
       "no_devices_or_pet_found": "No devices or pets found in your account."
     },
     "abort": {
       "already_configured": "This account is already configured.",
       "auth_failed": "Authentication failed. Please check your credentials and reconfigure the integration.",
+      "reauth_successful": "Reauthentication successful.",
       "entities_reconfigured": "Sure Petcare entities have been reconfigured."
     }
   },

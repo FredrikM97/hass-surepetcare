@@ -120,7 +120,7 @@ def mock_client():
     """Mock SurePetcareClient. Workaround is to use side_effect to return different data based on cmd.endpoint."""
     """Caused by the __init__ which calls multiple endpoints."""
     client = SurePetcareClient()
-    client.login = AsyncMock(return_value=None)
+    client.login = AsyncMock(return_value=client)
     return client
 
 

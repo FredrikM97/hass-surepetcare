@@ -8,17 +8,28 @@
           "email": "Adresse e-mail",
           "password": "Mot de passe"
         }
+      },
+      "reauth_confirm": {
+        "title": "Réauthentifier Sure Petcare",
+        "description": "Votre session a expiré. Connectez-vous avec le compte qui a accès à ce foyer.",
+        "data": {
+          "email": "Adresse e-mail",
+          "password": "Mot de passe"
+        }
       }
     },
     "error": {
       "invalid_auth": "Échec de l’authentification. Vérifiez vos identifiants.",
       "unknown": "Une erreur inconnue s’est produite.",
       "auth_failed": "Échec de l’authentification. Vérifiez vos identifiants.",
+      "cannot_connect": "Impossible de se connecter à Sure Petcare. Veuillez réessayer.",
+      "wrong_account": "Ce compte ne dispose pas d'accès au foyer configuré.",
       "no_devices_or_pet_found": "Aucun appareil ni animal trouvé sur votre compte."
     },
     "abort": {
       "already_configured": "Ce compte est déjà configuré.",
       "auth_failed": "Échec de l’authentification. Vérifiez vos identifiants et reconfigurez l’intégration.",
+      "reauth_successful": "Réauthentification réussie.",
       "entities_reconfigured": "Les entités Sure Petcare ont été reconfigurées."
     }
   },

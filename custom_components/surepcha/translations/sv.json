@@ -9,17 +9,28 @@
           "email": "E-post",
           "password": "Lösenord"
         }
+      },
+      "reauth_confirm": {
+        "title": "Autentisera Sure Petcare igen",
+        "description": "Din session har gått ut. Logga in med kontot som har tillgång till detta hushåll.",
+        "data": {
+          "email": "E-post",
+          "password": "Lösenord"
+        }
       }
     },
     "error": {
       "invalid_auth": "Autentisering misslyckades. Kontrollera dina uppgifter.",
       "unknown": "Okänt fel inträffade.",
       "auth_failed": "Autentisering misslyckades. Kontrollera dina uppgifter.",
+      "cannot_connect": "Det gick inte att ansluta till Sure Petcare. Försök igen.",
+      "wrong_account": "Detta konto har inte tillgång till det konfigurerade hushållet.",
       "no_devices_or_pet_found": "Inga enheter eller husdjur hittades på ditt konto."
     },
     "abort": {
       "already_configured": "Detta konto är redan konfigurerat.",
       "auth_failed": "Autentisering misslyckades. Kontrollera dina uppgifter och konfigurera om integrationen.",
+      "reauth_successful": "Autentisering lyckades.",
       "entities_reconfigured": "Sure Petcare-enheter har konfigurerats om."
     }
   },

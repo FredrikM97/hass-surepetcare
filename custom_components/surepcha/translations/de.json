@@ -8,17 +8,28 @@
           "email": "E-Mail",
           "password": "Passwort"
         }
+      },
+      "reauth_confirm": {
+        "title": "Sure Petcare erneut authentifizieren",
+        "description": "Deine Sitzung ist abgelaufen. Melde dich mit dem Konto an, das Zugriff auf diesen Haushalt hat.",
+        "data": {
+          "email": "E-Mail",
+          "password": "Passwort"
+        }
       }
     },
     "error": {
       "invalid_auth": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten.",
       "unknown": "Unbekannter Fehler ist aufgetreten.",
       "auth_failed": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten.",
+      "cannot_connect": "Verbindung zu Sure Petcare nicht möglich. Bitte versuche es erneut.",
+      "wrong_account": "Dieses Konto hat keinen Zugriff auf den konfigurierten Haushalt.",
       "no_devices_or_pet_found": "Keine Geräte oder Haustiere in deinem Konto gefunden."
     },
     "abort": {
       "already_configured": "Dieses Konto wurde bereits konfiguriert.",
       "auth_failed": "Authentifizierung fehlgeschlagen. Bitte überprüfe deine Zugangsdaten und konfiguriere die Integration neu.",
+      "reauth_successful": "Erneute Authentifizierung erfolgreich.",
       "entities_reconfigured": "Sure Petcare Entitäten wurden neu konfiguriert."
     }
   },

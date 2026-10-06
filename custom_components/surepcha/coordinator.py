@@ -6,9 +6,11 @@ from typing import Any, TypeVar
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from surepcio import Household, SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
+from surepcio.security.exceptions import ApiError, AuthenticationError
 
 from .const import (
     EVENT_TIMELINE,
@@ -70,14 +72,21 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[T]):
 
     async def _async_setup(self):
         """Fetch initial data for the device."""
-        await self.client.api(self._device.refresh())
+        await self._async_update_data()
 
     async def _async_update_data(self) -> Any:
         """Fetch data from the api for a specific device."""
         logger.debug(
             "Fetching data for device %s (id=%s)", self._device.name, self._device.id
         )
-        await self.client.api(self._device.refresh())
+        try:
+            await self.client.api(self._device.refresh())
+        except AuthenticationError as exc:
+            raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+        except ApiError as exc:
+            if exc.status == 401:
+                raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+            raise
         return self._device
 
 
@@ -134,9 +143,16 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             self.household.id,
             self._cursor,
         )
-        events = list(
-            await self.client.api(self.household.get_timeline(since_id=self._cursor))
-        )
+        try:
+            events = list(
+                await self.client.api(self.household.get_timeline(since_id=self._cursor))
+            )
+        except AuthenticationError as exc:
+            raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+        except ApiError as exc:
+            if exc.status == 401:
+                raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+            raise
         if not events:
             logger.debug("No timeline events for household %s", self.household.id)
             return

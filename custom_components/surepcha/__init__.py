@@ -12,6 +12,7 @@ from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.typing import ConfigType
 from surepcio import Household, SurePetcareClient
+from surepcio.security.exceptions import ApiError, AuthenticationError
 
 from .const import (
     CLIENT_DEVICE_ID,
@@ -92,11 +93,17 @@ async def setup_devices(
     """Setup devices for a config entry."""
     client: SurePetcareClient = SurePetcareClient()
     try:
-        await client.login(
+        logged_in = await client.login(
             token=entry.data.get(TOKEN), device_id=entry.data.get(CLIENT_DEVICE_ID)
         )
+        if not logged_in:
+            raise AuthenticationError("Sure Petcare login failed")
+    except AuthenticationError as exc:
+        await client.close()
+        raise ConfigEntryAuthFailed("Sure Petcare authentication failed") from exc
     except Exception as exc:
-        raise ConfigEntryAuthFailed from exc
+        await client.close()
+        raise ConfigEntryNotReady("Unable to connect to Sure Petcare") from exc
 
     async def close_client(event: Event | None = None) -> None:
         """Close the client - on hass-stop, and again on entry unload/reload."""
@@ -128,6 +135,14 @@ async def setup_devices(
             # Bind pet device assignments
             await client.api(household.fetch_pet_device_assignments())
         await client.close()
+    except AuthenticationError as exc:
+        await client.close()
+        raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+    except ApiError as exc:
+        await client.close()
+        if exc.status == 401:
+            raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+        raise ConfigEntryNotReady("Configuration not finished") from exc
     except Exception as exc:
         await client.close()
         raise ConfigEntryNotReady("Configuration not finished") from exc

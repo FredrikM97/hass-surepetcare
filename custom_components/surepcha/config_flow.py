@@ -6,6 +6,7 @@ from copy import deepcopy
 from typing import Any, cast
 
 import voluptuous as vol
+from aiohttp import ClientError
 from homeassistant import config_entries
 from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, CONF_TOKEN
@@ -13,6 +14,7 @@ from homeassistant.data_entry_flow import section
 from homeassistant.helpers.device_registry import callback
 from surepcio import Household, SurePetcareClient
 from surepcio.enums import ProductId
+from surepcio.security.exceptions import ApiError, AuthenticationError
 
 from .const import (
     CLIENT_DEVICE_ID,
@@ -275,9 +277,14 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     ) -> tuple[SurePetcareClient, dict]:
         errors = {}
         client = SurePetcareClient()
-        logged_in = await client.login(
-            email=email, password=password, token=token, device_id=device_id
-        )
+        try:
+            logged_in = await client.login(
+                email=email, password=password, token=token, device_id=device_id
+            )
+        except AuthenticationError:
+            return client, {"base": "auth_failed"}
+        except (ClientError, TimeoutError):
+            return client, {"base": "cannot_connect"}
 
         if not logged_in:
             errors["base"] = "auth_failed"
@@ -302,9 +309,21 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
         errors: dict = {}
         if user_input is not None:
             client, errors = await self._authenticate(
-                email=reauth_entry.data[CONF_EMAIL], password=user_input[CONF_PASSWORD]
+                email=user_input[CONF_EMAIL], password=user_input[CONF_PASSWORD]
             )
-            await client.close()
+            try:
+                if not errors and (household_id := reauth_entry.data.get(HOUSEHOLD_ID)):
+                    households = await client.api(Household.get_households())
+                    if not any(household.id == household_id for household in households):
+                        errors["base"] = "wrong_account"
+            except AuthenticationError:
+                errors["base"] = "auth_failed"
+            except ApiError as exc:
+                errors["base"] = "auth_failed" if exc.status == 401 else "cannot_connect"
+            except (ClientError, TimeoutError):
+                errors["base"] = "cannot_connect"
+            finally:
+                await client.close()
             if not errors:
                 return self.async_update_reload_and_abort(
                     reauth_entry,

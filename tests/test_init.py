@@ -8,6 +8,7 @@ import pytest
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
 from surepcio import SurePetcareClient
@@ -313,7 +314,7 @@ def test_import_init():
 
 
 @pytest.mark.asyncio
-async def test_async_setup_entry_login_failure():
+async def test_async_setup_entry_login_failure() -> None:
     hass = DummyHass()
     entry = DummyConfigEntry()
     hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
@@ -324,17 +325,9 @@ async def test_async_setup_entry_login_failure():
         patch(
             "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
         ),
+        pytest.raises(ConfigEntryAuthFailed),
     ):
-        try:
-            await surepetcare_init.async_setup_entry(hass, entry)
-        except Exception as exc:  # noqa: BLE001 - asserting on any of several possible failure messages
-            assert (
-                "Configuration not finished" in str(exc)
-                or "Frame helper not set up" in str(exc)
-                or isinstance(exc, AssertionError)
-                or "has no attribute 'options'" in str(exc)
-                or "async_config_entry_first_refresh" in str(exc)
-            )
+        await surepetcare_init.async_setup_entry(hass, entry)
 
 
 @pytest.mark.asyncio
