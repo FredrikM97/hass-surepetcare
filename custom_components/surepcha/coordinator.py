@@ -85,7 +85,9 @@ class SurePetCareDeviceDataUpdateCoordinator(DataUpdateCoordinator[T]):
             raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
         except ApiError as exc:
             if exc.status == 401:
-                raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+                raise ConfigEntryAuthFailed(
+                    "Sure Petcare authentication expired"
+                ) from exc
             raise
         return self._device
 
@@ -145,13 +147,17 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         )
         try:
             events = list(
-                await self.client.api(self.household.get_timeline(since_id=self._cursor))
+                await self.client.api(
+                    self.household.get_timeline(since_id=self._cursor)
+                )
             )
         except AuthenticationError as exc:
             raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
         except ApiError as exc:
             if exc.status == 401:
-                raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
+                raise ConfigEntryAuthFailed(
+                    "Sure Petcare authentication expired"
+                ) from exc
             raise
         if not events:
             logger.debug("No timeline events for household %s", self.household.id)

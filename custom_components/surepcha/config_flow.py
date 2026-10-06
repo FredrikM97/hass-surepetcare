@@ -283,7 +283,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             )
         except AuthenticationError:
             return client, {"base": "auth_failed"}
-        except (ClientError, TimeoutError):
+        except ClientError, TimeoutError:
             return client, {"base": "cannot_connect"}
 
         if not logged_in:
@@ -314,13 +314,17 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
             try:
                 if not errors and (household_id := reauth_entry.data.get(HOUSEHOLD_ID)):
                     households = await client.api(Household.get_households())
-                    if not any(household.id == household_id for household in households):
+                    if not any(
+                        household.id == household_id for household in households
+                    ):
                         errors["base"] = "wrong_account"
             except AuthenticationError:
                 errors["base"] = "auth_failed"
             except ApiError as exc:
-                errors["base"] = "auth_failed" if exc.status == 401 else "cannot_connect"
-            except (ClientError, TimeoutError):
+                errors["base"] = (
+                    "auth_failed" if exc.status == 401 else "cannot_connect"
+                )
+            except ClientError, TimeoutError:
                 errors["base"] = "cannot_connect"
             finally:
                 await client.close()

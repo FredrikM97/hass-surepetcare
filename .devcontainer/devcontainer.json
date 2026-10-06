@@ -28,5 +28,6 @@
   "mounts": [
     "type=bind,source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,readonly"
   ],
-  "postCreateCommand": "git config --global --unset-all core.hooksPath || true && git config --local --unset-all core.hooksPath || true && uv sync --group dev --python /usr/local/bin/python && uv run pre-commit install --install-hooks"
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "postStartCommand": "bash .devcontainer/setup.sh"
 }

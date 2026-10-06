@@ -994,7 +994,9 @@ async def test_reauth_confirm_success(hass: HomeAssistant) -> None:
 
     with (
         patch.object(flow, "_get_reauth_entry", return_value=reauth_entry),
-        patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))) as authenticate,
+        patch.object(
+            flow, "_authenticate", AsyncMock(return_value=(client, {}))
+        ) as authenticate,
         patch.object(
             flow,
             "async_update_reload_and_abort",
@@ -1026,7 +1028,10 @@ async def test_reauth_invalid_credentials(hass: HomeAssistant) -> None:
 
     with (
         patch.object(flow, "_get_reauth_entry", return_value=entry),
-        patch("custom_components.surepcha.config_flow.SurePetcareClient", return_value=client),
+        patch(
+            "custom_components.surepcha.config_flow.SurePetcareClient",
+            return_value=client,
+        ),
     ):
         result = await flow.async_step_reauth_confirm(
             {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "wrong"}
@@ -1061,7 +1066,9 @@ async def test_reauth_checks_household(
     with (
         patch.object(flow, "_get_reauth_entry", return_value=mock_config_entry),
         patch.object(flow, "_authenticate", AsyncMock(return_value=(client, {}))),
-        patch.object(flow, "async_update_reload_and_abort", return_value={"errors": {}}),
+        patch.object(
+            flow, "async_update_reload_and_abort", return_value={"errors": {}}
+        ),
     ):
         result = await flow.async_step_reauth_confirm(
             {CONF_EMAIL: "a@b.com", CONF_PASSWORD: "new_pass"}
@@ -1086,8 +1093,13 @@ async def test_reauth_updates_existing_entry(
     client.close = AsyncMock()
 
     with (
-        patch("custom_components.surepcha.config_flow.SurePetcareClient", return_value=client),
-        patch.object(hass.config_entries, "async_reload", AsyncMock(return_value=True)) as reload_entry,
+        patch(
+            "custom_components.surepcha.config_flow.SurePetcareClient",
+            return_value=client,
+        ),
+        patch.object(
+            hass.config_entries, "async_reload", AsyncMock(return_value=True)
+        ) as reload_entry,
     ):
         result = await hass.config_entries.flow.async_init(
             DOMAIN,

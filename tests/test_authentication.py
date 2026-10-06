@@ -49,8 +49,10 @@ async def test_setup_http_error(
 
 @pytest.mark.parametrize(
     ("error", "expected"),
-    [(AuthenticationError("Invalid token"), ConfigEntryAuthFailed),
-     (TimeoutError(), ConfigEntryNotReady)],
+    [
+        (AuthenticationError("Invalid token"), ConfigEntryAuthFailed),
+        (TimeoutError(), ConfigEntryNotReady),
+    ],
 )
 async def test_setup_login_error(
     hass: HomeAssistant,
@@ -75,9 +77,11 @@ async def test_setup_login_error(
 @pytest.mark.parametrize("method", ["_async_setup", "_async_update_data"])
 @pytest.mark.parametrize(
     ("error", "expected"),
-    [(ApiError("get", "device", 401, "Unauthorized"), ConfigEntryAuthFailed),
-     (ApiError("get", "device", 500, "Server error"), ApiError),
-     (AuthenticationError("Missing token"), ConfigEntryAuthFailed)],
+    [
+        (ApiError("get", "device", 401, "Unauthorized"), ConfigEntryAuthFailed),
+        (ApiError("get", "device", 500, "Server error"), ApiError),
+        (AuthenticationError("Missing token"), ConfigEntryAuthFailed),
+    ],
 )
 async def test_device_auth_error(
     hass: HomeAssistant,
@@ -99,9 +103,11 @@ async def test_device_auth_error(
 
 @pytest.mark.parametrize(
     ("error", "expected"),
-    [(ApiError("get", "timeline", 401, "Unauthorized"), ConfigEntryAuthFailed),
-     (ApiError("get", "timeline", 500, "Server error"), ApiError),
-     (AuthenticationError("Missing token"), ConfigEntryAuthFailed)],
+    [
+        (ApiError("get", "timeline", 401, "Unauthorized"), ConfigEntryAuthFailed),
+        (ApiError("get", "timeline", 500, "Server error"), ApiError),
+        (AuthenticationError("Missing token"), ConfigEntryAuthFailed),
+    ],
 )
 async def test_timeline_auth_error(
     hass: HomeAssistant,
