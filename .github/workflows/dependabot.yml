@@ -1,0 +1,103 @@
+name: Dependabot
+
+on:
+  pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    if: >
+      github.repository == 'FredrikM97/hass-surepetcare' &&
+      github.event.pull_request.user.login == 'dependabot[bot]'
+
+    steps:
+      - name: Wait for checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          max_wait=1800
+          interval=15
+          elapsed=0
+
+          while [ "$elapsed" -lt "$max_wait" ]; do
+            checks=$(gh api \
+              "/repos/$REPOSITORY/commits/$SHA/check-runs?per_page=100")
+
+            relevant_checks=$(echo "$checks" | jq --arg run_id "$RUN_ID" '
+              [
+                .check_runs[]
+                | select(
+                    .details_url == null
+                    or (.details_url | contains("/actions/runs/" + $run_id) | not)
+                  )
+              ]
+            ')
+
+            total=$(echo "$relevant_checks" | jq 'length')
+
+            pending=$(echo "$relevant_checks" | jq '
+              [
+                .[]
+                | select(.conclusion == null)
+              ] | length
+            ')
+
+            failed=$(echo "$relevant_checks" | jq '
+              [
+                .[]
+                | select(
+                    .conclusion != null
+                    and .conclusion != "success"
+                    and .conclusion != "neutral"
+                    and .conclusion != "skipped"
+                  )
+              ] | length
+            ')
+
+            echo "Checks: $total total, $pending pending, $failed failed"
+
+            echo "$relevant_checks" | jq -r '
+              .[]
+              | "\(.name): \(.conclusion // "pending")"
+            '
+
+            if [ "$failed" -gt 0 ]; then
+              echo "One or more checks failed."
+              exit 1
+            fi
+
+            if [ "$total" -gt 0 ] && [ "$pending" -eq 0 ]; then
+              echo "All checks completed."
+              exit 0
+            fi
+
+            sleep "$interval"
+            elapsed=$((elapsed + interval))
+          done
+
+          echo "Timed out after 30 minutes waiting for checks."
+          exit 1
+
+      - name: Approve pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr review "$PR_URL" --approve
+
+      - name: Enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr merge "$PR_URL" --squash --auto
