@@ -27,6 +27,28 @@
   list([
     dict({
       'created_at': '2026-08-07T14:50:27+00:00',
+      'data': dict({
+        'weight': dict({
+          'bowl': dict({
+            'full': 57,
+            'half': 31,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54,
+            'half': 21,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         1376800,
         1225898,
@@ -49,6 +71,30 @@
     }),
     dict({
       'created_at': '2026-08-20T17:16:16+00:00',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         1376800,
         1225898,
@@ -106,6 +152,12 @@
   list([
     dict({
       'created_at': '2025-11-11T23:00:00+00:00',
+      'data': dict({
+        'curfew': list([
+        ]),
+        'last_mode': 1,
+        'mode': 0,
+      }),
       'devices': list([
         555,
       ]),

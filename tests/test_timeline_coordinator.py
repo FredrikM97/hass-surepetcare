@@ -187,6 +187,39 @@ async def test_real_feeding_events_with_empty_pets(
     assert [event.data for event in events] == snapshot
 
 
+async def test_event_payload_includes_parsed_data(
+    hass, timeline_coordinator, timeline_events
+) -> None:
+    """The entry's JSON "data" field is decoded into the payload.
+
+    CURFEW_LOCK_STATUS only says whether the flap locked or unlocked in "data",
+    so automations need it. Invalid JSON is dropped rather than raising.
+    """
+    curfew_events = _load_scenario("curfew")
+    events = async_capture_events(hass, EVENT_TIMELINE)
+
+    # First poll: an unrelated event establishes the baseline, consumed without firing.
+    timeline_coordinator.client.api.return_value = timeline_events[:1]
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+
+    # Second poll: the curfew events arrive and are fired.
+    timeline_coordinator.client.api.return_value = curfew_events
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+
+    assert [event.data["type"] for event in events] == ["CURFEW_LOCK_STATUS"] * 3
+    assert events[0].data["data"] == {
+        "mode": None,
+        "locked": True,
+        "time": "10:36",
+        "lock": "10:36",
+        "unlock": "19:16",
+    }
+    assert events[1].data["data"]["locked"] is False
+    assert "data" not in events[2].data
+
+
 async def test_real_household_events_with_no_devices_or_pets(
     hass, timeline_coordinator, snapshot: SnapshotAssertion
 ) -> None:

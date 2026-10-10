@@ -1,9 +1,13 @@
 """Household timeline event-payload building."""
 
+import json
+import logging
 from typing import Any
 
 from surepcio.enums import TimelineEventType
 from surepcio.timeline import MovementResource, TimelineEvent, WeightResource
+
+logger = logging.getLogger(__name__)
 
 # Event types that carry door movement data (event.movements).
 _MOVEMENT_EVENT_TYPES = {
@@ -54,6 +58,21 @@ def _weight_details(weight: WeightResource) -> dict[str, Any]:
     }
 
 
+def _parse_event_data(data: str | None) -> Any:
+    """Decode the timeline entry's JSON-encoded "data" field, or None if absent/invalid.
+
+    The API sends it as a JSON string (e.g. CURFEW_LOCK_STATUS carries
+    {"locked": true, "lock": "10:36", "unlock": "19:16", ...}); "null" decodes to None.
+    """
+    if not data:
+        return None
+    try:
+        return json.loads(data)
+    except ValueError:
+        logger.debug("Ignoring non-JSON timeline data: %r", data)
+        return None
+
+
 def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
     """Build the fields common to every timeline event, regardless of type."""
     return {
@@ -72,6 +91,8 @@ def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, An
 def build_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
     """Build the EVENT_TIMELINE payload for one event, by event category."""
     payload = _base_event_payload(household_id, event)
+    if (data := _parse_event_data(event.data)) is not None:
+        payload["data"] = data
     if event.event_type in _MOVEMENT_EVENT_TYPES:
         payload["movements"] = [_movement_details(m) for m in event.movements]
     elif (
