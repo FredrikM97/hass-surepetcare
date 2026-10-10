@@ -15,11 +15,9 @@ requires-python = ">=3.14.2"
 
 [dependency-groups]
 dev = [
-    "attrs==26.1.0",
     "homeassistant==2026.9.4",
     "py-surepetcare==0.6.4",
     "pre-commit==4.6.2",
-    "probatio==0.11.4",
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "pytest-cov==7.1.0",
