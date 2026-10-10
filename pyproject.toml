@@ -23,7 +23,7 @@ dev = [
     "pytest-cov==7.1.0",
     "ruff==0.16.10",
     "mypy==2.4.0",
-    "syrupy==5.2.0",
+    "syrupy==6.1.1",
     "voluptuous==0.16.0",
 ]
 
