@@ -193,7 +193,7 @@ async def test_event_payload_includes_parsed_data(
     """The entry's JSON "data" field is decoded into the payload.
 
     CURFEW_LOCK_STATUS only says whether the flap locked or unlocked in "data",
-    so automations need it. Invalid JSON is dropped rather than raising.
+    so automations need it. Missing or invalid JSON gives None rather than raising.
     """
     curfew_events = _load_scenario("curfew")
     events = async_capture_events(hass, EVENT_TIMELINE)
@@ -208,7 +208,7 @@ async def test_event_payload_includes_parsed_data(
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
 
-    assert [event.data["type"] for event in events] == ["CURFEW_LOCK_STATUS"] * 3
+    assert [event.data["type"] for event in events] == ["CURFEW_LOCK_STATUS"] * 4
     assert events[0].data["data"] == {
         "mode": None,
         "locked": True,
@@ -217,7 +217,8 @@ async def test_event_payload_includes_parsed_data(
         "unlock": "19:16",
     }
     assert events[1].data["data"]["locked"] is False
-    assert "data" not in events[2].data
+    assert events[2].data["data"] is None
+    assert events[3].data["data"] is None
 
 
 async def test_real_household_events_with_no_devices_or_pets(

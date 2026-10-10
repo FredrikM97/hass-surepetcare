@@ -248,6 +248,19 @@
       "tags": [],
       "users": [],
       "weights": []
+    },
+    {
+      "id": 17915846164,
+      "type": 20,
+      "created_at": "2026-09-24T19:18:00+00:00",
+      "updated_at": "2026-09-24T19:18:00+00:00",
+      "households": [],
+      "devices": [{ "id": 555, "name": "Cat Flap" }],
+      "movements": [],
+      "pets": [],
+      "tags": [],
+      "users": [],
+      "weights": []
     }
   ]
 }

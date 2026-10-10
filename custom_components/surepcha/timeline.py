@@ -91,8 +91,7 @@ def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, An
 def build_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
     """Build the EVENT_TIMELINE payload for one event, by event category."""
     payload = _base_event_payload(household_id, event)
-    if (data := _parse_event_data(event.data)) is not None:
-        payload["data"] = data
+    payload["data"] = _parse_event_data(event.data)
     if event.event_type in _MOVEMENT_EVENT_TYPES:
         payload["movements"] = [_movement_details(m) for m in event.movements]
     elif (
