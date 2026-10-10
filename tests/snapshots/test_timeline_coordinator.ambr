@@ -24,6 +24,80 @@
     ]),
   })
 # ---
+# name: test_event_payload_includes_parsed_data
+  list([
+    dict({
+      'created_at': '2026-09-24T10:36:01+00:00',
+      'data': dict({
+        'lock': '10:36',
+        'locked': True,
+        'mode': None,
+        'time': '10:36',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        555,
+        556,
+      ]),
+      'household_id': 7777,
+      'id': 17911794951,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:16:00+00:00',
+      'data': dict({
+        'lock': '10:36',
+        'locked': False,
+        'mode': None,
+        'time': '19:16',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        555,
+        556,
+      ]),
+      'household_id': 7777,
+      'id': 17915846162,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:17:00+00:00',
+      'data': None,
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 17915846163,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:18:00+00:00',
+      'data': None,
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 17915846164,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+  ])
+# ---
 # name: test_real_feeding_events_with_empty_pets
   list([
     dict({
