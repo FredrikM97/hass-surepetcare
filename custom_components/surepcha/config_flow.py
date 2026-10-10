@@ -25,7 +25,10 @@ from .const import (
     OPTION_DEVICES,
     OPTION_PROPERTIES,
     OPTION_TIMELINE,
+    POLLING_SPEED,
     PRODUCT_ID,
+    SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
     TOKEN,
 )
 from .device_config_schema import (
@@ -363,7 +366,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         require any devices to exist, so only "devices" is hidden (rather
         than aborting the whole flow) when there's nothing to configure.
         """
-        menu_options = ["manual_properties", "timeline"]
+        menu_options = ["manual_properties", "timeline", "reset_polling"]
         if self._options[OPTION_DEVICES]:
             menu_options.append("devices")
 
@@ -440,6 +443,21 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         return self.async_show_form(
             step_id="devices",
             data_schema=vol.Schema(schema_dict),
+        )
+
+    async def async_step_reset_polling(self, user_input: dict[str, Any] | None = None):
+        """Reset device and timeline polling intervals to their defaults."""
+        if user_input is not None:
+            for device in self._options[OPTION_DEVICES].values():
+                device[POLLING_SPEED] = SCAN_INTERVAL
+            timeline = self._options.get(OPTION_TIMELINE, {})
+            timeline[TIMELINE_POLLING_SPEED] = SCAN_INTERVAL
+            self._options[OPTION_TIMELINE] = timeline
+            return self.async_create_entry(title="", data=self._options)
+
+        return self.async_show_form(
+            step_id="reset_polling",
+            data_schema=vol.Schema({}),
         )
 
 

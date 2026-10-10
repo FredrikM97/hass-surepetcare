@@ -42,12 +42,14 @@
         "menu_options": {
           "manual_properties": "Manuella egenskaper",
           "timeline": "Tidslinjehändelser",
-          "devices": "Enheter"
+          "devices": "Enheter",
+          "reset_polling": "Återställ aviseringsintervall"
         },
         "menu_option_descriptions": {
           "manual_properties": "Ange reservnamn som används för manuellt uppdaterad husdjursposition.",
           "timeline": "Ställ in hur ofta hushållets tidslinjehändelser hämtas.",
-          "devices": "Välj en enhet och konfigurera dess åsidosatta inställningar."
+          "devices": "Välj en enhet och konfigurera dess åsidosatta inställningar.",
+          "reset_polling": "Återställ enhets- och tidslinjeintervall till 300 sekunder."
         }
       },
       "manual_properties": {
@@ -68,6 +70,10 @@
       "devices": {
         "title": "Välj enhet",
         "description": "Välj den enhet du vill konfigurera."
+      },
+      "reset_polling": {
+        "title": "Återställ aviseringsintervall",
+        "description": "Återställer alla enheters och tidslinjens intervall till 300 sekunder. Övriga inställningar ändras inte."
       },
       "configure_device": {
         "title": "Konfigurera {device_name}",        "description": "Enhetens uppdateringsintervall. Kortare intervall innebär tätare uppdateringar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",

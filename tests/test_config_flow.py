@@ -105,7 +105,12 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
     result = await flow.async_step_init()
     assert result["type"] == FlowResultType.MENU
     assert result["step_id"] == "init"
-    assert result["menu_options"] == ["manual_properties", "timeline", "devices"]
+    assert result["menu_options"] == [
+        "manual_properties",
+        "timeline",
+        "reset_polling",
+        "devices",
+    ]
 
     result2 = await flow.async_step_manual_properties()
     assert result2["type"] == FlowResultType.FORM
@@ -137,6 +142,18 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
     result_timeline2 = await flow.async_step_timeline({TIMELINE_POLLING_SPEED: 120})
     assert result_timeline2["type"] == FlowResultType.CREATE_ENTRY
     assert flow._options[OPTION_TIMELINE] == {TIMELINE_POLLING_SPEED: 120}
+
+    flow = SurePetCareOptionsFlow(mock_config_entry)
+    flow.hass = hass
+    result_reset = await flow.async_step_reset_polling()
+    assert result_reset["type"] == FlowResultType.FORM
+    result_reset = await flow.async_step_reset_polling({})
+    assert result_reset["type"] == FlowResultType.CREATE_ENTRY
+    assert flow._options[OPTION_TIMELINE][TIMELINE_POLLING_SPEED] == 300
+    assert all(
+        device[POLLING_SPEED] == 300
+        for device in flow._options[OPTION_DEVICES].values()
+    )
 
     flow = SurePetCareOptionsFlow(mock_config_entry)
     flow.hass = hass
@@ -347,7 +364,12 @@ async def test_options_flow_full(
     result = await flow.async_step_init()
     assert result["type"] == "menu"
     assert result["step_id"] == "init"
-    assert result["menu_options"] == ["manual_properties", "timeline", "devices"]
+    assert result["menu_options"] == [
+        "manual_properties",
+        "timeline",
+        "reset_polling",
+        "devices",
+    ]
 
     assert helper_fetch_area_options(area_registry) == [
         {"value": "kitchen", "label": "Kitchen"},
@@ -1253,7 +1275,11 @@ async def test_options_init_hides_devices_menu_when_no_devices(
     result = await flow.async_step_init()
 
     assert result["type"] == FlowResultType.MENU
-    assert result["menu_options"] == ["manual_properties", "timeline"]
+    assert result["menu_options"] == [
+        "manual_properties",
+        "timeline",
+        "reset_polling",
+    ]
 
 
 def test_device_picker_unknown_product_id() -> None:
