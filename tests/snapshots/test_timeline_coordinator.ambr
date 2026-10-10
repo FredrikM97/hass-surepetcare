@@ -2,6 +2,7 @@
 # name: test_event_payload_includes_movement_details
   dict({
     'created_at': '2025-11-12T13:16:35+00:00',
+    'data': None,
     'devices': list([
       555,
       100,
@@ -23,10 +24,106 @@
     ]),
   })
 # ---
+# name: test_event_payload_includes_parsed_data
+  list([
+    dict({
+      'created_at': '2026-09-24T10:36:01+00:00',
+      'data': dict({
+        'lock': '10:36',
+        'locked': True,
+        'mode': None,
+        'time': '10:36',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        555,
+        556,
+      ]),
+      'household_id': 7777,
+      'id': 17911794951,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:16:00+00:00',
+      'data': dict({
+        'lock': '10:36',
+        'locked': False,
+        'mode': None,
+        'time': '19:16',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        555,
+        556,
+      ]),
+      'household_id': 7777,
+      'id': 17915846162,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:17:00+00:00',
+      'data': None,
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 17915846163,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+    dict({
+      'created_at': '2026-09-24T19:18:00+00:00',
+      'data': None,
+      'devices': list([
+        555,
+      ]),
+      'household_id': 7777,
+      'id': 17915846164,
+      'pets': list([
+      ]),
+      'type': 'CURFEW_LOCK_STATUS',
+      'users': list([
+      ]),
+    }),
+  ])
+# ---
 # name: test_real_feeding_events_with_empty_pets
   list([
     dict({
       'created_at': '2026-08-07T14:50:27+00:00',
+      'data': dict({
+        'weight': dict({
+          'bowl': dict({
+            'full': 57,
+            'half': 31,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54,
+            'half': 21,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         1376800,
         1225898,
@@ -49,6 +146,30 @@
     }),
     dict({
       'created_at': '2026-08-20T17:16:16+00:00',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         1376800,
         1225898,
@@ -76,6 +197,7 @@
   list([
     dict({
       'created_at': '2023-10-01T13:44:45+00:00',
+      'data': None,
       'devices': list([
       ]),
       'household_id': 7777,
@@ -89,6 +211,7 @@
     }),
     dict({
       'created_at': '2026-01-15T12:42:36+00:00',
+      'data': None,
       'devices': list([
       ]),
       'household_id': 7777,
@@ -106,6 +229,12 @@
   list([
     dict({
       'created_at': '2025-11-11T23:00:00+00:00',
+      'data': dict({
+        'curfew': list([
+        ]),
+        'last_mode': 1,
+        'mode': 0,
+      }),
       'devices': list([
         555,
       ]),
@@ -120,6 +249,7 @@
     }),
     dict({
       'created_at': '2025-11-12T09:44:11+00:00',
+      'data': None,
       'devices': list([
         555,
         100,
