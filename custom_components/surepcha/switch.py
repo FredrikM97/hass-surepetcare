@@ -9,9 +9,15 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.command import Command
-from surepcio.enums import PetDeviceLocationProfile, PetLocation, ProductId
+from surepcio.enums import (
+    PetDeviceLocationProfile,
+    PetLocation,
+    ProductId,
+    TimelineEventType,
+)
 
 from custom_components.surepcha.helper import (
+    apply_movement_to_activity,
     list_attr,
     option_product_id,
 )
@@ -96,6 +102,8 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
                 set_fn=lambda ctx, value: ctx.device.set_position(value),
                 on=PetLocation.OUTSIDE,
                 off=PetLocation.INSIDE,
+                event_types=frozenset({TimelineEventType.MOVEMENT}),
+                apply_event_fn=apply_movement_to_activity,
             ),
             icon="mdi:door",
         ),

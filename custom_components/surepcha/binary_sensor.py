@@ -11,9 +11,10 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from surepcio.enums import PetLocation, ProductId
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from custom_components.surepcha.helper import (
+    apply_movement_to_activity,
     list_attr,
 )
 from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
@@ -57,6 +58,8 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
             },
             on=PetLocation.INSIDE,
             off=PetLocation.OUTSIDE,
+            event_types=frozenset({TimelineEventType.MOVEMENT}),
+            apply_event_fn=apply_movement_to_activity,
         ),
     ),
 )

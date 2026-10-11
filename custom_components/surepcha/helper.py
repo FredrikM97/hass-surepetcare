@@ -1,9 +1,12 @@
 import logging
+from collections.abc import Mapping
+from datetime import datetime
 from enum import Enum
 from types import MappingProxyType
 from typing import Any
 
 from pydantic import BaseModel
+from surepcio.enums import DoorDirection, PetLocation
 
 from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
 
@@ -142,3 +145,43 @@ def find_entity_id_by_name(
         ),
         None,
     )
+
+
+_DIRECTION_TO_LOCATION = {
+    DoorDirection.ENTERED.name: PetLocation.INSIDE,
+    DoorDirection.LEFT.name: PetLocation.OUTSIDE,
+}
+
+
+def apply_movement_to_activity(ctx, payload: Mapping[str, Any]) -> bool:
+    """Apply a MOVEMENT timeline event to the pet's position; return True if changed.
+
+    ENTERED means inside and LEFT means outside; LOOKED_THROUGH and anything else
+    leave the position alone. The pet is only moved if the event is newer than the
+    position it already has, and ``since`` is left untouched if it already matches
+    (the next poll would have set it from the same crossing).
+    """
+    activity = getattr(getattr(ctx.device, "status", None), "activity", None)
+    if activity is None:
+        return False
+    movement = next(
+        (
+            m
+            for m in reversed(payload.get("movements") or [])
+            if m.get("direction") in _DIRECTION_TO_LOCATION
+        ),
+        None,
+    )
+    if movement is None:
+        return False
+    where = _DIRECTION_TO_LOCATION[movement["direction"]]
+    if activity.where == where:
+        return False
+    created_at = payload.get("created_at")
+    since = datetime.fromisoformat(created_at) if created_at else None
+    if since and activity.since and since < activity.since:
+        return False
+    activity.where = where
+    activity.since = since or activity.since
+    activity.device_id = movement.get("device_id", activity.device_id)
+    return True

@@ -17,7 +17,7 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from surepcio.devices import Pet
 from surepcio.devices.pet import PetPositionResource
-from surepcio.enums import PetLocation, ProductId
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from custom_components.surepcha.method_field import MethodField
 
@@ -37,6 +37,7 @@ from .entity import (
 )
 from .helper import (
     abs_sum_attr,
+    apply_movement_to_activity,
     avg_attr,
     index_attr,
     option_name,
@@ -356,6 +357,8 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     "where": ctx.device.status.activity.where,
                     "tag_id": str(ctx.device.status.activity.tag_id),
                 },
+                event_types=frozenset({TimelineEventType.MOVEMENT}),
+                apply_event_fn=apply_movement_to_activity,
             ),
         ),
         SurePetCareSensorEntityDescription(

@@ -2,11 +2,12 @@
 
 import logging
 import re
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from typing import Any
 
 from homeassistant.components.lock.const import LockState
+from surepcio.enums import TimelineEventType
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +79,10 @@ class MethodField:
     path_extra: str | dict | None = None
     get_extra_fn: Callable[[FieldContext], Any] | None = None
     entity_picture: str | None = None
+    # Timeline events (EVENT_TIMELINE) this field wants to be driven by. When set,
+    # the entity updates from those events (apply_event_fn) instead of from polling.
+    event_types: frozenset[TimelineEventType] = frozenset()
+    apply_event_fn: Callable[[FieldContext, Mapping[str, Any]], bool] | None = None
 
     def __post_init__(self):
         """Set default get_fn and set_fn if not provided but path is."""
@@ -139,6 +144,20 @@ class MethodField:
         if self.get_extra_fn:
             return self.get_extra_fn(context)
         raise NotImplementedError("No get_extra_fn or path_extra defined")
+
+    @property
+    def is_event_driven(self) -> bool:
+        """Return True if this field is updated from timeline events, not polling."""
+        return bool(self.event_types) and self.apply_event_fn is not None
+
+    def apply_event(self, context: FieldContext, payload: Mapping[str, Any]) -> bool:
+        """Apply a timeline event payload to the device; return True if it changed."""
+        if not self.is_event_driven or payload.get("type") not in {
+            event_type.name for event_type in self.event_types
+        }:
+            return False
+        assert self.apply_event_fn is not None
+        return self.apply_event_fn(context, payload)
 
     def get_entity_picture(self, device) -> str | None:
         """Return the entity picture URL if set."""
