@@ -22,6 +22,16 @@
       }
     },
     {
+      "label": "Start Home Assistant (Dev)",
+      "type": "shell",
+      "command": "uv run python scripts/dev_ha.py",
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
       "label": "Update Syrupy Snapshots",
       "type": "shell",
       "command": "${command:python.interpreterPath} -m pytest --snapshot-update tests",
