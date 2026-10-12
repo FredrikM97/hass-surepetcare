@@ -6,6 +6,10 @@ from typing import Any, cast
 
 from homeassistant.core import Event, callback
 from homeassistant.helpers import device_registry as dr
+from homeassistant.helpers.dispatcher import (
+    async_dispatcher_connect,
+    async_dispatcher_send,
+)
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from surepcio.devices.device import DeviceBase, PetBase
@@ -82,6 +86,16 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             self.async_on_remove(
                 self.hass.bus.async_listen(EVENT_TIMELINE, self._handle_timeline_event)
             )
+            self.async_on_remove(
+                async_dispatcher_connect(
+                    self.hass, self._command_signal, self._refresh_state
+                )
+            )
+
+    @property
+    def _command_signal(self) -> str:
+        """Signal sent to all event-driven entities of this device after a command."""
+        return f"{DOMAIN}_command_{self._device.id}"
 
     @callback
     def _handle_timeline_event(self, event: Event) -> None:
@@ -96,6 +110,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         self.entity_description.field.apply_event(self.context, payload)
         self._refresh_state()
 
+    @callback
     def _refresh_state(self) -> None:
         """Drop the cached value and write the new state."""
         self._cached_value = None
@@ -178,5 +193,6 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         # update entities with new data
         await self.coordinator.async_request_refresh()
         if self._event_driven:
-            # The refresh above does not update event-driven entities.
-            self._refresh_state()
+            # The refresh above does not update event-driven entities, so tell
+            # all of this device's entities (not just this one) to re-read.
+            async_dispatcher_send(self.hass, self._command_signal)

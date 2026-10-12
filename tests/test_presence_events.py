@@ -142,3 +142,29 @@ def test_apply_event_ignores_fields_that_are_not_event_driven() -> None:
     field = MethodField(path="status.activity.where")
     assert field.is_event_driven is False
     assert field.apply_event(FieldContext(None, {}), {"type": "MOVEMENT"}) is False
+
+
+@pytest.mark.usefixtures("enable_custom_integrations")
+@pytest.mark.usefixtures("entity_registry_enabled_default")
+async def test_switch_command_updates_all_position_entities(
+    hass, setup, mock_client
+) -> None:
+    """A manual position change (no timeline event) must reach presence too."""
+    presence = setup("binary_sensor", "presence")
+    switch = setup("switch", "position")
+    coordinators = hass.config_entries.async_entries("surepcha")[
+        0
+    ].runtime_data.device_coordinators
+    pet = next(c for c in coordinators if c.data.id == PET_ID).data
+
+    async def server_applies_change(_command):
+        pet.status.activity.where = PetLocation.OUTSIDE
+
+    mock_client.api.side_effect = server_applies_change
+    await hass.services.async_call(
+        "switch", "turn_on", {"entity_id": switch}, blocking=True
+    )
+    await hass.async_block_till_done()
+
+    assert hass.states.get(switch).state == "on"
+    assert hass.states.get(presence).state == "off"
