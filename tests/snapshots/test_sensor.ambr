@@ -321,20 +321,15 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
-      'where': 'INSIDE',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.battery-entry]
@@ -558,7 +553,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
@@ -622,7 +617,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '74.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -667,7 +662,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
@@ -738,7 +733,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '71.3825503355705',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -838,8 +833,8 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 99.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -850,7 +845,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
@@ -1342,7 +1337,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
@@ -1463,9 +1458,11 @@
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2026-10-12T09:36:05Z',
       'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028435',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
@@ -1590,7 +1587,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-entry]
@@ -1654,7 +1651,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-entry]
@@ -1699,7 +1696,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
@@ -1770,7 +1767,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
@@ -1870,8 +1867,8 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 0.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1882,7 +1879,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_position-entry]
@@ -1928,17 +1925,16 @@
       'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
-      'where': 'INSIDE',
+      'id': '100002',
+      'since': '2025-11-12T10:05:20Z',
+      'tag_id': '60978',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'INSIDE',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_assigned_devices-entry]
@@ -2434,7 +2430,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
@@ -2555,9 +2551,11 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2020-03-11T14:21:07Z',
       'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028437',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -3366,20 +3364,15 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
-      'where': 'INSIDE',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.battery-entry]
@@ -3603,7 +3596,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
@@ -3667,7 +3660,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '74.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -3712,7 +3705,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '22222',
       'parent_device_id': '295972',
@@ -3783,7 +3776,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '71.3825503355705',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -3883,8 +3876,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 99.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3895,7 +3888,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
@@ -4387,7 +4380,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '472721',
       'parent_device_id': None,
@@ -4508,15 +4501,18 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2026-10-12T09:36:05Z',
+      'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028435',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'Maui Matlåda',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-entry]
@@ -4634,7 +4630,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-entry]
@@ -4698,7 +4694,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-entry]
@@ -4743,7 +4739,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://www.surepetcare.io/assets/assets/products/feeder.7ff330c9e368df01d256156b6fc797bb.png',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '269654',
       'parent_device_id': '295972',
@@ -4814,7 +4810,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
@@ -4914,8 +4910,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 0.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4926,7 +4922,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-entry]
@@ -4972,17 +4968,16 @@
       'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
-      'where': 'INSIDE',
+      'id': '100002',
+      'since': '2025-11-12T10:05:20Z',
+      'tag_id': '60978',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'INSIDE',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_assigned_devices-entry]
@@ -5478,7 +5473,7 @@
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.ENTITY_PICTURE: 'entity_picture'>: 'https://userimages.production.surehub.io/thm/3139194472/UCcarrDHzX0MkjEORQqCXNLKxsdweCQPJjl3OQ7s.jpg',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Entity Information',
-      'household_id': '222527',
+      'household_id': '12345',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:information',
       'id': '333333',
       'parent_device_id': None,
@@ -5599,15 +5594,18 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2020-03-11T14:21:07Z',
+      'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028437',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'Feeder',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_position-entry]

@@ -17,9 +17,11 @@ from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from surepcio.devices import Pet
 from surepcio.devices.pet import PetPositionResource
-from surepcio.enums import PetLocation, ProductId
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
-from custom_components.surepcha.method_field import MethodField
+from custom_components.surepcha.method_field import (
+    MethodField,
+)
 
 from .const import (
     LOCATION_INSIDE,
@@ -170,7 +172,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                path="status.bowl_status[0].current_weight",
+                path="weights[0].frames[0].current_weight",
                 get_extra_fn=lambda ctx: {
                     "position": ctx.device.status.bowl_status[0].position.name.lower(),
                     "food_type": ctx.device.control.bowls.settings[
@@ -182,6 +184,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                         0
                     ].last_fill_weight,
                 },
+                event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -192,7 +195,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                path="status.bowl_status[1].current_weight",
+                path="weights[0].frames[1].current_weight",
                 get_extra_fn=lambda ctx: {
                     "position": ctx.device.status.bowl_status[1].position.name.lower(),
                     "food_type": ctx.device.control.bowls.settings[
@@ -205,6 +208,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                         1
                     ].last_fill_weight,
                 },
+                event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -215,7 +219,25 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=PERCENTAGE,
             suggested_display_precision=1,
             field=MethodField(
-                path="status.fill_percentages.total",
+                path="weights[0].frames[0].current_weight",
+                get_fn=lambda ctx: (
+                    sum(
+                        frame["current_weight"]
+                        for frame in frames
+                        if targets[frame["index"]] > 0
+                    )
+                    / sum(target for target in targets if target > 0)
+                    * 100
+                    if (frames := ctx.event_data["weights"][0]["frames"])
+                    and (targets := ctx.event_data["data"]["weight"]["target"])
+                    and any(target > 0 for target in targets)
+                    and all(
+                        any(frame["index"] == index for frame in frames)
+                        for index, target in enumerate(targets)
+                        if target > 0
+                    )
+                    else None
+                ),
                 get_extra_fn=lambda ctx: (
                     {
                         f"bowl_{i}_fill_percent": percent
@@ -226,6 +248,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     if ctx.device.status.fill_percentages
                     else {}
                 ),
+                event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -235,17 +258,15 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             device_class=SensorDeviceClass.WEIGHT,
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
-                get_fn=lambda ctx: sum(
-                    w.target for w in getattr(ctx.device.control.bowls, "settings", [])
-                ),
+                path="data.weight.target[0]",
+                get_fn=lambda ctx: sum(ctx.event_data["data"]["weight"]["target"]),
                 get_extra_fn=lambda ctx: {
-                    "bowls_0_target": index_attr(
-                        ctx.device.control.bowls.settings, 0, attr="target"
-                    ),
-                    "bowls_1_target": index_attr(
-                        ctx.device.control.bowls.settings, 1, attr="target"
-                    ),
+                    "bowls_0_target": ctx.event_data["data"]["weight"]["target"][0],
+                    "bowls_1_target": ctx.event_data["data"]["weight"]["target"][1],
                 },
+                event_types=frozenset(
+                    {TimelineEventType.FEEDING, TimelineEventType.WEIGHT_CHANGED}
+                ),
             ),
         ),
         *SENSOR_DESCRIPTIONS_RSSI,
@@ -348,14 +369,23 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:map-marker",
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda ctx: get_location(ctx.device, ctx.options),
-                get_extra_fn=lambda ctx: {
-                    "device_id": str(ctx.device.status.activity.device_id),
-                    "id": str(ctx.device.status.activity.id),
-                    "since": ctx.device.status.activity.since,
-                    "where": ctx.device.status.activity.where,
-                    "tag_id": str(ctx.device.status.activity.tag_id),
-                },
+                get_fn=lambda ctx: (
+                    PetLocation(ctx.event_data["movements"][0]["direction"])
+                    if ctx.event_data and ctx.event_data["movements"][0]["direction"]
+                    else None
+                ),
+                path="movements[0].direction",
+                get_extra_fn=lambda ctx: (
+                    {
+                        "device_id": str(ctx.event_data["movements"][0]["device_id"]),
+                        "id": str(ctx.event_data["id"]),
+                        "since": ctx.event_data["created_at"],
+                        "tag_id": str(ctx.event_data["movements"][0]["tag_id"]),
+                    }
+                    if ctx.event_data
+                    else None
+                ),
+                event_types=frozenset({TimelineEventType.MOVEMENT}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -402,15 +432,45 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             icon="mdi:history",
             entity_registry_enabled_default=False,
             field=MethodField(
+                path="pets[0].id",
                 get_fn=lambda ctx: (
-                    option_name(ctx.options, ctx.device.status.last_activity.device_id)
-                    if ctx.device.status.last_activity
+                    option_name(ctx.options, device_id)
+                    or next(
+                        (
+                            device["name"]
+                            for device in ctx.event_data["devices"]
+                            if str(device["id"]) == str(device_id)
+                        ),
+                        None,
+                    )
+                    if (
+                        device_id := (
+                            ctx.event_data["movements"]
+                            if ctx.event_data["type"] == TimelineEventType.MOVEMENT
+                            else ctx.event_data["weights"]
+                        )[0]["device_id"]
+                    )
                     else None
                 ),
-                get_extra_fn=lambda ctx: (
-                    {"device": str(ctx.device.status.last_activity.device_id)}
-                    if ctx.device.status.last_activity
-                    else {}
+                get_extra_fn=lambda ctx: {
+                    "device": str(
+                        (
+                            ctx.event_data["movements"]
+                            if ctx.event_data["type"] == TimelineEventType.MOVEMENT
+                            else ctx.event_data["weights"]
+                        )[0]["device_id"]
+                    ),
+                    "at": ctx.event_data["created_at"],
+                    "id": str(ctx.event_data["id"]),
+                },
+                event_types=frozenset(
+                    {
+                        TimelineEventType.MOVEMENT,
+                        TimelineEventType.FEEDING,
+                        TimelineEventType.WEIGHT_CHANGED,
+                        TimelineEventType.POSEIDON_DRINKING,
+                        TimelineEventType.POSEIDON_WEIGHT_CHANGED,
+                    }
                 ),
             ),
         ),

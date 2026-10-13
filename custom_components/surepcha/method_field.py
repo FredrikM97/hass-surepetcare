@@ -2,11 +2,12 @@
 
 import logging
 import re
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from typing import Any
 
 from homeassistant.components.lock.const import LockState
+from surepcio.enums import TimelineEventType
 
 logger = logging.getLogger(__name__)
 
@@ -14,10 +15,11 @@ _LIST_INDEX_RE = re.compile(r"(\w+)\[(\d+)\]$")
 
 
 class FieldContext:
-    def __init__(self, device, options, entity_id=None):
+    def __init__(self, device, options, entity_id=None, event_data=None):
         self.device = device
         self.options = options
         self.entity_id = entity_id
+        self.event_data = event_data
 
 
 def build_nested_dict(field_path, value):
@@ -78,12 +80,13 @@ class MethodField:
     path_extra: str | dict | None = None
     get_extra_fn: Callable[[FieldContext], Any] | None = None
     entity_picture: str | None = None
+    event_types: frozenset[TimelineEventType] = frozenset()
 
     def __post_init__(self):
         """Set default get_fn and set_fn if not provided but path is."""
         if self.path:
             # Only set get_fn default if not explicitly provided
-            if self.get_fn is None:
+            if self.get_fn is None and not self.event_types:
                 object.__setattr__(
                     self, "get_fn", lambda ctx: get_by_path(ctx.device, self.path)
                 )
@@ -107,6 +110,12 @@ class MethodField:
 
     def get(self, context: FieldContext) -> Any:
         """Get the value from the device."""
+        if self.event_types:
+            if context.event_data is None:
+                return None
+            if self.get_fn:
+                return self.get_fn(context)
+            return get_by_path(context.event_data, self.path)
         if self.get_fn:
             value = self.get_fn(context)
             path_label = self.path or self.get_fn.__name__
@@ -143,6 +152,27 @@ class MethodField:
     def get_entity_picture(self, device) -> str | None:
         """Return the entity picture URL if set."""
         return get_by_path(device, self.entity_picture) if self.entity_picture else None
+
+    def apply_event(
+        self, context: FieldContext, event: Mapping[str, Any]
+    ) -> dict[str, Any] | None:
+        """Return the event record that matches this device or pet."""
+        if not self.path or not self.event_types:
+            return None
+
+        event_data = dict(event)
+        if TimelineEventType(event_data["type"]) not in self.event_types:
+            return None
+
+        target_id = str(context.device.id)
+        targets = [*event_data.get("pets", []), *event_data.get("devices", [])]
+        if not any(str(get_by_path(target, "id")) == target_id for target in targets):
+            return None
+
+        if get_by_path(event_data, self.path) is None:
+            return None
+
+        return event_data
 
     def __call__(self, context: FieldContext, value: Any) -> Any:
         """Call to set the value."""

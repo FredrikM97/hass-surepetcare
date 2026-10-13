@@ -11,6 +11,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from surepcio import Household, SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
 from surepcio.security.exceptions import ApiError, AuthenticationError
+from surepcio.timeline import TimelineEvent
 
 from .const import (
     EVENT_TIMELINE,
@@ -138,6 +139,21 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         if len(self._seen_ids) > self._seen_ids_limit:
             self._seen_ids.popitem(last=False)
 
+    def _fire_timeline_events(self, events: list[TimelineEvent]) -> int:
+        """Fire each parent timeline event with its resource lists intact."""
+        fired = 0
+        for event in sorted(
+            events,
+            key=lambda event: event.created_at or datetime.min.replace(tzinfo=UTC),
+        ):
+            if event.id in self._seen_ids:
+                continue
+            self.hass.bus.async_fire(
+                EVENT_TIMELINE, build_event_payload(self.household.id, event)
+            )
+            fired += 1
+        return fired
+
     async def _async_update_data(self) -> None:
         """Fetch new timeline events since the last known cursor and fire them."""
         logger.debug(
@@ -178,21 +194,13 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             )
             return
 
-        fired = 0
-        for event in sorted(
-            events, key=lambda e: e.created_at or datetime.min.replace(tzinfo=UTC)
-        ):
-            if event.id in self._seen_ids:
-                continue
-            self.hass.bus.async_fire(
-                EVENT_TIMELINE, build_event_payload(self.household.id, event)
-            )
+        new_events = [event for event in events if event.id not in self._seen_ids]
+        fired = self._fire_timeline_events(new_events)
+        for event in new_events:
             self._mark_seen(event.id)
-            fired += 1
         logger.debug(
-            "Fired %d/%d new timeline event(s) for household %s",
+            "Fired %d bus event(s) from new timeline events for household %s",
             fired,
-            len(events),
             self.household.id,
         )
         self._cursor, self._pending_cursor = self._pending_cursor, newest_id

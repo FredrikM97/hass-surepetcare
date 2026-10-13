@@ -11,12 +11,15 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from surepcio.enums import PetLocation, ProductId
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from custom_components.surepcha.helper import (
     list_attr,
 )
-from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
+from custom_components.surepcha.method_field import (
+    BinarySensorMethodField,
+    MethodField,
+)
 
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
 from .entity import (
@@ -48,15 +51,25 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
         translation_key="presence",
         device_class=BinarySensorDeviceClass.PRESENCE,
         field=BinarySensorMethodField(
-            path="status.activity.where",
-            get_extra_fn=lambda ctx: {
-                "device_id": str(ctx.device.status.activity.device_id),
-                "id": str(ctx.device.status.activity.id),
-                "since": ctx.device.status.activity.since,
-                "tag_id": str(ctx.device.status.activity.tag_id),
-            },
+            get_fn=lambda ctx: (
+                PetLocation(ctx.event_data["movements"][0]["direction"])
+                if ctx.event_data and ctx.event_data["movements"][0]["direction"]
+                else None
+            ),
+            path="movements[0].direction",
+            get_extra_fn=lambda ctx: (
+                {
+                    "device_id": str(ctx.event_data["movements"][0]["device_id"]),
+                    "id": str(ctx.event_data["id"]),
+                    "since": ctx.event_data["created_at"],
+                    "tag_id": str(ctx.event_data["movements"][0]["tag_id"]),
+                }
+                if ctx.event_data
+                else None
+            ),
             on=PetLocation.INSIDE,
             off=PetLocation.OUTSIDE,
+            event_types=frozenset({TimelineEventType.MOVEMENT}),
         ),
     ),
 )

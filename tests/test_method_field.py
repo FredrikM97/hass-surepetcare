@@ -6,6 +6,8 @@ from unittest.mock import MagicMock
 import pytest
 from homeassistant.components.lock.const import LockState
 from surepcio.enums import FlapLocking
+from surepcio.timeline import TimelineEvent
+from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.method_field import (
     BinarySensorMethodField,
@@ -18,6 +20,7 @@ from custom_components.surepcha.method_field import (
     build_nested_dict,
     get_by_path,
 )
+from custom_components.surepcha.timeline import build_event_payload
 
 
 class TestBuildNestedDict:
@@ -301,6 +304,51 @@ class TestMethodField:
 
         field(FieldContext(device, options, None), 42)
         device.set_control.assert_called_once_with(control={"value": 42})
+
+    def test_get_non_movement_event_value_by_path(
+        self,
+        feeding_timeline_event: TimelineEvent,
+        snapshot: SnapshotAssertion,
+    ) -> None:
+        """Read a weight value from a matched fixture event by field path."""
+        event = feeding_timeline_event
+        device = MagicMock()
+        device.id = event.weights[0].device_id
+        field = MethodField(
+            path="weights[0].duration",
+            event_types=frozenset({event.event_type}),
+        )
+        event_payload = build_event_payload(222527, event)
+        event_data = field.apply_event(
+            FieldContext(device, MappingProxyType({})), event_payload
+        )
+        assert event_data is not None
+        assert event_data == snapshot
+        assert (
+            field.get(FieldContext(device, MappingProxyType({}), event_data=event_data))
+            == event.weights[0].duration
+        )
+
+    def test_ignores_event_without_declared_value(
+        self,
+        feeding_timeline_event_without_frames: TimelineEvent,
+    ) -> None:
+        """Ignore an otherwise matching feeder event without weight frames."""
+        event = feeding_timeline_event_without_frames
+        device = MagicMock()
+        device.id = event.weights[0].device_id
+        field = MethodField(
+            path="weights[0].frames[0].current_weight",
+            event_types=frozenset({event.event_type}),
+        )
+
+        assert (
+            field.apply_event(
+                FieldContext(device, MappingProxyType({})),
+                build_event_payload(222527, event),
+            )
+            is None
+        )
 
 
 class TestButtonMethodField:

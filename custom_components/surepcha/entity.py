@@ -4,15 +4,17 @@ import logging
 from dataclasses import dataclass
 from typing import Any, cast
 
+from homeassistant.core import Event, callback
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
+from homeassistant.helpers.restore_state import ExtraStoredData, RestoreEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from surepcio.devices.device import DeviceBase, PetBase
 
 from custom_components.surepcha.helper import serialize
 from custom_components.surepcha.method_field import FieldContext, MethodField
 
-from .const import DOMAIN, OPTION_DEVICES
+from .const import DOMAIN, EVENT_TIMELINE, OPTION_DEVICES
 from .coordinator import SurePetCareDeviceDataUpdateCoordinator
 
 logger = logging.getLogger(__name__)
@@ -26,7 +28,20 @@ class SurePetCareBaseEntityDescription(EntityDescription):
     frozen: bool = False
 
 
-class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
+@dataclass(frozen=True, slots=True)
+class TimelineEventRestoreData(ExtraStoredData):
+    """Persist the parent timeline event used by an event-backed entity."""
+
+    event_data: dict[str, Any]
+
+    def as_dict(self) -> dict[str, Any]:
+        """Return JSON-serializable restored data."""
+        return {"event_data": self.event_data}
+
+
+class SurePetCareBaseEntity(
+    CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator], RestoreEntity
+):
     """Base SurePetCare device."""
 
     entity_description: SurePetCareBaseEntityDescription
@@ -40,6 +55,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
         """Initialize a device."""
         super().__init__(coordinator)
         self._device: DeviceBase | PetBase = coordinator.data
+        self._event_data: dict[str, Any] | None = None
 
     @property
     def device_info(self) -> DeviceInfo:
@@ -71,8 +87,44 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
+        if self.entity_description.field.event_types:
+            return
         self._cached_value = None
         super()._handle_coordinator_update()
+
+    async def async_added_to_hass(self) -> None:
+        """Subscribe to timeline events for event-backed fields."""
+        await super().async_added_to_hass()
+        if self.entity_description.field.event_types:
+            if restored_data := await self.async_get_last_extra_data():
+                event_data = restored_data.as_dict().get("event_data")
+                if isinstance(event_data, dict):
+                    self._event_data = event_data
+            self.async_on_remove(
+                self.hass.bus.async_listen(EVENT_TIMELINE, self._handle_timeline_event)
+            )
+
+    @property
+    def extra_restore_state_data(self) -> ExtraStoredData | None:
+        """Persist event data used to calculate an event-backed entity state."""
+        if self._event_data is None:
+            return None
+        return TimelineEventRestoreData(self._event_data)
+
+    @callback
+    def _handle_timeline_event(self, event: Event) -> None:
+        field = self.entity_description.field
+        if str(event.data.get("household_id")) != str(self._device.household_id):
+            return
+
+        if event_data := field.apply_event(self.context, event.data):
+            self._event_data = event_data
+            self._write_event_state()
+
+    @callback
+    def _write_event_state(self) -> None:
+        self._cached_value = None
+        self.async_write_ha_state()
 
     @property
     def available(self) -> bool:
@@ -120,7 +172,9 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             **self.coordinator.config_entry.options,
             OPTION_DEVICES: merged_devices,
         }
-        return FieldContext(self.coordinator.data, options, self.entity_id)
+        return FieldContext(
+            self.coordinator.data, options, self.entity_id, self._event_data
+        )
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""

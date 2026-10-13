@@ -1,102 +1,38 @@
 """Household timeline event-payload building."""
 
 import json
-import logging
+from datetime import datetime
+from enum import Enum
 from typing import Any
 
-from surepcio.enums import TimelineEventType
-from surepcio.timeline import MovementResource, TimelineEvent, WeightResource
-
-logger = logging.getLogger(__name__)
-
-# Event types that carry door movement data (event.movements).
-_MOVEMENT_EVENT_TYPES = {
-    TimelineEventType.MOVEMENT,
-    TimelineEventType.INTRUDER_MOVEMENT,
-}
-
-# Event types that carry feeder/fountain weight data (event.weights).
-_FEEDING_EVENT_TYPES = {
-    TimelineEventType.FEEDING,
-    TimelineEventType.WEIGHT_CHANGED,
-    TimelineEventType.WEIGHT_CHANGED_TARGET_MET,
-    TimelineEventType.TARGET_WEIGHT_SET,
-    TimelineEventType.TARE,
-}
-
-_DRINKING_EVENT_TYPES = {
-    TimelineEventType.POSEIDON_DRINKING,
-    TimelineEventType.POSEIDON_WEIGHT_CHANGED,
-    TimelineEventType.POSEIDON_TARE,
-}
+from surepcio.timeline import TimelineEvent
 
 
-def _movement_details(movement: MovementResource) -> dict[str, Any]:
-    """Build the payload for a single door movement entry."""
-    return {
-        "device_id": movement.device_id,
-        "direction": movement.direction.name
-        if movement.direction is not None
-        else None,
-        "side": movement.side.name if movement.side is not None else None,
-    }
-
-
-def _weight_details(weight: WeightResource) -> dict[str, Any]:
-    """Build the payload for a single feeder/fountain weight reading."""
-    return {
-        "device_id": weight.device_id,
-        "duration": weight.duration,
-        "frames": [
-            {
-                "index": frame.index,
-                "current_weight": frame.current_weight,
-                "change": frame.change,
-            }
-            for frame in weight.frames
-        ],
-    }
-
-
-def _parse_event_data(data: str | None) -> Any:
-    """Decode the timeline entry's JSON-encoded "data" field, or None if absent/invalid.
-
-    The API sends it as a JSON string (e.g. CURFEW_LOCK_STATUS carries
-    {"locked": true, "lock": "10:36", "unlock": "19:16", ...}); "null" decodes to None.
-    """
-    if not data:
-        return None
-    try:
-        return json.loads(data)
-    except ValueError:
-        logger.debug("Ignoring non-JSON timeline data: %r", data)
-        return None
-
-
-def _base_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
-    """Build the fields common to every timeline event, regardless of type."""
-    return {
-        "household_id": household_id,
-        "id": event.id,
-        "type": event.event_type.name if event.event_type is not None else None,
-        "created_at": event.created_at.isoformat()
-        if event.created_at is not None
-        else None,
-        "pets": [pet.id for pet in event.pets],
-        "devices": [device.id for device in event.devices],
-        "users": [user.id for user in event.users],
-    }
+def _serialize_event_value(value: Any) -> Any:
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, datetime):
+        return value.isoformat().replace("+00:00", "Z")
+    if isinstance(value, dict):
+        return {key: _serialize_event_value(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_serialize_event_value(item) for item in value]
+    return value
 
 
 def build_event_payload(household_id: int, event: TimelineEvent) -> dict[str, Any]:
-    """Build the EVENT_TIMELINE payload for one event, by event category."""
-    payload = _base_event_payload(household_id, event)
-    payload["data"] = _parse_event_data(event.data)
-    if event.event_type in _MOVEMENT_EVENT_TYPES:
-        payload["movements"] = [_movement_details(m) for m in event.movements]
-    elif (
-        event.event_type in _FEEDING_EVENT_TYPES
-        or event.event_type in _DRINKING_EVENT_TYPES
-    ):
-        payload["weights"] = [_weight_details(w) for w in event.weights]
+    """Build a compact Home Assistant payload with structured event data."""
+    payload = _serialize_event_value(
+        event.model_dump(
+            mode="python", by_alias=True, exclude_defaults=True, exclude_none=True
+        )
+    )
+    if (data := payload.get("data")) is not None:
+        try:
+            payload["data"] = json.loads(data)
+        except json.JSONDecodeError:
+            payload["data"] = {"raw": data}
+    if payload.get("data") is None:
+        payload.pop("data", None)
+    payload["household_id"] = household_id
     return payload

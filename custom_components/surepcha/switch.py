@@ -9,13 +9,20 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.command import Command
-from surepcio.enums import PetDeviceLocationProfile, PetLocation, ProductId
+from surepcio.enums import (
+    PetDeviceLocationProfile,
+    PetLocation,
+    ProductId,
+    TimelineEventType,
+)
 
 from custom_components.surepcha.helper import (
     list_attr,
     option_product_id,
 )
-from custom_components.surepcha.method_field import SwitchMethodField
+from custom_components.surepcha.method_field import (
+    SwitchMethodField,
+)
 
 from .const import FLAP_PRODUCTS
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
@@ -92,10 +99,16 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             translation_key="position",
             entity_registry_enabled_default=False,
             field=SwitchMethodField(
-                path="status.activity.where",
-                set_fn=lambda ctx, value: ctx.device.set_position(value),
+                get_fn=lambda ctx: (
+                    PetLocation(ctx.event_data["movements"][0]["direction"])
+                    if ctx.event_data and ctx.event_data["movements"][0]["direction"]
+                    else None
+                ),
                 on=PetLocation.OUTSIDE,
                 off=PetLocation.INSIDE,
+                path="movements[0].direction",
+                set_fn=lambda ctx, value: ctx.device.set_position(value),
+                event_types=frozenset({TimelineEventType.MOVEMENT}),
             ),
             icon="mdi:door",
         ),

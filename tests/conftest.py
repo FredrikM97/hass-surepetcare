@@ -26,6 +26,7 @@ from surepcio import SurePetcareClient
 from surepcio.devices import load_device_class
 from surepcio.devices.device import DeviceBase, PetBase
 from surepcio.enums import ProductId
+from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import (
@@ -188,6 +189,197 @@ async def mock_pets() -> list[PetBase]:
     for pet in PET_MOCKS:
         pets.extend(await _create_device(pet))
     return pets
+
+
+@pytest.fixture
+def timeline_scenarios() -> dict[str, list[TimelineEvent]]:
+    """Load all representative timeline scenarios as backend event models."""
+    return {
+        scenario: [TimelineEvent.model_validate(event) for event in events]
+        for scenario, events in load_json_value_fixture("timeline.json").items()
+    }
+
+
+@pytest.fixture
+def timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return all representative timeline events."""
+    return [event for events in timeline_scenarios.values() for event in events]
+
+
+@pytest.fixture
+def movement_timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return representative movement timeline events."""
+    return timeline_scenarios["movement"]
+
+
+@pytest.fixture
+def feeding_timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return representative feeding timeline events."""
+    return timeline_scenarios["feeding"]
+
+
+@pytest.fixture
+def feeding_timeline_event(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the representative feeding timeline event with pet data."""
+    return feeding_timeline_events[0]
+
+
+@pytest.fixture
+def feeding_timeline_event_without_frames(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return a representative feeding event without captured frames."""
+    return next(
+        event for event in feeding_timeline_events if not event.weights[0].frames
+    )
+
+
+@pytest.fixture
+def movement_timeline_event(
+    request: pytest.FixtureRequest,
+    movement_timeline_events: list[TimelineEvent],
+) -> TimelineEvent | None:
+    """Return the parameterized representative movement timeline event."""
+    return (
+        movement_timeline_events[request.param] if request.param is not None else None
+    )
+
+
+@pytest.fixture
+def pet_timeline_event_responses(
+    request: pytest.FixtureRequest,
+    timeline_events: list[TimelineEvent],
+    movement_timeline_events: list[TimelineEvent],
+    mock_pets: list[PetBase],
+    mock_config_entry: MockConfigEntry,
+) -> tuple[list[TimelineEvent], list[TimelineEvent]]:
+    """Return full timeline responses with one aligned movement event arriving."""
+    pet = mock_pets[0]
+    pet.entity_info.household_id = mock_config_entry.data[HOUSEHOLD_ID]
+    target_id = movement_timeline_events[getattr(request, "param", 1)].id
+    events = [event.model_copy(deep=True) for event in timeline_events]
+    target_event = next(event for event in events if event.id == target_id)
+    target_event.pets = [
+        participant.model_copy(update={"id": pet.id})
+        for participant in target_event.pets
+    ]
+    target_event.movements = [
+        movement.model_copy(
+            update={
+                "device_id": pet.status.activity.device_id,
+                "tag_id": pet.entity_info.tag_id,
+            }
+        )
+        for movement in target_event.movements
+    ]
+    return [event for event in events if event.id != target_id], events
+
+
+@pytest.fixture
+def pet_and_feeder_timeline_event_responses(
+    timeline_events: list[TimelineEvent],
+    movement_timeline_events: list[TimelineEvent],
+    feeding_timeline_event: TimelineEvent,
+    mock_devices: list[DeviceBase],
+    mock_pets: list[PetBase],
+    mock_config_entry: MockConfigEntry,
+) -> tuple[list[TimelineEvent], list[TimelineEvent]]:
+    """Return full responses with aligned pet movement and feeder frame events."""
+    pet = mock_pets[0]
+    feeder = next(
+        device
+        for device in mock_devices
+        if device.product_id == ProductId.FEEDER_CONNECT
+    )
+    household_id = mock_config_entry.data[HOUSEHOLD_ID]
+    pet.entity_info.household_id = household_id
+    feeder.entity_info.household_id = household_id
+    events = [event.model_copy(deep=True) for event in timeline_events]
+
+    movement_event = next(
+        event for event in events if event.id == movement_timeline_events[1].id
+    )
+    movement_event.pets = [
+        participant.model_copy(update={"id": pet.id})
+        for participant in movement_event.pets
+    ]
+    movement_event.movements = [
+        movement.model_copy(
+            update={
+                "device_id": pet.status.activity.device_id,
+                "tag_id": pet.entity_info.tag_id,
+            }
+        )
+        for movement in movement_event.movements
+    ]
+
+    feeder_event = next(
+        event for event in events if event.id == feeding_timeline_event.id
+    )
+    feeder_event.devices[0] = feeder_event.devices[0].model_copy(
+        update={"id": feeder.id}
+    )
+    feeder_event.weights = [
+        weight.model_copy(update={"device_id": feeder.id})
+        for weight in feeder_event.weights
+    ]
+
+    target_ids = {movement_event.id, feeder_event.id}
+    return [event for event in events if event.id not in target_ids], events
+
+
+@pytest.fixture
+def second_feeder_timeline_event(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the feeding event captured for the second feeder fixture."""
+    return next(
+        event
+        for event in feeding_timeline_events
+        if event.weights[0].device_id == 22222
+    )
+
+
+@pytest.fixture
+def pet_and_two_feeder_timeline_event_responses(
+    pet_and_feeder_timeline_event_responses: tuple[
+        list[TimelineEvent], list[TimelineEvent]
+    ],
+    second_feeder_timeline_event: TimelineEvent,
+    mock_devices: list[DeviceBase],
+    mock_pets: list[PetBase],
+    mock_config_entry: MockConfigEntry,
+    timeline_events: list[TimelineEvent],
+) -> tuple[list[TimelineEvent], list[TimelineEvent]]:
+    """Deliver both feeders' representative events after the initial baseline."""
+    baseline, events = pet_and_feeder_timeline_event_responses
+    second_feeder = next(
+        device
+        for device in mock_devices
+        if device.id == second_feeder_timeline_event.weights[0].device_id
+    )
+    second_feeder.entity_info.household_id = mock_config_entry.data[HOUSEHOLD_ID]
+    last_activity_event = next(
+        event for event in timeline_events if event.id == 18125028437
+    )
+    pet = next(pet for pet in mock_pets if pet.id == last_activity_event.pets[0].id)
+    pet.entity_info.household_id = mock_config_entry.data[HOUSEHOLD_ID]
+    return (
+        [
+            event
+            for event in baseline
+            if event.id not in {second_feeder_timeline_event.id, last_activity_event.id}
+        ],
+        events,
+    )
 
 
 @pytest.fixture

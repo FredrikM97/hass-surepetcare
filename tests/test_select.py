@@ -4,6 +4,7 @@ import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
+from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from . import initialize_entry
@@ -22,10 +23,19 @@ async def test_platform_setup_and_discovery(
     snapshot: SnapshotAssertion,
     mock_devices,
     mock_pets,
+    pet_timeline_event_responses: tuple[list[TimelineEvent], list[TimelineEvent]],
 ) -> None:
     await initialize_entry(
-        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+        hass,
+        mock_client,
+        mock_config_entry,
+        mock_devices,
+        mock_pets,
+        pet_timeline_event_responses,
     )
+    timeline_coordinator = mock_config_entry.runtime_data.timeline_coordinators[0]
+    await timeline_coordinator.async_request_refresh()
+    await hass.async_block_till_done()
     await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
 
 
@@ -41,9 +51,15 @@ async def test_platform_setup_and_discovery_missing_entities(
     snapshot: SnapshotAssertion,
     mock_devices,
     mock_pets,
+    timeline_events: list[TimelineEvent],
 ) -> None:
     await initialize_entry(
-        hass, mock_client, mock_config_entry_missing_entities, mock_devices, mock_pets
+        hass,
+        mock_client,
+        mock_config_entry_missing_entities,
+        mock_devices,
+        mock_pets,
+        (timeline_events,),
     )
     await snapshot_platform(
         hass, entity_registry, snapshot, mock_config_entry_missing_entities.entry_id

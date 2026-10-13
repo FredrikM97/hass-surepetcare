@@ -40,18 +40,14 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Presence',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.ajax_presence',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'on',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[binary_sensor.curfew_active-entry]
@@ -721,9 +717,9 @@
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
       'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Presence',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
+      'id': '100002',
+      'since': '2025-11-12T10:05:20Z',
+      'tag_id': '60978',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_presence',
@@ -876,18 +872,14 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Presence',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.ajax_presence',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'on',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.curfew_active-entry]
@@ -1555,18 +1547,14 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'presence',
-      'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Presence',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.maui_presence',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'on',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.pet_with_empty_status_presence-entry]
