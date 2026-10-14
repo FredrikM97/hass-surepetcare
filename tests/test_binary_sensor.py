@@ -19,25 +19,24 @@ from .support import MockConfigEntry, snapshot_platform
 async def test_platform_setup_and_discovery(
     hass: HomeAssistant,
     mock_client: SurePetcareClient,
-    mock_config_entry: MockConfigEntry,
+    mock_timeline_config_entry: MockConfigEntry,
     entity_registry: er.EntityRegistry,
     snapshot: SnapshotAssertion,
     mock_devices,
     mock_pets,
-    pet_timeline_event_responses: tuple[list[TimelineEvent], list[TimelineEvent]],
+    timeline_event_responses: tuple[list[TimelineEvent], list[TimelineEvent]],
 ) -> None:
     await initialize_entry(
         hass,
         mock_client,
-        mock_config_entry,
+        mock_timeline_config_entry,
         mock_devices,
         mock_pets,
-        pet_timeline_event_responses,
+        timeline_event_responses,
     )
-    timeline_coordinator = mock_config_entry.runtime_data.timeline_coordinators[0]
-    await timeline_coordinator.async_request_refresh()
-    await hass.async_block_till_done()
-    await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
+    await snapshot_platform(
+        hass, entity_registry, snapshot, mock_timeline_config_entry.entry_id
+    )
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.BINARY_SENSOR])

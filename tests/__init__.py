@@ -5,6 +5,8 @@ from surepcio import SurePetcareClient
 from surepcio.devices.device import DeviceBase, PetBase
 from surepcio.timeline import TimelineEvent
 
+from custom_components.surepcha.const import HOUSEHOLD_ID
+
 from .support import MockConfigEntry
 
 DEVICE_MOCKS = [
@@ -42,8 +44,9 @@ async def initialize_entry(
             return next(timeline_responses, [])
         if hasattr(cmd, "endpoint") and "household" in cmd.endpoint:
             household = MagicMock()
-            household.id = 12345
-            household.data = {"id": 12345, "name": "Test Household"}
+            household_id = mock_config_entry.data[HOUSEHOLD_ID]
+            household.id = household_id
+            household.data = {"id": household_id, "name": "Test Household"}
             household.get_devices.return_value = mock_devices
             household.get_pets.return_value = mock_pets
             household.get_timeline.return_value = timeline_command
@@ -56,3 +59,7 @@ async def initialize_entry(
     ):
         await hass.config_entries.async_setup(mock_config_entry.entry_id)
         await hass.async_block_till_done()
+        if timeline_event_responses and len(timeline_event_responses) > 1:
+            for coordinator in mock_config_entry.runtime_data.timeline_coordinators:
+                await coordinator.async_request_refresh()
+            await hass.async_block_till_done()

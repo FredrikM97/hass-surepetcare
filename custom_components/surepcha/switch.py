@@ -26,10 +26,8 @@ from custom_components.surepcha.method_field import (
 
 from .const import FLAP_PRODUCTS
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .entity import SurePetCareBaseEntityDescription
+from .event_entity import SurePetCareEventEntity
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +61,14 @@ def set_profile(ctx, value) -> list[Command]:
         for d in list_attr(pet.status, "devices", "items")
         if option_product_id(ctx.options, d.id) in FLAP_PRODUCTS
     ]
+
+
+def pet_position(ctx) -> PetLocation | None:
+    """Return the latest event position."""
+    if not ctx.event_data:
+        return None
+    direction = ctx.event_data["movements"][0]["direction"]
+    return PetLocation(direction) if direction else None
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -99,11 +105,7 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             translation_key="position",
             entity_registry_enabled_default=False,
             field=SwitchMethodField(
-                get_fn=lambda ctx: (
-                    PetLocation(ctx.event_data["movements"][0]["direction"])
-                    if ctx.event_data and ctx.event_data["movements"][0]["direction"]
-                    else None
-                ),
+                get_fn=pet_position,
                 on=PetLocation.OUTSIDE,
                 off=PetLocation.INSIDE,
                 path="movements[0].direction",
@@ -142,7 +144,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
+class SurePetCareSwitch(SurePetCareEventEntity, SwitchEntity):
     """Switch entity for SurePetCare device."""
 
     entity_description: SurePetCareSwitchEntityDescription

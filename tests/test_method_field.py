@@ -5,7 +5,7 @@ from unittest.mock import MagicMock
 
 import pytest
 from homeassistant.components.lock.const import LockState
-from surepcio.enums import FlapLocking
+from surepcio.enums import FlapLocking, TimelineEventType
 from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
@@ -130,6 +130,26 @@ class TestGetByPath:
 
 class TestMethodField:
     """Tests for MethodField base class."""
+
+    def test_event_field_without_event_has_no_value(self):
+        device = MagicMock()
+        field = MethodField(
+            path="data.value",
+            get_fn=lambda ctx: ctx.event_data["data"]["value"],
+            event_types=frozenset({TimelineEventType.FEEDING}),
+        )
+
+        assert field.get(FieldContext(device, MappingProxyType({}))) is None
+
+    def test_event_field_without_event_has_no_attributes(self):
+        device = MagicMock()
+        field = MethodField(
+            path="data.value",
+            get_extra_fn=lambda ctx: ctx.event_data["data"],
+            event_types=frozenset({TimelineEventType.FEEDING}),
+        )
+
+        assert field.get_extra(FieldContext(device, MappingProxyType({}))) is None
 
     def test_with_path_get(self):
         """Test MethodField.get with path parameter."""

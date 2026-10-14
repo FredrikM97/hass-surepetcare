@@ -29,7 +29,7 @@ LOCK_FILE = Path(tempfile.gettempdir()) / (
 CONFIGURATION = """\
 frontend:
 config:
-automation:
+automation: !include automations.yaml
 script:
 history:
 logbook:
@@ -56,6 +56,11 @@ logger:
   logs:
     custom_components.surepcha: debug
 """
+
+DEV_AUTOMATION_ID = "surepcha_track_events"
+DEV_AUTOMATION = (ROOT / "scripts" / "dev_ha_automations.yaml").read_text(
+    encoding="utf-8"
+)
 
 
 def with_http_port(configuration: str, port: int) -> str:
@@ -85,6 +90,43 @@ def with_http_port(configuration: str, port: int) -> str:
     return "\n".join(lines) + "\n"
 
 
+def with_automation_include(configuration: str) -> str:
+    lines = configuration.splitlines()
+    for index, line in enumerate(lines):
+        key, separator, value = line.partition(":")
+        if line[:1].isspace() or not separator or key.strip() != "automation":
+            continue
+        value, comment_separator, comment = value.partition("#")
+        if value.strip():
+            return configuration
+        for child in lines[index + 1 :]:
+            if child and not child[0].isspace() and not child.lstrip().startswith("#"):
+                break
+            if child.strip() and not child.lstrip().startswith("#"):
+                return configuration
+        updated = "automation: !include automations.yaml"
+        if comment_separator:
+            updated += f"  #{comment}"
+        lines[index] = updated
+        break
+    else:
+        lines.extend(["", "automation: !include automations.yaml"])
+    return "\n".join(lines) + "\n"
+
+
+def prepare_automations() -> None:
+    """Add the event-tracking automation without replacing local automations."""
+    automations = CONFIG / "automations.yaml"
+    existing = automations.read_text(encoding="utf-8") if automations.exists() else ""
+    if DEV_AUTOMATION_ID in existing:
+        return
+
+    with automations.open("a", encoding="utf-8") as file:
+        if existing and not existing.endswith("\n"):
+            file.write("\n")
+        file.write(DEV_AUTOMATION)
+
+
 def prepare_config(port: int, reset: bool) -> None:
     if reset and CONFIG.exists():
         shutil.rmtree(CONFIG)
@@ -108,8 +150,10 @@ def prepare_config(port: int, reset: bool) -> None:
     else:
         existing = configuration.read_text(encoding="utf-8")
         updated = with_http_port(existing, port)
+        updated = with_automation_include(updated)
         if updated != existing:
             configuration.write_text(updated, encoding="utf-8")
+    prepare_automations()
 
 
 async def wait_for_http(base: str, session: aiohttp.ClientSession) -> None:

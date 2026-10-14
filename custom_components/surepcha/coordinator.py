@@ -7,6 +7,7 @@ from typing import Any, TypeVar
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
+from homeassistant.helpers.storage import Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from surepcio import Household, SurePetcareClient
 from surepcio.devices.device import SurePetCareBase
@@ -14,6 +15,7 @@ from surepcio.security.exceptions import ApiError, AuthenticationError
 from surepcio.timeline import TimelineEvent
 
 from .const import (
+    DOMAIN,
     EVENT_TIMELINE,
     OPTION_DEVICES,
     OPTION_TIMELINE,
@@ -36,6 +38,22 @@ class SurePetCareRuntimeData:
     timeline_coordinators: list[SurePetCareHouseholdTimelineCoordinator] = field(
         default_factory=list
     )
+
+    def recent_timeline_events_for_household(
+        self, household_id: int
+    ) -> tuple[dict[str, Any], ...]:
+        """Return cached timeline records for a household in event-time order."""
+        return tuple(
+            sorted(
+                (
+                    event
+                    for coordinator in self.timeline_coordinators
+                    for event in coordinator.recent_events
+                    if str(event.get("household_id")) == str(household_id)
+                ),
+                key=lambda event: event.get("created_at", ""),
+            )
+        )
 
 
 type SurePetcareConfigEntry = ConfigEntry[SurePetCareRuntimeData]
@@ -132,6 +150,53 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         self._pending_cursor: int | None = None
         self._seen_ids: OrderedDict[int, None] = OrderedDict()
         self._seen_ids_limit = 500
+        self._recent_events: OrderedDict[int, dict[str, Any]] = OrderedDict()
+        self._store: Store[dict[str, Any]] = Store(
+            hass, 1, f"{DOMAIN}_{entry.entry_id}_timeline_{household.id}"
+        )
+
+    async def _async_setup(self) -> None:
+        """Restore the timeline cursor before the first refresh."""
+        if not (data := await self._store.async_load()):
+            return
+        if isinstance(cursor := data.get("cursor"), int):
+            self._cursor = cursor
+        if isinstance(pending_cursor := data.get("pending_cursor"), int):
+            self._pending_cursor = pending_cursor
+        for event_id in data.get("seen_ids", []):
+            if isinstance(event_id, int):
+                self._mark_seen(event_id)
+
+    async def _async_save_cursor(self) -> None:
+        await self._store.async_save(
+            {
+                "cursor": self._cursor,
+                "pending_cursor": self._pending_cursor,
+                "seen_ids": list(self._seen_ids),
+            }
+        )
+
+    @property
+    def recent_events(self) -> tuple[dict[str, Any], ...]:
+        """Return recently fetched events for entities added after refresh."""
+        return tuple(
+            sorted(
+                self._recent_events.values(),
+                key=lambda event: event.get("created_at", ""),
+            )
+        )
+
+    def _cache_timeline_events(self, events: list[TimelineEvent]) -> None:
+        for event in sorted(
+            events,
+            key=lambda event: event.created_at or datetime.min.replace(tzinfo=UTC),
+        ):
+            self._recent_events.pop(event.id, None)
+            self._recent_events[event.id] = build_event_payload(
+                self.household.id, event
+            )
+            if len(self._recent_events) > self._seen_ids_limit:
+                self._recent_events.popitem(last=False)
 
     def _mark_seen(self, event_id: int) -> None:
         """Record an event id as seen after it has been fired."""
@@ -184,9 +249,11 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
         if self._cursor is None and self._pending_cursor is None:
             # First poll after startup/reload: hook into the stream without
             # replaying existing history as if it just happened.
+            self._cache_timeline_events(events)
             for event in events:
                 self._mark_seen(event.id)
             self._cursor = self._pending_cursor = newest_id
+            await self._async_save_cursor()
             logger.debug(
                 "Timeline baseline set for household %s (cursor=%s)",
                 self.household.id,
@@ -195,6 +262,7 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             return
 
         new_events = [event for event in events if event.id not in self._seen_ids]
+        self._cache_timeline_events(new_events)
         fired = self._fire_timeline_events(new_events)
         for event in new_events:
             self._mark_seen(event.id)
@@ -204,4 +272,5 @@ class SurePetCareHouseholdTimelineCoordinator(DataUpdateCoordinator[None]):
             self.household.id,
         )
         self._cursor, self._pending_cursor = self._pending_cursor, newest_id
+        await self._async_save_cursor()
         return

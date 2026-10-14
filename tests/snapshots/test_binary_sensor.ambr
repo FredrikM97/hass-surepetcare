@@ -90,17 +90,14 @@
 # name: test_platform_setup_and_discovery[binary_sensor.curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
-      'lock_time': '11:10',
-      'unlock_time': '11:20',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[binary_sensor.feeder_with_different_fill_percent_connectivity-entry]
@@ -347,26 +344,19 @@
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'curfew': list([
-        dict({
-          'enabled': False,
-          'lock_time': '22:00:00',
-          'unlock_time': '22:01:00',
-        }),
-        dict({
-          'enabled': False,
-          'lock_time': '22:06:00',
-          'unlock_time': '23:06:00',
-        }),
-      ]),
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Curfew active',
+      'lock': '10:36',
+      'locked': True,
+      'mode': None,
+      'time': '10:36',
+      'unlock': '19:16',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'on',
   })
 # ---
 # name: test_platform_setup_and_discovery[binary_sensor.katzenklappe_learn_mode-entry]
@@ -459,10 +449,12 @@
 # name: test_platform_setup_and_discovery[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
-      'lock_time': '08:00',
-      'unlock_time': '17:00',
+      'lock': '10:36',
+      'locked': False,
+      'mode': None,
+      'time': '19:16',
+      'unlock': '19:16',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',
@@ -922,17 +914,14 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Curfew active',
-      'lock_time': '11:10',
-      'unlock_time': '11:20',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.feeder_with_different_fill_percent_connectivity-entry]
@@ -1179,26 +1168,19 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'curfew': list([
-        dict({
-          'enabled': False,
-          'lock_time': '22:00:00',
-          'unlock_time': '22:01:00',
-        }),
-        dict({
-          'enabled': False,
-          'lock_time': '22:06:00',
-          'unlock_time': '23:06:00',
-        }),
-      ]),
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Katzenklappe Curfew active',
+      'lock': '10:36',
+      'locked': True,
+      'mode': None,
+      'time': '10:36',
+      'unlock': '19:16',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.katzenklappe_curfew_active',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'off',
+    'state': 'on',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.katzenklappe_learn_mode-entry]
@@ -1291,10 +1273,12 @@
 # name: test_platform_setup_and_discovery_missing_entities[binary_sensor.laundry_door_curfew_active-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'enabled': False,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Laundry Door Curfew active',
-      'lock_time': '08:00',
-      'unlock_time': '17:00',
+      'lock': '10:36',
+      'locked': False,
+      'mode': None,
+      'time': '19:16',
+      'unlock': '19:16',
     }),
     'context': <ANY>,
     'entity_id': 'binary_sensor.laundry_door_curfew_active',

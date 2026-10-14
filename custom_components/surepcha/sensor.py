@@ -19,9 +19,7 @@ from surepcio.devices import Pet
 from surepcio.devices.pet import PetPositionResource
 from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
-from custom_components.surepcha.method_field import (
-    MethodField,
-)
+from custom_components.surepcha.method_field import MethodField
 
 from .const import (
     LOCATION_INSIDE,
@@ -33,19 +31,70 @@ from .const import (
     PRODUCT_ID,
 )
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .entity import SurePetCareBaseEntityDescription
+from .event_entity import SurePetCareEventEntity
 from .helper import (
-    abs_sum_attr,
     avg_attr,
-    index_attr,
     option_name,
     stringify,
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _event_weight_change(ctx) -> int | float | None:
+    if not ctx.event_data:
+        return None
+    changes = [
+        abs(frame["change"])
+        for weight in ctx.event_data["weights"]
+        for frame in weight.get("frames", [])
+        if frame.get("change") is not None
+    ]
+    return sum(changes) if changes else None
+
+
+def _event_weight_attributes(ctx) -> dict[str, Any]:
+    event = ctx.event_data
+    weight = event["weights"][0]
+    frames = weight.get("frames", [])
+    return {
+        "device_id": str(weight["device_id"]),
+        "id": str(event["id"]),
+        "at": event["created_at"],
+        "tag_id": str(weight["tag_id"]) if weight.get("tag_id") is not None else None,
+        "change_0": abs(frames[0].get("change") or 0) if frames else 0,
+        "change_1": abs(frames[1].get("change") or 0) if len(frames) > 1 else 0,
+    }
+
+
+def _bowl_weight_attributes(ctx, index: int) -> dict[str, Any]:
+    bowl_statuses = ctx.device.status.bowl_status or []
+    bowl_status = bowl_statuses[index] if index < len(bowl_statuses) else None
+    bowl_settings = ctx.device.control.bowls.settings or []
+    bowl_setting = bowl_settings[index] if index < len(bowl_settings) else None
+    attributes = {
+        "position": (
+            bowl_status.position.name.lower() if bowl_status is not None else None
+        ),
+        "food_type": (
+            bowl_setting.food_type.name.lower() if bowl_setting is not None else None
+        ),
+        "last_filled_at": (
+            bowl_status.last_filled_at if bowl_status is not None else None
+        ),
+        "last_zeroed_at": (
+            bowl_status.last_zeroed_at if bowl_status is not None else None
+        ),
+        "last_fill_weight": (
+            bowl_status.last_fill_weight if bowl_status is not None else None
+        ),
+    }
+    if index == 1:
+        attributes["substance_type"] = (
+            bowl_status.substance_type if bowl_status is not None else None
+        )
+    return attributes
 
 
 def get_device_location(entry_options, position, key, default):
@@ -173,17 +222,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 path="weights[0].frames[0].current_weight",
-                get_extra_fn=lambda ctx: {
-                    "position": ctx.device.status.bowl_status[0].position.name.lower(),
-                    "food_type": ctx.device.control.bowls.settings[
-                        0
-                    ].food_type.name.lower(),
-                    "last_filled_at": ctx.device.status.bowl_status[0].last_filled_at,
-                    "last_zeroed_at": ctx.device.status.bowl_status[0].last_zeroed_at,
-                    "last_fill_weight": ctx.device.status.bowl_status[
-                        0
-                    ].last_fill_weight,
-                },
+                get_extra_fn=lambda ctx: _bowl_weight_attributes(ctx, 0),
                 event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
@@ -196,18 +235,7 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             field=MethodField(
                 path="weights[0].frames[1].current_weight",
-                get_extra_fn=lambda ctx: {
-                    "position": ctx.device.status.bowl_status[1].position.name.lower(),
-                    "food_type": ctx.device.control.bowls.settings[
-                        1
-                    ].food_type.name.lower(),
-                    "substance_type": ctx.device.status.bowl_status[1].substance_type,
-                    "last_filled_at": ctx.device.status.bowl_status[1].last_filled_at,
-                    "last_zeroed_at": ctx.device.status.bowl_status[1].last_zeroed_at,
-                    "last_fill_weight": ctx.device.status.bowl_status[
-                        1
-                    ].last_fill_weight,
-                },
+                get_extra_fn=lambda ctx: _bowl_weight_attributes(ctx, 1),
                 event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
@@ -265,7 +293,11 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
                     "bowls_1_target": ctx.event_data["data"]["weight"]["target"][1],
                 },
                 event_types=frozenset(
-                    {TimelineEventType.FEEDING, TimelineEventType.WEIGHT_CHANGED}
+                    {
+                        TimelineEventType.FEEDING,
+                        TimelineEventType.WEIGHT_CHANGED,
+                        TimelineEventType.TARGET_WEIGHT_SET,
+                    }
                 ),
             ),
         ),
@@ -348,19 +380,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda ctx: abs_sum_attr(ctx.device.status.feeding, "change"),
-                get_extra_fn=lambda ctx: {
-                    "device_id": str(ctx.device.status.feeding.device_id),
-                    "id": str(ctx.device.status.feeding.id),
-                    "at": ctx.device.status.feeding.at,
-                    "tag_id": str(ctx.device.status.feeding.tag_id),
-                    "change_0": abs(
-                        index_attr(ctx.device.status.feeding.change, 0, default=0)
-                    ),
-                    "change_1": abs(
-                        index_attr(ctx.device.status.feeding.change, 1, default=0)
-                    ),
-                },
+                path="weights[0].frames",
+                get_fn=_event_weight_change,
+                get_extra_fn=_event_weight_attributes,
+                event_types=frozenset({TimelineEventType.FEEDING}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -397,19 +420,10 @@ SENSORS: dict[str, tuple[SurePetCareSensorEntityDescription, ...]] = {
             native_unit_of_measurement=UnitOfVolume.MILLILITERS,
             entity_registry_enabled_default=False,
             field=MethodField(
-                get_fn=lambda ctx: abs_sum_attr(ctx.device.status.drinking, "change"),
-                get_extra_fn=lambda ctx: {
-                    "device_id": str(ctx.device.status.drinking.device_id),
-                    "id": str(ctx.device.status.drinking.id),
-                    "at": ctx.device.status.drinking.at,
-                    "tag_id": str(ctx.device.status.drinking.tag_id),
-                    "change_0": abs(
-                        index_attr(ctx.device.status.drinking.change, 0, default=0)
-                    ),
-                    "change_1": abs(
-                        index_attr(ctx.device.status.drinking.change, 1, default=0)
-                    ),
-                },
+                path="weights[0].frames",
+                get_fn=_event_weight_change,
+                get_extra_fn=_event_weight_attributes,
+                event_types=frozenset({TimelineEventType.POSEIDON_DRINKING}),
             ),
         ),
         SurePetCareSensorEntityDescription(
@@ -498,7 +512,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class SurePetCareSensor(SurePetCareBaseEntity, SensorEntity):
+class SurePetCareSensor(SurePetCareEventEntity, SensorEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareSensorEntityDescription

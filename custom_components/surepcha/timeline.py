@@ -34,5 +34,7 @@ def build_event_payload(household_id: int, event: TimelineEvent) -> dict[str, An
             payload["data"] = {"raw": data}
     if payload.get("data") is None:
         payload.pop("data", None)
-    payload["household_id"] = household_id
+    payload["household_id"] = (
+        payload["households"][0]["id"] if payload.get("households") else household_id
+    )
     return payload

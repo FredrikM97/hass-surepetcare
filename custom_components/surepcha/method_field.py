@@ -145,6 +145,8 @@ class MethodField:
 
     def get_extra(self, context: FieldContext) -> Any:
         """Get extra attributes from the device."""
+        if self.event_types and context.event_data is None:
+            return None
         if self.get_extra_fn:
             return self.get_extra_fn(context)
         raise NotImplementedError("No get_extra_fn or path_extra defined")

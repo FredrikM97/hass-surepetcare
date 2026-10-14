@@ -1,5 +1,5 @@
 # serializer version: 1
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_one-0.0]
+# name: test_number_set_and_snapshot[0][number.feeder_with_different_fill_percent_target_weight_bowl_one-0.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl One',
@@ -15,10 +15,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198.0',
   })
 # ---
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_one-150.0]
+# name: test_number_set_and_snapshot[0][number.feeder_with_different_fill_percent_target_weight_bowl_one-150.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl One',
@@ -34,10 +34,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198.0',
   })
 # ---
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_one-300.0]
+# name: test_number_set_and_snapshot[0][number.feeder_with_different_fill_percent_target_weight_bowl_one-300.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl One',
@@ -53,10 +53,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198.0',
   })
 # ---
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_two-0.0]
+# name: test_number_set_and_snapshot[1][number.feeder_with_different_fill_percent_target_weight_bowl_two-0.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl Two',
@@ -69,130 +69,16 @@
     }),
     'context': <ANY>,
     'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '99.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_two-150.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl Two',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '99.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.feeder_with_different_fill_percent_target_weight_bowl_two-300.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl Two',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '99.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_one-0.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl One',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '50.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_one-150.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl One',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '50.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_one-300.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl One',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_one',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': '50.0',
-  })
-# ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_two-0.0]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl Two',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
-      <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
-      <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
-      <NumberEntityCapabilityAttribute.MODE: 'mode'>: <NumberMode.SLIDER: 'slider'>,
-      <NumberEntityCapabilityAttribute.STEP: 'step'>: 1.0,
-      <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
-    }),
-    'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '0.0',
   })
 # ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_two-150.0]
+# name: test_number_set_and_snapshot[1][number.feeder_with_different_fill_percent_target_weight_bowl_two-150.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl Two',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl Two',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
       <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
       <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
@@ -201,17 +87,17 @@
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
     'state': '0.0',
   })
 # ---
-# name: test_number_set_and_snapshot[number.maui_matlada_old_target_weight_bowl_two-300.0]
+# name: test_number_set_and_snapshot[1][number.feeder_with_different_fill_percent_target_weight_bowl_two-300.0]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Target weight Bowl Two',
+      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Target weight Bowl Two',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:scale',
       <NumberEntityCapabilityAttribute.MAX: 'max'>: 300,
       <NumberEntityCapabilityAttribute.MIN: 'min'>: 0.0,
@@ -220,7 +106,7 @@
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
-    'entity_id': 'number.maui_matlada_old_target_weight_bowl_two',
+    'entity_id': 'number.feeder_with_different_fill_percent_target_weight_bowl_two',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -285,7 +171,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
@@ -346,7 +232,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '99.0',
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery[number.maui_matlada_old_target_weight_bowl_one-entry]
@@ -529,7 +415,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '198.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.feeder_with_different_fill_percent_target_weight_bowl_two-entry]
@@ -590,7 +476,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '99.0',
+    'state': '0.0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[number.maui_matlada_old_target_weight_bowl_one-entry]

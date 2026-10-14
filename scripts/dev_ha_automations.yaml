@@ -1,0 +1,13 @@
+- id: surepcha_track_events
+  alias: Track SurePetCare Events
+  description: Log all events from surepcha_events
+  triggers:
+    - trigger: event
+      event_type: surepcha_timeline_event
+  actions:
+    - action: logbook.log
+      data:
+        name: SurePetCare Event
+        message: |
+          {{ trigger.event.data }}
+  mode: queued
