@@ -9,20 +9,25 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.command import Command
-from surepcio.enums import PetDeviceLocationProfile, PetLocation, ProductId
+from surepcio.enums import (
+    PetDeviceLocationProfile,
+    PetLocation,
+    ProductId,
+    TimelineEventType,
+)
 
 from custom_components.surepcha.helper import (
     list_attr,
     option_product_id,
 )
-from custom_components.surepcha.method_field import SwitchMethodField
+from custom_components.surepcha.method_field import (
+    SwitchMethodField,
+)
 
 from .const import FLAP_PRODUCTS
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .entity import SurePetCareBaseEntityDescription
+from .event_entity import SurePetCareEventEntity
 
 logger = logging.getLogger(__name__)
 
@@ -56,6 +61,14 @@ def set_profile(ctx, value) -> list[Command]:
         for d in list_attr(pet.status, "devices", "items")
         if option_product_id(ctx.options, d.id) in FLAP_PRODUCTS
     ]
+
+
+def pet_position(ctx) -> PetLocation | None:
+    """Return the latest event position."""
+    if not ctx.event_data:
+        return None
+    direction = ctx.event_data["movements"][0]["direction"]
+    return PetLocation(direction) if direction else None
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -92,10 +105,12 @@ SWITCHES: dict[str, tuple[SurePetCareSwitchEntityDescription, ...]] = {
             translation_key="position",
             entity_registry_enabled_default=False,
             field=SwitchMethodField(
-                path="status.activity.where",
-                set_fn=lambda ctx, value: ctx.device.set_position(value),
+                get_fn=pet_position,
                 on=PetLocation.OUTSIDE,
                 off=PetLocation.INSIDE,
+                path="movements[0].direction",
+                set_fn=lambda ctx, value: ctx.device.set_position(value),
+                event_types=frozenset({TimelineEventType.MOVEMENT}),
             ),
             icon="mdi:door",
         ),
@@ -129,7 +144,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class SurePetCareSwitch(SurePetCareBaseEntity, SwitchEntity):
+class SurePetCareSwitch(SurePetCareEventEntity, SwitchEntity):
     """Switch entity for SurePetCare device."""
 
     entity_description: SurePetCareSwitchEntityDescription

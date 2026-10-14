@@ -5,6 +5,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from surepcio import SurePetcareClient
+from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from . import initialize_entry
@@ -18,16 +19,24 @@ from .support import MockConfigEntry, snapshot_platform
 async def test_platform_setup_and_discovery(
     hass: HomeAssistant,
     mock_client: SurePetcareClient,
-    mock_config_entry: MockConfigEntry,
+    mock_timeline_config_entry: MockConfigEntry,
     entity_registry: er.EntityRegistry,
     snapshot: SnapshotAssertion,
     mock_devices,
     mock_pets,
+    timeline_event_responses: tuple[list[TimelineEvent], list[TimelineEvent]],
 ) -> None:
     await initialize_entry(
-        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+        hass,
+        mock_client,
+        mock_timeline_config_entry,
+        mock_devices,
+        mock_pets,
+        timeline_event_responses,
     )
-    await snapshot_platform(hass, entity_registry, snapshot, mock_config_entry.entry_id)
+    await snapshot_platform(
+        hass, entity_registry, snapshot, mock_timeline_config_entry.entry_id
+    )
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.BINARY_SENSOR])
@@ -42,9 +51,15 @@ async def test_platform_setup_and_discovery_missing_entities(
     snapshot: SnapshotAssertion,
     mock_devices,
     mock_pets,
+    timeline_events: list[TimelineEvent],
 ) -> None:
     await initialize_entry(
-        hass, mock_client, mock_config_entry_missing_entities, mock_devices, mock_pets
+        hass,
+        mock_client,
+        mock_config_entry_missing_entities,
+        mock_devices,
+        mock_pets,
+        (timeline_events,),
     )
     await snapshot_platform(
         hass, entity_registry, snapshot, mock_config_entry_missing_entities.entry_id

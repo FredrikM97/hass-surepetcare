@@ -11,18 +11,16 @@ from homeassistant.components.binary_sensor import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from surepcio.enums import PetLocation, ProductId
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
-from custom_components.surepcha.helper import (
-    list_attr,
+from custom_components.surepcha.method_field import (
+    BinarySensorMethodField,
+    MethodField,
 )
-from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
 
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .entity import SurePetCareBaseEntityDescription
+from .event_entity import SurePetCareEventEntity
 
 logger = logging.getLogger(__name__)
 
@@ -48,15 +46,25 @@ SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ..
         translation_key="presence",
         device_class=BinarySensorDeviceClass.PRESENCE,
         field=BinarySensorMethodField(
-            path="status.activity.where",
-            get_extra_fn=lambda ctx: {
-                "device_id": str(ctx.device.status.activity.device_id),
-                "id": str(ctx.device.status.activity.id),
-                "since": ctx.device.status.activity.since,
-                "tag_id": str(ctx.device.status.activity.tag_id),
-            },
+            get_fn=lambda ctx: (
+                PetLocation(ctx.event_data["movements"][0]["direction"])
+                if ctx.event_data and ctx.event_data["movements"][0]["direction"]
+                else None
+            ),
+            path="movements[0].direction",
+            get_extra_fn=lambda ctx: (
+                {
+                    "device_id": str(ctx.event_data["movements"][0]["device_id"]),
+                    "id": str(ctx.event_data["id"]),
+                    "since": ctx.event_data["created_at"],
+                    "tag_id": str(ctx.event_data["movements"][0]["tag_id"]),
+                }
+                if ctx.event_data
+                else None
+            ),
             on=PetLocation.INSIDE,
             off=PetLocation.OUTSIDE,
+            event_types=frozenset({TimelineEventType.MOVEMENT}),
         ),
     ),
 )
@@ -85,17 +93,10 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=lambda ctx: ctx.device.is_curfew_active,
-                get_extra_fn=lambda ctx: {
-                    "curfew": [
-                        {
-                            "enabled": c.enabled,
-                            "lock_time": str(c.lock_time),
-                            "unlock_time": str(c.unlock_time),
-                        }
-                        for c in list_attr(ctx.device.control, "curfew")
-                    ]
-                },
+                path="data.locked",
+                get_fn=lambda ctx: ctx.event_data["data"]["locked"],
+                get_extra_fn=lambda ctx: ctx.event_data["data"],
+                event_types=frozenset({TimelineEventType.CURFEW_LOCK_STATUS}),
             ),
         ),
         *SENSOR_DESCRIPTIONS_AVAILABLE,
@@ -112,8 +113,10 @@ SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
             key="curfew",
             translation_key="curfew_active",
             field=MethodField(
-                get_fn=lambda ctx: ctx.device.is_curfew_active,
-                path_extra="control.curfew",
+                path="data.locked",
+                get_fn=lambda ctx: ctx.event_data["data"]["locked"],
+                get_extra_fn=lambda ctx: ctx.event_data["data"],
+                event_types=frozenset({TimelineEventType.CURFEW_LOCK_STATUS}),
             ),
         ),
     ),
@@ -142,7 +145,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
+class SurePetCareBinarySensor(SurePetCareEventEntity, BinarySensorEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareBinarySensorEntityDescription

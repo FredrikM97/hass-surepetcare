@@ -12,17 +12,21 @@ from homeassistant.const import UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
-from surepcio.enums import ProductId
+from surepcio.enums import ProductId, TimelineEventType
 
 from custom_components.surepcha.method_field import MethodField
 
 from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .entity import SurePetCareBaseEntityDescription
+from .event_entity import SurePetCareEventEntity
 
 logger = logging.getLogger(__name__)
+
+
+def set_bowl_target(ctx, value, index):
+    settings = [setting.model_dump() for setting in ctx.device.control.bowls.settings]
+    settings[index]["target"] = value
+    return ctx.device.set_control(bowls={"settings": settings})
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -41,7 +45,17 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             mode=NumberMode.SLIDER,
             icon="mdi:scale",
             native_max_value=300,
-            field=MethodField(path="control.bowls.settings[0].target"),
+            field=MethodField(
+                path="data.weight.target[0]",
+                set_fn=lambda ctx, value: set_bowl_target(ctx, value, 0),
+                event_types=frozenset(
+                    {
+                        TimelineEventType.FEEDING,
+                        TimelineEventType.WEIGHT_CHANGED,
+                        TimelineEventType.TARGET_WEIGHT_SET,
+                    }
+                ),
+            ),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_category=EntityCategory.CONFIG,
         ),
@@ -52,7 +66,17 @@ SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
             mode=NumberMode.SLIDER,
             icon="mdi:scale",
             native_max_value=300,
-            field=MethodField(path="control.bowls.settings[1].target"),
+            field=MethodField(
+                path="data.weight.target[1]",
+                set_fn=lambda ctx, value: set_bowl_target(ctx, value, 1),
+                event_types=frozenset(
+                    {
+                        TimelineEventType.FEEDING,
+                        TimelineEventType.WEIGHT_CHANGED,
+                        TimelineEventType.TARGET_WEIGHT_SET,
+                    }
+                ),
+            ),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             entity_category=EntityCategory.CONFIG,
         ),
@@ -79,7 +103,7 @@ async def async_setup_entry(
     async_add_entities(entities)
 
 
-class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
+class SurePetCareNumber(SurePetCareEventEntity, NumberEntity):
     """The platform class required by Home Assistant."""
 
     entity_description: SurePetCareNumberEntityDescription

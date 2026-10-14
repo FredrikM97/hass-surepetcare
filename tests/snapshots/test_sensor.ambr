@@ -321,20 +321,15 @@
 # name: test_platform_setup_and_discovery[sensor.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
-      'where': 'INSIDE',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.battery-entry]
@@ -558,7 +553,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
@@ -622,7 +617,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '74.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -738,7 +733,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '71.3825503355705',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -838,8 +833,8 @@
 # name: test_platform_setup_and_discovery[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 99.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -850,7 +845,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.katzenklappe_battery-entry]
@@ -1280,16 +1275,16 @@
 # name: test_platform_setup_and_discovery[sensor.maui_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
-      'change_1': 0,
+      'at': '2026-10-12T09:40:05Z',
+      'change_0': 3,
+      'change_1': 1,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
-      'device_id': '269654',
+      'device_id': '734730',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Drinking',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
-      'id': '1210761432',
+      'id': '18125028438',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
-      'tag_id': '2039802',
+      'tag_id': '60978',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
@@ -1297,7 +1292,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '4',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_entity_information-entry]
@@ -1403,16 +1398,16 @@
 # name: test_platform_setup_and_discovery[sensor.maui_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 5.23,
+      'at': '2026-10-12T09:36:05Z',
+      'change_0': 2,
       'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'device_id': '269654',
+      'device_id': '1376800',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Feeding',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
-      'id': '1210761432',
+      'id': '18125028435',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'tag_id': '2039802',
+      'tag_id': '60978',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -1420,7 +1415,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '5.23',
+    'state': '2',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-entry]
@@ -1463,16 +1458,18 @@
 # name: test_platform_setup_and_discovery[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device': '269654',
+      'at': '2026-10-12T09:40:05Z',
+      'device': '734730',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028438',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'Feeder',
+    'state': 'Poseidon connect',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_battery-entry]
@@ -1576,12 +1573,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'food_type': 'wet',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl One Weight',
-      'last_fill_weight': 32.16,
-      'last_filled_at': '2025-07-07 10:29:29+00:00',
-      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'one',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -1590,7 +1582,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_bowl_two_weight-entry]
@@ -1639,14 +1631,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'food_type': 'wet',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl Two Weight',
-      'last_fill_weight': -27.2,
-      'last_filled_at': '2025-07-07 10:29:29+00:00',
-      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'two',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 'FOOD',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -1654,7 +1640,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_entity_information-entry]
@@ -1758,8 +1744,6 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 64.32,
-      'bowl_1_fill_percent': None,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Fill Percent',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1770,7 +1754,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_rssi-entry]
@@ -1870,8 +1854,8 @@
 # name: test_platform_setup_and_discovery[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 0.0,
+      'bowls_0_target': 50,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -1882,7 +1866,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '50',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.maui_position-entry]
@@ -1928,17 +1912,16 @@
       'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
-      'where': 'INSIDE',
+      'id': '100002',
+      'since': '2025-11-12T10:05:20Z',
+      'tag_id': '60978',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'INSIDE',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_empty_status_assigned_devices-entry]
@@ -2372,16 +2355,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
-      'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
-      'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Drinking',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
-      'id': '1210761432',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
-      'tag_id': '2039802',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
@@ -2389,7 +2366,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_entity_information-entry]
@@ -2495,16 +2472,10 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 4.23,
-      'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Feeding',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
-      'id': '1210761432',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'tag_id': '2039802',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -2512,7 +2483,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '4.23',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-entry]
@@ -2555,9 +2526,11 @@
 # name: test_platform_setup_and_discovery[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2020-03-11T14:21:07Z',
       'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028437',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
@@ -3366,20 +3339,15 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.ajax_position-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_id': '695379',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5241973826',
-      'since': '2025-11-18 09:36:44+00:00',
-      'tag_id': '1270143',
-      'where': 'INSIDE',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.ajax_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.battery-entry]
@@ -3603,7 +3571,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': '48',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_bowl_two_weight-entry]
@@ -3667,7 +3635,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '74.2',
+    'state': '0',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_entity_information-entry]
@@ -3783,7 +3751,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '71.3825503355705',
+    'state': '24.2424242424242',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_rssi-entry]
@@ -3883,8 +3851,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.feeder_with_different_fill_percent_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 99.0,
+      'bowls_0_target': 198,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Feeder with different fill percent Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -3895,7 +3863,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '149.0',
+    'state': '198',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.katzenklappe_battery-entry]
@@ -4325,16 +4293,16 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
-      'change_1': 0,
+      'at': '2026-10-12T09:40:05Z',
+      'change_0': 3,
+      'change_1': 1,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
-      'device_id': '269654',
+      'device_id': '734730',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Drinking',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
-      'id': '1210761432',
+      'id': '18125028438',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
-      'tag_id': '2039802',
+      'tag_id': '60978',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
@@ -4342,7 +4310,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': '4',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_entity_information-entry]
@@ -4448,16 +4416,16 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 5.23,
+      'at': '2026-10-12T09:36:05Z',
+      'change_0': 2,
       'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'device_id': '269654',
+      'device_id': '1376800',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Feeding',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
-      'id': '1210761432',
+      'id': '18125028435',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'tag_id': '2039802',
+      'tag_id': '60978',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -4465,7 +4433,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '5.23',
+    'state': '2',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-entry]
@@ -4508,15 +4476,18 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2026-10-12T09:40:05Z',
+      'device': '734730',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028438',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_last_activity',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'Poseidon connect',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_battery-entry]
@@ -4620,12 +4591,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'food_type': 'wet',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl One Weight',
-      'last_fill_weight': 32.16,
-      'last_filled_at': '2025-07-07 10:29:29+00:00',
-      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'one',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
@@ -4634,7 +4600,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '32.16',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_bowl_two_weight-entry]
@@ -4683,14 +4649,8 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'food_type': 'wet',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Bowl Two Weight',
-      'last_fill_weight': -27.2,
-      'last_filled_at': '2025-07-07 10:29:29+00:00',
-      'last_zeroed_at': '2025-05-23 10:25:29+00:00',
-      'position': 'two',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'substance_type': 'FOOD',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -4698,7 +4658,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '-27.2',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_entity_information-entry]
@@ -4802,8 +4762,6 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_fill_percent-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowl_0_fill_percent': 64.32,
-      'bowl_1_fill_percent': None,
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Fill Percent',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:percent-outline',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4814,7 +4772,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '64.32',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_rssi-entry]
@@ -4914,8 +4872,8 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_matlada_old_total_weight_limit-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'bowls_0_target': 50.0,
-      'bowls_1_target': 0.0,
+      'bowls_0_target': 50,
+      'bowls_1_target': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui matlåda (old)  Total Weight Limit',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
@@ -4926,7 +4884,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '50.0',
+    'state': '50',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.maui_position-entry]
@@ -4972,17 +4930,16 @@
       'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:map-marker',
-      'id': '5045077041',
-      'since': '2020-03-11 14:21:07+00:00',
-      'tag_id': '1725049',
-      'where': 'INSIDE',
+      'id': '100002',
+      'since': '2025-11-12T10:05:20Z',
+      'tag_id': '60978',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.maui_position',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'inside',
+    'state': 'INSIDE',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_empty_status_assigned_devices-entry]
@@ -5416,16 +5373,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_drinking-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 3.23,
-      'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'volume',
-      'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Drinking',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:water',
-      'id': '1210761432',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.TOTAL: 'total'>,
-      'tag_id': '2039802',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfVolume.MILLILITERS: 'mL'>,
     }),
     'context': <ANY>,
@@ -5433,7 +5384,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '3.23',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_entity_information-entry]
@@ -5539,16 +5490,10 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_feeding-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'at': '2020-03-11 14:21:07+00:00',
-      'change_0': 4.23,
-      'change_1': 0,
       <EntityStateAttribute.DEVICE_CLASS: 'device_class'>: 'weight',
-      'device_id': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Feeding',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:food-drumstick',
-      'id': '1210761432',
       <SensorEntityCapabilityAttribute.STATE_CLASS: 'state_class'>: <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'tag_id': '2039802',
       <EntityStateAttribute.UNIT_OF_MEASUREMENT: 'unit_of_measurement'>: <UnitOfMass.GRAMS: 'g'>,
     }),
     'context': <ANY>,
@@ -5556,7 +5501,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': '4.23',
+    'state': 'unavailable',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-entry]
@@ -5599,15 +5544,18 @@
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_last_activity-state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
+      'at': '2020-03-11T14:21:07Z',
+      'device': '269654',
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Last Activity',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:history',
+      'id': '18125028437',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.pet_with_only_one_change_on_status_last_activity',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'Feeder',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[sensor.pet_with_only_one_change_on_status_position-entry]
