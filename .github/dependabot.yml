@@ -1,7 +1,6 @@
-
 version: 2
 updates:
-  # Python dependencies managed by uv
+  # Python dependencies managed by uv, excluding Home Assistant
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
@@ -10,6 +9,8 @@ updates:
       prefix: "deps(package)"
     labels:
       - "dependencies"
+    ignore:
+      - dependency-name: "homeassistant"
     groups:
       non-major:
         patterns:
@@ -17,6 +18,18 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+  # Home Assistant — update separately due to potential breaking changes
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "deps(homeassistant)"
+    labels:
+      - "dependencies"
+    allow:
+      - dependency-name: "homeassistant"
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -34,7 +47,8 @@ updates:
         update-types:
           - "minor"
           - "patch"
-          
+
+  # Devcontainer Docker dependencies
   - package-ecosystem: "docker"
     directory: "/.devcontainer"
     schedule:
