@@ -6,6 +6,7 @@ from typing import Any, cast
 
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
+from homeassistant.helpers.restore_state import RestoreEntity
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from surepcio.devices.device import DeviceBase, PetBase
 
@@ -26,12 +27,19 @@ class SurePetCareBaseEntityDescription(EntityDescription):
     frozen: bool = False
 
 
-class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator]):
+class SurePetCareBaseEntity(
+    CoordinatorEntity[SurePetCareDeviceDataUpdateCoordinator], RestoreEntity
+):
     """Base SurePetCare device."""
 
     entity_description: SurePetCareBaseEntityDescription
     _attr_has_entity_name = True
     _cached_value: Any | None = None
+
+    @property
+    def use_events(self) -> bool:
+        """Return whether this entity's value is event-backed."""
+        return bool(self.entity_description.field.event_types)
 
     def __init__(
         self,
@@ -109,6 +117,9 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
 
     @property
     def context(self):
+        return self._build_context()
+
+    def _build_context(self, event_data: dict[str, Any] | None = None) -> FieldContext:
         merged_devices = {}
         for entry in self.hass.config_entries.async_entries(DOMAIN):
             merged_devices.update(entry.options.get(OPTION_DEVICES, {}))
@@ -120,7 +131,7 @@ class SurePetCareBaseEntity(CoordinatorEntity[SurePetCareDeviceDataUpdateCoordin
             **self.coordinator.config_entry.options,
             OPTION_DEVICES: merged_devices,
         }
-        return FieldContext(self.coordinator.data, options, self.entity_id)
+        return FieldContext(self.coordinator.data, options, self.entity_id, event_data)
 
     async def send_command(self, value: Any) -> None:
         """Send command to device."""

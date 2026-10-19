@@ -25,7 +25,8 @@ from homeassistant.helpers import (
 from surepcio import SurePetcareClient
 from surepcio.devices import load_device_class
 from surepcio.devices.device import DeviceBase, PetBase
-from surepcio.enums import ProductId
+from surepcio.enums import PetLocation, ProductId
+from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import (
@@ -191,6 +192,106 @@ async def mock_pets() -> list[PetBase]:
 
 
 @pytest.fixture
+def timeline_scenarios() -> dict[str, list[TimelineEvent]]:
+    """Load all representative timeline scenarios as backend event models."""
+    return {
+        scenario: [TimelineEvent.model_validate(event) for event in events]
+        for scenario, events in load_json_value_fixture("timeline.json").items()
+    }
+
+
+@pytest.fixture
+def timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return all representative timeline events."""
+    return [event for events in timeline_scenarios.values() for event in events]
+
+
+@pytest.fixture
+def movement_timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return representative movement timeline events."""
+    return timeline_scenarios["movement"]
+
+
+@pytest.fixture
+def baseline_movement_timeline_event(
+    movement_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the unknown-position movement used to establish a timeline baseline."""
+    return next(
+        event
+        for event in movement_timeline_events
+        if event.movements[0].direction == PetLocation.UNKNOWN
+    )
+
+
+@pytest.fixture
+def feeding_timeline_events(
+    timeline_scenarios: dict[str, list[TimelineEvent]],
+) -> list[TimelineEvent]:
+    """Return representative feeding timeline events."""
+    return timeline_scenarios["feeding"]
+
+
+@pytest.fixture
+def feeding_timeline_event(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the representative feeding timeline event with pet data."""
+    return feeding_timeline_events[0]
+
+
+@pytest.fixture
+def second_feeder_timeline_event(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the representative feeding event for the second feeder."""
+    return next(
+        event
+        for event in feeding_timeline_events
+        if event.weights[0].device_id == 22222
+    )
+
+
+@pytest.fixture
+def pet_last_activity_timeline_event(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return the feeding event associated with the fixture's last-activity pet."""
+    return next(
+        event for event in feeding_timeline_events if event.pets[0].id == 333333
+    )
+
+
+@pytest.fixture
+def feeding_timeline_event_without_frames(
+    feeding_timeline_events: list[TimelineEvent],
+) -> TimelineEvent:
+    """Return a representative feeding event without captured frames."""
+    return next(
+        event for event in feeding_timeline_events if not event.weights[0].frames
+    )
+
+
+@pytest.fixture
+def timeline_event_responses(
+    timeline_events: list[TimelineEvent],
+    baseline_movement_timeline_event: TimelineEvent,
+) -> tuple[list[TimelineEvent], list[TimelineEvent]]:
+    """Return one baseline event, then every remaining source event unchanged."""
+    baseline = [baseline_movement_timeline_event]
+    updates = [
+        event
+        for event in timeline_events
+        if event.id != baseline_movement_timeline_event.id
+    ]
+    return baseline, updates
+
+
+@pytest.fixture
 def mock_config_entry() -> MockConfigEntry:
     """Mock a config entry."""
     return MockConfigEntry(
@@ -231,9 +332,23 @@ def mock_config_entry_missing_entities() -> MockConfigEntry:
     return MockConfigEntry(
         title="Test SurePetCare entry",
         domain=DOMAIN,
-        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 12345},
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 222527},
         options={OPTION_DEVICES: {}},
-        unique_id="12345",
+        unique_id="222527",
+    )
+
+
+@pytest.fixture
+def mock_timeline_config_entry(
+    mock_config_entry: MockConfigEntry,
+) -> MockConfigEntry:
+    """Return a config entry using the household in timeline fixtures."""
+    return MockConfigEntry(
+        title=mock_config_entry.title,
+        domain=mock_config_entry.domain,
+        data=mock_config_entry.data | {HOUSEHOLD_ID: 222527},
+        options=mock_config_entry.options,
+        unique_id="222527",
     )
 
 

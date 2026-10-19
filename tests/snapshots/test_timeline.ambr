@@ -1,0 +1,753 @@
+# serializer version: 1
+# name: test_timeline_fixture_payloads
+  dict({
+    '100001': dict({
+      'created_at': '2025-11-12T13:16:35Z',
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 269654,
+          'name': 'Maui matlåda (old)',
+          'product_id': 4,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 100001,
+      'movements': list([
+        dict({
+          'created_at': '2025-11-12T13:16:35Z',
+          'device_id': 269654,
+          'direction': 0,
+          'id': 9001,
+          'side': 1,
+          'tag_id': 60978,
+          'type': 0,
+          'updated_at': '2025-11-12T13:16:44Z',
+        }),
+      ]),
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'type': 0,
+      'updated_at': '2025-11-12T13:16:44Z',
+    }),
+    '100002': dict({
+      'created_at': '2025-11-12T10:05:20Z',
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 269654,
+          'name': 'Maui matlåda (old)',
+          'product_id': 4,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 100002,
+      'movements': list([
+        dict({
+          'created_at': '2025-11-12T10:05:20Z',
+          'device_id': 269654,
+          'direction': 1,
+          'id': 9002,
+          'side': 0,
+          'tag_id': 60978,
+          'type': 6,
+          'updated_at': '2025-11-12T10:05:29Z',
+        }),
+      ]),
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'type': 0,
+      'updated_at': '2025-11-12T10:05:29Z',
+    }),
+    '100003': dict({
+      'created_at': '2025-11-12T09:44:11Z',
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 269654,
+          'name': 'Maui matlåda (old)',
+          'product_id': 4,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 100003,
+      'movements': list([
+        dict({
+          'created_at': '2025-11-12T09:44:11Z',
+          'device_id': 269654,
+          'direction': 2,
+          'id': 9003,
+          'side': 1,
+          'tag_id': 60978,
+          'type': 6,
+          'updated_at': '2025-11-12T09:44:20Z',
+        }),
+      ]),
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'type': 0,
+      'updated_at': '2025-11-12T09:44:20Z',
+    }),
+    '100004': dict({
+      'created_at': '2025-11-11T23:00:00Z',
+      'data': dict({
+        'curfew': list([
+        ]),
+        'last_mode': 1,
+        'mode': 0,
+      }),
+      'devices': list([
+        dict({
+          'household_id': 287000,
+          'id': 1299453,
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+      ]),
+      'household_id': 287000,
+      'households': list([
+        dict({
+          'id': 287000,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 100004,
+      'type': 6,
+      'updated_at': '2025-11-11T23:00:05Z',
+      'users': list([
+        dict({
+          'id': 4001,
+        }),
+      ]),
+    }),
+    '14896711959': dict({
+      'created_at': '2026-01-15T12:42:36Z',
+      'household_id': 333036,
+      'households': list([
+        dict({
+          'id': 333036,
+          'name': 'Old hub',
+        }),
+      ]),
+      'id': 14896711959,
+      'type': 12,
+      'updated_at': '2026-01-15T12:42:36Z',
+      'users': list([
+        dict({
+          'id': 3139194472,
+          'name': 'Sam Example',
+        }),
+      ]),
+    }),
+    '14896773547': dict({
+      'created_at': '2026-01-15T12:50:37Z',
+      'household_id': 333036,
+      'households': list([
+        dict({
+          'id': 333036,
+          'name': 'Old hub',
+        }),
+      ]),
+      'id': 14896773547,
+      'type': 12,
+      'updated_at': '2026-01-15T12:50:37Z',
+      'users': list([
+        dict({
+          'id': 3139194435,
+          'name': 'Alex Example',
+        }),
+      ]),
+    }),
+    '17350904002': dict({
+      'created_at': '2026-08-07T14:50:27Z',
+      'data': dict({
+        'weight': dict({
+          'bowl': dict({
+            'full': 57,
+            'half': 31,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54,
+            'half': 21,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 1376800,
+          'name': 'Feeder',
+          'product_id': 4,
+        }),
+        dict({
+          'household_id': 222527,
+          'id': 1225898,
+          'name': 'Hub',
+          'product_id': 1,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17350904002,
+      'type': 21,
+      'updated_at': '2026-08-07T14:50:27Z',
+      'weights': list([
+        dict({
+          'context': 5,
+          'created_at': '2026-08-07T14:50:27Z',
+          'device_id': 1376800,
+          'duration': 13,
+          'id': 1550242263,
+          'tag_id': 0,
+          'updated_at': '2026-08-07T14:50:43Z',
+        }),
+      ]),
+    }),
+    '17504397556': dict({
+      'created_at': '2026-08-20T17:16:16Z',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 1376800,
+          'name': 'Feeder',
+          'product_id': 4,
+        }),
+        dict({
+          'household_id': 222527,
+          'id': 1225898,
+          'name': 'Hub',
+          'product_id': 1,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17504397556,
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Pet',
+          'tag_id': 60978,
+        }),
+      ]),
+      'tags': list([
+        dict({
+          'id': 60978,
+        }),
+      ]),
+      'type': 22,
+      'updated_at': '2026-08-20T17:16:16Z',
+      'weights': list([
+        dict({
+          'context': 1,
+          'created_at': '2026-08-20T17:16:16Z',
+          'device_id': 1376800,
+          'duration': 54,
+          'id': 1563543337,
+          'tag_id': 60978,
+          'updated_at': '2026-08-20T17:16:36Z',
+        }),
+      ]),
+    }),
+    '17911794951': dict({
+      'created_at': '2026-09-24T10:36:01Z',
+      'data': dict({
+        'lock': '10:36',
+        'locked': True,
+        'mode': None,
+        'time': '10:36',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        dict({
+          'id': 1299453,
+          'name': 'Katzenklappe',
+        }),
+      ]),
+      'household_id': 287000,
+      'households': list([
+        dict({
+          'id': 287000,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17911794951,
+      'type': 20,
+      'updated_at': '2026-09-24T10:36:01Z',
+    }),
+    '17915846162': dict({
+      'created_at': '2026-09-24T19:16:00Z',
+      'data': dict({
+        'lock': '10:36',
+        'locked': False,
+        'mode': None,
+        'time': '19:16',
+        'unlock': '19:16',
+      }),
+      'devices': list([
+        dict({
+          'household_id': 7777,
+          'id': 727608,
+          'name': 'Laundry Door',
+          'product_id': 3,
+        }),
+      ]),
+      'household_id': 7777,
+      'households': list([
+        dict({
+          'id': 7777,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17915846162,
+      'type': 20,
+      'updated_at': '2026-09-24T19:16:00Z',
+    }),
+    '17915846163': dict({
+      'created_at': '2026-09-24T19:17:00Z',
+      'data': dict({
+        'raw': 'not json',
+      }),
+      'devices': list([
+        dict({
+          'household_id': 287000,
+          'id': 1299453,
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+      ]),
+      'household_id': 287000,
+      'households': list([
+        dict({
+          'id': 287000,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17915846163,
+      'type': 20,
+      'updated_at': '2026-09-24T19:17:00Z',
+    }),
+    '17915846164': dict({
+      'created_at': '2026-09-24T19:18:00Z',
+      'devices': list([
+        dict({
+          'household_id': 287000,
+          'id': 1299453,
+          'name': 'Katzenklappe',
+          'product_id': 6,
+        }),
+      ]),
+      'household_id': 287000,
+      'households': list([
+        dict({
+          'id': 287000,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 17915846164,
+      'type': 20,
+      'updated_at': '2026-09-24T19:18:00Z',
+    }),
+    '18125028435': dict({
+      'created_at': '2026-10-12T09:36:05Z',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 1376800,
+          'name': 'Maui Matlåda',
+          'product_id': 4,
+        }),
+        dict({
+          'household_id': 222527,
+          'id': 1225898,
+          'name': 'Hemma',
+          'product_id': 1,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Hemmet',
+        }),
+      ]),
+      'id': 18125028435,
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'tags': list([
+        dict({
+          'id': 60978,
+        }),
+      ]),
+      'type': 22,
+      'updated_at': '2026-10-12T09:36:05Z',
+      'weights': list([
+        dict({
+          'context': 1,
+          'created_at': '2026-10-12T09:36:05Z',
+          'device_id': 1376800,
+          'duration': 54,
+          'frames': list([
+            dict({
+              'change': -2,
+              'created_at': '2026-10-12T09:36:05Z',
+              'current_weight': 48,
+              'id': 3173676261,
+              'index': 0,
+              'updated_at': '2026-10-12T09:37:29Z',
+            }),
+            dict({
+              'change': 0,
+              'created_at': '2026-10-12T09:36:05Z',
+              'current_weight': 0,
+              'id': 3173676262,
+              'index': 1,
+              'updated_at': '2026-10-12T09:37:29Z',
+            }),
+          ]),
+          'id': 1620161435,
+          'tag_id': 60978,
+          'updated_at': '2026-10-12T09:37:29Z',
+        }),
+      ]),
+    }),
+    '18125028436': dict({
+      'created_at': '2026-10-12T09:35:05Z',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            2,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 22222,
+          'name': 'Feeder with different fill percent',
+          'product_id': 4,
+        }),
+        dict({
+          'household_id': 222527,
+          'id': 1225898,
+          'name': 'Hemma',
+          'product_id': 1,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Hemmet',
+        }),
+      ]),
+      'id': 18125028436,
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'tags': list([
+        dict({
+          'id': 60978,
+        }),
+      ]),
+      'type': 22,
+      'updated_at': '2026-10-12T09:35:05Z',
+      'weights': list([
+        dict({
+          'context': 1,
+          'created_at': '2026-10-12T09:35:05Z',
+          'device_id': 22222,
+          'duration': 54,
+          'frames': list([
+            dict({
+              'change': -2,
+              'created_at': '2026-10-12T09:35:05Z',
+              'current_weight': 48,
+              'id': 3173676263,
+              'index': 0,
+              'updated_at': '2026-10-12T09:36:29Z',
+            }),
+            dict({
+              'change': 0,
+              'created_at': '2026-10-12T09:35:05Z',
+              'current_weight': 0,
+              'id': 3173676264,
+              'index': 1,
+              'updated_at': '2026-10-12T09:36:29Z',
+            }),
+          ]),
+          'id': 1620161436,
+          'tag_id': 60978,
+          'updated_at': '2026-10-12T09:36:29Z',
+        }),
+      ]),
+    }),
+    '18125028437': dict({
+      'created_at': '2020-03-11T14:21:07Z',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57,
+            'half': 31,
+          }),
+          'count': 1,
+          'food_type': list([
+            1,
+            None,
+          ]),
+          'plate': dict({
+            'full': 54,
+            'half': 21,
+          }),
+          'tare_value': None,
+          'target': list([
+            50,
+            0,
+          ]),
+        }),
+      }),
+      'devices': list([
+        dict({
+          'household_id': 222527,
+          'id': 269654,
+          'name': 'Feeder',
+          'product_id': 4,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 18125028437,
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 333333,
+          'name': 'Pet with only one change on status',
+          'tag_id': 2,
+        }),
+      ]),
+      'type': 22,
+      'updated_at': '2020-03-11T14:21:07Z',
+      'weights': list([
+        dict({
+          'device_id': 269654,
+          'id': 1210761432,
+        }),
+      ]),
+    }),
+    '18125028438': dict({
+      'created_at': '2026-10-12T09:40:05Z',
+      'devices': list([
+        dict({
+          'household_id': 7777,
+          'id': 734730,
+          'name': 'Poseidon connect',
+          'product_id': 8,
+        }),
+      ]),
+      'household_id': 222527,
+      'households': list([
+        dict({
+          'id': 222527,
+          'name': 'Household',
+        }),
+      ]),
+      'id': 18125028438,
+      'pets': list([
+        dict({
+          'household_id': 222527,
+          'id': 472721,
+          'name': 'Maui',
+          'tag_id': 60978,
+        }),
+      ]),
+      'tags': list([
+        dict({
+          'id': 60978,
+        }),
+      ]),
+      'type': 29,
+      'updated_at': '2026-10-12T09:40:05Z',
+      'weights': list([
+        dict({
+          'context': 1,
+          'created_at': '2026-10-12T09:40:05Z',
+          'device_id': 734730,
+          'duration': 12,
+          'frames': list([
+            dict({
+              'change': -3,
+              'created_at': '2026-10-12T09:40:05Z',
+              'current_weight': 973,
+              'id': 18125028440,
+              'index': 0,
+              'updated_at': '2026-10-12T09:40:17Z',
+            }),
+            dict({
+              'change': -1,
+              'created_at': '2026-10-12T09:40:05Z',
+              'current_weight': 972,
+              'id': 18125028441,
+              'index': 1,
+              'updated_at': '2026-10-12T09:40:17Z',
+            }),
+          ]),
+          'id': 18125028439,
+          'tag_id': 60978,
+          'updated_at': '2026-10-12T09:40:17Z',
+        }),
+      ]),
+    }),
+    '4863755091': dict({
+      'created_at': '2023-10-01T13:44:45Z',
+      'household_id': 222527,
+      'id': 4863755091,
+      'type': 17,
+      'updated_at': '2023-10-01T13:44:45Z',
+      'users': list([
+        dict({
+          'id': 3139194435,
+          'name': 'Alex Example',
+        }),
+      ]),
+    }),
+  })
+# ---

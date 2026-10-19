@@ -5,7 +5,11 @@ from types import SimpleNamespace
 import pytest
 from pydantic import BaseModel
 
-from custom_components.surepcha.helper import ensure_list, index_attr, serialize
+from custom_components.surepcha.helper import (
+    ensure_list,
+    index_attr,
+    serialize,
+)
 
 
 @pytest.mark.parametrize(
