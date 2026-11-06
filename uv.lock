@@ -1227,7 +1227,7 @@ dev = [
     { name = "homeassistant", specifier = "==2026.9.4" },
     { name = "mypy", specifier = "==2.4.1" },
     { name = "pre-commit", specifier = "==4.7.0" },
-    { name = "py-surepetcare", editable = "../ps" },
+    { name = "py-surepetcare", git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main" },
     { name = "pytest", specifier = "==9.2.0" },
     { name = "pytest-asyncio", specifier = "==1.4.1" },
     { name = "pytest-cov", specifier = "==7.1.0" },
@@ -1975,33 +1975,11 @@ wheels = [
 [[package]]
 name = "py-surepetcare"
 version = "0.6.5"
-source = { editable = "../ps" }
+source = { git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main#cb623b432452e04638258137e626959a774a583f" }
 dependencies = [
     { name = "aiohttp" },
     { name = "pydantic" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiohttp", specifier = ">=3.9.0" },
-    { name = "aresponses", marker = "extra == 'dev'" },
-    { name = "click", marker = "extra == 'cli'", specifier = ">=8.1" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = "==2.4.1" },
-    { name = "nest-asyncio", marker = "extra == 'dev'" },
-    { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.2.0" },
-    { name = "pydantic", specifier = ">=2.11.7" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.5" },
-    { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.26.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.1.0" },
-    { name = "python-dotenv", marker = "extra == 'cli'", specifier = ">=1.1.0" },
-    { name = "python-dotenv", marker = "extra == 'dev'", specifier = ">=1.1.0" },
-    { name = "rich", marker = "extra == 'cli'", specifier = "==15.0.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = "==0.17.3" },
-    { name = "syrupy", marker = "extra == 'dev'" },
-    { name = "time-machine", marker = "extra == 'dev'", specifier = ">=2.16.0" },
-    { name = "typer", marker = "extra == 'cli'", specifier = ">=0.19.2" },
-]
-provides-extras = ["dev", "cli"]
 
 [[package]]
 name = "pycares"

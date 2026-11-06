@@ -240,7 +240,9 @@ def remove_stale_devices(
         device_registry, entry.entry_id
     ):
         identifiers = {
-            identifier for identifier in registered.identifiers if identifier[0] == DOMAIN
+            identifier
+            for identifier in registered.identifiers
+            if identifier[0] == DOMAIN
         }
         if identifiers and not identifiers.intersection(current_identifiers):
             logger.info(

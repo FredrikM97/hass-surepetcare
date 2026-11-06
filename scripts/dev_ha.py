@@ -1,4 +1,4 @@
-"""Run Home Assistant against the local integration and editable PS library."""
+"""Run Home Assistant against the local integration."""
 
 import argparse
 import asyncio

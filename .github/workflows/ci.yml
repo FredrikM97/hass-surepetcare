@@ -17,14 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Checkout py-surepetcare
-        uses: actions/checkout@v7
-        with:
-          repository: FredrikM97/py-surepetcare
-          ref: main
-          path: py-surepetcare
-      - name: Link sibling library checkout
-        run: ln -s "$GITHUB_WORKSPACE/py-surepetcare" "$GITHUB_WORKSPACE/../ps"
       - uses: actions/setup-python@v7
         with:
           python-version: '3.x'
@@ -39,14 +31,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
-      - name: Checkout py-surepetcare
-        uses: actions/checkout@v7
-        with:
-          repository: FredrikM97/py-surepetcare
-          ref: main
-          path: py-surepetcare
-      - name: Link sibling library checkout
-        run: ln -s "$GITHUB_WORKSPACE/py-surepetcare" "$GITHUB_WORKSPACE/../ps"
       - name: Set up Python
         uses: actions/setup-python@v7
         with:

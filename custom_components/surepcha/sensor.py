@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime
-import logging
 from typing import Any
 
 from homeassistant.components.sensor import (
@@ -328,9 +328,7 @@ class SurePetCareSensor(SurePetCareBaseEntity, RestoreSensor):
                 except ValueError as exc:
                     logger.warning("Cannot restore sensor %s: %s", self.entity_id, exc)
                     return
-            self._update_state(
-                value, dict(state.attributes)
-            )
+            self._update_state(value, dict(state.attributes))
 
     def _set_value(self, value: Any) -> None:
         self._attr_native_value = value

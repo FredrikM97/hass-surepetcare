@@ -47,7 +47,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[switch.ajax_position-entry]
@@ -354,7 +354,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_empty_status_position-entry]
@@ -405,7 +405,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_indoor_only-entry]
@@ -456,7 +456,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery[switch.pet_with_only_one_change_on_status_position-entry]
@@ -507,7 +507,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_indoor_only-entry]
@@ -558,7 +558,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.ajax_position-entry]
@@ -760,7 +760,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.maui_position-entry]
@@ -862,7 +862,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_empty_status_position-entry]
@@ -913,7 +913,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_indoor_only-entry]
@@ -964,7 +964,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_platform_setup_and_discovery_missing_entities[switch.pet_with_only_one_change_on_status_position-entry]
@@ -1015,7 +1015,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_position_switch_mapping_snapshot[inside-1-off][position-mapping-inside-switch.ajax_position]
@@ -1046,7 +1046,7 @@
     'state': 'off',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[none-None-unknown][position-mapping-none-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
@@ -1057,10 +1057,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[none-None-unavailable][position-mapping-none-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[none-None-unknown][position-mapping-none-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
@@ -1071,7 +1071,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_position_switch_mapping_snapshot[outside-2-on][position-mapping-outside-switch.ajax_position]
@@ -1102,7 +1102,7 @@
     'state': 'on',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.ajax_position]
+# name: test_position_switch_mapping_snapshot[unknown-999-unknown][position-mapping-unknown-switch.ajax_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Position',
@@ -1113,10 +1113,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_position_switch_mapping_snapshot[unknown-999-unavailable][position-mapping-unknown-switch.maui_position]
+# name: test_position_switch_mapping_snapshot[unknown-999-unknown][position-mapping-unknown-switch.maui_position]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Position',
@@ -1127,10 +1127,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-off]
+# name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-unassigned]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
@@ -1141,21 +1141,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.ajax_indoor_only-on]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Ajax Indoor Only',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.ajax_indoor_only',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.ajax_position-off]
@@ -1300,7 +1286,7 @@
     'state': 'off',
   })
 # ---
-# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-off]
+# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-unassigned]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
@@ -1311,21 +1297,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_indoor_only-on]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with empty status Indoor Only',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.pet_with_empty_status_indoor_only',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-off]
@@ -1339,7 +1311,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_empty_status_position-on]
@@ -1353,10 +1325,10 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
-# name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-off]
+# name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-unassigned]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
@@ -1367,21 +1339,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
-  })
-# ---
-# name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_indoor_only-on]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Pet with only one change on status Indoor Only',
-      <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
-    }),
-    'context': <ANY>,
-    'entity_id': 'switch.pet_with_only_one_change_on_status_indoor_only',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-off]
@@ -1395,7 +1353,7 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---
 # name: test_switch_toggle_and_snapshot[switch.pet_with_only_one_change_on_status_position-on]
@@ -1409,6 +1367,6 @@
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
-    'state': 'unavailable',
+    'state': 'unknown',
   })
 # ---

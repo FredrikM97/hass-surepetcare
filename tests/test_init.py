@@ -351,7 +351,7 @@ async def test_setup_removes_only_devices_missing_from_household(
     hass, mock_client, mock_config_entry, mock_devices, mock_pets, device_registry
 ):
     mock_config_entry.add_to_hass(hass)
-    other_entry = MockConfigEntry(domain=DOMAIN)
+    other_entry = MockConfigEntry(domain="other")
     other_entry.add_to_hass(hass)
     stale = device_registry.async_get_or_create(
         config_entry_id=mock_config_entry.entry_id,
@@ -384,13 +384,15 @@ async def test_failed_inventory_load_does_not_remove_registered_devices(
         config_entry_id=mock_config_entry.entry_id,
         identifiers={(DOMAIN, "existing-device")},
     )
-    with patch.object(
-        surepetcare_init,
-        "setup_devices",
-        new=AsyncMock(side_effect=ConfigEntryAuthFailed("Inventory failed")),
+    with (
+        patch.object(
+            surepetcare_init,
+            "setup_devices",
+            new=AsyncMock(side_effect=ConfigEntryAuthFailed("Inventory failed")),
+        ),
+        pytest.raises(ConfigEntryAuthFailed),
     ):
-        with pytest.raises(ConfigEntryAuthFailed):
-            await surepetcare_init.async_setup_entry(hass, mock_config_entry)
+        await surepetcare_init.async_setup_entry(hass, mock_config_entry)
     assert device_registry.async_get(registered.id) is not None
 
 

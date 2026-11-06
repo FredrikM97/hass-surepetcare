@@ -128,9 +128,7 @@ def _weight_reading(
     weights = _event_weights(device, event)
     if index not in weights:
         return None
-    return (
-        weights[index], _bowl_extra(device, index, include_substance=index == 1)
-    )
+    return (weights[index], _bowl_extra(device, index, include_substance=index == 1))
 
 
 def _fill_reading(
@@ -150,9 +148,7 @@ def _fill_reading(
             total_weight += clamped
             total_target += target
         attributes[f"bowl_{index}_fill_percent"] = percent
-    return (
-        total_weight / total_target * 100 if total_target > 0 else None, attributes
-    )
+    return (total_weight / total_target * 100 if total_target > 0 else None, attributes)
 
 
 def _weight_capacity_extra(device: Any) -> dict[str, Any]:

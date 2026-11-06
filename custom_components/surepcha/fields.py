@@ -15,9 +15,7 @@ from surepcio.timeline import TimelineEvent
 if TYPE_CHECKING:
     from .entity import SurePetCareBaseEntity
 
-type TimelineValue = Callable[
-    [Any, TimelineEvent], tuple[Any, dict[str, Any]] | None
-]
+type TimelineValue = Callable[[Any, TimelineEvent], tuple[Any, dict[str, Any]] | None]
 type ReportValue = str | Callable[[Any], Any]
 type FieldValue = ReportValue | TimelineValue
 type FieldCommand = Callable[[Any, Any], Command | list[Command]]

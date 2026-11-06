@@ -26,7 +26,9 @@ BUTTON_FIELDS: dict[ProductId, tuple[SurePetCareButtonEntityDescription, ...]] =
             key="pairing_mode",
             translation_key="pairing_mode",
             entity_category=EntityCategory.CONFIG,
-            command=lambda entity, _value: entity.device.set_pairing_mode(HubPairMode.ON),
+            command=lambda entity, _value: entity.device.set_pairing_mode(
+                HubPairMode.ON
+            ),
         ),
     ),
 }

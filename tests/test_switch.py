@@ -74,6 +74,19 @@ async def test_switch_toggle_and_snapshot(
 
     # Iterate over all switch entities
     for entity_id in hass.states.async_entity_ids("switch"):
+        if (
+            entity_id.endswith("_indoor_only")
+            and hass.states.get(entity_id).state == "unknown"
+        ):
+            for service in ("turn_on", "turn_off"):
+                with pytest.raises(ValueError, match="No flap devices are assigned"):
+                    await hass.services.async_call(
+                        "switch", service, {"entity_id": entity_id}, blocking=True
+                    )
+            assert hass.states.get(entity_id) == snapshot(
+                name=f"{entity_id}-unassigned"
+            )
+            continue
         # Turn on the switch
         await hass.services.async_call(
             "switch",
@@ -108,8 +121,8 @@ async def test_switch_toggle_and_snapshot(
     [
         ("inside", PetLocation.INSIDE, "off"),
         ("outside", PetLocation.OUTSIDE, "on"),
-        ("unknown", 999, "unavailable"),
-        ("none", None, "unavailable"),
+        ("unknown", 999, "unknown"),
+        ("none", None, "unknown"),
     ],
 )
 async def test_position_switch_mapping_snapshot(

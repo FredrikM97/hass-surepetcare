@@ -1,6 +1,6 @@
 """Tests for the household timeline coordinator."""
 
-from unittest.mock import AsyncMock, MagicMock, call, patch
+from unittest.mock import AsyncMock, MagicMock, call
 
 import pytest
 from surepcio import Household, SurePetcareClient
@@ -315,9 +315,7 @@ async def test_legacy_checkpoint_extras_are_stripped_after_cursor_restore(hass):
     await coordinator._async_update_data()
     assert coordinator.state.seen_id == 100
     assert client.api.call_args.args[0].params == {"since_id": 100, "page_size": 25}
-    coordinator._store.async_save.assert_awaited_once_with(
-        {"seen_id": 100}
-    )
+    coordinator._store.async_save.assert_awaited_once_with({"seen_id": 100})
 
 
 async def test_real_feeding_events_with_empty_pets(

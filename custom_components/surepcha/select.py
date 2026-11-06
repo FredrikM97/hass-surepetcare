@@ -165,9 +165,7 @@ SELECT_FIELDS: dict[ProductId, tuple[SurePetCareSelectEntityDescription, ...]] =
             key="add_assigned_device",
             icon="mdi:link-variant",
             device_class=SensorDeviceClass.ENUM,
-            options_fn=lambda entity: _assignment_options(
-                entity, ModifyDeviceTag.ADD
-            ),
+            options_fn=lambda entity: _assignment_options(entity, ModifyDeviceTag.ADD),
             command=lambda entity, value: entity.device.set_tag(
                 int(value), ModifyDeviceTag.ADD
             ),

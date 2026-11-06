@@ -45,10 +45,7 @@ SWITCH_FIELDS: dict[ProductId, tuple[SurePetCareSwitchEntityDescription, ...]] =
             value=_indoor_only,
             command=_write_indoor_only,
             attributes=lambda entity: {
-                "flap_devices": [
-                    item.id
-                    for item in _flap_profiles(entity)
-                ]
+                "flap_devices": [item.id for item in _flap_profiles(entity)]
             },
         ),
     ),

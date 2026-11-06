@@ -50,7 +50,10 @@ from . import initialize_entry
         (
             "0.00523",
             {"unit_of_measurement": "kg"},
-            {"device_class": SensorDeviceClass.WEIGHT, "native_unit_of_measurement": "g"},
+            {
+                "device_class": SensorDeviceClass.WEIGHT,
+                "native_unit_of_measurement": "g",
+            },
         ),
         ("0", {"unit_of_measurement": "%"}, {"native_unit_of_measurement": "%"}),
     ],
@@ -187,9 +190,7 @@ async def test_platform_restores_native_state_then_reads_live_observations(
 ):
     coordinator = MagicMock(last_update_success=True)
     coordinator.device_errors = {}
-    device = SimpleNamespace(
-        id=1, product=ProductId.HUB, available=True, current=None
-    )
+    device = SimpleNamespace(id=1, product=ProductId.HUB, available=True, current=None)
     description = description_type(
         key="example",
         value=lambda entity: entity.device.current,
@@ -232,12 +233,15 @@ async def test_platform_restores_native_state_then_reads_live_observations(
         entity.async_get_last_sensor_data.assert_awaited_once()
         assert entity.native_value == saved_value
     else:
-        assert getattr(
-            entity,
-            {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
-                platform
-            ],
-        ) is False
+        assert (
+            getattr(
+                entity,
+                {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
+                    platform
+                ],
+            )
+            is False
+        )
     assert entity.extra_state_attributes == {"saved_attribute": "retained"}
 
     device.current = live_value
@@ -245,12 +249,15 @@ async def test_platform_restores_native_state_then_reads_live_observations(
     if platform == "sensor":
         assert entity.native_value == "Live label"
     else:
-        assert getattr(
-            entity,
-            {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
-                platform
-            ],
-        ) is False
+        assert (
+            getattr(
+                entity,
+                {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
+                    platform
+                ],
+            )
+            is False
+        )
     assert entity.available
 
     device.current = None
@@ -258,12 +265,15 @@ async def test_platform_restores_native_state_then_reads_live_observations(
     if platform == "sensor":
         assert entity.native_value is None
     else:
-        assert getattr(
-            entity,
-            {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
-                platform
-            ],
-        ) is None
+        assert (
+            getattr(
+                entity,
+                {"binary_sensor": "is_on", "switch": "is_on", "lock": "is_locked"}[
+                    platform
+                ],
+            )
+            is None
+        )
     assert entity.extra_state_attributes == {}
     assert entity.available
 

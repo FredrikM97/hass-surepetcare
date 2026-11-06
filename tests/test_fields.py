@@ -19,12 +19,15 @@ from custom_components.surepcha.button import (
     BUTTON_FIELDS,
     SurePetCareButtonEntityDescription,
 )
+from custom_components.surepcha.const import NAME, PRODUCT_ID
+from custom_components.surepcha.field_helpers import (
+    _assignment_options,
+    iter_device_events,
+)
 from custom_components.surepcha.fields import (
     FieldOption,
     FieldPathError,
 )
-from custom_components.surepcha.const import NAME, PRODUCT_ID
-from custom_components.surepcha.field_helpers import _assignment_options, iter_device_events
 from custom_components.surepcha.lock import (
     LOCK_FIELDS,
     SurePetCareLockEntityDescription,
@@ -77,17 +80,11 @@ def _descriptions(
         for description in catalogue.get(product, ())
         if (
             not description.supported_products
-            or any(
-                item.product in description.supported_products
-                for item in devices
-            )
+            or any(item.product in description.supported_products for item in devices)
         )
         and (
             description.supported is None
-            or (
-                device is not None
-                and description.supported(device)
-            )
+            or (device is not None and description.supported(device))
         )
     )
 
@@ -249,7 +246,9 @@ def test_native_select_options_and_dynamic_api_options_are_distinct(snapshot):
         SurePetCareSelectEntityDescription("choice")
 
 
-def test_assignment_options_read_current_configuration_without_copied_inventory(snapshot):
+def test_assignment_options_read_current_configuration_without_copied_inventory(
+    snapshot,
+):
     from surepcio.enums import ModifyDeviceTag
 
     entity = SimpleNamespace(
@@ -267,9 +266,13 @@ def test_assignment_options_read_current_configuration_without_copied_inventory(
         "custom_components.surepcha.field_helpers.get_device_options",
         return_value=options,
     ):
-        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(name="initial")
+        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
+            name="initial"
+        )
         options["20"][NAME] = "Renamed"
-        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(name="renamed")
+        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
+            name="renamed"
+        )
 
 
 def test_native_catalogues_cover_products_with_platform_scoped_keys(snapshot):
@@ -304,15 +307,21 @@ def test_native_catalogues_cover_products_with_platform_scoped_keys(snapshot):
         [ProductId.DUAL_SCAN_CONNECT],
         [ProductId.DUAL_SCAN_PET_DOOR],
     ],
-    ids=["empty", "hub", "feeder", "poseidon", "pet-door", "dual-scan", "dual-scan-pet-door"],
+    ids=[
+        "empty",
+        "hub",
+        "feeder",
+        "poseidon",
+        "pet-door",
+        "dual-scan",
+        "dual-scan-pet-door",
+    ],
 )
 def test_supported_pet_descriptions_use_the_complete_household_inventory(
     products, snapshot
 ):
     pet = _pet()
-    devices = tuple(
-        SimpleNamespace(product=product) for product in products
-    )
+    devices = tuple(SimpleNamespace(product=product) for product in products)
     assert {
         platform: sorted(
             description.key
@@ -339,9 +348,7 @@ def test_second_bowl_descriptions_are_supported_only_for_two_bowls(snapshot):
         }
     )
     descriptions = {}
-    for platform, description in _descriptions(
-        ProductId.FEEDER_CONNECT, device=feeder
-    ):
+    for platform, description in _descriptions(ProductId.FEEDER_CONNECT, device=feeder):
         descriptions.setdefault(platform, []).append(description)
     command = next(
         description
@@ -357,21 +364,20 @@ def test_second_bowl_descriptions_are_supported_only_for_two_bowls(snapshot):
         "command": api_command.params,
     } == snapshot(name="two-bowls")
 
-    single = load_device_class(ProductId.FEEDER_CONNECT)(
-        {"id": 21, "household_id": 1}
-    )
+    single = load_device_class(ProductId.FEEDER_CONNECT)({"id": 21, "household_id": 1})
     assert [
         (platform, description.key)
-        for platform, description in _descriptions(ProductId.FEEDER_CONNECT, device=single)
+        for platform, description in _descriptions(
+            ProductId.FEEDER_CONNECT, device=single
+        )
     ] == snapshot(name="single-bowl")
 
 
 @pytest.mark.parametrize(
-    "value", [True, False],
+    "value",
+    [True, False],
 )
-def test_boolean_command_values_are_prepared_by_the_description(
-    value, snapshot
-):
+def test_boolean_command_values_are_prepared_by_the_description(value, snapshot):
     description = SurePetCareSwitchEntityDescription(
         key="toggle", true_value="enabled", false_value="disabled"
     )
@@ -455,9 +461,7 @@ def test_timeline_readers_use_only_the_existing_event(snapshot):
     )
     descriptions = {
         description.key: description
-        for _, description in _descriptions(
-            ProductId.FEEDER_CONNECT, device=feeder
-        )
+        for _, description in _descriptions(ProductId.FEEDER_CONNECT, device=feeder)
         if description.timeline_events
     }
     assert {
@@ -490,8 +494,12 @@ def test_platform_description_types_remain_native():
         BINARY_SENSOR_FIELDS[ProductId.HUB][0],
         SurePetCareBinarySensorEntityDescription,
     )
-    assert isinstance(BUTTON_FIELDS[ProductId.HUB][0], SurePetCareButtonEntityDescription)
-    assert isinstance(LOCK_FIELDS[ProductId.PET_DOOR][0], SurePetCareLockEntityDescription)
+    assert isinstance(
+        BUTTON_FIELDS[ProductId.HUB][0], SurePetCareButtonEntityDescription
+    )
+    assert isinstance(
+        LOCK_FIELDS[ProductId.PET_DOOR][0], SurePetCareLockEntityDescription
+    )
     assert isinstance(
         NUMBER_FIELDS[ProductId.FEEDER_CONNECT][0],
         SurePetCareNumberEntityDescription,

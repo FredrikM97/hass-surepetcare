@@ -22,7 +22,7 @@ DEVICE_POLL_INTERVAL = timedelta(minutes=15)
 
 @dataclass
 class SurePetCareRuntimeData:
-    coordinator: "SurePetCareCoordinator"
+    coordinator: SurePetCareCoordinator
 
 
 type SurePetcareConfigEntry = ConfigEntry[SurePetCareRuntimeData]
@@ -81,9 +81,7 @@ class SurePetCareCoordinator(DataUpdateCoordinator[None]):
         """Refresh a command target without polling the rest of the household."""
         async with self._debounced_refresh.async_lock():
             with translate_auth_errors():
-                await self.state.refresh_device(
-                    device, publish=lambda _device: None
-                )
+                await self.state.refresh_device(device, publish=lambda _device: None)
             self.async_update_listeners()
 
     async def _async_update_data(self) -> None:
