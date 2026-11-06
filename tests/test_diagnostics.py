@@ -95,9 +95,7 @@ async def test_device_diagnostics_without_matching_coordinator(
 ) -> None:
     """Return no diagnostics when this entry has no coordinator for the device."""
     mock_config_entry.runtime_data = SimpleNamespace(
-        device_coordinators=[
-            SimpleNamespace(_device=SimpleNamespace(id="other"), data=object())
-        ]
+        coordinator=SimpleNamespace(devices={"other": SimpleNamespace(id="other")})
     )
     device = SimpleNamespace(identifiers={(DOMAIN, "missing")})
 

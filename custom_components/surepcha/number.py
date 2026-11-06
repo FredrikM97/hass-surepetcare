@@ -1,7 +1,7 @@
-"""Support for Sure Petcare number entity."""
+"""Present library numeric controls."""
 
-import logging
 from dataclasses import dataclass
+from typing import Any
 
 from homeassistant.components.number import (
     NumberEntity,
@@ -11,97 +11,83 @@ from homeassistant.components.number import (
 from homeassistant.const import UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import ProductId
 
-from custom_components.surepcha.method_field import MethodField
-
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
-
-logger = logging.getLogger(__name__)
+from .coordinator import SurePetcareConfigEntry
+from .entity import SurePetCareBaseEntity
+from .field_helpers import _bowl_target, _has_second_bowl
+from .fields import SurePetCareDescriptionMixin
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareNumberEntityDescription(
-    SurePetCareBaseEntityDescription, NumberEntityDescription
+    NumberEntityDescription, SurePetCareDescriptionMixin
 ):
-    """Describes SurePetCare number entity."""
+    """Native number metadata and SurePetCare API behavior."""
 
 
-SENSORS: dict[str, tuple[SurePetCareNumberEntityDescription, ...]] = {
+NUMBER_FIELDS: dict[ProductId, tuple[SurePetCareNumberEntityDescription, ...]] = {
     ProductId.FEEDER_CONNECT: (
         SurePetCareNumberEntityDescription(
             key="bowl_0_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "One"},
-            mode=NumberMode.SLIDER,
             icon="mdi:scale",
-            native_max_value=300,
-            field=MethodField(path="control.bowls.settings[0].target"),
-            native_unit_of_measurement=UnitOfMass.GRAMS,
+            mode=NumberMode.SLIDER,
             entity_category=EntityCategory.CONFIG,
+            value=lambda entity: _bowl_target(entity.device, 0),
+            command=lambda entity, value: entity.device.set_target_weight(0, value),
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            native_min_value=0.0,
+            native_max_value=300,
+            native_step=1.0,
         ),
         SurePetCareNumberEntityDescription(
             key="bowl_1_target_weight",
             translation_key="target_weight",
             translation_placeholders={"bowl": "Two"},
-            mode=NumberMode.SLIDER,
             icon="mdi:scale",
-            native_max_value=300,
-            field=MethodField(path="control.bowls.settings[1].target"),
-            native_unit_of_measurement=UnitOfMass.GRAMS,
+            mode=NumberMode.SLIDER,
             entity_category=EntityCategory.CONFIG,
+            value=lambda entity: _bowl_target(entity.device, 1),
+            supported=_has_second_bowl,
+            command=lambda entity, value: entity.device.set_target_weight(1, value),
+            native_unit_of_measurement=UnitOfMass.GRAMS,
+            native_min_value=0.0,
+            native_max_value=300,
+            native_step=1.0,
         ),
-    )
+    ),
 }
 
 
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: SurePetcareConfigEntry,
-    async_add_entities: AddConfigEntryEntitiesCallback,
+    async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up SurePetCare sensors for each matching device."""
-    coordinators = entry.runtime_data.device_coordinators
-
+    coordinator = entry.runtime_data.coordinator
     entities = [
-        SurePetCareNumber(
-            coordinator,
-            description=description,
-        )
-        for coordinator in coordinators
-        for description in SENSORS.get(coordinator.product_id, ())
+        SurePetCareNumber(coordinator, device, description)
+        for device in coordinator.devices.values()
+        for description in NUMBER_FIELDS.get(device.product, ())
     ]
+    entities = [entity for entity in entities if entity.is_supported]
     async_add_entities(entities)
 
 
 class SurePetCareNumber(SurePetCareBaseEntity, NumberEntity):
-    """The platform class required by Home Assistant."""
+    """A library-provided numeric control."""
 
     entity_description: SurePetCareNumberEntityDescription
 
-    def __init__(
-        self,
-        coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        description: SurePetCareNumberEntityDescription,
-    ) -> None:
-        """Initialize a Surepetcare Number Entity."""
-        super().__init__(
-            coordinator=coordinator,
-        )
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
-
-    async def async_set_native_value(self, value: float) -> None:  # type: ignore[override]
-        """Set new value."""
-        await self.send_command(value)
+    def _set_value(self, value: Any) -> None:
+        self._attr_native_value = value
 
     @property
-    def native_value(self) -> float | None:  # type: ignore[override]
-        """Return the current value."""
-        value = super().native_value
-        return float(value) if value is not None else None
+    def native_value(self) -> float | None:
+        return self._attr_native_value
+
+    async def async_set_native_value(self, value: float) -> None:
+        await self.send_command(value)

@@ -242,7 +242,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'flap_devices': list([
-        '727608',
+        727608,
       ]),
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
@@ -1242,7 +1242,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'flap_devices': list([
-        '727608',
+        727608,
       ]),
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',
@@ -1259,7 +1259,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'flap_devices': list([
-        '727608',
+        727608,
       ]),
       <EntityStateAttribute.FRIENDLY_NAME: 'friendly_name'>: 'Maui Indoor Only',
       <EntityStateAttribute.ICON: 'icon'>: 'mdi:door',

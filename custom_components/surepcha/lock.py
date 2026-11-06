@@ -1,52 +1,36 @@
-"""Lock platform for SurePetCare integration."""
+"""Present library lock interactions."""
 
-from __future__ import annotations
-
-import logging
 from dataclasses import dataclass
+from typing import Any
 
-from homeassistant.components.lock import LockEntity, LockEntityDescription
-from homeassistant.components.lock.const import LockState
+from homeassistant.components.lock import LockEntity, LockEntityDescription, LockState
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import FlapLocking, ProductId
 
-from custom_components.surepcha.method_field import LockMethodField
-
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
-
-logger = logging.getLogger(__name__)
+from .coordinator import SurePetcareConfigEntry
+from .entity import SurePetCareBaseEntity
+from .fields import SurePetCareBooleanDescription
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareLockEntityDescription(
-    SurePetCareBaseEntityDescription, LockEntityDescription
+    LockEntityDescription, SurePetCareBooleanDescription
 ):
-    """Describes SurePetCare lock entity."""
+    """Native lock metadata and SurePetCare API behavior."""
 
 
-SENSOR_DESCRIPTIONS_LOCKING: tuple[SurePetCareLockEntityDescription, ...] = (
-    SurePetCareLockEntityDescription(
-        key="locking",
-        translation_key="locking",
-        field=LockMethodField(
-            path="control.locking",
-            states={
-                LockState.LOCKED: FlapLocking.LOCKED,
-                LockState.UNLOCKED: FlapLocking.UNLOCKED,
-            },
-        ),
-    ),
+_locking = SurePetCareLockEntityDescription(
+    key="locking",
+    value="control.locking",
+    command=lambda entity, value: entity.device.set_locking(value),
+    true_value=FlapLocking.LOCKED,
+    false_value=FlapLocking.UNLOCKED,
 )
-
-LOCKS: dict[str, tuple[SurePetCareLockEntityDescription, ...]] = {
-    ProductId.PET_DOOR: (*SENSOR_DESCRIPTIONS_LOCKING,),
-    ProductId.DUAL_SCAN_CONNECT: (*SENSOR_DESCRIPTIONS_LOCKING,),
-    ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_LOCKING,),
+LOCK_FIELDS: dict[ProductId, tuple[SurePetCareLockEntityDescription, ...]] = {
+    ProductId.PET_DOOR: (_locking,),
+    ProductId.DUAL_SCAN_CONNECT: (_locking,),
+    ProductId.DUAL_SCAN_PET_DOOR: (_locking,),
 }
 
 
@@ -55,46 +39,34 @@ async def async_setup_entry(
     entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up SurePetCare lock for each matching device."""
-    coordinators = entry.runtime_data.device_coordinators
-
-    entities = [
-        SurePetCareLock(
-            coordinator,
-            description=description,
-        )
-        for coordinator in coordinators
-        for description in LOCKS.get(coordinator.product_id, ())
-    ]
-    async_add_entities(entities)
+    coordinator = entry.runtime_data.coordinator
+    async_add_entities(
+        SurePetCareLock(coordinator, device, description)
+        for device in coordinator.devices.values()
+        for description in LOCK_FIELDS.get(device.product, ())
+    )
 
 
 class SurePetCareLock(SurePetCareBaseEntity, LockEntity):
-    """Lock entity for SurePetCare device."""
+    """A library-provided lock."""
 
     entity_description: SurePetCareLockEntityDescription
 
-    def __init__(
-        self,
-        coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        description: SurePetCareLockEntityDescription,
-    ) -> None:
-        super().__init__(
-            coordinator=coordinator,
-        )
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if state is not None and state.state in (LockState.LOCKED, LockState.UNLOCKED):
+            self._update_state(state.state == LockState.LOCKED, dict(state.attributes))
+
+    def _set_value(self, value: Any) -> None:
+        self._attr_is_locked = value
 
     @property
-    def is_locked(self) -> bool:
-        return self.lock_state() == LockState.LOCKED
+    def is_locked(self) -> bool | None:
+        return self._attr_is_locked
 
-    async def async_lock(self, **kwargs):
-        await self.send_command(LockState.LOCKED)
+    async def async_lock(self, **kwargs) -> None:
+        await self.send_command(True)
 
-    async def async_unlock(self, **kwargs):
-        await self.send_command(LockState.UNLOCKED)
-
-    def lock_state(self):
-        """Return the lock state."""
-        return self.entity_description.field.get(self.context)
+    async def async_unlock(self, **kwargs) -> None:
+        await self.send_command(False)

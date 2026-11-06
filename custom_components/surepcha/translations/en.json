@@ -1,4 +1,225 @@
 {
+  "entity": {
+    "button": {
+      "pairing_mode": {
+        "name": "Pairing Mode"
+      }
+    },
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Connectivity",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      },
+      "learn_mode": {
+        "name": "Learn Mode",
+        "state": {
+          "on": "On",
+          "off": "Off"
+        }
+      },
+      "curfew_active": {
+        "name": "Curfew active",
+        "state": {
+          "on": "On",
+          "off": "Off"
+        }
+      },
+      "presence": {
+        "name": "Presence",
+        "state": {
+          "on": "Home",
+          "off": "Away"
+        }
+      }
+    },
+    "sensor": {
+      "entity_information": {
+        "name": "Entity Information"
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowl_weight": {
+        "name": "Bowl {bowl} Weight"
+      },
+      "fill_percent": {
+        "name": "Fill Percent"
+      },
+      "weight_capacity": {
+        "name": "Total Weight Limit",
+        "state_attributes": {
+          "bowl_0_target": {
+            "name": "Bowl 0 - Target Weight"
+          },
+          "bowl_1_target": {
+            "name": "Bowl 1 - Target Weight"
+          }
+        }
+      },
+      "bowl_volume": {
+        "name": "Bowl Volume"
+      },
+      "feeding": {
+        "name": "Feeding",
+        "state_attributes": {
+          "device_id": {
+            "name": "Device ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "At"
+          },
+          "tag_id": {
+            "name": "Tag ID"
+          },
+          "change_0": {
+            "name": "Change Bowl One"
+          },
+          "change_1": {
+            "name": "Change Bowl Two"
+          }
+        }
+      },
+      "drinking": {
+        "name": "Drinking",
+        "state_attributes": {
+          "device_id": {
+            "name": "Device ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "At"
+          },
+          "tag_id": {
+            "name": "Tag ID"
+          },
+          "change_0": {
+            "name": "Change Bowl One"
+          },
+          "change_1": {
+            "name": "Change Bowl Two"
+          }
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Home",
+          "outside": "Away"
+        }
+      },
+      "devices": {
+        "name": "Assigned devices"
+      },
+      "last_activity": {
+        "name": "Last Activity"
+      }
+    },
+    "number": {
+      "target_weight": {
+        "name": "Target weight Bowl {bowl}"
+      }
+    },
+    "select": {
+      "led_mode": {
+        "name": "LED Mode",
+        "state": {
+          "none": "Off",
+          "weak": "Weak",
+          "strong": "Strong"
+        }
+      },
+      "lid": {
+        "name": "Lid close delay",
+        "state": {
+          "faster": "Fast",
+          "normal": "Normal",
+          "slower": "Slow"
+        }
+      },
+      "training_mode": {
+        "name": "Training Mode",
+        "state": {
+          "disabled": "Off",
+          "step_1": "Step 1",
+          "step_2": "Step 2",
+          "step_3": "Step 3",
+          "step_4": "Step 4"
+        }
+      },
+      "bowls_type": {
+        "name": "Bowls Type",
+        "state": {
+          "large_wet": "Large (Wet)",
+          "large_dry": "Large (Dry)",
+          "two_small_wet_wet": "Two small (Wet/Wet)",
+          "two_small_dry_wet": "Two small (Dry/Wet)",
+          "two_small_wet_dry": "Two small (Wet/Dry)",
+          "two_small_dry_dry": "Two small (Dry/Dry)"
+        }
+      },
+      "tare": {
+        "name": "Reset bowl weight (require open lid)",
+        "state": {
+          "reset_large": "Reset Large",
+          "reset_left": "Reset Left",
+          "reset_right": "Reset Right",
+          "reset_both": "Reset Both"
+        }
+      },
+      "locking": {
+        "name": "Locking Mode",
+        "state": {
+          "locked": "Locked",
+          "unlocked": "Unlocked",
+          "allow_in": "Entry Only",
+          "allow_out": "Exit Only",
+          "curfew_mode": "Curfew"
+        }
+      },
+      "add_assigned_device": {
+        "name": "Add assigned device"
+      },
+      "remove_assigned_device": {
+        "name": "Remove assigned device"
+      }
+    },
+    "switch": {
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Home",
+          "outside": "Away"
+        }
+      },
+      "indoor_only": {
+        "name": "Indoor Only",
+        "state": {
+          "on": "Indoor Only",
+          "off": "No Restriction"
+        }
+      },
+      "curfew_enabled": {
+        "name": "Curfew active"
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Locking",
+        "state": {
+          "locked": "Locked",
+          "unlocked": "Unlocked"
+        }
+      }
+    }
+  },
   "config": {
     "step": {
       "user": {
@@ -40,12 +261,12 @@
         "description": "Choose whether to configure manual location names or per-device overrides.",
         "menu_options": {
           "manual_properties": "Manual properties",
-          "timeline": "Timeline events",
+          "timeline": "Household updates",
           "devices": "Devices"
         },
         "menu_option_descriptions": {
           "manual_properties": "Set the fallback names used for manually updated pet position.",
-          "timeline": "Configure how often household timeline events are polled.",
+          "timeline": "Configure how often devices and timeline events are refreshed together.",
           "devices": "Choose a device and configure its override settings."
         }
       },
@@ -58,10 +279,10 @@
         }
       },
       "timeline": {
-        "title": "Timeline events",
-        "description": "Timeline refresh interval. Lower values mean more frequent requests. Default: 300 seconds. Range: 5–86,400 seconds.",
+        "title": "Household updates",
+        "description": "Shared refresh interval for devices and timeline events. Lower values mean more frequent requests. Default: 300 seconds. Range: 5–86,400 seconds.",
         "data": {
-          "timeline_polling_speed": "Timeline update interval (seconds)"
+          "timeline_polling_speed": "Household update interval (seconds)"
         }
       },
       "devices": {
@@ -69,256 +290,13 @@
         "description": "Select the device you want to configure."
       },
       "configure_device": {
-        "title": "Configure {device_name}",        "description": "Device refresh interval. Lower values mean more frequent refreshes. Default: 300 seconds. Range: 5–86,400 seconds.",
+        "title": "Configure {device_name}",
+        "description": "Configure device location labels. Refresh timing is configured under household updates.",
         "data": {
-          "polling_speed": "Device update interval (seconds)",
           "location": "Location",
           "location_inside": "Inside location",
           "location_outside": "Outside location"
         }
-      }
-    }
-  },
-  "entity": {
-    "binary_sensor": {
-      "connectivity": {
-        "name": "Connectivity",
-        "state": {
-          "on": "Online",
-          "off": "Offline"
-        }
-        
-      },
-      "presence": {
-          "name": "Presence",
-          "state": {
-            "on": "Home",
-            "off": "Away"
-          }
-        },
-      "learn_mode": {
-        "name": "Learn Mode",
-        "state": {
-          "on": "On",
-          "off": "Off"
-        }
-      },
-      "curfew_active": {
-        "name": "Curfew active",
-        "state": {
-          "on": "On",
-          "off": "Off"
-        }
-      }
-    },
-    "select": {
-      "bowls_type": {
-        "name": "Bowls Type",
-        "state": {
-          "large_wet": "Large (Wet)",
-          "large_dry": "Large (Dry)",
-          "two_small_wet_wet": "Two small (Wet/Wet)",
-          "two_small_dry_wet": "Two small (Dry/Wet)",
-          "two_small_wet_dry": "Two small (Wet/Dry)",
-          "two_small_dry_dry": "Two small (Dry/Dry)"
-        }
-      },
-      "tare": {
-        "name": "Reset bowl weight (require open lid)",
-        "state": {
-          "reset_large": "Reset Large",
-          "reset_left": "Reset Left",
-          "reset_right": "Reset Right",
-          "reset_both": "Reset Both"
-        }
-      },
-      "training_mode": {
-        "name": "Training Mode",
-        "state": {
-          "disabled": "Off",
-          "step_1": "Step 1",
-          "step_2": "Step 2",
-          "step_3": "Step 3",
-          "step_4": "Step 4"
-        }
-      },
-      "lid": {
-        "name": "Lid close delay",
-        "state": {
-          "faster": "Fast",
-          "normal": "Normal",
-          "slower": "Slow"
-        }
-      },
-      "locking": {
-        "name": "Locking Mode",
-        "state": {
-          "locked": "Locked",
-          "unlocked": "Unlocked",
-          "allow_in": "Entry Only",
-          "allow_out": "Exit Only",
-          "curfew_mode": "Curfew"
-        }
-      },
-      "add_assigned_device": {
-        "name": "Add assigned device"
-      },
-      "remove_assigned_device": {
-        "name": "Remove assigned device"
-      },
-      "led_mode": {
-        "name": "LED Mode",
-        "state": {
-          "none": "Off",
-          "weak": "Weak",
-          "strong": "Strong"
-        }
-      }
-    },
-    "lock": {
-      "locking": {
-        "name": "Locking",
-        "state": {
-          "locked": "Locked",
-          "unlocked": "Unlocked"
-        }
-      }
-    },
-    "switch": {
-      "indoor_only": {
-        "name": "Indoor Only",
-        "state": {
-          "on": "Indoor Only",
-          "off": "No Restriction"
-        }
-      },
-      "curfew_enabled": {
-        "name": "Curfew active"
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Home",
-          "outside": "Away"
-        }
-      }
-    },
-    "number": {
-      "target_weight": {
-        "name": "Target weight Bowl {bowl}"
-      }
-    },
-    "button": {
-      "pairing_mode": {
-        "name": "Pairing Mode"
-      }
-    },
-    "sensor": {
-      "bowl_volume": {
-        "name": "Bowl Volume"
-      },
-      "fill_percent": {
-        "name": "Fill Percent"
-      },
-      "last_activity": {
-        "name": "Last Activity"
-      },
-      "consumption": {
-        "name": "Consumption"
-      },
-      "tag": {
-        "name": "Tag"
-      },
-      "household_id": {
-        "name": "Household ID"
-      },
-      "info": {
-        "name": "Information"
-      },
-      "feeding": {
-        "name": "Feeding",
-        "state_attributes": {
-          "device_id": {
-            "name": "Device ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "At"
-          },
-          "tag_id": {
-            "name": "Tag ID"
-          },
-          "change_0": {
-            "name": "Change Bowl One"
-          },
-          "change_1": {
-            "name": "Change Bowl Two"
-          }
-        }
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Home",
-          "outside": "Away"
-        }
-      },
-      "drinking": {
-        "name": "Drinking",
-        "state_attributes": {
-          "device_id": {
-            "name": "Device ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "At"
-          },
-          "tag_id": {
-            "name": "Tag ID"
-          },
-          "change_0": {
-            "name": "Change Bowl One"
-          },
-          "change_1": {
-            "name": "Change Bowl Two"
-          }
-        }
-      },
-      "rssi": {
-        "name": "RSSI"
-      },
-      "bowls": {
-        "name": "Bowls"
-      },
-      "current_weight": {
-        "name": "Current Weight"
-      },
-      "target_weight": {
-        "name": "Target Weight"
-      },
-      "bowl_weight": {
-        "name": "Bowl {bowl} Weight"
-      },
-      "weight_capacity": {
-        "name": "Total Weight Limit",
-        "state_attributes": {
-          "bowl_0_target": {
-            "name": "Bowl 0 - Target Weight"
-          },
-          "bowl_1_target": {
-            "name": "Bowl 1 - Target Weight"
-          }
-        }
-      },
-      "entity_information": {
-        "name": "Entity Information"
-      },
-      "devices": {
-        "name": "Assigned devices"
       }
     }
   }

@@ -1,7 +1,5 @@
 """ "Constants for the Sure Petcare integration."""
 
-from surepcio.enums import ProductId
-
 DOMAIN = "surepcha"
 
 CONF_EMAIL = "email"
@@ -33,9 +31,3 @@ DEVICES = "devices"
 NAME = "name"
 MANUAL_PROPERTIES = "manual_properties"
 HOUSEHOLD_ID = "household_id"
-
-FLAP_PRODUCTS = {
-    ProductId.PET_DOOR,
-    ProductId.DUAL_SCAN_PET_DOOR,
-    ProductId.DUAL_SCAN_CONNECT,
-}

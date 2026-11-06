@@ -16,7 +16,7 @@ requires-python = ">=3.14.2"
 [dependency-groups]
 dev = [
     "homeassistant==2026.9.4",
-    "py-surepetcare==0.6.4",
+    "py-surepetcare==0.6.5",
     "pre-commit==4.7.0",
     "pytest==9.2.0",
     "pytest-asyncio==1.4.1",
@@ -35,3 +35,6 @@ asyncio_mode = "auto"
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[tool.uv.sources]
+py-surepetcare = { path = "../ps", editable = true }

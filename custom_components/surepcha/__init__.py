@@ -1,7 +1,8 @@
-"""TODO."""
+"""Set up SurePetCare config entries and integration services."""
 
-import asyncio
 import logging
+from collections.abc import Iterable
+from datetime import timedelta
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
@@ -12,21 +13,30 @@ from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.typing import ConfigType
 from surepcio import Household, SurePetcareClient
-from surepcio.security.exceptions import ApiError, AuthenticationError
+from surepcio.devices.device import SurePetCareBase
+from surepcio.security.exceptions import AuthenticationError
 
 from .const import (
     CLIENT_DEVICE_ID,
     DOMAIN,
     HOUSEHOLD_ID,
+    OPTION_DEVICES,
+    OPTION_TIMELINE,
+    POLLING_SPEED,
+    SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
     TOKEN,
 )
 from .coordinator import (
     SurePetcareConfigEntry,
-    SurePetCareDeviceDataUpdateCoordinator,
-    SurePetCareHouseholdTimelineCoordinator,
+    SurePetCareCoordinator,
     SurePetCareRuntimeData,
 )
-from .migration import migrate_household_split, migrate_legacy_manual_properties
+from .helper import translate_auth_errors
+from .migration import (
+    migrate_household_split,
+    migrate_legacy_manual_properties,
+)
 from .services import _service_registry
 
 logger = logging.getLogger(__name__)
@@ -69,13 +79,24 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             new_title, new_unique_id = await migrate_household_split(
                 hass, config_entry, new_data, new_options
             )
+        if config_entry.minor_version < 6:
+            # Preserve the existing timeline cadence; device overrides no longer
+            # apply when all endpoints share one household refresh.
+            new_options[OPTION_DEVICES] = {
+                key: {
+                    name: value
+                    for name, value in metadata.items()
+                    if name != POLLING_SPEED
+                }
+                for key, metadata in new_options.get(OPTION_DEVICES, {}).items()
+            }
         hass.config_entries.async_update_entry(
             config_entry,
             data=new_data,
             options=new_options,
             title=new_title,
             unique_id=new_unique_id,
-            minor_version=5,
+            minor_version=6,
             version=1,
         )
 
@@ -93,14 +114,15 @@ async def setup_devices(
     """Setup devices for a config entry."""
     client: SurePetcareClient = SurePetcareClient()
     try:
-        logged_in = await client.login(
-            token=entry.data.get(TOKEN), device_id=entry.data.get(CLIENT_DEVICE_ID)
-        )
-        if not logged_in:
-            raise AuthenticationError("Sure Petcare login failed")
-    except AuthenticationError as exc:
+        with translate_auth_errors("Sure Petcare authentication failed"):
+            logged_in = await client.login(
+                token=entry.data.get(TOKEN), device_id=entry.data.get(CLIENT_DEVICE_ID)
+            )
+            if not logged_in:
+                raise AuthenticationError("Sure Petcare login failed")
+    except ConfigEntryAuthFailed:
         await client.close()
-        raise ConfigEntryAuthFailed("Sure Petcare authentication failed") from exc
+        raise
     except Exception as exc:
         await client.close()
         raise ConfigEntryNotReady("Unable to connect to Sure Petcare") from exc
@@ -117,32 +139,29 @@ async def setup_devices(
     entry.async_on_unload(close_client)
     # Fetch initial devices
     try:
-        household_id = entry.data.get(HOUSEHOLD_ID)
-        if household_id:
+        with translate_auth_errors():
+            household_id = entry.data.get(HOUSEHOLD_ID)
             all_households: list[Household] = await client.api(
                 Household.get_households()
             )
-            households = [h for h in all_households if h.id == household_id]
-        else:
-            # Legacy entries pre-dating per-household splits have no HOUSEHOLD_ID;
-            # load all households so the entry keeps working until the user reconfigures.
-            households = await client.api(Household.get_households())
-        entities = []
-        for household in households:
-            entities.extend(await client.api(household.get_pets()))
-            entities.extend(await client.api(household.get_devices()))
-
-            # Bind pet device assignments
-            await client.api(household.fetch_pet_device_assignments())
+            households = (
+                [
+                    household
+                    for household in all_households
+                    if household.id == household_id
+                ]
+                if household_id
+                else all_households
+            )
+            entities = []
+            for household in households:
+                entities.extend(await client.api(household.get_pets()))
+                entities.extend(await client.api(household.get_devices()))
+                await client.api(household.fetch_pet_device_assignments())
         await client.close()
-    except AuthenticationError as exc:
+    except ConfigEntryAuthFailed:
         await client.close()
-        raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
-    except ApiError as exc:
-        await client.close()
-        if exc.status == 401:
-            raise ConfigEntryAuthFailed("Sure Petcare authentication expired") from exc
-        raise ConfigEntryNotReady("Configuration not finished") from exc
+        raise
     except Exception as exc:
         await client.close()
         raise ConfigEntryNotReady("Configuration not finished") from exc
@@ -157,44 +176,13 @@ async def async_setup_entry(
     logger.info("async_setup_entry called for entry_id=%s", entry.entry_id)
 
     client, entities, households = await setup_devices(hass, entry)
-    # Not sure if needed so disable for now
-    # remove_stale_devices(hass, entry, entities)
-
-    coordinators: list[SurePetCareDeviceDataUpdateCoordinator] = [
-        SurePetCareDeviceDataUpdateCoordinator(hass, entry, client, device)
-        for device in entities
-    ]
-
-    timeline_coordinators = [
-        SurePetCareHouseholdTimelineCoordinator(hass, entry, client, household)
-        for household in households
-    ]
-
-    await asyncio.gather(
-        *[
-            coordinator.async_config_entry_first_refresh()
-            for coordinator in coordinators
-        ]
-    )
-
-    # Timeline coordinators are supplementary (bus events only, no entities
-    # depend on them), so a failure here must not raise ConfigEntryNotReady
-    # and trigger the whole entry's fast setup-retry loop; it keeps retrying
-    # on its own update_interval like any other failed coordinator refresh.
-    for coordinator in timeline_coordinators:
-        entry.async_on_unload(coordinator.async_add_listener(lambda: None))
-        try:
-            await coordinator.async_config_entry_first_refresh()
-        except ConfigEntryNotReady:
-            logger.warning(
-                "Initial timeline refresh failed for household %s; "
-                "will keep retrying in the background",
-                coordinator.household.id,
-            )
-
+    if len(households) != 1:
+        await client.close()
+        raise ConfigEntryNotReady("Expected one household per configuration entry")
+    coordinator = SurePetCareCoordinator(hass, entry, client, households[0], entities)
     device_registry = dr.async_get(hass)
-    for c in coordinators:
-        device = c._device
+    remove_stale_devices(device_registry, entry, entities)
+    for device in entities:
         device_registry.async_get_or_create(
             config_entry_id=entry.entry_id,
             identifiers={(DOMAIN, f"{device.id}")},
@@ -204,10 +192,24 @@ async def async_setup_entry(
             name=device.name,
         )
 
-    entry.runtime_data = SurePetCareRuntimeData(
-        device_coordinators=coordinators, timeline_coordinators=timeline_coordinators
-    )
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    entry.runtime_data = SurePetCareRuntimeData(coordinator)
+    setup_complete = False
+    try:
+        await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+        coordinator.update_interval = timedelta(
+            seconds=entry.options.get(OPTION_TIMELINE, {}).get(
+                TIMELINE_POLLING_SPEED, SCAN_INTERVAL
+            )
+        )
+        await coordinator.async_config_entry_first_refresh()
+        setup_complete = True
+    finally:
+        if not setup_complete:
+            try:
+                await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+            finally:
+                await client.close()
+    entry.async_on_unload(coordinator.async_add_listener(lambda: None))
 
     return True
 
@@ -219,37 +221,31 @@ async def async_unload_entry(
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
-@callback
-def remove_stale_devices(
-    hass: HomeAssistant, config_entry: ConfigEntry, devices: list[Any]
-) -> None:
-    """Remove stale devices from device registry. TODO: Work in progress and not functional yet"""
-
-    device_registry = dr.async_get(hass)
-    device_entries = dr.async_entries_for_config_entry(
-        device_registry, config_entry.entry_id
-    )
-    all_device_ids = {str(device.id) for device in devices}
-    for device_entry in device_entries:
-        device_id: str | None = None  # Only define here
-        # Check that device part of DOMAIN
-        for identifier in device_entry.identifiers:
-            if identifier[0] != DOMAIN:
-                continue
-
-            _id = identifier[1]
-            device_id = str(_id)
-        if device_id is None or device_id not in all_device_ids:
-            logger.info(
-                "Removing stale device entry %s for config entry %s",
-                device_entry.id,
-                config_entry.entry_id,
-            )
-            device_registry.async_remove_device(device_entry.id)
-
-
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Register integration services before config entries load."""
     for name, func, schema in _service_registry:
         hass.services.async_register(DOMAIN, name, func, schema=schema)
     return True
+
+
+@callback
+def remove_stale_devices(
+    device_registry: dr.DeviceRegistry,
+    entry: SurePetcareConfigEntry,
+    devices: Iterable[SurePetCareBase],
+) -> None:
+    """Remove entry-owned devices absent from a complete household inventory."""
+    current_identifiers = {(DOMAIN, str(device.id)) for device in devices}
+    for registered in dr.async_entries_for_config_entry(
+        device_registry, entry.entry_id
+    ):
+        identifiers = {
+            identifier for identifier in registered.identifiers if identifier[0] == DOMAIN
+        }
+        if identifiers and not identifiers.intersection(current_identifiers):
+            logger.info(
+                "Removing device %s no longer present in config entry %s",
+                registered.id,
+                entry.entry_id,
+            )
+            device_registry.async_remove_device(registered.id)

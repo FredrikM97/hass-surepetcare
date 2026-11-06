@@ -7,6 +7,14 @@
   },
 
   "remoteUser": "vscode",
+  "forwardPorts": [8123],
+  "portsAttributes": {
+    "8123": {
+      "label": "Home Assistant",
+      "protocol": "http",
+      "onAutoForward": "notify"
+    }
+  },
 
   "customizations": {
     "vscode": {

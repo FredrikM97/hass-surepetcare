@@ -4,12 +4,13 @@ from typing import Any
 
 import voluptuous as vol
 from homeassistant.helpers import device_registry as dr
-from surepcio.devices import Pet
+from surepcio.devices.device import DeviceBase, SurePetCareBase
+from surepcio.devices.pet import Pet
 from surepcio.enums import ModifyDeviceTag, PetDeviceLocationProfile, PetLocation
 
 from .const import DOMAIN
 from .coordinator import (
-    SurePetCareDeviceDataUpdateCoordinator,
+    SurePetCareCoordinator,
 )
 
 logger = logging.getLogger(__name__)
@@ -59,10 +60,10 @@ async def async_set_debug_logging(call):
     ),
 )
 async def async_set_control(call):
-    coordinator = get_coordinator(call.hass, call.data.get("device_id"))
-    await coordinator.client.api(
-        coordinator._device.set_control(**call.data.get("control"))
-    )
+    coordinator, device = get_coordinator(call.hass, call.data.get("device_id"))
+    if not isinstance(device, DeviceBase):
+        raise TypeError("Control settings require a device, not a pet")
+    await coordinator.client.api(device.set_control(**call.data.get("control", {})))
 
 
 @global_service(
@@ -76,12 +77,15 @@ async def async_set_control(call):
     ),
 )
 async def async_set_tag(call):
-    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
-    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
+    device_coordinator, device = get_coordinator(call.hass, call.data.get("device_id"))
+    _, pet = get_coordinator(call.hass, call.data.get("pet_id"))
+    if not isinstance(device, DeviceBase) or not isinstance(pet, Pet):
+        raise TypeError("Tag assignment requires a device and a pet")
+    pet_tag = pet.tag
+    if pet_tag is None or pet_tag <= 0:
+        raise ValueError(f"Pet {pet.id} has no valid tag")
     await device_coordinator.client.api(
-        device_coordinator._device.set_tag(
-            pet_coordinator._device.tag, ModifyDeviceTag[call.data.get("action")]
-        )
+        device.set_tag(pet_tag, ModifyDeviceTag[call.data["action"]])
     )
 
 
@@ -97,13 +101,12 @@ async def async_set_tag(call):
 )
 async def set_pet_access_mode(call) -> None:
     """Set pet access mode to indoor or outdoor"""
-    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
-    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
+    _, device = get_coordinator(call.hass, call.data.get("device_id"))
+    pet_coordinator, pet = get_coordinator(call.hass, call.data.get("pet_id"))
+    if not isinstance(pet, Pet):
+        raise TypeError("Access profiles require a pet")
     await pet_coordinator.client.api(
-        pet_coordinator._device.set_profile(
-            device_coordinator._device.id,
-            PetDeviceLocationProfile[call.data.get("profile")],
-        )
+        pet.set_profile(device.id, PetDeviceLocationProfile[call.data["profile"]])
     )
 
 
@@ -118,11 +121,10 @@ async def set_pet_access_mode(call) -> None:
 )
 async def set_pet_position(call) -> None:
     """Set pet position to inside or outside"""
-    pet_coordinator = get_coordinator(call.hass, call.data.get("pet_id"))
-    device: Pet = pet_coordinator._device
-    await pet_coordinator.client.api(
-        device.set_position(PetLocation[call.data.get("action")])
-    )
+    pet_coordinator, pet = get_coordinator(call.hass, call.data.get("pet_id"))
+    if not isinstance(pet, Pet):
+        raise TypeError("Position updates require a pet")
+    await pet_coordinator.client.api(pet.set_position(PetLocation[call.data["action"]]))
 
 
 @global_service(
@@ -135,11 +137,11 @@ async def set_pet_position(call) -> None:
 )
 async def refresh_device(call) -> None:
     """Refresh a pet or device"""
-    device_coordinator = get_coordinator(call.hass, call.data.get("device_id"))
-    await device_coordinator.async_refresh()
+    device_coordinator, device = get_coordinator(call.hass, call.data.get("device_id"))
+    await device_coordinator.async_refresh_device(device)
 
 
-def get_coordinator(hass, device_id) -> SurePetCareDeviceDataUpdateCoordinator:
+def get_coordinator(hass, device_id) -> tuple[SurePetCareCoordinator, SurePetCareBase]:
     device_entry, config_entry = dr.async_get_device_and_config_entry_for_domain(
         hass, device_id, domain=DOMAIN
     )
@@ -156,8 +158,10 @@ def get_coordinator(hass, device_id) -> SurePetCareDeviceDataUpdateCoordinator:
         if entry.entry_id != config_entry.entry_id:
             continue
         runtime_data = getattr(entry, "runtime_data", None)
-        for coordinator in runtime_data.device_coordinators if runtime_data else []:
-            if (DOMAIN, str(coordinator._device.id)) in device_identifiers:
-                return coordinator
+        if runtime_data:
+            coordinator = runtime_data.coordinator
+            for device in coordinator.devices.values():
+                if (DOMAIN, str(device.id)) in device_identifiers:
+                    return coordinator, device
 
     raise ValueError(f"No coordinator found for device_id {device_id}")

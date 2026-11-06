@@ -1,74 +1,45 @@
-import logging
+"""Shared serialization for Home Assistant states and diagnostics."""
+
+from collections.abc import Iterator
+from contextlib import contextmanager
 from enum import Enum
-from types import MappingProxyType
 from typing import Any
 
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from pydantic import BaseModel
+from surepcio.security.exceptions import ApiError, AuthenticationError
 
-from custom_components.surepcha.const import NAME, OPTION_DEVICES, PRODUCT_ID
-
-logger = logging.getLogger(__name__)
-
-
-def device_option(entry_options: MappingProxyType[str, Any], device_id: int) -> dict:
-    """Return the option dict for the device."""
-    return entry_options[OPTION_DEVICES].get(str(device_id), {})
+from .const import DOMAIN, OPTION_DEVICES
 
 
-def option_name(
-    entry_options: MappingProxyType[str, Any], device_id: int
-) -> str | None:
-    """Return the name of the device option."""
-    return device_option(entry_options, device_id).get(NAME)
-
-
-def option_product_id(
-    entry_options: MappingProxyType[str, Any], device_id: int
-) -> str | None:
-    """Return the name of the device option."""
-    return device_option(entry_options, device_id).get(PRODUCT_ID)
-
-
-def index_attr(seq, idx, attr=None, default=None):
-    """Safely get attribute from item at idx in seq, or return default."""
+@contextmanager
+def translate_auth_errors(
+    message: str = "Sure Petcare authentication expired",
+) -> Iterator[None]:
+    """Translate credential failures consistently at the HA boundary."""
     try:
-        if attr is None:
-            return seq[idx]
-        return getattr(seq[idx], attr, default)
-    except IndexError, TypeError, AttributeError:
-        return default
+        yield
+    except (AuthenticationError, ApiError) as exc:
+        if isinstance(exc, AuthenticationError) or exc.status == 401:
+            raise ConfigEntryAuthFailed(message) from exc
+        raise
 
 
-def sum_attr(seq, attr, default=0):
-    """Sum numeric attributes from a sequence, skipping non-numeric or missing."""
-    return sum(
-        v
-        for v in (getattr(item, attr, default) for item in seq)
-        if isinstance(v, (int, float))
-    )
-
-
-def avg_attr(items, attr):
-    vals = [
-        getattr(item, attr, None)
-        for item in items
-        if getattr(item, attr, None) is not None
-    ]
-    return sum(vals) / len(vals) if vals else None
-
-
-def abs_sum_attr(obj, attr):
-    values = getattr(obj, attr, [])
-    return abs(sum(values)) if values else None
-
-
-def stringify(value: Any) -> str | None:
-    """Convert value to string, handling None."""
-    return str(value) if value is not None else None
+def get_device_options(
+    hass: HomeAssistant, entry: ConfigEntry
+) -> dict[str, dict[str, Any]]:
+    """Include cross-entry devices, with this entry's overrides taking precedence."""
+    devices = {}
+    for configured_entry in hass.config_entries.async_entries(DOMAIN):
+        devices.update(configured_entry.options.get(OPTION_DEVICES, {}))
+    devices.update(entry.options.get(OPTION_DEVICES, {}))
+    return devices
 
 
 def serialize(obj):
-    """Recursively convert objects/enums/lists/dicts to JSON-serializable types, including properties, skipping functions, and using model_dump for Pydantic models."""
+    """Serialize values, including models and enum names."""
     if isinstance(obj, Enum):
         return obj.name
     if isinstance(obj, (str, int, float, bool, type(None))):
@@ -78,67 +49,24 @@ def serialize(obj):
             return serialize(obj.model_dump())
         return serialize(obj.dict())
     if isinstance(obj, dict):
-        return {k: serialize(v) for k, v in obj.items()}
+        return {key: serialize(value) for key, value in obj.items()}
     if isinstance(obj, (list, tuple, set)):
-        return [serialize(v) for v in obj]
+        return [serialize(value) for value in obj]
     if hasattr(obj, "__dict__"):
         result = {
-            k: serialize(v) for k, v in obj.__dict__.items() if not k.startswith("_")
+            key: serialize(value)
+            for key, value in obj.__dict__.items()
+            if not key.startswith("_")
         }
-        props = [
-            attr
-            for attr in dir(obj)
-            if not attr.startswith("_")
-            and attr not in result
-            and not callable(getattr(obj, attr, None))
+        properties = [
+            name
+            for name in dir(obj)
+            if not name.startswith("_")
+            and name not in result
+            and isinstance(getattr(type(obj), name, None), property)
         ]
-        if props:
-            result.update({attr: serialize(getattr(obj, attr, None)) for attr in props})
+        result.update(
+            {name: serialize(getattr(obj, name, None)) for name in properties}
+        )
         return result
     return str(obj)
-
-
-def traverse_attrs(obj, *attrs):
-    """Traverse attributes and return an iterator, or an empty iterator if missing or not a list."""
-    for attr in attrs:
-        obj = getattr(obj, attr, None)
-        if obj is None:
-            return None
-    return obj
-
-
-def ensure_list(obj, *attrs):
-    """Ensure obj is a list and filter out None values."""
-    obj = traverse_attrs(obj, *attrs)
-    if obj is None:
-        return []
-    if isinstance(obj, list):
-        return [x for x in obj if x is not None]
-    if isinstance(obj, dict):
-        return [v for v in obj.values() if v is not None]
-    return [obj]
-
-
-def list_attr(obj, *attrs):
-    """Ensure the result of attribute traversal is a list or return an empty list."""
-    obj = traverse_attrs(obj, *attrs)
-    return obj if isinstance(obj, list) else []
-
-
-def map_attr(seq, fn):
-    """Apply fn to each item in seq and return the list."""
-    return [fn(item) for item in seq]
-
-
-def find_entity_id_by_name(
-    entry_options: MappingProxyType[str, Any], name: str
-) -> str | None:
-    """Find the entity ID by its name in entry_data['entities']."""
-    return next(
-        (
-            entity_id
-            for entity_id, entity in entry_options.get(OPTION_DEVICES, {}).items()
-            if entity.get(NAME) == name
-        ),
-        None,
-    )

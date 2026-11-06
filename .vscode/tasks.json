@@ -2,6 +2,18 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Run Local Home Assistant",
+      "type": "shell",
+      "command": "uv run --no-sync python scripts/dev_ha.py",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
       "label": "Install Dev Requirements",
       "type": "shell",
       "command": "uv sync --group dev",

@@ -1,80 +1,54 @@
-"""Support for Sure Petcare Button."""
+"""Present library action interactions."""
 
-import logging
 from dataclasses import dataclass
 
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
+from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import HubPairMode, ProductId
 
-from custom_components.surepcha.method_field import ButtonMethodField
-
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
-
-logger = logging.getLogger(__name__)
+from .coordinator import SurePetcareConfigEntry
+from .entity import SurePetCareBaseEntity
+from .fields import SurePetCareDescriptionMixin
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareButtonEntityDescription(
-    SurePetCareBaseEntityDescription, ButtonEntityDescription
+    ButtonEntityDescription, SurePetCareDescriptionMixin
 ):
-    """Describes SurePetCare button entity."""
+    """Native button metadata and SurePetCare API behavior."""
 
 
-BUTTONS: dict[str, tuple[SurePetCareButtonEntityDescription, ...]] = {
+BUTTON_FIELDS: dict[ProductId, tuple[SurePetCareButtonEntityDescription, ...]] = {
     ProductId.HUB: (
         SurePetCareButtonEntityDescription(
             key="pairing_mode",
             translation_key="pairing_mode",
-            field=ButtonMethodField(path="control.pairing_mode", on=HubPairMode.ON),
             entity_category=EntityCategory.CONFIG,
+            command=lambda entity, _value: entity.device.set_pairing_mode(HubPairMode.ON),
         ),
-    )
+    ),
 }
 
 
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: SurePetcareConfigEntry,
-    async_add_entities: AddConfigEntryEntitiesCallback,
+    async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up SurePetCare sensors for each matching device."""
-    coordinators = entry.runtime_data.device_coordinators
-
-    entities = [
-        SurePetCareButton(
-            coordinator,
-            description=description,
-        )
-        for coordinator in coordinators
-        for description in BUTTONS.get(coordinator.product_id, ())
-    ]
-    async_add_entities(entities)
+    coordinator = entry.runtime_data.coordinator
+    async_add_entities(
+        SurePetCareButton(coordinator, device, description)
+        for device in coordinator.devices.values()
+        for description in BUTTON_FIELDS.get(device.product, ())
+    )
 
 
 class SurePetCareButton(SurePetCareBaseEntity, ButtonEntity):
-    """The platform class required by Home Assistant."""
+    """A library-provided action."""
 
     entity_description: SurePetCareButtonEntityDescription
 
-    def __init__(
-        self,
-        coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        description: SurePetCareButtonEntityDescription,
-    ) -> None:
-        """Initialize a Surepetcare sensor."""
-        super().__init__(
-            coordinator=coordinator,
-        )
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
-
     async def async_press(self) -> None:
-        """Press the button."""
         await self.send_command(True)

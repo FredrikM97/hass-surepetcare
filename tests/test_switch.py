@@ -1,10 +1,13 @@
+from datetime import UTC, datetime
 from unittest.mock import patch
 
 import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
-from surepcio.enums import PetLocation
+from surepcio import TimelineEvent
+from surepcio.enums import DoorDirection, PetLocation, TimelineEventType
+from surepcio.timeline import MovementResource, TimelineEntityInfo
 from syrupy.assertion import SnapshotAssertion
 
 from . import initialize_entry
@@ -122,13 +125,26 @@ async def test_position_switch_mapping_snapshot(
     expected_state: str,
 ) -> None:
     """Snapshot full position switch states for raw pet position values."""
-    pets_by_id = {pet.id: pet for pet in mock_pets}
-    pets_by_id[472721].status.activity.where = raw_where
-    pets_by_id[532070].status.activity.where = raw_where
-
     await initialize_entry(
-        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets, history=[]
     )
+    direction = {
+        PetLocation.INSIDE: DoorDirection.ENTERED,
+        PetLocation.OUTSIDE: DoorDirection.LEFT,
+    }.get(raw_where)
+    if direction is not None:
+        for pet in mock_pets:
+            if pet.id in (472721, 532070):
+                coordinator = mock_config_entry.runtime_data.coordinator
+                coordinator._publish_timeline(
+                    TimelineEvent(
+                        id=1,
+                        type=TimelineEventType.MOVEMENT,
+                        created_at=datetime(2026, 1, 1, tzinfo=UTC),
+                        pets=[TimelineEntityInfo(id=pet.id)],
+                        movements=[MovementResource(direction=direction)],
+                    )
+                )
     await hass.async_block_till_done()
 
     for entity_id in ("switch.ajax_position", "switch.maui_position"):

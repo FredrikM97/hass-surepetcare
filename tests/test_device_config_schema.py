@@ -6,7 +6,11 @@ from custom_components.surepcha.const import (
     LOCATION_OUTSIDE,
     POLLING_SPEED,
 )
-from custom_components.surepcha.device_config_schema import DEVICE_CONFIG_SCHEMAS
+from custom_components.surepcha.device_config_schema import device_config_schema
+
+DEVICE_CONFIG_SCHEMAS = {
+    product: device_config_schema(product) for product in ProductId
+}
 
 
 def test_snapshot_schema(snapshot):

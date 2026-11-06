@@ -1,124 +1,80 @@
-"""Support for Sure Petcare binary sensors."""
+"""Present library boolean status values."""
 
-import logging
 from dataclasses import dataclass
+from typing import Any
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
     BinarySensorEntityDescription,
 )
+from homeassistant.const import STATE_OFF, STATE_ON
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from surepcio.enums import PetLocation, ProductId
+from surepcio.entities.pet import presence_reading
+from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
-from custom_components.surepcha.helper import (
-    list_attr,
-)
-from custom_components.surepcha.method_field import BinarySensorMethodField, MethodField
-
-from .coordinator import SurePetcareConfigEntry, SurePetCareDeviceDataUpdateCoordinator
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
-
-logger = logging.getLogger(__name__)
+from .coordinator import SurePetcareConfigEntry
+from .entity import SurePetCareBaseEntity
+from .field_helpers import _curfew_active, _curfew_extra
+from .fields import FLAP_PRODUCTS, SurePetCareBooleanDescription
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareBinarySensorEntityDescription(
-    SurePetCareBaseEntityDescription, BinarySensorEntityDescription
+    BinarySensorEntityDescription, SurePetCareBooleanDescription
 ):
-    """Describes SurePetCare.binary_sensor entity."""
+    """Native binary sensor metadata and SurePetCare API behavior."""
 
 
-SENSOR_DESCRIPTIONS_AVAILABLE: tuple[SurePetCareBinarySensorEntityDescription, ...] = (
-    SurePetCareBinarySensorEntityDescription(
-        key="connectivity",
-        translation_key="connectivity",
-        device_class=BinarySensorDeviceClass.CONNECTIVITY,
-        field=MethodField(path="available"),
-    ),
+_connectivity = SurePetCareBinarySensorEntityDescription(
+    key="connectivity",
+    translation_key="connectivity",
+    device_class=BinarySensorDeviceClass.CONNECTIVITY,
+    value="available",
 )
-SENSOR_DESCRIPTIONS_PRESENCE: tuple[SurePetCareBinarySensorEntityDescription, ...] = (
-    SurePetCareBinarySensorEntityDescription(
-        key="presence",
-        translation_key="presence",
-        device_class=BinarySensorDeviceClass.PRESENCE,
-        field=BinarySensorMethodField(
-            path="status.activity.where",
-            get_extra_fn=lambda ctx: {
-                "device_id": str(ctx.device.status.activity.device_id),
-                "id": str(ctx.device.status.activity.id),
-                "since": ctx.device.status.activity.since,
-                "tag_id": str(ctx.device.status.activity.tag_id),
-            },
-            on=PetLocation.INSIDE,
-            off=PetLocation.OUTSIDE,
-        ),
-    ),
+_learn_mode = SurePetCareBinarySensorEntityDescription(
+    key="learn_mode",
+    translation_key="learn_mode",
+    entity_category=EntityCategory.DIAGNOSTIC,
+    value="status.learn_mode",
 )
-SENSORS: dict[str, tuple[SurePetCareBinarySensorEntityDescription, ...]] = {
-    ProductId.PET: (*SENSOR_DESCRIPTIONS_PRESENCE,),
+_curfew = SurePetCareBinarySensorEntityDescription(
+    key="curfew",
+    translation_key="curfew_active",
+    value=lambda entity: _curfew_active(entity.device),
+    attributes=lambda entity: _curfew_extra(entity.device),
+)
+BINARY_SENSOR_FIELDS: dict[
+    ProductId, tuple[SurePetCareBinarySensorEntityDescription, ...]
+] = {
+    ProductId.HUB: (_connectivity,),
     ProductId.FEEDER_CONNECT: (
+        _connectivity,
         SurePetCareBinarySensorEntityDescription(
             key="learn_mode",
             translation_key="learn_mode",
+            entity_category=EntityCategory.DIAGNOSTIC,
             icon="mdi:school",
-            field=MethodField(path="status.learn_mode"),
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        *SENSOR_DESCRIPTIONS_AVAILABLE,
-    ),
-    ProductId.DUAL_SCAN_CONNECT: (
-        SurePetCareBinarySensorEntityDescription(
-            key="learn_mode",
-            translation_key="learn_mode",
-            field=MethodField(path="status.learn_mode"),
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        SurePetCareBinarySensorEntityDescription(
-            key="curfew",
-            translation_key="curfew_active",
-            field=MethodField(
-                get_fn=lambda ctx: ctx.device.is_curfew_active,
-                get_extra_fn=lambda ctx: {
-                    "curfew": [
-                        {
-                            "enabled": c.enabled,
-                            "lock_time": str(c.lock_time),
-                            "unlock_time": str(c.unlock_time),
-                        }
-                        for c in list_attr(ctx.device.control, "curfew")
-                    ]
-                },
-            ),
-        ),
-        *SENSOR_DESCRIPTIONS_AVAILABLE,
-    ),
-    ProductId.PET_DOOR: (
-        SurePetCareBinarySensorEntityDescription(
-            key="learn_mode",
-            translation_key="learn_mode",
-            field=MethodField(path="status.learn_mode"),
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_enabled_default=False,
-        ),
-        SurePetCareBinarySensorEntityDescription(
-            key="curfew",
-            translation_key="curfew_active",
-            field=MethodField(
-                get_fn=lambda ctx: ctx.device.is_curfew_active,
-                path_extra="control.curfew",
-            ),
+            value="status.learn_mode",
         ),
     ),
-    ProductId.DUAL_SCAN_PET_DOOR: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
-    ProductId.HUB: (*SENSOR_DESCRIPTIONS_AVAILABLE,),
+    ProductId.PET_DOOR: (_curfew, _learn_mode),
+    ProductId.DUAL_SCAN_CONNECT: (_curfew, _connectivity, _learn_mode),
+    ProductId.DUAL_SCAN_PET_DOOR: (_connectivity,),
+    ProductId.PET: (
+        SurePetCareBinarySensorEntityDescription(
+            key="presence",
+            translation_key="presence",
+            device_class=BinarySensorDeviceClass.PRESENCE,
+            supported_products=FLAP_PRODUCTS,
+            value=lambda _, event: presence_reading(event),
+            timeline_events=(TimelineEventType.MOVEMENT,),
+            true_value=PetLocation.INSIDE,
+            false_value=PetLocation.OUTSIDE,
+        ),
+    ),
 }
 
 
@@ -127,41 +83,39 @@ async def async_setup_entry(
     entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up a Surepetcare config entry."""
-
-    coordinators = entry.runtime_data.device_coordinators
-
+    coordinator = entry.runtime_data.coordinator
     entities = [
-        SurePetCareBinarySensor(
-            coordinator,
-            description=description,
-        )
-        for coordinator in coordinators
-        for description in SENSORS.get(coordinator.product_id, ())
+        SurePetCareBinarySensor(coordinator, device, description)
+        for device in coordinator.devices.values()
+        for description in BINARY_SENSOR_FIELDS.get(device.product, ())
     ]
+    entities = [entity for entity in entities if entity.is_supported]
     async_add_entities(entities)
 
 
 class SurePetCareBinarySensor(SurePetCareBaseEntity, BinarySensorEntity):
-    """The platform class required by Home Assistant."""
+    """A library-provided boolean status."""
 
     entity_description: SurePetCareBinarySensorEntityDescription
 
-    def __init__(
-        self,
-        coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        description: SurePetCareBinarySensorEntityDescription,
-    ) -> None:
-        """Initialize a SurePetCare binary sensor."""
-        super().__init__(
-            coordinator=coordinator,
-        )
+    async def async_added_to_hass(self) -> None:
+        await super().async_added_to_hass()
+        state = await self.async_get_last_state()
+        if state is not None and state.state in (STATE_ON, STATE_OFF):
+            self._update_state(state.state == STATE_ON, dict(state.attributes))
 
-        self.entity_description = description
+    @property
+    def available(self) -> bool:
+        if self.device_class == BinarySensorDeviceClass.CONNECTIVITY:
+            return (
+                self.device.id not in self.coordinator.device_errors
+                and self.coordinator.last_update_success
+            )
+        return super().available
 
-        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
+    def _set_value(self, value: Any) -> None:
+        self._attr_is_on = value
 
     @property
     def is_on(self) -> bool | None:
-        """Return true if the binary sensor is on."""
-        return None if self.native_value is None else self.native_value is True
+        return self._attr_is_on

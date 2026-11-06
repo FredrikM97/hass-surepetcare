@@ -173,3 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 .DS_Store
+
+# Local Home Assistant configuration, credentials and runtime data
+/.ha-config/
+/.ha-runner.lock

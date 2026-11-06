@@ -30,6 +30,21 @@ If you encounter problems with the integration:
 
 For urgent issues, check the Home Assistant logs at Settings → System → Logs.
 
+## Development
+
+The integration's development environment uses the sibling `py-surepetcare`
+checkout so field API changes can be tested before publishing the library
+release. Clone the library into `ps` and this repository into an adjacent `hs`
+directory (the editable dependency is `../ps`), then run
+`uv sync --group dev` from `hs`.
+The integration manifest uses the corresponding released library version for
+Home Assistant installations.
+
+Run `uv run pytest tests`, `uv run ruff check custom_components tests`, and
+`uv run python scripts/verify_packages.py` before release. Publish the library
+version pinned in `manifest.json` before releasing an integration version that
+depends on it; the editable development dependency is not used by installed HA.
+
 # Enjoy the integration?
 
 Star ⭐ the repository to help others discover the integration.

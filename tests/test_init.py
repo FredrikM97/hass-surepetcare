@@ -17,7 +17,7 @@ from surepcio.enums import ProductId
 from syrupy.assertion import SnapshotAssertion
 
 import custom_components.surepcha.__init__ as surepetcare_init
-from custom_components.surepcha import DOMAIN, remove_stale_devices
+from custom_components.surepcha import DOMAIN
 from custom_components.surepcha.const import CLIENT_DEVICE_ID, FACTORY, TOKEN
 
 from . import initialize_entry
@@ -118,7 +118,7 @@ class DummyHass:
 class DummyHousehold:
     """A dummy household for use in integration tests."""
 
-    id = "dummy_household_id"
+    id = 12345
     name = "Dummy Household"
     product_id = "FEEDER_CONNECT"  # Add this attribute for compatibility
     product = ProductId.FEEDER_CONNECT
@@ -140,13 +140,6 @@ class DummyHousehold:
     def get_timeline(self, since_id=None, before_id=None, page_size=None) -> str:
         """Mirror the upstream household timeline API used during setup."""
         return "timeline_command"
-
-
-class FakeDevice:
-    """A fake device for device registry tests."""
-
-    def __init__(self, id: str):
-        self.id = id
 
 
 class DummyWeight:
@@ -278,17 +271,17 @@ async def test_async_setup_entry_and_unload():
         patch(
             "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
         ),
+        patch(
+            "homeassistant.helpers.entity_registry.async_get", lambda hass: MagicMock()
+        ),
+        patch(
+            "custom_components.surepcha.coordinator.Store.async_load",
+            return_value=None,
+        ),
+        patch("custom_components.surepcha.coordinator.Store.async_save"),
     ):
-        if hasattr(surepetcare_init, "remove_stale_devices"):
-            with patch(
-                "custom_components.surepcha.__init__.remove_stale_devices",
-                lambda *a, **kw: None,
-            ):
-                await surepetcare_init.async_setup_entry(hass, entry)
-        else:
-            await surepetcare_init.async_setup_entry(hass, entry)
-            assert len(entry.runtime_data.timeline_coordinators) == 1
-            assert len(entry.runtime_data.timeline_coordinators[0]._listeners) == 1
+        await surepetcare_init.async_setup_entry(hass, entry)
+        assert len(entry.runtime_data.coordinator._listeners) == 1
         # Test unload
         hass.data[DOMAIN] = {entry.entry_id: {FACTORY: DummyClient()}}
         result = await surepetcare_init.async_unload_entry(hass, entry)
@@ -353,61 +346,52 @@ async def test_async_setup_entry_api_exception():
             )
 
 
-@pytest.mark.skip(
-    reason="This test is currently failing due to changes in async_setup_entry and needs to be rewritten."
-)
-@pytest.mark.asyncio
-async def test_remove_stale_devices_called():
-    hass = DummyHass()
-    entry = DummyConfigEntry()
-    hass.config_entries.async_forward_entry_setups = async_forward_entry_setups
-    called = {}
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_setup_removes_only_devices_missing_from_household(
+    hass, mock_client, mock_config_entry, mock_devices, mock_pets, device_registry
+):
+    mock_config_entry.add_to_hass(hass)
+    other_entry = MockConfigEntry(domain=DOMAIN)
+    other_entry.add_to_hass(hass)
+    stale = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={(DOMAIN, "removed-device")},
+    )
+    other = device_registry.async_get_or_create(
+        config_entry_id=other_entry.entry_id,
+        identifiers={(DOMAIN, "other-household-device")},
+    )
+    device = mock_devices[0]
+    device.status.online = False
+    existing = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={(DOMAIN, str(device.id))},
+    )
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+    )
+    assert device_registry.async_get(stale.id) is None
+    assert device_registry.async_get(other.id) is not None
+    assert device_registry.async_get(existing.id) is not None
 
-    def fake_remove_stale_devices(*a, **kw):
-        called["called"] = True
 
-    with (
-        patch(
-            "custom_components.surepcha.__init__.remove_stale_devices",
-            fake_remove_stale_devices,
-        ),
-        patch("custom_components.surepcha.__init__.SurePetcareClient", DummyClient),
-        patch("custom_components.surepcha.__init__.Household", DummyHousehold),
-        patch(
-            "homeassistant.helpers.device_registry.async_get", lambda hass: MagicMock()
-        ),
+@pytest.mark.usefixtures("enable_custom_integrations")
+async def test_failed_inventory_load_does_not_remove_registered_devices(
+    hass, mock_config_entry, device_registry
+):
+    mock_config_entry.add_to_hass(hass)
+    registered = device_registry.async_get_or_create(
+        config_entry_id=mock_config_entry.entry_id,
+        identifiers={(DOMAIN, "existing-device")},
+    )
+    with patch.object(
+        surepetcare_init,
+        "setup_devices",
+        new=AsyncMock(side_effect=ConfigEntryAuthFailed("Inventory failed")),
     ):
-        await surepetcare_init.async_setup_entry(hass, entry)
-        assert called.get("called")
-
-
-def test_remove_stale_devices_logic():
-    # Setup
-    # Devices that should remain
-    devices = [FakeDevice("1"), FakeDevice("2")]
-    # Device entries: one matching, one not
-    matching_entry = MagicMock()
-    matching_entry.identifiers = {(DOMAIN, "1")}
-    matching_entry.id = "entry1"
-    stale_entry = MagicMock()
-    stale_entry.identifiers = {(DOMAIN, "stale")}
-    stale_entry.id = "entry2"
-    # Device registry mock
-    device_registry = MagicMock()
-    # Patch async_get and async_entries_for_config_entry
-    with (
-        patch(
-            "custom_components.surepcha.__init__.dr.async_get",
-            return_value=device_registry,
-        ),
-        patch(
-            "custom_components.surepcha.__init__.dr.async_entries_for_config_entry",
-            return_value=[matching_entry, stale_entry],
-        ),
-    ):
-        remove_stale_devices(MagicMock(), MagicMock(entry_id="dummy_entry_id"), devices)
-        # Should remove stale_entry only
-        device_registry.async_remove_device.assert_called_once_with(stale_entry.id)
+        with pytest.raises(ConfigEntryAuthFailed):
+            await surepetcare_init.async_setup_entry(hass, mock_config_entry)
+    assert device_registry.async_get(registered.id) is not None
 
 
 @pytest.mark.usefixtures("enable_custom_integrations")

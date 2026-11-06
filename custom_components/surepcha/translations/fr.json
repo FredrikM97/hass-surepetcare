@@ -1,4 +1,225 @@
 {
+  "entity": {
+    "button": {
+      "pairing_mode": {
+        "name": "Mode appairage"
+      }
+    },
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Connectivité",
+        "state": {
+          "on": "En ligne",
+          "off": "Hors ligne"
+        }
+      },
+      "learn_mode": {
+        "name": "Mode apprentissage",
+        "state": {
+          "on": "Activé",
+          "off": "Désactivé"
+        }
+      },
+      "curfew_active": {
+        "name": "Couvre-feu actif",
+        "state": {
+          "on": "Activé",
+          "off": "Désactivé"
+        }
+      },
+      "presence": {
+        "name": "Présence",
+        "state": {
+          "on": "À la maison",
+          "off": "Absent"
+        }
+      }
+    },
+    "sensor": {
+      "entity_information": {
+        "name": "Informations sur l’entité"
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowl_weight": {
+        "name": "Poids de la gamelle {bowl}"
+      },
+      "fill_percent": {
+        "name": "Pourcentage de remplissage"
+      },
+      "weight_capacity": {
+        "name": "Limite de poids totale",
+        "state_attributes": {
+          "bowl_0_target": {
+            "name": "Gamelle 0 — poids cible"
+          },
+          "bowl_1_target": {
+            "name": "Gamelle 1 — poids cible"
+          }
+        }
+      },
+      "bowl_volume": {
+        "name": "Volume de la gamelle"
+      },
+      "feeding": {
+        "name": "Repas",
+        "state_attributes": {
+          "device_id": {
+            "name": "Identifiant de l’appareil"
+          },
+          "id": {
+            "name": "Identifiant"
+          },
+          "at": {
+            "name": "Date et heure"
+          },
+          "tag_id": {
+            "name": "Identifiant de la médaille"
+          },
+          "change_0": {
+            "name": "Variation de la gamelle 1"
+          },
+          "change_1": {
+            "name": "Variation de la gamelle 2"
+          }
+        }
+      },
+      "drinking": {
+        "name": "Abreuvement",
+        "state_attributes": {
+          "device_id": {
+            "name": "Identifiant de l’appareil"
+          },
+          "id": {
+            "name": "Identifiant"
+          },
+          "at": {
+            "name": "Date et heure"
+          },
+          "tag_id": {
+            "name": "Identifiant de la médaille"
+          },
+          "change_0": {
+            "name": "Variation de la gamelle 1"
+          },
+          "change_1": {
+            "name": "Variation de la gamelle 2"
+          }
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "À la maison",
+          "outside": "Absent"
+        }
+      },
+      "devices": {
+        "name": "Appareils associés"
+      },
+      "last_activity": {
+        "name": "Dernière activité"
+      }
+    },
+    "number": {
+      "target_weight": {
+        "name": "Poids cible de la gamelle {bowl}"
+      }
+    },
+    "select": {
+      "led_mode": {
+        "name": "Mode de la LED",
+        "state": {
+          "none": "Éteinte",
+          "weak": "Faible",
+          "strong": "Forte"
+        }
+      },
+      "lid": {
+        "name": "Délai de fermeture du couvercle",
+        "state": {
+          "faster": "Rapide",
+          "normal": "Normal",
+          "slower": "Lent"
+        }
+      },
+      "training_mode": {
+        "name": "Mode apprentissage",
+        "state": {
+          "disabled": "Désactivé",
+          "step_1": "Étape 1",
+          "step_2": "Étape 2",
+          "step_3": "Étape 3",
+          "step_4": "Étape 4"
+        }
+      },
+      "bowls_type": {
+        "name": "Type de gamelles",
+        "state": {
+          "large_wet": "Grande (humide)",
+          "large_dry": "Grande (sèche)",
+          "two_small_wet_wet": "Deux petites (humide/humide)",
+          "two_small_dry_wet": "Deux petites (sèche/humide)",
+          "two_small_wet_dry": "Deux petites (humide/sèche)",
+          "two_small_dry_dry": "Deux petites (sèche/sèche)"
+        }
+      },
+      "tare": {
+        "name": "Réinitialiser le poids de la gamelle (couvercle ouvert)",
+        "state": {
+          "reset_large": "Réinitialiser la grande",
+          "reset_left": "Réinitialiser la gauche",
+          "reset_right": "Réinitialiser la droite",
+          "reset_both": "Réinitialiser les deux"
+        }
+      },
+      "locking": {
+        "name": "Mode de verrouillage",
+        "state": {
+          "locked": "Verrouillé",
+          "unlocked": "Déverrouillé",
+          "allow_in": "Entrée uniquement",
+          "allow_out": "Sortie uniquement",
+          "curfew_mode": "Couvre-feu"
+        }
+      },
+      "add_assigned_device": {
+        "name": "Ajouter un appareil associé"
+      },
+      "remove_assigned_device": {
+        "name": "Retirer un appareil associé"
+      }
+    },
+    "switch": {
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "À la maison",
+          "outside": "Absent"
+        }
+      },
+      "indoor_only": {
+        "name": "Intérieur uniquement",
+        "state": {
+          "on": "Intérieur uniquement",
+          "off": "Aucune restriction"
+        }
+      },
+      "curfew_enabled": {
+        "name": "Couvre-feu actif"
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Verrouillage",
+        "state": {
+          "locked": "Verrouillé",
+          "unlocked": "Déverrouillé"
+        }
+      }
+    }
+  },
   "config": {
     "step": {
       "user": {
@@ -40,12 +261,12 @@
         "description": "Choisissez de configurer les noms de lieux manuels ou les paramètres propres à chaque appareil.",
         "menu_options": {
           "manual_properties": "Propriétés manuelles",
-          "timeline": "Événements de la chronologie",
+          "timeline": "Actualisation du foyer",
           "devices": "Appareils"
         },
         "menu_option_descriptions": {
           "manual_properties": "Définissez les noms utilisés pour la position de l’animal mise à jour manuellement.",
-          "timeline": "Configurez la fréquence de récupération des événements de la chronologie du foyer.",
+          "timeline": "Configurez la fréquence d’actualisation commune des appareils et de la chronologie.",
           "devices": "Choisissez un appareil et configurez ses paramètres."
         }
       },
@@ -58,10 +279,10 @@
         }
       },
       "timeline": {
-        "title": "Événements de la chronologie",
-        "description": "Intervalle d’actualisation de la chronologie. Une valeur plus basse entraîne des requêtes plus fréquentes. Valeur par défaut : 300 secondes. Plage : 5–86 400 secondes.",
+        "title": "Actualisation du foyer",
+        "description": "Intervalle commun aux appareils et à la chronologie. Une valeur plus basse entraîne des requêtes plus fréquentes. Valeur par défaut : 300 secondes. Plage : 5–86 400 secondes.",
         "data": {
-          "timeline_polling_speed": "Intervalle de mise à jour de la chronologie (secondes)"
+          "timeline_polling_speed": "Intervalle de mise à jour du foyer (secondes)"
         }
       },
       "devices": {
@@ -70,255 +291,12 @@
       },
       "configure_device": {
         "title": "Configurer {device_name}",
-        "description": "Intervalle d’actualisation de l’appareil. Une valeur plus basse entraîne des actualisations plus fréquentes. Valeur par défaut : 300 secondes. Plage : 5–86 400 secondes.",
+        "description": "Configurez les noms des lieux de l’appareil. L’intervalle se règle dans l’actualisation du foyer.",
         "data": {
-          "polling_speed": "Intervalle de mise à jour de l’appareil (secondes)",
           "location": "Lieu",
           "location_inside": "Lieu intérieur",
           "location_outside": "Lieu extérieur"
         }
-      }
-    }
-  },
-  "entity": {
-    "binary_sensor": {
-      "connectivity": {
-        "name": "Connectivité",
-        "state": {
-          "on": "En ligne",
-          "off": "Hors ligne"
-        }
-      },
-      "presence": {
-        "name": "Présence",
-        "state": {
-          "on": "À la maison",
-          "off": "Absent"
-        }
-      },
-      "learn_mode": {
-        "name": "Mode apprentissage",
-        "state": {
-          "on": "Activé",
-          "off": "Désactivé"
-        }
-      },
-      "curfew_active": {
-        "name": "Couvre-feu actif",
-        "state": {
-          "on": "Activé",
-          "off": "Désactivé"
-        }
-      }
-    },
-    "select": {
-      "bowls_type": {
-        "name": "Type de gamelles",
-        "state": {
-          "large_wet": "Grande (humide)",
-          "large_dry": "Grande (sèche)",
-          "two_small_wet_wet": "Deux petites (humide/humide)",
-          "two_small_dry_wet": "Deux petites (sèche/humide)",
-          "two_small_wet_dry": "Deux petites (humide/sèche)",
-          "two_small_dry_dry": "Deux petites (sèche/sèche)"
-        }
-      },
-      "tare": {
-        "name": "Réinitialiser le poids de la gamelle (couvercle ouvert)",
-        "state": {
-          "reset_large": "Réinitialiser la grande",
-          "reset_left": "Réinitialiser la gauche",
-          "reset_right": "Réinitialiser la droite",
-          "reset_both": "Réinitialiser les deux"
-        }
-      },
-      "training_mode": {
-        "name": "Mode apprentissage",
-        "state": {
-          "disabled": "Désactivé",
-          "step_1": "Étape 1",
-          "step_2": "Étape 2",
-          "step_3": "Étape 3",
-          "step_4": "Étape 4"
-        }
-      },
-      "lid": {
-        "name": "Délai de fermeture du couvercle",
-        "state": {
-          "faster": "Rapide",
-          "normal": "Normal",
-          "slower": "Lent"
-        }
-      },
-      "locking": {
-        "name": "Mode de verrouillage",
-        "state": {
-          "locked": "Verrouillé",
-          "unlocked": "Déverrouillé",
-          "allow_in": "Entrée uniquement",
-          "allow_out": "Sortie uniquement",
-          "curfew_mode": "Couvre-feu"
-        }
-      },
-      "add_assigned_device": {
-        "name": "Ajouter un appareil associé"
-      },
-      "remove_assigned_device": {
-        "name": "Retirer un appareil associé"
-      },
-      "led_mode": {
-        "name": "Mode de la LED",
-        "state": {
-          "none": "Éteinte",
-          "weak": "Faible",
-          "strong": "Forte"
-        }
-      }
-    },
-    "lock": {
-      "locking": {
-        "name": "Verrouillage",
-        "state": {
-          "locked": "Verrouillé",
-          "unlocked": "Déverrouillé"
-        }
-      }
-    },
-    "switch": {
-      "indoor_only": {
-        "name": "Intérieur uniquement",
-        "state": {
-          "on": "Intérieur uniquement",
-          "off": "Aucune restriction"
-        }
-      },
-      "curfew_enabled": {
-        "name": "Couvre-feu actif"
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "À la maison",
-          "outside": "Absent"
-        }
-      }
-    },
-    "number": {
-      "target_weight": {
-        "name": "Poids cible de la gamelle {bowl}"
-      }
-    },
-    "button": {
-      "pairing_mode": {
-        "name": "Mode appairage"
-      }
-    },
-    "sensor": {
-      "bowl_volume": {
-        "name": "Volume de la gamelle"
-      },
-      "fill_percent": {
-        "name": "Pourcentage de remplissage"
-      },
-      "last_activity": {
-        "name": "Dernière activité"
-      },
-      "consumption": {
-        "name": "Consommation"
-      },
-      "tag": {
-        "name": "Médaille"
-      },
-      "household_id": {
-        "name": "Identifiant du foyer"
-      },
-      "info": {
-        "name": "Informations"
-      },
-      "feeding": {
-        "name": "Repas",
-        "state_attributes": {
-          "device_id": {
-            "name": "Identifiant de l’appareil"
-          },
-          "id": {
-            "name": "Identifiant"
-          },
-          "at": {
-            "name": "Date et heure"
-          },
-          "tag_id": {
-            "name": "Identifiant de la médaille"
-          },
-          "change_0": {
-            "name": "Variation de la gamelle 1"
-          },
-          "change_1": {
-            "name": "Variation de la gamelle 2"
-          }
-        }
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "À la maison",
-          "outside": "Absent"
-        }
-      },
-      "drinking": {
-        "name": "Abreuvement",
-        "state_attributes": {
-          "device_id": {
-            "name": "Identifiant de l’appareil"
-          },
-          "id": {
-            "name": "Identifiant"
-          },
-          "at": {
-            "name": "Date et heure"
-          },
-          "tag_id": {
-            "name": "Identifiant de la médaille"
-          },
-          "change_0": {
-            "name": "Variation de la gamelle 1"
-          },
-          "change_1": {
-            "name": "Variation de la gamelle 2"
-          }
-        }
-      },
-      "rssi": {
-        "name": "RSSI"
-      },
-      "bowls": {
-        "name": "Gamelles"
-      },
-      "current_weight": {
-        "name": "Poids actuel"
-      },
-      "target_weight": {
-        "name": "Poids cible"
-      },
-      "bowl_weight": {
-        "name": "Poids de la gamelle {bowl}"
-      },
-      "weight_capacity": {
-        "name": "Limite de poids totale",
-        "state_attributes": {
-          "bowl_0_target": {
-            "name": "Gamelle 0 — poids cible"
-          },
-          "bowl_1_target": {
-            "name": "Gamelle 1 — poids cible"
-          }
-        }
-      },
-      "entity_information": {
-        "name": "Informations sur l’entité"
-      },
-      "devices": {
-        "name": "Appareils associés"
       }
     }
   }

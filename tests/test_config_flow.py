@@ -148,19 +148,16 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
         _device_picker_options(mock_config_entry.options[OPTION_DEVICES])
     )
     assert device_sections["1299453"] in result4["data_schema"].schema
-    assert device_sections["269654"] in result4["data_schema"].schema
+    assert device_sections["269654"] not in result4["data_schema"].schema
     assert device_sections["727608"] in result4["data_schema"].schema
 
     result5 = await flow.async_step_devices(
         {
             device_sections["1299453"]: {
-                POLLING_SPEED: 200,
                 LOCATION_INSIDE: "Kitchen",
                 LOCATION_OUTSIDE: "Garden",
             },
-            device_sections["269654"]: {
-                POLLING_SPEED: 300,
-            },
+            device_sections["269654"]: {},
         }
     )
 
@@ -170,12 +167,10 @@ async def test_options_flow(hass: HomeAssistant, mock_config_entry):
         PRODUCT_ID: 6,
         LOCATION_INSIDE: "Kitchen",
         LOCATION_OUTSIDE: "Garden",
-        POLLING_SPEED: 200,
     }
     assert flow._options[OPTION_DEVICES]["269654"] == {
         NAME: "Feeder",
         PRODUCT_ID: 4,
-        POLLING_SPEED: 300,
     }
 
 
@@ -409,7 +404,7 @@ async def test_async_migrate_entry_adds_manual_properties(
         migrated = await async_migrate_entry(hass, entry)
     assert migrated
     assert MANUAL_PROPERTIES not in entry.options
-    assert entry.minor_version == 5
+    assert entry.minor_version == 6
     assert entry.version == 1
     assert OPTION_PROPERTIES in entry.options
     assert entry.options[OPTION_PROPERTIES][MANUAL_PROPERTIES] == {
@@ -466,7 +461,7 @@ async def test_async_migrate_entry_fixes_entries_stuck_on_4(
         migrated = await async_migrate_entry(hass, entry)
 
     assert migrated
-    assert entry.minor_version == 5
+    assert entry.minor_version == 6
     assert entry.data[HOUSEHOLD_ID] == 1
     assert entry.unique_id == "1"
     assert entry.title == "Test Household"
@@ -493,7 +488,7 @@ async def test_async_migrate_entry_is_noop_once_household_id_present(
 
     assert migrated
     client_cls.assert_not_called()
-    assert entry.minor_version == 5
+    assert entry.minor_version == 6
     assert entry.title == "Test Household"
 
 
@@ -531,12 +526,41 @@ async def test_async_migrate_entry_handles_every_historical_minor_version(
 
     assert migrated
     assert entry.version == 1
-    assert entry.minor_version == 5
+    assert entry.minor_version == 6
     assert MANUAL_PROPERTIES not in entry.options
     assert OPTION_PROPERTIES in entry.options
     assert entry.data[HOUSEHOLD_ID] == 1
     assert entry.unique_id == "1"
     assert entry.title == "Test Household"
+
+
+async def test_single_household_polling_migrates_device_overrides(hass):
+    entry = MockConfigEntry(
+        domain=DOMAIN,
+        version=1,
+        minor_version=5,
+        data={TOKEN: "abc", CLIENT_DEVICE_ID: "123", HOUSEHOLD_ID: 1},
+        options={
+            OPTION_DEVICES: {
+                "20": {
+                    NAME: "Flap",
+                    PRODUCT_ID: 3,
+                    POLLING_SPEED: 10,
+                    LOCATION_INSIDE: "Home",
+                }
+            },
+            OPTION_TIMELINE: {TIMELINE_POLLING_SPEED: 120},
+        },
+    )
+    entry.add_to_hass(hass)
+    assert await async_migrate_entry(hass, entry)
+    assert entry.minor_version == 6
+    assert entry.options[OPTION_TIMELINE] == {TIMELINE_POLLING_SPEED: 120}
+    assert entry.options[OPTION_DEVICES]["20"] == {
+        NAME: "Flap",
+        PRODUCT_ID: 3,
+        LOCATION_INSIDE: "Home",
+    }
 
 
 @pytest.mark.asyncio
@@ -1238,13 +1262,12 @@ async def test_reauth_updates_existing_entry(
 
 
 @pytest.mark.asyncio
-async def test_options_init_hides_devices_menu_when_no_devices(
+async def test_options_init_hides_flap_and_devices_menus_when_no_devices(
     hass: HomeAssistant, mock_config_entry_missing_entities
 ) -> None:
-    """Options init still shows manual_properties/timeline when OPTION_DEVICES is empty.
+    """Options init omits flap settings when OPTION_DEVICES is empty.
 
-    Those settings are household-wide, so only the "devices" option is
-    hidden - the whole flow no longer aborts.
+    Timeline is household-wide, but manual properties require an assigned flap.
     """
     mock_config_entry_missing_entities.add_to_hass(hass)
     flow = SurePetCareOptionsFlow(mock_config_entry_missing_entities)
@@ -1253,7 +1276,7 @@ async def test_options_init_hides_devices_menu_when_no_devices(
     result = await flow.async_step_init()
 
     assert result["type"] == FlowResultType.MENU
-    assert result["menu_options"] == ["manual_properties", "timeline"]
+    assert result["menu_options"] == ["timeline"]
 
 
 def test_device_picker_unknown_product_id() -> None:

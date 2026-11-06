@@ -33,14 +33,13 @@ async def async_get_device_diagnostics(
     """Return diagnostics for a device."""
     device_id = next(iter(device.identifiers))[1]
     runtime_data = getattr(entry, "runtime_data", None)
-    coordinators = runtime_data.device_coordinators if runtime_data else None
+    coordinator = runtime_data.coordinator if runtime_data else None
 
-    if not coordinators:
+    if coordinator is None:
         return {}
 
-    for coordinator in coordinators or []:
-        if str(getattr(coordinator._device, "id", "")) == str(device_id):
-            device_obj = coordinator.data
+    for device_obj in coordinator.devices.values():
+        if str(device_obj.id) == str(device_id):
             break
     else:
         return {}

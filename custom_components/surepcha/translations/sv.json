@@ -1,5 +1,225 @@
-
 {
+  "entity": {
+    "button": {
+      "pairing_mode": {
+        "name": "Parningsläge"
+      }
+    },
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Anslutning",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      },
+      "learn_mode": {
+        "name": "Inlärningsläge",
+        "state": {
+          "on": "På",
+          "off": "Av"
+        }
+      },
+      "curfew_active": {
+        "name": "Utegångsförbud aktivt",
+        "state": {
+          "on": "På",
+          "off": "Av"
+        }
+      },
+      "presence": {
+        "name": "Närvaro",
+        "state": {
+          "on": "Hemma",
+          "off": "Borta"
+        }
+      }
+    },
+    "sensor": {
+      "entity_information": {
+        "name": "Enhetsinformation"
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowl_weight": {
+        "name": "Skål {bowl} vikt"
+      },
+      "fill_percent": {
+        "name": "Fyllnadsprocent"
+      },
+      "weight_capacity": {
+        "name": "Total viktgräns",
+        "state_attributes": {
+          "bowl_0_target": {
+            "name": "Skål 0 - Målvikt"
+          },
+          "bowl_1_target": {
+            "name": "Skål 1 - Målvikt"
+          }
+        }
+      },
+      "bowl_volume": {
+        "name": "Skålvolym"
+      },
+      "feeding": {
+        "name": "Utfodring",
+        "state_attributes": {
+          "device_id": {
+            "name": "Enhets-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Tidpunkt"
+          },
+          "tag_id": {
+            "name": "Tagg-ID"
+          },
+          "change_0": {
+            "name": "Ändra skål ett"
+          },
+          "change_1": {
+            "name": "Ändra skål två"
+          }
+        }
+      },
+      "drinking": {
+        "name": "Dricker",
+        "state_attributes": {
+          "device_id": {
+            "name": "Enhets-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Tidpunkt"
+          },
+          "tag_id": {
+            "name": "Tagg-ID"
+          },
+          "change_0": {
+            "name": "Ändra skål ett"
+          },
+          "change_1": {
+            "name": "Ändra skål två"
+          }
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Hemma",
+          "outside": "Borta"
+        }
+      },
+      "devices": {
+        "name": "Tilldelade enheter"
+      },
+      "last_activity": {
+        "name": "Senaste aktivitet"
+      }
+    },
+    "number": {
+      "target_weight": {
+        "name": "Målvikt Skål {bowl}"
+      }
+    },
+    "select": {
+      "led_mode": {
+        "name": "LED-läge",
+        "state": {
+          "none": "Av",
+          "weak": "Svag",
+          "strong": "Stark"
+        }
+      },
+      "lid": {
+        "name": "Fördröjning för lockstängning",
+        "state": {
+          "faster": "Snabb",
+          "normal": "Normal",
+          "slower": "Långsam"
+        }
+      },
+      "training_mode": {
+        "name": "Träningsläge",
+        "state": {
+          "disabled": "Av",
+          "step_1": "Steg 1",
+          "step_2": "Steg 2",
+          "step_3": "Steg 3",
+          "step_4": "Steg 4"
+        }
+      },
+      "bowls_type": {
+        "name": "Skåltyp",
+        "state": {
+          "large_wet": "Stor (Våt)",
+          "large_dry": "Stor (Torr)",
+          "two_small_wet_wet": "Två små (Våt/Våt)",
+          "two_small_dry_wet": "Två små (Torr/Våt)",
+          "two_small_wet_dry": "Två små (Våt/Torr)",
+          "two_small_dry_dry": "Två små (Torr/Torr)"
+        }
+      },
+      "tare": {
+        "name": "Återställ skålens vikt (kräver öppen lock)",
+        "state": {
+          "reset_large": "Återställ stor",
+          "reset_left": "Återställ vänster",
+          "reset_right": "Återställ höger",
+          "reset_both": "Återställ båda"
+        }
+      },
+      "locking": {
+        "name": "Låsläge",
+        "state": {
+          "locked": "Låst",
+          "unlocked": "Olåst",
+          "allow_in": "Endast in",
+          "allow_out": "Endast ut",
+          "curfew_mode": "Utegångsförbud"
+        }
+      },
+      "add_assigned_device": {
+        "name": "Lägg till tilldelad enhet"
+      },
+      "remove_assigned_device": {
+        "name": "Ta bort tilldelad enhet"
+      }
+    },
+    "switch": {
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Hemma",
+          "outside": "Borta"
+        }
+      },
+      "indoor_only": {
+        "name": "Endast inomhus",
+        "state": {
+          "on": "Endast inomhus",
+          "off": "Ingen begränsning"
+        }
+      },
+      "curfew_enabled": {
+        "name": "Utegångsförbud aktivt"
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Låsning",
+        "state": {
+          "locked": "Låst",
+          "unlocked": "Olåst"
+        }
+      }
+    }
+  },
   "config": {
     "step": {
       "user": {
@@ -41,12 +261,12 @@
         "description": "Välj om du vill konfigurera manuella platsnamn eller enhetsspecifika inställningar.",
         "menu_options": {
           "manual_properties": "Manuella egenskaper",
-          "timeline": "Tidslinjehändelser",
+          "timeline": "Hushållsuppdateringar",
           "devices": "Enheter"
         },
         "menu_option_descriptions": {
           "manual_properties": "Ange reservnamn som används för manuellt uppdaterad husdjursposition.",
-          "timeline": "Ställ in hur ofta hushållets tidslinjehändelser hämtas.",
+          "timeline": "Ställ in hur ofta enheter och tidslinjehändelser uppdateras tillsammans.",
           "devices": "Välj en enhet och konfigurera dess åsidosatta inställningar."
         }
       },
@@ -59,10 +279,10 @@
         }
       },
       "timeline": {
-        "title": "Tidslinjehändelser",
-        "description": "Tidslinjens uppdateringsintervall. Lägre värden innebär fler förfrågningar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
+        "title": "Hushållsuppdateringar",
+        "description": "Gemensamt uppdateringsintervall för enheter och tidslinjehändelser. Lägre värden innebär fler förfrågningar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
         "data": {
-          "timeline_polling_speed": "Uppdateringsintervall för tidslinjen (sekunder)"
+          "timeline_polling_speed": "Uppdateringsintervall för hushållet (sekunder)"
         }
       },
       "devices": {
@@ -70,255 +290,13 @@
         "description": "Välj den enhet du vill konfigurera."
       },
       "configure_device": {
-        "title": "Konfigurera {device_name}",        "description": "Enhetens uppdateringsintervall. Kortare intervall innebär tätare uppdateringar. Standard: 300 sekunder. Intervall: 5–86 400 sekunder.",
+        "title": "Konfigurera {device_name}",
+        "description": "Konfigurera enhetens platsnamn. Uppdateringsintervallet anges under hushållsuppdateringar.",
         "data": {
-          "polling_speed": "Uppdateringsintervall för enheten (sekunder)",
           "location": "Plats",
           "location_inside": "Inomhusplats",
           "location_outside": "Utomhusplats"
         }
-      }
-    }
-  },
-  "entity": {
-    "binary_sensor": {
-      "connectivity": {
-        "name": "Anslutning",
-        "state": {
-          "on": "Online",
-          "off": "Offline"
-        }
-      },
-      "presence": {
-        "name": "Närvaro",
-        "state": {
-          "on": "Hemma",
-          "off": "Borta"
-        }
-      },
-      "learn_mode": {
-        "name": "Inlärningsläge",
-        "state": {
-          "on": "På",
-          "off": "Av"
-        }
-      },
-      "curfew_active": {
-        "name": "Utegångsförbud aktivt",
-        "state": {
-          "on": "På",
-          "off": "Av"
-        }
-      }
-    },
-    "select": {
-      "bowls_type": {
-        "name": "Skåltyp",
-        "state": {
-          "large_wet": "Stor (Våt)",
-          "large_dry": "Stor (Torr)",
-          "two_small_wet_wet": "Två små (Våt/Våt)",
-          "two_small_dry_wet": "Två små (Torr/Våt)",
-          "two_small_wet_dry": "Två små (Våt/Torr)",
-          "two_small_dry_dry": "Två små (Torr/Torr)"
-        }
-      },
-      "tare": {
-        "name": "Återställ skålens vikt (kräver öppen lock)",
-        "state": {
-          "reset_large": "Återställ stor",
-          "reset_left": "Återställ vänster",
-          "reset_right": "Återställ höger",
-          "reset_both": "Återställ båda"
-        }
-      },
-      "training_mode": {
-        "name": "Träningsläge",
-        "state": {
-          "disabled": "Av",
-          "step_1": "Steg 1",
-          "step_2": "Steg 2",
-          "step_3": "Steg 3",
-          "step_4": "Steg 4"
-        }
-      },
-      "lid": {
-        "name": "Fördröjning för lockstängning",
-        "state": {
-          "faster": "Snabb",
-          "normal": "Normal",
-          "slower": "Långsam"
-        }
-      },
-      "locking": {
-        "name": "Låsläge",
-        "state": {
-          "locked": "Låst",
-          "unlocked": "Olåst",
-          "allow_in": "Endast in",
-          "allow_out": "Endast ut",
-          "curfew_mode": "Utegångsförbud"
-        }
-      },
-      "add_assigned_device": {
-        "name": "Lägg till tilldelad enhet"
-      },
-      "remove_assigned_device": {
-        "name": "Ta bort tilldelad enhet"
-      },
-      "led_mode": {
-        "name": "LED-läge",
-        "state": {
-          "none": "Av",
-          "weak": "Svag",
-          "strong": "Stark"
-        }
-      }
-    },
-    "lock": {
-      "locking": {
-        "name": "Låsning",
-        "state": {
-          "locked": "Låst",
-          "unlocked": "Olåst"
-        }
-      }
-    },
-    "switch": {
-      "indoor_only": {
-        "name": "Endast inomhus",
-        "state": {
-          "on": "Endast inomhus",
-          "off": "Ingen begränsning"
-        }
-      },
-      "curfew_enabled": {
-        "name": "Utegångsförbud aktivt"
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Hemma",
-          "outside": "Borta"
-        }
-      }
-    },
-    "number": {
-      "target_weight": {
-        "name": "Målvikt Skål {bowl}"
-      }
-    },
-    "button": {
-      "pairing_mode": {
-        "name": "Parningsläge"
-      }
-    },
-    "sensor": {
-      "bowl_volume": {
-        "name": "Skålvolym"
-      },
-      "fill_percent": {
-        "name": "Fyllnadsprocent"
-      },
-      "last_activity": {
-        "name": "Senaste aktivitet"
-      },
-      "consumption": {
-        "name": "Konsumtion"
-      },
-      "tag": {
-        "name": "Tagg"
-      },
-      "household_id": {
-        "name": "Hushålls-ID"
-      },
-      "info": {
-        "name": "Information"
-      },
-      "feeding": {
-        "name": "Utfodring",
-        "state_attributes": {
-          "device_id": {
-            "name": "Enhets-ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "Tidpunkt"
-          },
-          "tag_id": {
-            "name": "Tagg-ID"
-          },
-          "change_0": {
-            "name": "Ändra skål ett"
-          },
-          "change_1": {
-            "name": "Ändra skål två"
-          }
-        }
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Hemma",
-          "outside": "Borta"
-        }
-      },
-      "drinking": {
-        "name": "Dricker",
-        "state_attributes": {
-          "device_id": {
-            "name": "Enhets-ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "Tidpunkt"
-          },
-          "tag_id": {
-            "name": "Tagg-ID"
-          },
-          "change_0": {
-            "name": "Ändra skål ett"
-          },
-          "change_1": {
-            "name": "Ändra skål två"
-          }
-        }
-      },
-      "rssi": {
-        "name": "RSSI"
-      },
-      "bowls": {
-        "name": "Skålar"
-      },
-      "current_weight": {
-        "name": "Nuvarande vikt"
-      },
-      "target_weight": {
-        "name": "Målvikt"
-      },
-      "bowl_weight": {
-        "name": "Skål {bowl} vikt"
-      },
-      "weight_capacity": {
-        "name": "Total viktgräns",
-        "state_attributes": {
-          "bowl_0_target": {
-            "name": "Skål 0 - Målvikt"
-          },
-          "bowl_1_target": {
-            "name": "Skål 1 - Målvikt"
-          }
-        }
-      },
-      "entity_information": {
-        "name": "Enhetsinformation"
-      },
-      "devices": {
-        "name": "Tilldelade enheter"
       }
     }
   }

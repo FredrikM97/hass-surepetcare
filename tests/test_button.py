@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from homeassistant.const import Platform
@@ -6,8 +6,29 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from syrupy.assertion import SnapshotAssertion
 
+from custom_components.surepcha.button import (
+    SurePetCareButton,
+    SurePetCareButtonEntityDescription,
+)
+
 from . import initialize_entry
 from .support import MockConfigEntry, snapshot_platform
+
+
+async def test_button_press_sends_true_to_command_and_refreshes_device():
+    device = MagicMock(id=42)
+    command = MagicMock(return_value="api-command")
+    description = SurePetCareButtonEntityDescription(key="example", command=command)
+    coordinator = MagicMock()
+    coordinator.client.api = AsyncMock(return_value="sent")
+    coordinator.async_refresh_device = AsyncMock()
+    entity = SurePetCareButton(coordinator, device, description)
+
+    await entity.async_press()
+
+    command.assert_called_once_with(entity, True)
+    coordinator.client.api.assert_awaited_once_with("api-command")
+    coordinator.async_refresh_device.assert_awaited_once_with(device)
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.BUTTON])

@@ -11,7 +11,7 @@
     }),
     'domain': 'surepcha',
     'entry_id': <ANY>,
-    'minor_version': 5,
+    'minor_version': 6,
     'options': dict({
       'devices': dict({
         '111': dict({
@@ -50,7 +50,6 @@
           'location_inside': 'Kitchen',
           'location_outside': 'Garden',
           'name': 'DualScanConnect door',
-          'polling_speed': 120,
           'product_id': <ProductId.DUAL_SCAN_CONNECT: 6>,
         }),
         '269654': dict({
@@ -216,7 +215,7 @@
     'description_placeholders': None,
     'flow_id': <ANY>,
     'handler': 'surepcha',
-    'minor_version': 5,
+    'minor_version': 6,
     'options': dict({
       'devices': dict({
         '1299453': dict({
@@ -278,7 +277,7 @@
       }),
       'domain': 'surepcha',
       'entry_id': <ANY>,
-      'minor_version': 5,
+      'minor_version': 6,
       'options': dict({
         'devices': dict({
           '1299453': dict({

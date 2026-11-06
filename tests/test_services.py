@@ -7,6 +7,7 @@ from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+from surepcio.devices.device import DeviceBase
 from surepcio.enums import (
     ModifyDeviceTag,
     PetDeviceLocationProfile,
@@ -52,11 +53,11 @@ def test_get_coordinator_without_matching_coordinator(hass: HomeAssistant) -> No
     """Reject a registered device with no matching loaded coordinator."""
     device_entry = SimpleNamespace(identifiers={(DOMAIN, "device")})
     config_entry = SimpleNamespace(entry_id="entry")
-    coordinator = SimpleNamespace(_device=SimpleNamespace(id="other"))
+    coordinator = SimpleNamespace(devices={"other": SimpleNamespace(id="other")})
     unrelated_entry = SimpleNamespace(entry_id="unrelated", runtime_data=None)
     loaded_entry = SimpleNamespace(
         entry_id="entry",
-        runtime_data=SimpleNamespace(device_coordinators=[coordinator]),
+        runtime_data=SimpleNamespace(coordinator=coordinator),
     )
     with (
         patch(
@@ -77,7 +78,7 @@ def test_get_coordinator_without_matching_coordinator(hass: HomeAssistant) -> No
 async def test_set_control_service(hass: HomeAssistant) -> None:
     """Send a control update through the selected device coordinator."""
     coordinator = MagicMock()
-    coordinator._device.set_control.return_value = "command"
+    device = MagicMock(spec=DeviceBase)
     coordinator.client.api = AsyncMock()
     call = SimpleNamespace(
         hass=hass,
@@ -85,12 +86,12 @@ async def test_set_control_service(hass: HomeAssistant) -> None:
     )
     with patch(
         "custom_components.surepcha.services.get_coordinator",
-        return_value=coordinator,
+        return_value=(coordinator, device),
     ):
         await async_set_control(call)
 
-    coordinator._device.set_control.assert_called_once_with(curfew={"enabled": True})
-    coordinator.client.api.assert_awaited_once_with("command")
+    device.set_control.assert_called_once_with(curfew={"enabled": True})
+    coordinator.client.api.assert_awaited_once_with(device.set_control.return_value)
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
@@ -173,6 +174,11 @@ async def test_platform_setup_and_set_tag_service(
         {"device_id": device_id, "pet_id": pet_id, "action": ModifyDeviceTag.ADD.name},
         blocking=True,
     )
+    _, device = get_coordinator(hass, device_id)
+    _, pet = get_coordinator(hass, pet_id)
+    command = mock_client.api.await_args.args[0]
+    assert command.method == ModifyDeviceTag.ADD.value
+    assert command.endpoint.endswith(f"/device/{device.id}/tag/{pet.tag}/async")
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
@@ -215,6 +221,8 @@ async def test_platform_setup_and_set_pet_access_mode_service(
         },
         blocking=True,
     )
+    command = mock_client.api.await_args.args[0]
+    assert command.params == {"profile": PetDeviceLocationProfile.INDOOR_ONLY.value}
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])
@@ -250,6 +258,8 @@ async def test_platform_setup_and_set_pet_position_service(
         },
         blocking=True,
     )
+    command = mock_client.api.await_args.args[0]
+    assert command.params["where"] == PetLocation.INSIDE.value
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SENSOR])

@@ -1,4 +1,225 @@
 {
+  "entity": {
+    "button": {
+      "pairing_mode": {
+        "name": "Pairing-Modus"
+      }
+    },
+    "binary_sensor": {
+      "connectivity": {
+        "name": "Verbindung",
+        "state": {
+          "on": "Online",
+          "off": "Offline"
+        }
+      },
+      "learn_mode": {
+        "name": "Lernmodus",
+        "state": {
+          "on": "An",
+          "off": "Aus"
+        }
+      },
+      "curfew_active": {
+        "name": "Ausgangssperre aktiv",
+        "state": {
+          "on": "An",
+          "off": "Aus"
+        }
+      },
+      "presence": {
+        "name": "Anwesenheit",
+        "state": {
+          "on": "Drinnen",
+          "off": "Draußen"
+        }
+      }
+    },
+    "sensor": {
+      "entity_information": {
+        "name": "Entitätsinformationen"
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "bowl_weight": {
+        "name": "Gewicht Napf {bowl}"
+      },
+      "fill_percent": {
+        "name": "Füllstand in Prozent"
+      },
+      "weight_capacity": {
+        "name": "Gesamte Gewichtsgrenze",
+        "state_attributes": {
+          "bowl_0_target": {
+            "name": "Napf 0 - Zielgewicht"
+          },
+          "bowl_1_target": {
+            "name": "Napf 1 - Zielgewicht"
+          }
+        }
+      },
+      "bowl_volume": {
+        "name": "Schüsselvolumen"
+      },
+      "feeding": {
+        "name": "Fütterung",
+        "state_attributes": {
+          "device_id": {
+            "name": "Geräte-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Um"
+          },
+          "tag_id": {
+            "name": "Tag-ID"
+          },
+          "change_0": {
+            "name": "Schüssel Eins wechseln"
+          },
+          "change_1": {
+            "name": "Schüssel Zwei wechseln"
+          }
+        }
+      },
+      "drinking": {
+        "name": "Trinken",
+        "state_attributes": {
+          "device_id": {
+            "name": "Geräte-ID"
+          },
+          "id": {
+            "name": "ID"
+          },
+          "at": {
+            "name": "Um"
+          },
+          "tag_id": {
+            "name": "Tag-ID"
+          },
+          "change_0": {
+            "name": "Schüssel Eins wechseln"
+          },
+          "change_1": {
+            "name": "Schüssel Zwei wechseln"
+          }
+        }
+      },
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Drinnen",
+          "outside": "Draußen"
+        }
+      },
+      "devices": {
+        "name": "Zugeordnete Geräte"
+      },
+      "last_activity": {
+        "name": "Letzte Aktivität"
+      }
+    },
+    "number": {
+      "target_weight": {
+        "name": "Zielgewicht Napf {bowl}"
+      }
+    },
+    "select": {
+      "led_mode": {
+        "name": "LED-Modus",
+        "state": {
+          "none": "Aus",
+          "weak": "Schwach",
+          "strong": "Stark"
+        }
+      },
+      "lid": {
+        "name": "Verzögerung Deckel schließen",
+        "state": {
+          "faster": "Schnell",
+          "normal": "Normal",
+          "slower": "Langsam"
+        }
+      },
+      "training_mode": {
+        "name": "Trainingsmodus",
+        "state": {
+          "disabled": "Ausgeschaltet",
+          "step_1": "Schritt 1",
+          "step_2": "Schritt 2",
+          "step_3": "Schritt 3",
+          "step_4": "Schritt 4"
+        }
+      },
+      "bowls_type": {
+        "name": "Typ der Futternäpfe",
+        "state": {
+          "large_wet": "Groß (Nass)",
+          "large_dry": "Groß (Trocken)",
+          "two_small_wet_wet": "Zwei klein (Nass/Nass)",
+          "two_small_dry_wet": "Zwei klein (Trocken/Nass)",
+          "two_small_wet_dry": "Zwei klein (Nass/Trocken)",
+          "two_small_dry_dry": "Zwei klein (Trocken/Trocken)"
+        }
+      },
+      "tare": {
+        "name": "Gewicht des Napfes zurücksetzen",
+        "state": {
+          "reset_large": "Große zurücksetzen",
+          "reset_left": "Linke zurücksetzen",
+          "reset_right": "Rechte zurücksetzen",
+          "reset_both": "Beide zurücksetzen"
+        }
+      },
+      "locking": {
+        "name": "Sperrmodus",
+        "state": {
+          "locked": "Gesperrt",
+          "unlocked": "Entsperrt",
+          "allow_in": "Nur hinein",
+          "allow_out": "Nur hinaus",
+          "curfew_mode": "Udgangsforbud"
+        }
+      },
+      "add_assigned_device": {
+        "name": "Zugeordnetes Gerät hinzufügen"
+      },
+      "remove_assigned_device": {
+        "name": "Zugeordnetes Gerät entfernen"
+      }
+    },
+    "switch": {
+      "position": {
+        "name": "Position",
+        "state": {
+          "inside": "Drinnen",
+          "outside": "Draußen"
+        }
+      },
+      "indoor_only": {
+        "name": "Nur drinnen",
+        "state": {
+          "on": "Nur drinnen",
+          "off": "Keine Einschränkung"
+        }
+      },
+      "curfew_enabled": {
+        "name": "Ausgehverbot aktiv"
+      }
+    },
+    "lock": {
+      "locking": {
+        "name": "Sperren",
+        "state": {
+          "locked": "Gesperrt",
+          "unlocked": "Entsperrt"
+        }
+      }
+    }
+  },
   "config": {
     "step": {
       "user": {
@@ -40,12 +261,12 @@
         "description": "Wähle, ob du manuelle Standortnamen oder gerätespezifische Überschreibungen konfigurieren möchtest.",
         "menu_options": {
           "manual_properties": "Manuelle Eigenschaften",
-          "timeline": "Zeitachsen-Ereignisse",
+          "timeline": "Haushaltsaktualisierungen",
           "devices": "Geräte"
         },
         "menu_option_descriptions": {
           "manual_properties": "Lege die Ersatznamen fest, die für manuell aktualisierte Haustierpositionen verwendet werden.",
-          "timeline": "Lege fest, wie oft Zeitachsen-Ereignisse des Haushalts abgerufen werden.",
+          "timeline": "Lege fest, wie oft Geräte und Zeitachsen-Ereignisse gemeinsam aktualisiert werden.",
           "devices": "Wähle ein Gerät und konfiguriere dessen Überschreibungen."
         }
       },
@@ -58,10 +279,10 @@
         }
       },
       "timeline": {
-        "title": "Zeitachsen-Ereignisse",
-        "description": "Aktualisierungsintervall der Timeline. Kürzere Intervalle bedeuten häufigere Anfragen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
+        "title": "Haushaltsaktualisierungen",
+        "description": "Gemeinsames Aktualisierungsintervall für Geräte und Zeitachsen-Ereignisse. Kürzere Intervalle bedeuten häufigere Anfragen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
         "data": {
-          "timeline_polling_speed": "Aktualisierungsintervall der Timeline (Sekunden)"
+          "timeline_polling_speed": "Aktualisierungsintervall des Haushalts (Sekunden)"
         }
       },
       "devices": {
@@ -69,255 +290,13 @@
         "description": "Wähle das Gerät aus, das du konfigurieren möchtest."
       },
       "configure_device": {
-        "title": "Konfiguriere {device_name}",        "description": "Aktualisierungsintervall des Geräts. Kürzere Intervalle bedeuten häufigere Aktualisierungen. Standard: 300 Sekunden. Bereich: 5–86.400 Sekunden.",
+        "title": "Konfiguriere {device_name}",
+        "description": "Konfiguriere die Standortnamen des Geräts. Das Intervall wird unter Haushaltsaktualisierungen eingestellt.",
         "data": {
-          "polling_speed": "Aktualisierungsintervall des Geräts (Sekunden)",
           "location": "Standort",
           "location_inside": "Standort drinnen",
           "location_outside": "Standort draußen"
         }
-      }
-    }
-  },
-  "entity": {
-    "binary_sensor": {
-      "connectivity": {
-        "name": "Verbindung",
-        "state": {
-          "on": "Online",
-          "off": "Offline"
-        }
-      },
-      "presence": {
-        "name": "Anwesenheit",
-        "state": {
-          "on": "Drinnen",
-          "off": "Draußen"
-        }
-      },
-      "learn_mode": {
-        "name": "Lernmodus",
-        "state": {
-          "on": "An",
-          "off": "Aus"
-        }
-      },
-      "curfew_active": {
-        "name": "Ausgangssperre aktiv",
-        "state": {
-          "on": "An",
-          "off": "Aus"
-        }
-      }
-    },
-    "select": {
-      "bowls_type": {
-        "name": "Typ der Futternäpfe",
-        "state": {
-          "large_wet": "Groß (Nass)",
-          "large_dry": "Groß (Trocken)",
-          "two_small_wet_wet": "Zwei klein (Nass/Nass)",
-          "two_small_dry_wet": "Zwei klein (Trocken/Nass)",
-          "two_small_wet_dry": "Zwei klein (Nass/Trocken)",
-          "two_small_dry_dry": "Zwei klein (Trocken/Trocken)"
-        }
-      },
-      "tare": {
-        "name": "Gewicht des Napfes zurücksetzen",
-        "state": {
-          "reset_large": "Große zurücksetzen",
-          "reset_left": "Linke zurücksetzen",
-          "reset_right": "Rechte zurücksetzen",
-          "reset_both": "Beide zurücksetzen"
-        }
-      },
-      "training_mode": {
-        "name": "Trainingsmodus",
-        "state": {
-          "disabled": "Ausgeschaltet",
-          "step_1": "Schritt 1",
-          "step_2": "Schritt 2",
-          "step_3": "Schritt 3",
-          "step_4": "Schritt 4"
-        }
-      },
-      "lid": {
-        "name": "Verzögerung Deckel schließen",
-        "state": {
-          "faster": "Schnell",
-          "normal": "Normal",
-          "slower": "Langsam"
-        }
-      },
-      "locking": {
-        "name": "Sperrmodus",
-        "state": {
-          "locked": "Gesperrt",
-          "unlocked": "Entsperrt",
-          "allow_in": "Nur hinein",
-          "allow_out": "Nur hinaus",
-          "curfew_mode": "Udgangsforbud"
-        }
-      },
-      "add_assigned_device": {
-        "name": "Zugeordnetes Gerät hinzufügen"
-      },
-      "remove_assigned_device": {
-        "name": "Zugeordnetes Gerät entfernen"
-      },
-      "led_mode": {
-        "name": "LED-Modus",
-        "state": {
-          "none": "Aus",
-          "weak": "Schwach",
-          "strong": "Stark"
-        }
-      }
-    },
-    "lock": {
-      "locking": {
-        "name": "Sperren",
-        "state": {
-          "locked": "Gesperrt",
-          "unlocked": "Entsperrt"
-        }
-      }
-    },
-    "switch": {
-      "indoor_only": {
-        "name": "Nur drinnen",
-        "state": {
-          "on": "Nur drinnen",
-          "off": "Keine Einschränkung"
-        }
-      },
-      "curfew_enabled": {
-        "name": "Ausgehverbot aktiv"
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Drinnen",
-          "outside": "Draußen"
-        }
-      }
-    },
-    "number": {
-      "target_weight": {
-        "name": "Zielgewicht Napf {bowl}"
-      }
-    },
-    "button": {
-      "pairing_mode": {
-        "name": "Pairing-Modus"
-      }
-    },
-    "sensor": {
-      "bowl_volume": {
-        "name": "Schüsselvolumen"
-      },
-      "fill_percent": {
-        "name": "Füllstand in Prozent"
-      },
-      "last_activity": {
-        "name": "Letzte Aktivität"
-      },
-      "consumption": {
-        "name": "Verbrauch"
-      },
-      "tag": {
-        "name": "Tag"
-      },
-      "household_id": {
-        "name": "Haushalts-ID"
-      },
-      "info": {
-        "name": "Informationen"
-      },
-      "feeding": {
-        "name": "Fütterung",
-        "state_attributes": {
-          "device_id": {
-            "name": "Geräte-ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "Um"
-          },
-          "tag_id": {
-            "name": "Tag-ID"
-          },
-          "change_0": {
-            "name": "Schüssel Eins wechseln"
-          },
-          "change_1": {
-            "name": "Schüssel Zwei wechseln"
-          }
-        }
-      },
-      "position": {
-        "name": "Position",
-        "state": {
-          "inside": "Drinnen",
-          "outside": "Draußen"
-        }
-      },
-      "drinking": {
-        "name": "Trinken",
-        "state_attributes": {
-          "device_id": {
-            "name": "Geräte-ID"
-          },
-          "id": {
-            "name": "ID"
-          },
-          "at": {
-            "name": "Um"
-          },
-          "tag_id": {
-            "name": "Tag-ID"
-          },
-          "change_0": {
-            "name": "Schüssel Eins wechseln"
-          },
-          "change_1": {
-            "name": "Schüssel Zwei wechseln"
-          }
-        }
-      },
-      "rssi": {
-        "name": "RSSI"
-      },
-      "bowls": {
-        "name": "Näpfe"
-      },
-      "current_weight": {
-        "name": "Aktuelles Gewicht"
-      },
-      "target_weight": {
-        "name": "Zielgewicht"
-      },
-      "bowl_weight": {
-        "name": "Gewicht Napf {bowl}"
-      },
-      "weight_capacity": {
-        "name": "Gesamte Gewichtsgrenze",
-        "state_attributes": {
-          "bowl_0_target": {
-            "name": "Napf 0 - Zielgewicht"
-          },
-          "bowl_1_target": {
-            "name": "Napf 1 - Zielgewicht"
-          }
-        }
-      },
-      "entity_information": {
-        "name": "Entitätsinformationen"
-      },
-      "devices": {
-        "name": "Zugeordnete Geräte"
       }
     }
   }

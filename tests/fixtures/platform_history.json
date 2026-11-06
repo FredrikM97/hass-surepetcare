@@ -1,0 +1,108 @@
+[
+  {
+    "id": 1001,
+    "type": 0,
+    "created_at": "2020-03-11T14:21:07+00:00",
+    "pets": [{"id": 472721}],
+    "movements": [
+      {"id": 5045077041, "device_id": 269654, "direction": 1}
+    ]
+  },
+  {
+    "id": 1002,
+    "type": 22,
+    "created_at": "2020-03-11T14:21:07+00:00",
+    "pets": [{"id": 472721}],
+    "weights": [
+      {
+        "id": 1210761432,
+        "device_id": 269654,
+        "frames": [{"index": 0, "change": -5.23}, {"index": 1, "change": 0}]
+      }
+    ]
+  },
+  {
+    "id": 1003,
+    "type": 22,
+    "created_at": "2020-03-11T14:21:07+00:00",
+    "pets": [{"id": 333333}],
+    "weights": [
+      {
+        "id": 1210761432,
+        "device_id": 269654,
+        "frames": [{"index": 0, "change": -4.23}]
+      }
+    ]
+  },
+  {
+    "id": 1004,
+    "type": 29,
+    "created_at": "2020-03-11T14:21:07+00:00",
+    "pets": [{"id": 472721}],
+    "weights": [
+      {
+        "id": 1210761432,
+        "device_id": 269654,
+        "frames": [{"index": 0, "change": -3.23}, {"index": 1, "change": 0}]
+      }
+    ]
+  },
+  {
+    "id": 1005,
+    "type": 29,
+    "created_at": "2020-03-11T14:21:07+00:00",
+    "pets": [{"id": 333333}],
+    "weights": [
+      {
+        "id": 1210761432,
+        "device_id": 269654,
+        "frames": [{"index": 0, "change": -3.23}]
+      }
+    ]
+  },
+  {
+    "id": 1006,
+    "type": 0,
+    "created_at": "2025-11-18T09:36:44+00:00",
+    "pets": [{"id": 532070}],
+    "movements": [
+      {"id": 5241973826, "device_id": 695379, "tag_id": 1270143, "direction": 1}
+    ]
+  },
+  {
+    "id": 1007,
+    "type": 21,
+    "created_at": "2025-11-18T09:36:45+00:00",
+    "devices": [{"id": 269654}],
+    "weights": [{
+      "device_id": 269654,
+      "frames": [
+        {"index": 0, "current_weight": 32.16},
+        {"index": 1, "current_weight": -27.2}
+      ]
+    }]
+  },
+  {
+    "id": 1008,
+    "type": 21,
+    "created_at": "2025-11-18T09:36:46+00:00",
+    "devices": [{"id": 22222}],
+    "weights": [{
+      "device_id": 22222,
+      "frames": [
+        {"index": 0, "current_weight": 32.16},
+        {"index": 1, "current_weight": 74.2}
+      ]
+    }]
+  },
+  {
+    "id": 1009,
+    "type": 30,
+    "created_at": "2025-11-18T09:36:47+00:00",
+    "devices": [{"id": 734730}],
+    "weights": [{
+      "device_id": 734730,
+      "frames": [{"index": 0, "current_weight": 975.95}]
+    }]
+  }
+]

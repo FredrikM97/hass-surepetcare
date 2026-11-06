@@ -1,0 +1,25 @@
+# serializer version: 1
+# name: test_sensor_restores_legacy_state_without_native_data[converted-weight]
+  dict({
+    'attributes': dict({
+      'unit_of_measurement': 'kg',
+    }),
+    'value': 5.23,
+  })
+# ---
+# name: test_sensor_restores_legacy_state_without_native_data[label]
+  dict({
+    'attributes': dict({
+      'detail': 'retained',
+    }),
+    'value': 'Saved label',
+  })
+# ---
+# name: test_sensor_restores_legacy_state_without_native_data[zero]
+  dict({
+    'attributes': dict({
+      'unit_of_measurement': '%',
+    }),
+    'value': 0.0,
+  })
+# ---

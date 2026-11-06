@@ -1,0 +1,30 @@
+# serializer version: 1
+# name: test_household_isolates_endpoint_failures_and_recovers[False][failure-delivery]
+  list([
+    tuple(
+      1,
+      'example',
+      42,
+      dict({
+      }),
+    ),
+  ])
+# ---
+# name: test_household_isolates_endpoint_failures_and_recovers[True][failure-delivery]
+  list([
+    tuple(
+      1,
+      'example',
+      42,
+      dict({
+      }),
+    ),
+    tuple(
+      2,
+      'example',
+      42,
+      dict({
+      }),
+    ),
+  ])
+# ---

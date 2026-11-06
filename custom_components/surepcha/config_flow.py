@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, CONF_TOKEN
 from homeassistant.data_entry_flow import section
 from homeassistant.helpers.device_registry import callback
-from surepcio import Household, SurePetcareClient
+from surepcio import Household, SurePetcareClient, get_device_features
 from surepcio.enums import ProductId
 from surepcio.security.exceptions import ApiError, AuthenticationError
 
@@ -29,10 +29,10 @@ from .const import (
     TOKEN,
 )
 from .device_config_schema import (
-    DEVICE_CONFIG_SCHEMAS,
     MANUAL_PROPERTIES,
     OPTION_CONFIG_SCHEMAS,
     TIMELINE_CONFIG_SCHEMA,
+    device_config_schema,
 )
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,7 @@ class SurePetCareConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):  # type: 
     """Handle a config flow for SurePetCare integration."""
 
     VERSION = 1
-    MINOR_VERSION = 5
+    MINOR_VERSION = 6
 
     async def async_step_user(self, user_input: dict[str, Any] | None = None):
         """Handle the initial step to login the user."""
@@ -359,12 +359,19 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
     async def async_step_init(self, user_input: dict[str, Any] | None = None):
         """Show the top-level options menu.
 
-        Timeline/manual-properties settings are household-wide and don't
-        require any devices to exist, so only "devices" is hidden (rather
-        than aborting the whole flow) when there's nothing to configure.
+        Polling settings are household-wide. Manual location labels are shown
+        only when a configured flap can use them.
         """
-        menu_options = ["manual_properties", "timeline"]
-        if self._options[OPTION_DEVICES]:
+        menu_options = ["timeline"]
+        if any(
+            "location_labels" in get_device_features(device.get(PRODUCT_ID))
+            for device in self._options[OPTION_DEVICES].values()
+        ):
+            menu_options.insert(0, "manual_properties")
+        if any(
+            device_config_schema(device.get(PRODUCT_ID))
+            for device in self._options[OPTION_DEVICES].values()
+        ):
             menu_options.append("devices")
 
         return self.async_show_menu(
@@ -396,7 +403,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         )
 
     async def async_step_timeline(self, user_input: dict[str, Any] | None = None):
-        """Configure the household timeline polling interval."""
+        """Configure the shared household polling interval."""
 
         if user_input is not None:
             self._options[OPTION_TIMELINE] = user_input
@@ -414,13 +421,26 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
     async def async_step_devices(self, user_input: dict[str, Any] | None = None):
         """Configure all devices in a single form."""
 
-        device_sections = _device_picker_options(self._options[OPTION_DEVICES])
+        device_sections = [
+            (device_id, label)
+            for device_id, label in _device_picker_options(
+                self._options[OPTION_DEVICES]
+            )
+            if device_config_schema(
+                self._options[OPTION_DEVICES][device_id].get(PRODUCT_ID)
+            )
+        ]
 
         if user_input is not None:
             for device_id, section_key in device_sections:
                 if section_key in user_input:
                     self._options[OPTION_DEVICES][device_id].update(
-                        user_input[section_key]
+                        vol.Schema(
+                            device_config_schema(
+                                self._options[OPTION_DEVICES][device_id].get(PRODUCT_ID)
+                            ),
+                            extra=vol.REMOVE_EXTRA,
+                        )(user_input[section_key])
                     )
             return self.async_create_entry(title="", data=self._options)
 
@@ -428,7 +448,7 @@ class SurePetCareOptionsFlow(config_entries.OptionsFlowWithReload):
         for device_id, section_key in device_sections:
             device = self._options[OPTION_DEVICES][device_id]
             device_schema, section_defaults = _build_schema_and_defaults(
-                DEVICE_CONFIG_SCHEMAS.get(device.get(PRODUCT_ID)), device
+                device_config_schema(device.get(PRODUCT_ID)), device
             )
             schema_dict[
                 vol.Optional(

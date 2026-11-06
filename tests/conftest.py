@@ -126,15 +126,13 @@ def mock_client():
 
 @pytest.fixture(autouse=True)
 def mock_coordinator_update_data():
-    """Mock the coordinator update method to return the device data immediately."""
-    """Prevents refresh to be called and empty entities being created."""
+    """Keep fixture models unchanged while exercising real household publication."""
 
-    async def return_device_data(self):
-        # Return the current status/control or whatever your entities expect
-        return self._device
+    async def return_device_data(self, device, *, publish):
+        publish(device)
 
     with patch(
-        "custom_components.surepcha.coordinator.SurePetCareDeviceDataUpdateCoordinator._async_update_data",
+        "surepcio.household.HouseholdState.refresh_device",
         new=return_device_data,
     ):
         yield

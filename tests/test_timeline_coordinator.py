@@ -1,23 +1,21 @@
 """Tests for the household timeline coordinator."""
 
-from datetime import timedelta
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, call, patch
 
 import pytest
+from surepcio import Household, SurePetcareClient
+from surepcio.devices.pet import Pet
 from surepcio.timeline import TimelineEvent
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import (
     EVENT_TIMELINE,
-    OPTION_TIMELINE,
-    SCAN_INTERVAL,
-    TIMELINE_POLLING_SPEED,
 )
 from custom_components.surepcha.coordinator import (
-    SurePetCareHouseholdTimelineCoordinator,
+    SurePetCareCoordinator,
 )
 
-from .support import async_capture_events, load_json_value_fixture
+from .support import MockConfigEntry, async_capture_events, load_json_value_fixture
 
 
 def _load_scenario(name: str) -> list[TimelineEvent]:
@@ -37,7 +35,7 @@ def timeline_events() -> list[TimelineEvent]:
 
 
 @pytest.fixture
-def timeline_coordinator(hass) -> SurePetCareHouseholdTimelineCoordinator:
+async def timeline_coordinator(hass) -> SurePetCareCoordinator:
     """Return a timeline coordinator with a mocked client/household/entry."""
     client = MagicMock()
     client.api = AsyncMock()
@@ -45,27 +43,19 @@ def timeline_coordinator(hass) -> SurePetCareHouseholdTimelineCoordinator:
     household.id = 7777
     entry = MagicMock()
     entry.options = {}
-    return SurePetCareHouseholdTimelineCoordinator(hass, entry, client, household)
+    coordinator = SurePetCareCoordinator(hass, entry, client, household, [])
+    await coordinator._async_setup()
+    return coordinator
 
 
-def test_update_interval_defaults_to_scan_interval(hass) -> None:
-    """With no configured option, the timeline coordinator uses SCAN_INTERVAL."""
+def test_coordinator_starts_with_polling_disabled(hass) -> None:
+    """Entity restoration must complete before setup enables interval polling."""
     entry = MagicMock()
     entry.options = {}
-    coordinator = SurePetCareHouseholdTimelineCoordinator(
-        hass, entry, MagicMock(), MagicMock(id=7777)
+    coordinator = SurePetCareCoordinator(
+        hass, entry, MagicMock(), MagicMock(id=7777), []
     )
-    assert coordinator.update_interval == timedelta(seconds=SCAN_INTERVAL)
-
-
-def test_update_interval_uses_configured_polling_speed(hass) -> None:
-    """A configured OPTION_TIMELINE polling speed overrides the default."""
-    entry = MagicMock()
-    entry.options = {OPTION_TIMELINE: {TIMELINE_POLLING_SPEED: 120}}
-    coordinator = SurePetCareHouseholdTimelineCoordinator(
-        hass, entry, MagicMock(), MagicMock(id=7777)
-    )
-    assert coordinator.update_interval == timedelta(seconds=120)
+    assert coordinator.update_interval is None
 
 
 async def test_first_poll_sets_cursor_without_firing_events(
@@ -79,8 +69,8 @@ async def test_first_poll_sets_cursor_without_firing_events(
     await hass.async_block_till_done()
 
     assert events == []
-    assert timeline_coordinator._cursor == max(e.id for e in timeline_events)
-    assert set(timeline_coordinator._seen_ids) == {e.id for e in timeline_events}
+    assert timeline_coordinator.state._cursor == max(e.id for e in timeline_events)
+    assert not timeline_coordinator.state._seen_ids
 
 
 async def test_second_poll_fires_only_new_events_sorted_by_created_at(
@@ -121,10 +111,64 @@ async def test_dedupe_prevents_refiring_a_seen_event(
     assert len(events) == 1
 
     # Third poll: the API returns the same accumulated events again (e.g. the
-    # lagging cursor re-requesting an overlapping window) - must not refire.
+    # an API response repeating previously acknowledged IDs) - must not refire.
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
     assert len(events) == 1
+
+
+def test_timeline_subscriptions_broadcast_raw_events_at_least_once(
+    hass, mock_config_entry
+):
+    coordinator = SurePetCareCoordinator(
+        hass,
+        mock_config_entry,
+        MagicMock(),
+        MagicMock(id=7777),
+        [],
+    )
+    event = TimelineEvent(
+        id=1,
+        type=0,
+        created_at=None,
+    )
+    first, second = MagicMock(), MagicMock()
+    unsubscribe_first = coordinator.async_subscribe_timeline(first)
+    unsubscribe_second = coordinator.async_subscribe_timeline(second)
+    report_listener = MagicMock()
+    unsubscribe_reports = coordinator.async_add_listener(report_listener)
+
+    coordinator._publish_timeline(event)
+    coordinator._publish_timeline(event)
+
+    first.assert_has_calls([call(event), call(event)])
+    second.assert_has_calls([call(event), call(event)])
+    unsubscribe_first()
+    coordinator._publish_timeline(event)
+    first.assert_has_calls([call(event), call(event)])
+    second.assert_has_calls([call(event), call(event), call(event)])
+    unsubscribe_second()
+    assert coordinator._timeline_listeners == []
+    report_listener.assert_not_called()
+    unsubscribe_reports()
+
+
+async def test_command_target_refresh_notifies_once_after_device_phase(
+    timeline_coordinator,
+):
+    device = MagicMock()
+    listener = MagicMock()
+    unsubscribe = timeline_coordinator.async_add_listener(listener)
+
+    async def refresh(target, *, publish):
+        assert target is device
+        publish(target)
+        listener.assert_not_called()
+
+    timeline_coordinator.state.refresh_device = AsyncMock(side_effect=refresh)
+    await timeline_coordinator.async_refresh_device(device)
+    listener.assert_called_once_with()
+    unsubscribe()
 
 
 async def test_event_payload_includes_movement_details(
@@ -133,13 +177,13 @@ async def test_event_payload_includes_movement_details(
     """Fired events expose movement direction/device_id for automations to key off."""
     events = async_capture_events(hass, EVENT_TIMELINE)
 
-    # First poll: a different event establishes the baseline, consumed without firing.
-    timeline_coordinator.client.api.return_value = timeline_events[1:2]
+    # First poll establishes an empty baseline.
+    timeline_coordinator.client.api.return_value = []
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
 
     # Second poll: the event under test arrives and is fired.
-    timeline_coordinator.client.api.return_value = timeline_events[:2]
+    timeline_coordinator.client.api.return_value = timeline_events[:1]
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
 
@@ -156,7 +200,124 @@ async def test_no_events_returned_is_a_no_op(hass, timeline_coordinator) -> None
     await hass.async_block_till_done()
 
     assert events == []
-    assert timeline_coordinator._cursor is None
+    assert timeline_coordinator.state._cursor == 0
+
+
+async def test_empty_initial_history_does_not_suppress_first_new_event(
+    hass,
+    timeline_coordinator,
+    timeline_events,
+) -> None:
+    events = async_capture_events(hass, EVENT_TIMELINE)
+    timeline_coordinator.client.api.return_value = []
+    await timeline_coordinator._async_update_data()
+    timeline_coordinator.client.api.return_value = timeline_events[:1]
+    await timeline_coordinator._async_update_data()
+    await hass.async_block_till_done()
+    assert len(events) == 1
+
+
+async def test_restart_restores_only_cursor_without_history(hass):
+    entry = MockConfigEntry(domain="surepcha", data={}, options={})
+    client = SurePetcareClient()
+    pet = Pet({"id": 10, "household_id": 7, "name": "Cat"})
+    history = TimelineEvent(
+        id=100,
+        type=0,
+        created_at="2026-01-01T12:00:00+00:00",
+        pets=[{"id": 10}],
+        movements=[{"id": 1, "device_id": 20, "direction": 1}],
+    )
+    requests = []
+
+    async def respond(command):
+        if "timeline" in command.endpoint:
+            requests.append(command.params)
+            return [history] if "since_id" not in command.params else []
+        return pet
+
+    client.api = AsyncMock(side_effect=respond)
+    first = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [pet])
+    await first._async_setup()
+    await first._async_update_data()
+    assert first.state.seen_id == 100
+    assert requests == [{"page_size": 25}]
+    requests.clear()
+
+    restarted = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [pet])
+    await restarted._async_setup()
+    await restarted._async_update_data()
+    assert requests == [{"since_id": 100, "page_size": 25}]
+    assert restarted.state.seen_id == 100
+    assert await first._store.async_load() == {"seen_id": 100}
+
+
+async def test_empty_checkpoint_survives_restart(hass):
+    entry = MockConfigEntry(domain="surepcha", data={}, options={})
+    client = SurePetcareClient()
+    client.api = AsyncMock(return_value=[])
+    first = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [])
+    await first._async_setup()
+    await first._async_update_data()
+    restarted = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [])
+    await restarted._async_setup()
+    client.api.reset_mock()
+    await restarted._async_update_data()
+    assert client.api.call_args.args[0].params == {"since_id": 0, "page_size": 25}
+
+
+async def test_failed_timeline_poll_keeps_durable_cursor(hass):
+    entry = MockConfigEntry(domain="surepcha", data={}, options={})
+    client = SurePetcareClient()
+    client.api = AsyncMock(return_value=[])
+    coordinator = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [])
+    await coordinator._async_setup()
+    await coordinator._async_update_data()
+    client.api.side_effect = TimeoutError("Timeline unavailable")
+    await coordinator._async_update_data()
+    checkpoint = await coordinator._store.async_load()
+    assert checkpoint["seen_id"] == 0
+    assert coordinator.state.seen_id == 0
+
+
+async def test_checkpoint_write_error_is_not_silently_ignored(hass):
+    entry = MockConfigEntry(domain="surepcha", data={}, options={})
+    client = SurePetcareClient()
+    client.api = AsyncMock(return_value=[])
+    coordinator = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [])
+    await coordinator._async_setup()
+    coordinator._store.async_save = AsyncMock(side_effect=OSError("Disk full"))
+    with pytest.raises(OSError, match="Disk full"):
+        await coordinator._async_update_data()
+
+
+async def test_legacy_checkpoint_extras_are_stripped_after_cursor_restore(hass):
+    entry = MockConfigEntry(domain="surepcha", data={}, options={})
+    client = SurePetcareClient()
+    client.api = AsyncMock(return_value=[])
+    coordinator = SurePetCareCoordinator(hass, entry, client, Household({"id": 7}), [])
+    coordinator._store.async_save = AsyncMock()
+    coordinator._store.async_load = AsyncMock(
+        return_value={
+            "household_id": 7,
+            "seen_id": 100,
+            "readings": [
+                {
+                    "device_id": 10,
+                    "code": "position",
+                    "value": "INSIDE",
+                    "attributes": {},
+                }
+            ],
+        }
+    )
+    await coordinator._async_setup()
+    await coordinator._async_update_data()
+    assert coordinator.state.seen_id == 100
+    assert client.api.call_args.args[0].params == {"since_id": 100, "page_size": 25}
+    coordinator._store.async_save.assert_awaited_once_with(
+        {"seen_id": 100}
+    )
 
 
 async def test_real_feeding_events_with_empty_pets(
@@ -172,14 +333,14 @@ async def test_real_feeding_events_with_empty_pets(
     events = async_capture_events(hass, EVENT_TIMELINE)
 
     # First poll: baseline, consumed without firing.
-    timeline_coordinator.client.api.return_value = real_events[:1]
+    timeline_coordinator.client.api.return_value = []
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
     assert events == []
 
     # Second poll: the remaining real events arrive, including the one with
     # an empty pets list - must not raise and must fire both.
-    timeline_coordinator.client.api.return_value = real_events
+    timeline_coordinator.client.api.return_value = real_events[1:]
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
 
@@ -187,14 +348,10 @@ async def test_real_feeding_events_with_empty_pets(
     assert [event.data for event in events] == snapshot
 
 
-async def test_event_payload_includes_parsed_data(
+async def test_event_payload_preserves_api_data(
     hass, timeline_coordinator, timeline_events, snapshot: SnapshotAssertion
 ) -> None:
-    """The entry's JSON "data" field is decoded into the payload.
-
-    CURFEW_LOCK_STATUS only says whether the flap locked or unlocked in "data",
-    so automations need it. Missing or invalid JSON gives None rather than raising.
-    """
+    """The API data string is preserved; automations can decode it if needed."""
     curfew_events = _load_scenario("curfew")
     events = async_capture_events(hass, EVENT_TIMELINE)
 
@@ -225,13 +382,13 @@ async def test_real_household_events_with_no_devices_or_pets(
     events = async_capture_events(hass, EVENT_TIMELINE)
 
     # First poll: baseline, consumed without firing.
-    timeline_coordinator.client.api.return_value = real_events[:1]
+    timeline_coordinator.client.api.return_value = []
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
     assert events == []
 
     # Second poll: the remaining real events arrive and must fire correctly.
-    timeline_coordinator.client.api.return_value = real_events
+    timeline_coordinator.client.api.return_value = real_events[1:]
     await timeline_coordinator._async_update_data()
     await hass.async_block_till_done()
 

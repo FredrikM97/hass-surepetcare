@@ -1,0 +1,551 @@
+# serializer version: 1
+# name: test_assignment_options_read_current_configuration_without_copied_inventory[initial]
+  tuple(
+    dict({
+      'label': 'Feeder',
+      'value': '20',
+    }),
+  )
+# ---
+# name: test_assignment_options_read_current_configuration_without_copied_inventory[renamed]
+  tuple(
+    dict({
+      'label': 'Renamed',
+      'value': '20',
+    }),
+  )
+# ---
+# name: test_boolean_command_values_are_prepared_by_the_description[False]
+  dict({
+    'normalized': False,
+    'prepared': 'disabled',
+  })
+# ---
+# name: test_boolean_command_values_are_prepared_by_the_description[True]
+  dict({
+    'normalized': True,
+    'prepared': 'enabled',
+  })
+# ---
+# name: test_entity_support_property_evaluates_discovery_requirements[False]
+  dict({
+    'conditional': False,
+    'unconditional': True,
+  })
+# ---
+# name: test_entity_support_property_evaluates_discovery_requirements[True]
+  dict({
+    'conditional': True,
+    'unconditional': True,
+  })
+# ---
+# name: test_native_catalogues_cover_products_with_platform_scoped_keys
+  dict({
+    'binary_sensor': dict({
+      'DUAL_SCAN_CONNECT': list([
+        'curfew',
+        'connectivity',
+        'learn_mode',
+      ]),
+      'DUAL_SCAN_PET_DOOR': list([
+        'connectivity',
+      ]),
+      'FEEDER_CONNECT': list([
+        'connectivity',
+        'learn_mode',
+      ]),
+      'HUB': list([
+        'connectivity',
+      ]),
+      'PET': list([
+        'presence',
+      ]),
+      'PET_DOOR': list([
+        'curfew',
+        'learn_mode',
+      ]),
+    }),
+    'button': dict({
+      'HUB': list([
+        'pairing_mode',
+      ]),
+    }),
+    'lock': dict({
+      'DUAL_SCAN_CONNECT': list([
+        'locking',
+      ]),
+      'DUAL_SCAN_PET_DOOR': list([
+        'locking',
+      ]),
+      'PET_DOOR': list([
+        'locking',
+      ]),
+    }),
+    'number': dict({
+      'FEEDER_CONNECT': list([
+        'bowl_0_target_weight',
+        'bowl_1_target_weight',
+      ]),
+    }),
+    'select': dict({
+      'DUAL_SCAN_CONNECT': list([
+        'locking',
+      ]),
+      'FEEDER_CONNECT': list([
+        'lid',
+        'training_mode',
+        'bowls_type',
+        'tare',
+      ]),
+      'HUB': list([
+        'led_mode',
+      ]),
+      'PET': list([
+        'remove_assigned_device',
+        'add_assigned_device',
+      ]),
+      'PET_DOOR': list([
+        'locking',
+      ]),
+    }),
+    'sensor': dict({
+      'DUAL_SCAN_CONNECT': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+      ]),
+      'DUAL_SCAN_PET_DOOR': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+      ]),
+      'FEEDER_CONNECT': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+        'bowl_0_weight',
+        'bowl_1_weight',
+        'fill_percent',
+        'weight_capacity',
+      ]),
+      'NO_ID_DOG_BOWL_CONNECT': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+      ]),
+      'PET': list([
+        'entity_information',
+        'feeding',
+        'drinking',
+        'position',
+        'devices',
+        'last_activity',
+      ]),
+      'PET_DOOR': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+      ]),
+      'POSEIDON_CONNECT': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+        'bowl_volume',
+        'fill_percent',
+        'last_filled_at',
+        'last_zeroed_at',
+      ]),
+    }),
+    'switch': dict({
+      'PET': list([
+        'position',
+        'indoor_only',
+      ]),
+      'PET_DOOR': list([
+        'curfew_enabled',
+      ]),
+    }),
+  })
+# ---
+# name: test_native_description_metadata_and_path_reading[callable]
+  tuple(
+    21,
+    dict({
+    }),
+  )
+# ---
+# name: test_native_description_metadata_and_path_reading[path]
+  dict({
+    'reading': tuple(
+      12,
+      dict({
+      }),
+    ),
+    'unit': None,
+  })
+# ---
+# name: test_native_select_options_and_dynamic_api_options_are_distinct
+  dict({
+    'dynamic': tuple(
+      dict({
+        'label': 'Dynamic',
+        'value': 'write_value',
+      }),
+    ),
+    'dynamic_metadata': list([
+      'Static',
+    ]),
+    'static': tuple(
+      dict({
+        'label': 'First',
+        'value': 'First',
+      }),
+      dict({
+        'label': 'Second',
+        'value': 'Second',
+      }),
+    ),
+  })
+# ---
+# name: test_report_reading_normalizes_values_and_reads_attributes_once
+  tuple(
+    'unlocked',
+    dict({
+      'detail': False,
+    }),
+  )
+# ---
+# name: test_second_bowl_descriptions_are_supported_only_for_two_bowls[single-bowl]
+  list([
+    tuple(
+      'sensor',
+      'entity_information',
+    ),
+    tuple(
+      'sensor',
+      'battery_level',
+    ),
+    tuple(
+      'sensor',
+      'rssi',
+    ),
+    tuple(
+      'sensor',
+      'bowl_0_weight',
+    ),
+    tuple(
+      'sensor',
+      'fill_percent',
+    ),
+    tuple(
+      'sensor',
+      'weight_capacity',
+    ),
+    tuple(
+      'binary_sensor',
+      'connectivity',
+    ),
+    tuple(
+      'binary_sensor',
+      'learn_mode',
+    ),
+    tuple(
+      'number',
+      'bowl_0_target_weight',
+    ),
+    tuple(
+      'select',
+      'lid',
+    ),
+    tuple(
+      'select',
+      'training_mode',
+    ),
+    tuple(
+      'select',
+      'bowls_type',
+    ),
+    tuple(
+      'select',
+      'tare',
+    ),
+  ])
+# ---
+# name: test_second_bowl_descriptions_are_supported_only_for_two_bowls[two-bowls]
+  dict({
+    'command': dict({
+      'bowls': dict({
+        'settings': list([
+          dict({
+            'target': 100.0,
+          }),
+          dict({
+            'target': 150,
+          }),
+        ]),
+        'type': <BowlType.TWO_SMALL: 4>,
+      }),
+    }),
+    'fields': dict({
+      'binary_sensor': list([
+        'connectivity',
+        'learn_mode',
+      ]),
+      'number': list([
+        'bowl_0_target_weight',
+        'bowl_1_target_weight',
+      ]),
+      'select': list([
+        'lid',
+        'training_mode',
+        'bowls_type',
+        'tare',
+      ]),
+      'sensor': list([
+        'entity_information',
+        'battery_level',
+        'rssi',
+        'bowl_0_weight',
+        'bowl_1_weight',
+        'fill_percent',
+        'weight_capacity',
+      ]),
+    }),
+  })
+# ---
+# name: test_select_command_prepares_api_choice_and_rejects_unavailable_choice
+  dict({
+    'normalized': 'Unlocked',
+    'prepared': <FlapLocking.LOCKED: 3>,
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[dual-scan-pet-door]
+  dict({
+    'binary_sensor': list([
+      'presence',
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+      'last_activity',
+      'position',
+    ]),
+    'switch': list([
+      'indoor_only',
+      'position',
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[dual-scan]
+  dict({
+    'binary_sensor': list([
+      'presence',
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+      'last_activity',
+      'position',
+    ]),
+    'switch': list([
+      'indoor_only',
+      'position',
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[empty]
+  dict({
+    'binary_sensor': list([
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+    ]),
+    'switch': list([
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[feeder]
+  dict({
+    'binary_sensor': list([
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+      'feeding',
+      'last_activity',
+    ]),
+    'switch': list([
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[hub]
+  dict({
+    'binary_sensor': list([
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+    ]),
+    'switch': list([
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[pet-door]
+  dict({
+    'binary_sensor': list([
+      'presence',
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'entity_information',
+      'last_activity',
+      'position',
+    ]),
+    'switch': list([
+      'indoor_only',
+      'position',
+    ]),
+  })
+# ---
+# name: test_supported_pet_descriptions_use_the_complete_household_inventory[poseidon]
+  dict({
+    'binary_sensor': list([
+    ]),
+    'button': list([
+    ]),
+    'lock': list([
+    ]),
+    'number': list([
+    ]),
+    'select': list([
+      'add_assigned_device',
+      'remove_assigned_device',
+    ]),
+    'sensor': list([
+      'devices',
+      'drinking',
+      'entity_information',
+      'last_activity',
+    ]),
+    'switch': list([
+    ]),
+  })
+# ---
+# name: test_supported_products_uses_any_matching_coordinator_device[empty]
+  dict({
+    'supported': False,
+  })
+# ---
+# name: test_supported_products_uses_any_matching_coordinator_device[flap]
+  dict({
+    'supported': True,
+  })
+# ---
+# name: test_supported_products_uses_any_matching_coordinator_device[hub-and-flap]
+  dict({
+    'supported': True,
+  })
+# ---
+# name: test_supported_products_uses_any_matching_coordinator_device[hub]
+  dict({
+    'supported': False,
+  })
+# ---
+# name: test_timeline_readers_use_only_the_existing_event[absent]
+  dict({
+    'bowl_0_weight': None,
+    'bowl_1_weight': None,
+    'fill_percent': None,
+  })
+# ---
+# name: test_timeline_readers_use_only_the_existing_event[observed]
+  dict({
+    'bowl_0_weight': tuple(
+      50,
+      dict({
+      }),
+    ),
+    'bowl_1_weight': tuple(
+      100,
+      dict({
+      }),
+    ),
+    'fill_percent': tuple(
+      50.0,
+      dict({
+        'bowl_0_fill_percent': 50.0,
+        'bowl_1_fill_percent': 50.0,
+      }),
+    ),
+  })
+# ---
+# name: test_timeline_readers_use_only_the_existing_event[unknown-targets]
+  tuple(
+    None,
+    dict({
+      'bowl_0_fill_percent': None,
+      'bowl_1_fill_percent': None,
+    }),
+  )
+# ---

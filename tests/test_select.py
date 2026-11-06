@@ -4,10 +4,39 @@ import pytest
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
+from surepcio.enums import ProductId, Tare
 from syrupy.assertion import SnapshotAssertion
 
 from . import initialize_entry
 from .support import MockConfigEntry, snapshot_platform
+
+
+@patch("custom_components.surepcha.PLATFORMS", [Platform.SELECT])
+@pytest.mark.usefixtures("enable_custom_integrations")
+@pytest.mark.usefixtures("entity_registry_enabled_default")
+async def test_tare_select_tracks_reported_value_and_explicit_unknown(
+    hass, mock_client, mock_config_entry, entity_registry, mock_devices, mock_pets
+):
+    await initialize_entry(
+        hass, mock_client, mock_config_entry, mock_devices, mock_pets
+    )
+    coordinator = mock_config_entry.runtime_data.coordinator
+    for device in mock_devices:
+        if device.product != ProductId.FEEDER_CONNECT:
+            continue
+        entity_id = entity_registry.async_get_entity_id(
+            "select", "surepcha", f"{device.id}-tare"
+        )
+        assert entity_id is not None
+        device.control.tare = Tare.RESET_RIGHT
+        coordinator.async_update_listeners()
+        assert hass.states.get(entity_id).state == "reset_right"
+        device.control.tare = None
+        coordinator.async_update_listeners()
+        assert hass.states.get(entity_id).state == "unknown"
+        device.control.tare = Tare.RESET_LEFT
+        coordinator.async_update_listeners()
+        assert hass.states.get(entity_id).state == "reset_left"
 
 
 @patch("custom_components.surepcha.PLATFORMS", [Platform.SELECT])

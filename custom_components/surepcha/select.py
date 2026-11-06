@@ -1,10 +1,9 @@
-"""Select platform for SurePetCare integration."""
+"""Present library choice interactions."""
 
-from __future__ import annotations
-
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, cast
+from typing import Any
 
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.components.sensor import SensorDeviceClass
@@ -22,169 +21,156 @@ from surepcio.enums import (
     Tare,
 )
 
-from custom_components.surepcha.helper import (
-    find_entity_id_by_name,
-    list_attr,
-    map_attr,
-    option_name,
-)
-from custom_components.surepcha.method_field import SelectMethodField
-
-from .const import (
-    DEVICES,
-    NAME,
-    OPTION_DEVICES,
-    PRODUCT_ID,
-)
-from .coordinator import (
-    SurePetcareConfigEntry,
-    SurePetCareDeviceDataUpdateCoordinator,
-)
-from .entity import (
-    SurePetCareBaseEntity,
-    SurePetCareBaseEntityDescription,
-)
+from .coordinator import SurePetcareConfigEntry
+from .entity import SurePetCareBaseEntity
+from .field_helpers import _assignment_options
+from .fields import FieldOption, SurePetCareDescriptionMixin
 
 
 @dataclass(frozen=True, kw_only=True)
 class SurePetCareSelectEntityDescription(
-    SurePetCareBaseEntityDescription, SelectEntityDescription
+    SelectEntityDescription, SurePetCareDescriptionMixin
 ):
-    """Describes SurePetCare select entity."""
+    """Native select metadata and SurePetCare API behavior."""
+
+    choices: type[Enum] | None = None
+    options_fn: Callable[[Any], tuple[FieldOption, ...]] | None = None
+
+    def get_options(
+        self,
+        entity: SurePetCareBaseEntity,
+    ) -> tuple[FieldOption, ...]:
+        """Resolve current API choices or the native static options."""
+        if self.options_fn is not None:
+            return self.options_fn(entity)
+        if self.choices is not None:
+            values = tuple(value.name.lower() for value in self.choices)
+        elif self.options:
+            values = tuple(self.options)
+        else:
+            raise ValueError(f"Field {self.key!r} does not provide choices")
+        return tuple(FieldOption(value, value) for value in values)
+
+    def normalize_value(self, value: Any, entity: SurePetCareBaseEntity) -> str | None:
+        options = self.get_options(entity)
+        if value is None:
+            return None
+        native = value.name.lower() if isinstance(value, Enum) else value
+        matches = [
+            option.label
+            for option in options
+            if (
+                self.choices[option.value.upper()] == value
+                if self.choices is not None
+                else option.value == native
+            )
+        ]
+        return matches[0] if len(matches) == 1 else None
+
+    def prepare_command_value(self, value: Any, entity: SurePetCareBaseEntity) -> Any:
+        options = self.get_options(entity)
+        matches = [option.value for option in options if option.label == value]
+        if len(matches) != 1:
+            raise ValueError(f"Choice {value!r} is unavailable for {self.key!r}")
+        value = matches[0]
+        if self.choices is not None:
+            try:
+                value = self.choices[value.upper()]
+            except KeyError as error:
+                raise ValueError(
+                    f"Choice {value!r} is not valid for {self.key!r}"
+                ) from error
+        return value
 
 
-def resolve_select_option_value(desc, selected_option: str) -> Any:
-    """Resolve the correct value for a select option, handling Enum classes or plain lists."""
-    if (
-        desc.options is not None
-        and isinstance(desc.options, type)
-        and issubclass(desc.options, Enum)
-    ):
-        return getattr(desc.options, selected_option.upper())
-    return selected_option
-
-
-SELECTS: dict[str, tuple[SurePetCareSelectEntityDescription, ...]] = {
+_locking_mode = SurePetCareSelectEntityDescription(
+    key="locking",
+    device_class=SensorDeviceClass.ENUM,
+    entity_category=EntityCategory.CONFIG,
+    value="control.locking",
+    command=lambda entity, value: entity.device.set_locking(value),
+    choices=FlapLocking,
+)
+SELECT_FIELDS: dict[ProductId, tuple[SurePetCareSelectEntityDescription, ...]] = {
+    ProductId.HUB: (
+        SurePetCareSelectEntityDescription(
+            key="led_mode",
+            icon="mdi:led-variant-on",
+            device_class=SensorDeviceClass.ENUM,
+            entity_category=EntityCategory.CONFIG,
+            value="control.led_mode",
+            command=lambda entity, value: entity.device.set_led_mode(value),
+            choices=HubLedMode,
+        ),
+    ),
     ProductId.FEEDER_CONNECT: (
         SurePetCareSelectEntityDescription(
             key="lid",
-            translation_key="lid",
             icon="mdi:timer-sand",
-            field=SelectMethodField(path="control.lid.close_delay"),
-            options=CloseDelay,
             device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
+            value="control.lid.close_delay",
+            command=lambda entity, value: entity.device.set_lid(value),
+            choices=CloseDelay,
         ),
         SurePetCareSelectEntityDescription(
             key="training_mode",
-            translation_key="training_mode",
             icon="mdi:school",
-            field=SelectMethodField(path="control.training_mode"),
-            options=FeederTrainingMode,
             entity_category=EntityCategory.CONFIG,
+            value="control.training_mode",
+            command=lambda entity, value: entity.device.set_training_mode(value),
+            choices=FeederTrainingMode,
         ),
         SurePetCareSelectEntityDescription(
             key="bowls_type",
-            translation_key="bowls_type",
             icon="mdi:bowl-mix",
-            field=SelectMethodField(
-                get_fn=lambda ctx: ctx.device.get_bowl_type_option(),
-                set_fn=lambda ctx, option: ctx.device.set_bowl_type(
-                    BowlTypeOptions(option)
-                ),
-            ),
-            options=BowlTypeOptions,
             device_class=SensorDeviceClass.ENUM,
             entity_category=EntityCategory.CONFIG,
+            value=lambda entity: (
+                BowlTypeOptions[option]
+                if (option := entity.device.get_bowl_type_option()) is not None
+                else None
+            ),
+            command=lambda entity, value: entity.device.set_bowl_type(value),
+            choices=BowlTypeOptions,
         ),
         SurePetCareSelectEntityDescription(
             key="tare",
-            translation_key="tare",
+            value="control.tare",
             icon="mdi:restart",
-            field=SelectMethodField(
-                path="control.tare",
-                options_fn=lambda ctx: ctx.device.status.tare_options,
+            entity_category=EntityCategory.CONFIG,
+            command=lambda entity, value: entity.device.set_tare(value),
+            choices=Tare,
+            options_fn=lambda entity: tuple(
+                FieldOption(value, value)
+                for value in entity.device.status.tare_options or ()
             ),
-            options=Tare,
-            entity_category=EntityCategory.CONFIG,
         ),
     ),
-    ProductId.DUAL_SCAN_CONNECT: (
-        SurePetCareSelectEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=SelectMethodField(path="control.locking"),
-            options=FlapLocking,
-            device_class=SensorDeviceClass.ENUM,
-            entity_category=EntityCategory.CONFIG,
-        ),
-    ),
+    ProductId.PET_DOOR: (_locking_mode,),
+    ProductId.DUAL_SCAN_CONNECT: (_locking_mode,),
     ProductId.PET: (
         SurePetCareSelectEntityDescription(
             key="remove_assigned_device",
-            translation_key="remove_assigned_device",
             icon="mdi:link-variant-off",
             device_class=SensorDeviceClass.ENUM,
-            field=SelectMethodField(
-                set_fn=lambda ctx, option: (
-                    ctx.device.set_tag(int(value), action=ModifyDeviceTag.REMOVE)
-                    if (value := find_entity_id_by_name(ctx.options, option))
-                    else None
-                ),
-                options_fn=lambda ctx: list(
-                    filter(
-                        None,
-                        map_attr(
-                            list_attr(ctx.device.status, DEVICES, "items"),
-                            lambda d: option_name(ctx.options, d.id),
-                        ),
-                    )
-                ),
+            options_fn=lambda entity: _assignment_options(
+                entity, ModifyDeviceTag.REMOVE
+            ),
+            command=lambda entity, value: entity.device.set_tag(
+                int(value), ModifyDeviceTag.REMOVE
             ),
         ),
         SurePetCareSelectEntityDescription(
             key="add_assigned_device",
-            translation_key="add_assigned_device",
             icon="mdi:link-variant",
             device_class=SensorDeviceClass.ENUM,
-            field=SelectMethodField(
-                options_fn=lambda ctx: [
-                    v.get(NAME)
-                    for k, v in ctx.options[OPTION_DEVICES].items()
-                    if v.get(PRODUCT_ID) not in {ProductId.PET, ProductId.HUB}
-                    and str(k)
-                    not in {
-                        str(d.id)
-                        for d in list_attr(ctx.device.status, DEVICES, "items")
-                    }
-                ],
-                set_fn=lambda ctx, option: (
-                    ctx.device.set_tag(int(value), action=ModifyDeviceTag.ADD)
-                    if (value := find_entity_id_by_name(ctx.options, option))
-                    else None
-                ),
+            options_fn=lambda entity: _assignment_options(
+                entity, ModifyDeviceTag.ADD
             ),
-        ),
-    ),
-    ProductId.HUB: (
-        SurePetCareSelectEntityDescription(
-            key="led_mode",
-            translation_key="led_mode",
-            icon="mdi:led-variant-on",
-            field=SelectMethodField(path="control.led_mode"),
-            options=HubLedMode,
-            device_class=SensorDeviceClass.ENUM,
-            entity_category=EntityCategory.CONFIG,
-        ),
-    ),
-    ProductId.PET_DOOR: (
-        SurePetCareSelectEntityDescription(
-            key="locking",
-            translation_key="locking",
-            field=SelectMethodField(path="control.locking"),
-            options=FlapLocking,
-            device_class=SensorDeviceClass.ENUM,
-            entity_category=EntityCategory.CONFIG,
+            command=lambda entity, value: entity.device.set_tag(
+                int(value), ModifyDeviceTag.ADD
+            ),
         ),
     ),
 }
@@ -195,75 +181,29 @@ async def async_setup_entry(
     entry: SurePetcareConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up SurePetCare select for each matching device."""
-
-    coordinators = entry.runtime_data.device_coordinators
-
-    entities = [
-        SurePetCareSelect(
-            coordinator,
-            description=description,
-        )
-        for coordinator in coordinators
-        for description in SELECTS.get(coordinator.product_id, ())
-    ]
-    async_add_entities(entities)
+    coordinator = entry.runtime_data.coordinator
+    async_add_entities(
+        SurePetCareSelect(coordinator, device, description)
+        for device in coordinator.devices.values()
+        for description in SELECT_FIELDS.get(device.product, ())
+    )
 
 
 class SurePetCareSelect(SurePetCareBaseEntity, SelectEntity):
-    """The platform class required by Home Assistant."""
+    """A library-provided choice control."""
 
     entity_description: SurePetCareSelectEntityDescription
 
-    def __init__(
-        self,
-        coordinator: SurePetCareDeviceDataUpdateCoordinator,
-        description: SurePetCareSelectEntityDescription,
-    ) -> None:
-        """Initialize a Surepetcare sensor."""
-        super().__init__(
-            coordinator=coordinator,
-        )
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator._device.id}-{description.key}"
+    def _set_value(self, value: Any) -> None:
+        self._attr_current_option = value
 
     @property
     def current_option(self) -> str | None:
-        # Convert to lower since translation requires lower case.
-        if self.native_value is None:
-            return None
-        return self.native_value.lower()
-
-    @property
-    def available(self) -> bool:
-        """Return if entity is available."""
-        return cast(bool, self._device.available)
-
-    async def async_select_option(self, option: str) -> None:
-        # If command then write with it
-        if option not in self.options:
-            raise ValueError(
-                f"Invalid option {option} for select entity {self.entity_description}"
-            )
-
-        value = resolve_select_option_value(self.entity_description, option)
-
-        await self.send_command(value)
+        return self._attr_current_option
 
     @property
     def options(self) -> list[str]:
-        """Return a set of selectable options."""
-        desc = self.entity_description
+        return [option.label for option in self.entity_description.get_options(self)]
 
-        # Use options_fn if present
-        options_fn = getattr(desc.field, "options_fn", None)
-        if options_fn:
-            return options_fn(self.context)
-
-        # Fallback to static options if present
-        opts = desc.options
-        if opts is not None:
-            if isinstance(opts, type) and issubclass(opts, Enum):
-                return [e.name.lower() for e in opts]
-            return list(opts)
-        raise ValueError(f"No options or options_fn defined for select entity {desc}")
+    async def async_select_option(self, option: str) -> None:
+        await self.send_command(option)

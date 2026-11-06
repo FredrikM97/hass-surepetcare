@@ -1,41 +1,8 @@
-"""Tests for shared SurePetCare helper functions."""
+"""Configuration and diagnostics remain independent of entity data."""
 
-from types import SimpleNamespace
-
-import pytest
 from pydantic import BaseModel
 
-from custom_components.surepcha.helper import ensure_list, index_attr, serialize
-
-
-@pytest.mark.parametrize(
-    ("sequence", "index", "attribute", "default"),
-    [([], 0, None, "missing"), (None, 0, None, "invalid")],
-)
-def test_index_attr_returns_default_for_invalid_index(
-    sequence: object, index: int, attribute: str | None, default: str
-) -> None:
-    """Invalid sequences and indexes return the caller's default."""
-    assert index_attr(sequence, index, attribute, default) == default
-
-
-@pytest.mark.parametrize(
-    ("value", "expected"),
-    [
-        (None, []),
-        (["pet", None], ["pet"]),
-        ({"first": "pet", "second": None}, ["pet"]),
-        ("pet", ["pet"]),
-    ],
-)
-def test_ensure_list_normalizes_values(value: object, expected: list[object]) -> None:
-    """Missing values become empty lists; collections filter out None."""
-    assert ensure_list(value) == expected
-
-
-def test_ensure_list_returns_empty_for_missing_attribute() -> None:
-    """Attribute traversal stops when a requested attribute is missing."""
-    assert ensure_list(SimpleNamespace(value=None), "value", "child") == []
+from custom_components.surepcha.helper import serialize
 
 
 class _LegacyModel(BaseModel):
@@ -47,6 +14,16 @@ class _LegacyModel(BaseModel):
         return super().__getattribute__(name)
 
 
-def test_serialize_uses_legacy_pydantic_dict() -> None:
-    """Pydantic models without model_dump use the compatibility fallback."""
+def test_serialize_uses_legacy_pydantic_dict():
     assert serialize(_LegacyModel(value="pet")) == {"value": "pet"}
+
+
+def test_diagnostics_do_not_serialize_static_field_schemas():
+    class Device:
+        field_definitions = ("static metadata",)
+
+        @property
+        def name(self):
+            return "Device"
+
+    assert serialize(Device()) == {"name": "Device"}
