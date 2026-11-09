@@ -4,12 +4,14 @@ import logging
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import timedelta
+from enum import Enum
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.storage import Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from pydantic import TypeAdapter
 from surepcio import Household, HouseholdState, SurePetcareClient, TimelineEvent
 from surepcio.devices.device import SurePetCareBase
 
@@ -18,6 +20,16 @@ from .helper import translate_auth_errors
 
 logger = logging.getLogger(__name__)
 DEVICE_POLL_INTERVAL = timedelta(minutes=15)
+
+
+def _event_json_value(value: Any) -> Any:
+    if isinstance(value, Enum):
+        return value.name
+    if isinstance(value, dict):
+        return {key: _event_json_value(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_event_json_value(item) for item in value]
+    return value
 
 
 @dataclass
@@ -116,4 +128,7 @@ class SurePetCareCoordinator(DataUpdateCoordinator[None]):
 
     @callback
     def _publish_event(self, payload: dict[str, Any]) -> None:
-        self.hass.bus.async_fire(EVENT_TIMELINE, payload)
+        event_data = TypeAdapter(dict[str, Any]).dump_python(
+            _event_json_value(payload), mode="json"
+        )
+        self.hass.bus.async_fire(EVENT_TIMELINE, event_data)

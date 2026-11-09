@@ -2,7 +2,7 @@
 # name: test_event_payload_includes_movement_details
   dict({
     'created_at': '2025-11-12T13:16:35Z',
-    'data': 'null',
+    'data': None,
     'devices': list([
       dict({
         'id': 555,
@@ -12,18 +12,16 @@
       }),
     ]),
     'household_id': 7777,
-    'households': list([
-    ]),
     'id': 100001,
     'movements': list([
       dict({
         'created_at': '2025-11-12T13:16:35Z',
         'device_id': 555,
-        'direction': 0,
+        'direction': 'LOOKED_THROUGH',
         'id': 9001,
-        'side': 1,
+        'side': 'INSIDE',
         'tag_id': 8001,
-        'type': 0,
+        'type': 'STATUS_0',
         'updated_at': '2025-11-12T13:16:44Z',
       }),
     ]),
@@ -32,13 +30,9 @@
         'id': 3001,
       }),
     ]),
-    'tags': list([
-    ]),
-    'type': 0,
+    'type': 'MOVEMENT',
     'updated_at': '2025-11-12T13:16:44Z',
     'users': list([
-    ]),
-    'weights': list([
     ]),
   })
 # ---
@@ -46,7 +40,13 @@
   list([
     dict({
       'created_at': '2026-09-24T10:36:01Z',
-      'data': '{"mode":null,"locked":true,"time":"10:36","lock":"10:36","unlock":"19:16"}',
+      'data': dict({
+        'lock': '10:36',
+        'locked': True,
+        'mode': None,
+        'time': '10:36',
+        'unlock': '19:16',
+      }),
       'devices': list([
         dict({
           'id': 555,
@@ -67,7 +67,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 20,
+      'type': 'CURFEW_LOCK_STATUS',
       'updated_at': '2026-09-24T10:36:01Z',
       'users': list([
       ]),
@@ -76,7 +76,13 @@
     }),
     dict({
       'created_at': '2026-09-24T19:16:00Z',
-      'data': '{"mode":null,"locked":false,"time":"19:16","lock":"10:36","unlock":"19:16"}',
+      'data': dict({
+        'lock': '10:36',
+        'locked': False,
+        'mode': None,
+        'time': '19:16',
+        'unlock': '19:16',
+      }),
       'devices': list([
         dict({
           'id': 555,
@@ -97,7 +103,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 20,
+      'type': 'CURFEW_LOCK_STATUS',
       'updated_at': '2026-09-24T19:16:00Z',
       'users': list([
       ]),
@@ -123,7 +129,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 20,
+      'type': 'CURFEW_LOCK_STATUS',
       'updated_at': '2026-09-24T19:17:00Z',
       'users': list([
       ]),
@@ -148,7 +154,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 20,
+      'type': 'CURFEW_LOCK_STATUS',
       'updated_at': '2026-09-24T19:18:00Z',
       'users': list([
       ]),
@@ -161,19 +167,40 @@
   list([
     dict({
       'created_at': '2026-08-07T14:50:27Z',
-      'data': '{"weight":{"count":1,"food_type":[2,null],"plate":{"half":21,"full":54},"bowl":{"half":31,"full":57},"target":[198,0],"tare_value":null}}',
+      'data': dict({
+        'weight': dict({
+          'bowl': dict({
+            'full': 57,
+            'half': 31,
+          }),
+          'count': 1,
+          'food_type': list([
+            'DRY',
+            None,
+          ]),
+          'plate': dict({
+            'full': 54,
+            'half': 21,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         dict({
           'household_id': 222527,
           'id': 1376800,
           'name': 'Feeder',
-          'product_id': 4,
+          'product_id': 'FEEDER_CONNECT',
         }),
         dict({
           'household_id': 222527,
           'id': 1225898,
           'name': 'Hub',
-          'product_id': 1,
+          'product_id': 'HUB',
         }),
       ]),
       'household_id': 7777,
@@ -184,13 +211,11 @@
         }),
       ]),
       'id': 17350904002,
-      'movements': list([
-      ]),
       'pets': list([
       ]),
       'tags': list([
       ]),
-      'type': 21,
+      'type': 'WEIGHT_CHANGED',
       'updated_at': '2026-08-07T14:50:27Z',
       'users': list([
       ]),
@@ -200,8 +225,6 @@
           'created_at': '2026-08-07T14:50:27Z',
           'device_id': 1376800,
           'duration': 13,
-          'frames': list([
-          ]),
           'id': 1550242263,
           'tag_id': 0,
           'updated_at': '2026-08-07T14:50:43Z',
@@ -210,19 +233,42 @@
     }),
     dict({
       'created_at': '2026-08-20T17:16:16Z',
-      'data': '{"encounter_source":null,"weight":{"count":1,"food_type":[2,null],"plate":{"half":21.9,"full":54.3},"bowl":{"half":31.3,"full":57.18},"target":[198,0],"tare_value":null},"tare_type":null}',
+      'data': dict({
+        'encounter_source': None,
+        'tare_type': None,
+        'weight': dict({
+          'bowl': dict({
+            'full': 57.18,
+            'half': 31.3,
+          }),
+          'count': 1,
+          'food_type': list([
+            'DRY',
+            None,
+          ]),
+          'plate': dict({
+            'full': 54.3,
+            'half': 21.9,
+          }),
+          'tare_value': None,
+          'target': list([
+            198,
+            0,
+          ]),
+        }),
+      }),
       'devices': list([
         dict({
           'household_id': 222527,
           'id': 1376800,
           'name': 'Feeder',
-          'product_id': 4,
+          'product_id': 'FEEDER_CONNECT',
         }),
         dict({
           'household_id': 222527,
           'id': 1225898,
           'name': 'Hub',
-          'product_id': 1,
+          'product_id': 'HUB',
         }),
       ]),
       'household_id': 7777,
@@ -233,8 +279,6 @@
         }),
       ]),
       'id': 17504397556,
-      'movements': list([
-      ]),
       'pets': list([
         dict({
           'household_id': 222527,
@@ -248,7 +292,7 @@
           'id': 60978,
         }),
       ]),
-      'type': 22,
+      'type': 'FEEDING',
       'updated_at': '2026-08-20T17:16:16Z',
       'users': list([
       ]),
@@ -258,8 +302,6 @@
           'created_at': '2026-08-20T17:16:16Z',
           'device_id': 1376800,
           'duration': 54,
-          'frames': list([
-          ]),
           'id': 1563543337,
           'tag_id': 60978,
           'updated_at': '2026-08-20T17:16:36Z',
@@ -272,7 +314,7 @@
   list([
     dict({
       'created_at': '2023-10-01T13:44:45Z',
-      'data': 'null',
+      'data': None,
       'devices': list([
       ]),
       'household_id': 7777,
@@ -285,7 +327,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 17,
+      'type': 'ACCOUNT_CREATED',
       'updated_at': '2023-10-01T13:44:45Z',
       'users': list([
         dict({
@@ -298,7 +340,7 @@
     }),
     dict({
       'created_at': '2026-01-15T12:42:36Z',
-      'data': 'null',
+      'data': None,
       'devices': list([
       ]),
       'household_id': 7777,
@@ -315,7 +357,7 @@
       ]),
       'tags': list([
       ]),
-      'type': 12,
+      'type': 'USER_JOINED_HOUSEHOLD',
       'updated_at': '2026-01-15T12:42:36Z',
       'users': list([
         dict({
@@ -332,35 +374,34 @@
   list([
     dict({
       'created_at': '2025-11-11T23:00:00Z',
-      'data': '{"curfew":[],"mode":0,"last_mode":1}',
+      'data': dict({
+        'curfew': list([
+        ]),
+        'last_mode': 'ALLOW_IN',
+        'mode': 'UNLOCKED',
+      }),
       'devices': list([
         dict({
           'id': 555,
         }),
       ]),
       'household_id': 7777,
-      'households': list([
-      ]),
       'id': 100004,
       'movements': list([
       ]),
       'pets': list([
       ]),
-      'tags': list([
-      ]),
-      'type': 6,
+      'type': 'DOOR_LOCKING_MODE',
       'updated_at': '2025-11-11T23:00:05Z',
       'users': list([
         dict({
           'id': 4001,
         }),
       ]),
-      'weights': list([
-      ]),
     }),
     dict({
       'created_at': '2025-11-12T09:44:11Z',
-      'data': 'null',
+      'data': None,
       'devices': list([
         dict({
           'id': 555,
@@ -370,18 +411,16 @@
         }),
       ]),
       'household_id': 7777,
-      'households': list([
-      ]),
       'id': 100003,
       'movements': list([
         dict({
           'created_at': '2025-11-12T09:44:11Z',
           'device_id': 555,
-          'direction': 2,
+          'direction': 'LEFT',
           'id': 9003,
-          'side': 1,
+          'side': 'INSIDE',
           'tag_id': 8001,
-          'type': 6,
+          'type': 'STATUS_6',
           'updated_at': '2025-11-12T09:44:20Z',
         }),
       ]),
@@ -390,14 +429,25 @@
           'id': 3001,
         }),
       ]),
-      'tags': list([
-      ]),
-      'type': 0,
+      'type': 'MOVEMENT',
       'updated_at': '2025-11-12T09:44:20Z',
       'users': list([
       ]),
-      'weights': list([
-      ]),
+    }),
+  ])
+# ---
+# name: test_typed_timeline_and_json_bus_payload_are_separate
+  list([
+    dict({
+      'data': dict({
+        'curfew': list([
+        ]),
+        'last_mode': 'ALLOW_IN',
+        'mode': 'UNLOCKED',
+      }),
+      'household_id': 7777,
+      'id': 42,
+      'type': 'DOOR_LOCKING_MODE',
     }),
   ])
 # ---

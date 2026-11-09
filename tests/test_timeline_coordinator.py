@@ -5,7 +5,8 @@ from unittest.mock import AsyncMock, MagicMock, call
 import pytest
 from surepcio import Household, SurePetcareClient
 from surepcio.devices.pet import Pet
-from surepcio.timeline import TimelineEvent
+from surepcio.enums import FlapLocking, TimelineEventType
+from surepcio.timeline import DoorLockingData, TimelineEvent, build_event_payload
 from syrupy.assertion import SnapshotAssertion
 
 from custom_components.surepcha.const import (
@@ -151,6 +152,36 @@ def test_timeline_subscriptions_broadcast_raw_events_at_least_once(
     assert coordinator._timeline_listeners == []
     report_listener.assert_not_called()
     unsubscribe_reports()
+
+
+async def test_typed_timeline_and_json_bus_payload_are_separate(
+    hass, timeline_coordinator, snapshot: SnapshotAssertion
+) -> None:
+    event = TimelineEvent(
+        id=42,
+        type=TimelineEventType.DOOR_LOCKING_MODE,
+        data='{"mode":0,"last_mode":1,"curfew":[]}',
+    )
+    listener = MagicMock()
+    unsubscribe = timeline_coordinator.async_subscribe_timeline(listener)
+    bus_events = async_capture_events(hass, EVENT_TIMELINE)
+
+    payload = build_event_payload(7777, event)
+    assert payload["type"] is TimelineEventType.DOOR_LOCKING_MODE
+    assert payload["data"]["mode"] is FlapLocking.UNLOCKED
+    timeline_coordinator._publish_timeline(event)
+    timeline_coordinator._publish_event(payload)
+    await hass.async_block_till_done()
+
+    listener.assert_called_once_with(event)
+    assert listener.call_args.args[0] is event
+    assert event.event_type is TimelineEventType.DOOR_LOCKING_MODE
+    assert isinstance(event.data, DoorLockingData)
+    assert event.data.mode is FlapLocking.UNLOCKED
+    assert event.data.last_mode is FlapLocking.ALLOW_IN
+    assert payload["data"]["mode"] is FlapLocking.UNLOCKED
+    assert [bus_event.data for bus_event in bus_events] == snapshot
+    unsubscribe()
 
 
 async def test_command_target_refresh_notifies_once_after_device_phase(
