@@ -1,5 +1,5 @@
 version = 1
-revision = 5
+revision = 3
 requires-python = ">=3.14.2"
 resolution-markers = [
     "python_full_version >= '3.15'",
@@ -1975,7 +1975,7 @@ wheels = [
 [[package]]
 name = "py-surepetcare"
 version = "0.6.5"
-source = { git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main#cb623b432452e04638258137e626959a774a583f" }
+source = { git = "https://github.com/FredrikM97/py-surepetcare.git?rev=main#13422a1e6e9f574ef23da32c9c4bea35ba23c721" }
 dependencies = [
     { name = "aiohttp" },
     { name = "pydantic" },
