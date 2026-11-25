@@ -1,10 +1,12 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+import voluptuous as vol
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 from homeassistant.helpers.area_registry import async_get as async_get_area_registry
 from surepcio import Household
+from surepcio.enums import ProductId
 from surepcio.security.exceptions import ApiError, AuthenticationError
 from syrupy.assertion import SnapshotAssertion
 
@@ -13,6 +15,7 @@ from custom_components.surepcha.config_flow import (
     SurePetCareConfigFlow,
     SurePetCareOptionsFlow,
     _device_picker_options,
+    device_config_schema,
 )
 from custom_components.surepcha.const import (
     CLIENT_DEVICE_ID,
@@ -39,6 +42,46 @@ from custom_components.surepcha.migration import (
 )
 
 from .support import MockConfigEntry
+
+DEVICE_CONFIG_SCHEMAS = {
+    product: device_config_schema(product) for product in ProductId
+}
+
+
+def test_snapshot_schema(snapshot):
+    assert DEVICE_CONFIG_SCHEMAS == snapshot
+
+
+def test_snapshot_schema_with_example_values(snapshot):
+    """For each schema, validate example config values and snapshot the results."""
+    example_values = {
+        ProductId.DUAL_SCAN_PET_DOOR: {
+            LOCATION_INSIDE: "Hall",
+            LOCATION_OUTSIDE: "Garden",
+            POLLING_SPEED: 300,
+        },
+    }
+    validated = {}
+    for pid, schema in DEVICE_CONFIG_SCHEMAS.items():
+        if schema is None:
+            validated[pid] = None
+        else:
+            vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
+            values = example_values.get(pid, {})
+            validated[pid] = vol_schema(values)
+    assert validated == snapshot
+
+
+def test_snapshot_schema_with_missing_values(snapshot):
+    """For each schema, validate empty config dict and snapshot the results."""
+    validated = {}
+    for pid, schema in DEVICE_CONFIG_SCHEMAS.items():
+        if schema is None:
+            validated[pid] = None
+        else:
+            vol_schema = vol.Schema(schema, extra=vol.REMOVE_EXTRA)
+            validated[pid] = vol_schema({})
+    assert validated == snapshot
 
 
 class MockDevice:

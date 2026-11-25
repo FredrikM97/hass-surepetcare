@@ -12,6 +12,7 @@ from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, CONF_TOKEN
 from homeassistant.data_entry_flow import section
 from homeassistant.helpers.device_registry import callback
+from homeassistant.helpers.selector import AreaSelector
 from surepcio import Household, SurePetcareClient, get_device_features
 from surepcio.enums import ProductId
 from surepcio.security.exceptions import ApiError, AuthenticationError
@@ -21,23 +22,39 @@ from .const import (
     DOMAIN,
     ENTRY_ID,
     HOUSEHOLD_ID,
+    LOCATION_INSIDE,
+    LOCATION_OUTSIDE,
+    MANUAL_PROPERTIES,
     NAME,
     OPTION_DEVICES,
     OPTION_PROPERTIES,
     OPTION_TIMELINE,
     PRODUCT_ID,
+    SCAN_INTERVAL,
+    TIMELINE_POLLING_SPEED,
     TOKEN,
-)
-from .device_config_schema import (
-    MANUAL_PROPERTIES,
-    OPTION_CONFIG_SCHEMAS,
-    TIMELINE_CONFIG_SCHEMA,
-    device_config_schema,
 )
 
 logger = logging.getLogger(__name__)
 
-MANUAL_PROPERTIES_SCHEMA = next(iter(OPTION_CONFIG_SCHEMAS.values())).schema.schema
+MANUAL_PROPERTIES_SCHEMA = {
+    vol.Optional(LOCATION_INSIDE): AreaSelector(),
+    vol.Optional(LOCATION_OUTSIDE): AreaSelector(),
+}
+TIMELINE_CONFIG_SCHEMA = {
+    vol.Optional(TIMELINE_POLLING_SPEED, default=SCAN_INTERVAL): vol.All(
+        int, vol.Range(min=5, max=86400)
+    )
+}
+
+
+def device_config_schema(product_id: int | str | None) -> dict[Any, Any]:
+    """Offer the optional location labels advertised by PS."""
+    schema: dict[Any, Any] = {}
+    if "location_labels" in get_device_features(product_id):
+        schema.update(MANUAL_PROPERTIES_SCHEMA)
+    return schema
+
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
