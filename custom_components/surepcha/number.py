@@ -15,9 +15,8 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import ProductId
 
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .field_helpers import bowl_target, has_second_bowl
-from .fields import SurePetCareDescriptionMixin
+from .entity import SurePetCareBaseEntity, SurePetCareDescriptionMixin
+from .helper import bowl_target, has_second_bowl
 
 
 @dataclass(frozen=True, kw_only=True)

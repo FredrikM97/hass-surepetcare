@@ -1,5 +1,6 @@
 """Present library toggle interactions."""
 
+import logging
 from dataclasses import dataclass
 from typing import Any
 
@@ -7,13 +8,59 @@ from homeassistant.components.switch import SwitchEntity, SwitchEntityDescriptio
 from homeassistant.const import STATE_OFF, STATE_ON
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from surepcio.devices.entities import DevicePetTag
 from surepcio.entities.pet import movement_reading
-from surepcio.enums import PetLocation, ProductId, TimelineEventType
+from surepcio.enums import (
+    PetDeviceLocationProfile,
+    PetLocation,
+    ProductId,
+    TimelineEventType,
+)
 
+from .const import PRODUCT_ID
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .field_helpers import flap_profiles, indoor_only, write_indoor_only
-from .fields import FLAP_PRODUCTS, SurePetCareBooleanDescription
+from .entity import FLAP_PRODUCTS, SurePetCareBaseEntity, SurePetCareBooleanDescription
+from .helper import get_device_options
+
+logger = logging.getLogger(__name__)
+
+
+def flap_profiles(entity: SurePetCareBaseEntity) -> list[DevicePetTag]:
+    options = get_device_options(entity.hass, entity.coordinator.config_entry)
+    flaps = {
+        int(device_id)
+        for device_id, metadata in options.items()
+        if ProductId.find(metadata.get(PRODUCT_ID)) in FLAP_PRODUCTS
+    }
+    return [item for item in entity.device.status.devices.items if item.id in flaps]
+
+
+def indoor_only(entity: SurePetCareBaseEntity) -> bool | None:
+    profiles = {item.profile for item in flap_profiles(entity)}
+    if not profiles:
+        return None
+    if len(profiles) > 1:
+        logger.warning(
+            "Flap device profiles are not uniform for pet %s: %s",
+            entity.device.id,
+            profiles,
+        )
+    return profiles == {PetDeviceLocationProfile.INDOOR_ONLY}
+
+
+def write_indoor_only(entity: SurePetCareBaseEntity, value: Any) -> list[Any]:
+    pet: Any = entity.device
+    profiles = flap_profiles(entity)
+    if not profiles:
+        raise ValueError(f"No flap devices are assigned to pet {pet.id}")
+    profile = (
+        PetDeviceLocationProfile.INDOOR_ONLY
+        if value
+        else PetDeviceLocationProfile.NO_RESTRICTION
+    )
+    return [
+        pet.set_profile(item.id, profile) for item in profiles if item.id is not None
+    ]
 
 
 @dataclass(frozen=True, kw_only=True)

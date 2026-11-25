@@ -25,12 +25,14 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from surepcio.entities.bowl import bowl_weights
 from surepcio.entities.pet import (
     consumption_reading,
     last_activity_reading,
     movement_reading,
 )
 from surepcio.enums import PetLocation, ProductId, TimelineEventType
+from surepcio.timeline import TimelineEvent
 
 from .const import (
     LOCATION_INSIDE,
@@ -40,24 +42,121 @@ from .const import (
     OPTION_PROPERTIES,
 )
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .field_helpers import (
-    fill_reading,
-    has_second_bowl,
-    poseidon_bowl_value,
-    poseidon_volume,
-    sum_targets,
-    weight_capacity_extra,
-    weight_reading,
-)
-from .fields import (
+from .entity import (
     ACTIVITY_PRODUCTS,
     FLAP_PRODUCTS,
+    SurePetCareBaseEntity,
     SurePetCareDescriptionMixin,
 )
-from .helper import get_device_options, serialize
+from .helper import bowl_target, get_device_options, has_second_bowl, serialize
 
 logger = logging.getLogger(__name__)
+
+
+def sum_targets(device: Any) -> float | None:
+    settings = getattr(getattr(device.control, "bowls", None), "settings", None) or []
+    targets = [
+        setting.target for setting in settings if setting and setting.target is not None
+    ]
+    return sum(targets) if targets else None
+
+
+def _bowl_extra(
+    device: Any, index: int, *, include_substance: bool = False
+) -> dict[str, Any]:
+    statuses = getattr(device.status, "bowl_status", None) or []
+    settings = getattr(getattr(device.control, "bowls", None), "settings", None) or []
+    if index >= len(statuses):
+        return {}
+    status = statuses[index]
+    setting = settings[index] if index < len(settings) else None
+    result: dict[str, Any] = {
+        "position": (
+            status.position.name.lower() if status.position is not None else None
+        ),
+        "food_type": (
+            setting.food_type.name.lower()
+            if setting is not None and setting.food_type is not None
+            else None
+        ),
+        "last_filled_at": status.last_filled_at,
+        "last_zeroed_at": status.last_zeroed_at,
+        "last_fill_weight": status.last_fill_weight,
+    }
+    if include_substance:
+        result["substance_type"] = status.substance_type
+    return result
+
+
+def _event_weights(device: Any, event: TimelineEvent) -> dict[int, float]:
+    return bowl_weights(
+        event,
+        device_id=device.id,
+        indices=(0, 1) if has_second_bowl(device) else (0,),
+    )
+
+
+def weight_reading(
+    device: Any, event: TimelineEvent, index: int
+) -> tuple[float, dict[str, Any]] | None:
+    weights = _event_weights(device, event)
+    if index not in weights:
+        return None
+    return (weights[index], _bowl_extra(device, index, include_substance=index == 1))
+
+
+def fill_reading(
+    device: Any, event: TimelineEvent
+) -> tuple[float | None, dict[str, Any]] | None:
+    weights = _event_weights(device, event)
+    if not weights:
+        return None
+    total_weight = total_target = 0.0
+    attributes: dict[str, Any] = {}
+    for index, weight in weights.items():
+        target = bowl_target(device, index)
+        percent = None
+        if target is not None and target > 0:
+            clamped = max(weight, 0)
+            percent = clamped / target * 100
+            total_weight += clamped
+            total_target += target
+        attributes[f"bowl_{index}_fill_percent"] = percent
+    return (total_weight / total_target * 100 if total_target > 0 else None, attributes)
+
+
+def weight_capacity_extra(device: Any) -> dict[str, Any]:
+    bowls = getattr(getattr(device.control, "bowls", None), "settings", None) or []
+    return {
+        f"bowls_{index}_target": (
+            bowls[index].target if index < len(bowls) and bowls[index] else None
+        )
+        for index in range(2)
+    }
+
+
+def poseidon_bowl_value(device: Any, attribute: str) -> Any:
+    bowls = device.status.bowl_status
+    return getattr(bowls[0], attribute) if bowls else None
+
+
+def _poseidon_extra(device: Any) -> dict[str, Any]:
+    statuses = getattr(device.status, "bowl_status", None) or []
+    if not statuses:
+        return {}
+    status = statuses[0]
+    return {
+        "last_filled_at": status.last_filled_at,
+        "last_zeroed_at": status.last_zeroed_at,
+        "last_fill_weight": status.last_fill_weight,
+    }
+
+
+def poseidon_volume(
+    device: Any, event: TimelineEvent
+) -> tuple[float, dict[str, Any]] | None:
+    weights = bowl_weights(event, device_id=device.id, indices=(0,))
+    return (weights[0], _poseidon_extra(device)) if 0 in weights else None
 
 
 @dataclass(frozen=True, kw_only=True)

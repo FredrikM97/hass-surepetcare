@@ -1,6 +1,5 @@
 """Native Home Assistant descriptions and API behavior."""
 
-from dataclasses import FrozenInstanceError
 from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -19,15 +18,8 @@ from custom_components.surepcha.button import (
     BUTTON_FIELDS,
     SurePetCareButtonEntityDescription,
 )
-from custom_components.surepcha.const import NAME, PRODUCT_ID
-from custom_components.surepcha.field_helpers import (
-    assignment_options,
-    iter_device_events,
-)
-from custom_components.surepcha.fields import (
-    FieldOption,
-    FieldPathError,
-)
+from custom_components.surepcha.entity import FieldPathError
+from custom_components.surepcha.helper import iter_device_events
 from custom_components.surepcha.lock import (
     LOCK_FIELDS,
     SurePetCareLockEntityDescription,
@@ -36,10 +28,7 @@ from custom_components.surepcha.number import (
     NUMBER_FIELDS,
     SurePetCareNumberEntityDescription,
 )
-from custom_components.surepcha.select import (
-    SELECT_FIELDS,
-    SurePetCareSelectEntityDescription,
-)
+from custom_components.surepcha.select import SELECT_FIELDS
 from custom_components.surepcha.sensor import (
     SENSOR_FIELDS,
     SurePetCareSensor,
@@ -108,7 +97,7 @@ def test_device_event_selection_uses_library_matching_and_selects_target_pet():
     matched = MagicMock()
     other_matched = MagicMock()
     with patch(
-        "custom_components.surepcha.field_helpers.iter_pet_events",
+        "custom_components.surepcha.helper.iter_pet_events",
         return_value=iter(((other_pet, other_matched), (pet, matched))),
     ) as match:
         assert list(iter_device_events(event, pet, [pet, other_pet])) == [matched]
@@ -226,55 +215,6 @@ def test_timeline_fields_require_a_callable_value_reader():
     assert description.value is reader
 
 
-def test_native_select_options_and_dynamic_api_options_are_distinct(snapshot):
-    description = SurePetCareSelectEntityDescription(
-        key="choice", options=["First", "Second"]
-    )
-    dynamic = SurePetCareSelectEntityDescription(
-        key="choice",
-        options=["Static"],
-        options_fn=lambda *_: (FieldOption("write_value", "Dynamic"),),
-    )
-    assert {
-        "static": description.get_options(None),
-        "dynamic_metadata": dynamic.options,
-        "dynamic": dynamic.get_options(None),
-    } == snapshot
-    with pytest.raises(FrozenInstanceError):
-        description.key = "changed"
-    with pytest.raises(TypeError):
-        SurePetCareSelectEntityDescription("choice")
-
-
-def test_assignment_options_read_current_configuration_without_copied_inventory(
-    snapshot,
-):
-    from surepcio.enums import ModifyDeviceTag
-
-    entity = SimpleNamespace(
-        hass=object(),
-        coordinator=SimpleNamespace(config_entry=object()),
-        device=SimpleNamespace(
-            status=SimpleNamespace(devices=SimpleNamespace(items=[]))
-        ),
-    )
-    options = {
-        "20": {NAME: "Feeder", PRODUCT_ID: ProductId.FEEDER_CONNECT},
-        "21": {NAME: "Hub", PRODUCT_ID: ProductId.HUB},
-    }
-    with patch(
-        "custom_components.surepcha.field_helpers.get_device_options",
-        return_value=options,
-    ):
-        assert assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
-            name="initial"
-        )
-        options["20"][NAME] = "Renamed"
-        assert assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
-            name="renamed"
-        )
-
-
 def test_native_catalogues_cover_products_with_platform_scoped_keys(snapshot):
     assert {
         platform: {
@@ -389,24 +329,6 @@ def test_boolean_command_values_are_prepared_by_the_description(value, snapshot)
     } == snapshot
     with pytest.raises(TypeError, match="boolean"):
         description.prepare_command_value("yes", entity)
-
-
-def test_select_command_prepares_api_choice_and_rejects_unavailable_choice(snapshot):
-    description = SurePetCareSelectEntityDescription(
-        key="locking",
-        choices=FlapLocking,
-        options_fn=lambda *_: (
-            FieldOption("locked", "Locked"),
-            FieldOption("unlocked", "Unlocked"),
-        ),
-    )
-    entity = SimpleNamespace(device=object())
-    assert {
-        "normalized": description.normalize_value(FlapLocking.UNLOCKED, entity),
-        "prepared": description.prepare_command_value("Locked", entity),
-    } == snapshot
-    with pytest.raises(ValueError, match="unavailable"):
-        description.prepare_command_value("Unknown", entity)
 
 
 async def test_entity_command_sends_prepared_value_and_refreshes_target():

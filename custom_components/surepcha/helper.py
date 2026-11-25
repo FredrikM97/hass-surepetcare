@@ -1,6 +1,6 @@
-"""Shared serialization for Home Assistant states and diagnostics."""
+"""Shared Home Assistant integration helpers."""
 
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
 from contextlib import contextmanager
 from enum import Enum
 from typing import Any
@@ -9,9 +9,47 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from pydantic import BaseModel
+from surepcio.devices.device import SurePetCareBase
+from surepcio.devices.pet import Pet
+from surepcio.entities.pet import iter_pet_events
+from surepcio.enums import BowlType
 from surepcio.security.exceptions import ApiError, AuthenticationError
+from surepcio.timeline import TimelineEvent
 
 from .const import DOMAIN, OPTION_DEVICES
+
+
+def iter_device_events(
+    event: TimelineEvent,
+    device: SurePetCareBase,
+    devices: Iterable[SurePetCareBase],
+) -> Iterator[TimelineEvent]:
+    """Select timeline observations for an integration entity without caching."""
+    if isinstance(device, Pet):
+        for pet, source in iter_pet_events(
+            event, (item for item in devices if isinstance(item, Pet))
+        ):
+            if pet.id == device.id:
+                yield source
+    elif event.created_at is not None:
+        yield event
+
+
+def has_second_bowl(device: Any) -> bool:
+    bowls = getattr(getattr(device, "control", None), "bowls", None)
+    return bowls is not None and (
+        bowls.type == BowlType.TWO_SMALL
+        or (bowls.type is None and len(bowls.settings or ()) > 1)
+    )
+
+
+def bowl_target(device: Any, index: int) -> float | None:
+    bowls = device.control.bowls
+    settings = bowls.settings if bowls is not None else None
+    setting = (
+        settings[index] if settings is not None and index < len(settings) else None
+    )
+    return setting.target if setting is not None else None
 
 
 @contextmanager

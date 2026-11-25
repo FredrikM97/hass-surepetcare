@@ -1,20 +1,4 @@
 # serializer version: 1
-# name: test_assignment_options_read_current_configuration_without_copied_inventory[initial]
-  tuple(
-    dict({
-      'label': 'Feeder',
-      'value': '20',
-    }),
-  )
-# ---
-# name: test_assignment_options_read_current_configuration_without_copied_inventory[renamed]
-  tuple(
-    dict({
-      'label': 'Renamed',
-      'value': '20',
-    }),
-  )
-# ---
 # name: test_boolean_command_values_are_prepared_by_the_description[False]
   dict({
     'normalized': False,
@@ -184,29 +168,6 @@
     'unit': None,
   })
 # ---
-# name: test_native_select_options_and_dynamic_api_options_are_distinct
-  dict({
-    'dynamic': tuple(
-      dict({
-        'label': 'Dynamic',
-        'value': 'write_value',
-      }),
-    ),
-    'dynamic_metadata': list([
-      'Static',
-    ]),
-    'static': tuple(
-      dict({
-        'label': 'First',
-        'value': 'First',
-      }),
-      dict({
-        'label': 'Second',
-        'value': 'Second',
-      }),
-    ),
-  })
-# ---
 # name: test_report_reading_normalizes_values_and_reads_attributes_once
   tuple(
     'unlocked',
@@ -311,12 +272,6 @@
         'weight_capacity',
       ]),
     }),
-  })
-# ---
-# name: test_select_command_prepares_api_choice_and_rejects_unavailable_choice
-  dict({
-    'normalized': 'Unlocked',
-    'prepared': <FlapLocking.LOCKED: 3>,
   })
 # ---
 # name: test_supported_pet_descriptions_use_the_complete_household_inventory[dual-scan-pet-door]

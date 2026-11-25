@@ -9,8 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import FlapLocking, ProductId
 
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .fields import SurePetCareBooleanDescription
+from .entity import SurePetCareBaseEntity, SurePetCareBooleanDescription
 
 
 @dataclass(frozen=True, kw_only=True)

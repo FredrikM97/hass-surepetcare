@@ -21,10 +21,36 @@ from surepcio.enums import (
     Tare,
 )
 
+from .const import NAME, PRODUCT_ID
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .field_helpers import assignment_options
-from .fields import FieldOption, SurePetCareDescriptionMixin
+from .entity import FieldOption, SurePetCareBaseEntity, SurePetCareDescriptionMixin
+from .helper import get_device_options
+
+
+def assignment_options(
+    entity: SurePetCareBaseEntity, action: ModifyDeviceTag
+) -> tuple[FieldOption, ...]:
+    pet = entity.device
+    assigned = [item.id for item in pet.status.devices.items if item.id is not None]
+    options = get_device_options(entity.hass, entity.coordinator.config_entry)
+    eligible = [
+        (int(device_id), metadata.get(NAME, str(device_id)))
+        for device_id, metadata in options.items()
+        if (product := ProductId.find(metadata.get(PRODUCT_ID))) is not None
+        and product not in {ProductId.PET, ProductId.HUB}
+        and ((int(device_id) in assigned) == (action == ModifyDeviceTag.REMOVE))
+    ]
+    if action == ModifyDeviceTag.REMOVE:
+        eligible.sort(key=lambda item: assigned.index(item[0]))
+    return tuple(
+        FieldOption(
+            str(device_id),
+            f"{name} ({device_id})"
+            if sum(other_name == name for _, other_name in eligible) > 1
+            else name,
+        )
+        for device_id, name in eligible
+    )
 
 
 @dataclass(frozen=True, kw_only=True)

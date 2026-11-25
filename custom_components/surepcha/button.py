@@ -9,8 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from surepcio.enums import HubPairMode, ProductId
 
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .fields import SurePetCareDescriptionMixin
+from .entity import SurePetCareBaseEntity, SurePetCareDescriptionMixin
 
 
 @dataclass(frozen=True, kw_only=True)

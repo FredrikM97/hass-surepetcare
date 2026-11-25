@@ -16,9 +16,35 @@ from surepcio.entities.pet import presence_reading
 from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from .coordinator import SurePetcareConfigEntry
-from .entity import SurePetCareBaseEntity
-from .field_helpers import curfew_active, curfew_extra
-from .fields import FLAP_PRODUCTS, SurePetCareBooleanDescription
+from .entity import FLAP_PRODUCTS, SurePetCareBaseEntity, SurePetCareBooleanDescription
+
+
+def curfew_active(device: Any) -> bool | None:
+    return device.is_curfew_active if device.control.curfew is not None else None
+
+
+def curfew_extra(device: Any) -> dict[str, Any]:
+    curfew = getattr(device.control, "curfew", None)
+    if not curfew:
+        return {}
+    curfews = curfew if isinstance(curfew, list) else [curfew]
+    if not isinstance(curfew, list):
+        item = curfews[0]
+        return {
+            "enabled": item.enabled,
+            "lock_time": str(item.lock_time)[:5] if item.lock_time else None,
+            "unlock_time": str(item.unlock_time)[:5] if item.unlock_time else None,
+        }
+    return {
+        "curfew": [
+            {
+                "enabled": item.enabled,
+                "lock_time": str(item.lock_time),
+                "unlock_time": str(item.unlock_time),
+            }
+            for item in curfews
+        ]
+    }
 
 
 @dataclass(frozen=True, kw_only=True)
