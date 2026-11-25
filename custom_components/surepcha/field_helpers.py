@@ -45,24 +45,7 @@ def iter_device_events(
         yield event
 
 
-def _device_information(device: Any) -> dict[str, Any]:
-    return {
-        "household_id": device.household_id,
-        "id": device.id,
-        "parent_device_id": device.entity_info.parent_device_id,
-        "photo": device.photo,
-    }
-
-
-def _pet_information(pet: Any) -> dict[str, Any]:
-    return {
-        **_device_information(pet),
-        "product_id": pet.product_id,
-        "tag": pet.tag,
-    }
-
-
-def _has_second_bowl(device: Any) -> bool:
+def has_second_bowl(device: Any) -> bool:
     bowls = getattr(getattr(device, "control", None), "bowls", None)
     return bowls is not None and (
         bowls.type == BowlType.TWO_SMALL
@@ -70,7 +53,7 @@ def _has_second_bowl(device: Any) -> bool:
     )
 
 
-def _bowl_target(device: Any, index: int) -> float | None:
+def bowl_target(device: Any, index: int) -> float | None:
     bowls = device.control.bowls
     settings = bowls.settings if bowls is not None else None
     setting = (
@@ -79,7 +62,7 @@ def _bowl_target(device: Any, index: int) -> float | None:
     return setting.target if setting is not None else None
 
 
-def _sum_targets(device: Any) -> float | None:
+def sum_targets(device: Any) -> float | None:
     settings = getattr(getattr(device.control, "bowls", None), "settings", None) or []
     targets = [
         setting.target for setting in settings if setting and setting.target is not None
@@ -118,11 +101,11 @@ def _event_weights(device: Any, event: TimelineEvent) -> dict[int, float]:
     return bowl_weights(
         event,
         device_id=device.id,
-        indices=(0, 1) if _has_second_bowl(device) else (0,),
+        indices=(0, 1) if has_second_bowl(device) else (0,),
     )
 
 
-def _weight_reading(
+def weight_reading(
     device: Any, event: TimelineEvent, index: int
 ) -> tuple[float, dict[str, Any]] | None:
     weights = _event_weights(device, event)
@@ -131,7 +114,7 @@ def _weight_reading(
     return (weights[index], _bowl_extra(device, index, include_substance=index == 1))
 
 
-def _fill_reading(
+def fill_reading(
     device: Any, event: TimelineEvent
 ) -> tuple[float | None, dict[str, Any]] | None:
     weights = _event_weights(device, event)
@@ -140,7 +123,7 @@ def _fill_reading(
     total_weight = total_target = 0.0
     attributes: dict[str, Any] = {}
     for index, weight in weights.items():
-        target = _bowl_target(device, index)
+        target = bowl_target(device, index)
         percent = None
         if target is not None and target > 0:
             clamped = max(weight, 0)
@@ -151,7 +134,7 @@ def _fill_reading(
     return (total_weight / total_target * 100 if total_target > 0 else None, attributes)
 
 
-def _weight_capacity_extra(device: Any) -> dict[str, Any]:
+def weight_capacity_extra(device: Any) -> dict[str, Any]:
     bowls = getattr(getattr(device.control, "bowls", None), "settings", None) or []
     return {
         f"bowls_{index}_target": (
@@ -161,7 +144,7 @@ def _weight_capacity_extra(device: Any) -> dict[str, Any]:
     }
 
 
-def _poseidon_bowl_value(device: Any, attribute: str) -> Any:
+def poseidon_bowl_value(device: Any, attribute: str) -> Any:
     bowls = device.status.bowl_status
     return getattr(bowls[0], attribute) if bowls else None
 
@@ -178,14 +161,14 @@ def _poseidon_extra(device: Any) -> dict[str, Any]:
     }
 
 
-def _poseidon_volume(
+def poseidon_volume(
     device: Any, event: TimelineEvent
 ) -> tuple[float, dict[str, Any]] | None:
     weights = bowl_weights(event, device_id=device.id, indices=(0,))
     return (weights[0], _poseidon_extra(device)) if 0 in weights else None
 
 
-def _flap_profiles(entity: SurePetCareBaseEntity) -> list[DevicePetTag]:
+def flap_profiles(entity: SurePetCareBaseEntity) -> list[DevicePetTag]:
     options = get_device_options(entity.hass, entity.coordinator.config_entry)
     flaps = {
         int(device_id)
@@ -195,8 +178,8 @@ def _flap_profiles(entity: SurePetCareBaseEntity) -> list[DevicePetTag]:
     return [item for item in entity.device.status.devices.items if item.id in flaps]
 
 
-def _indoor_only(entity: SurePetCareBaseEntity) -> bool | None:
-    profiles = {item.profile for item in _flap_profiles(entity)}
+def indoor_only(entity: SurePetCareBaseEntity) -> bool | None:
+    profiles = {item.profile for item in flap_profiles(entity)}
     if not profiles:
         return None
     if len(profiles) > 1:
@@ -208,9 +191,9 @@ def _indoor_only(entity: SurePetCareBaseEntity) -> bool | None:
     return profiles == {PetDeviceLocationProfile.INDOOR_ONLY}
 
 
-def _write_indoor_only(entity: SurePetCareBaseEntity, value: Any) -> list[Any]:
+def write_indoor_only(entity: SurePetCareBaseEntity, value: Any) -> list[Any]:
     pet: Any = entity.device
-    profiles = _flap_profiles(entity)
+    profiles = flap_profiles(entity)
     if not profiles:
         raise ValueError(f"No flap devices are assigned to pet {pet.id}")
     profile = (
@@ -223,7 +206,7 @@ def _write_indoor_only(entity: SurePetCareBaseEntity, value: Any) -> list[Any]:
     ]
 
 
-def _assignment_options(
+def assignment_options(
     entity: SurePetCareBaseEntity, action: ModifyDeviceTag
 ) -> tuple[FieldOption, ...]:
     pet = entity.device
@@ -249,11 +232,11 @@ def _assignment_options(
     )
 
 
-def _curfew_active(device: Any) -> bool | None:
+def curfew_active(device: Any) -> bool | None:
     return device.is_curfew_active if device.control.curfew is not None else None
 
 
-def _curfew_extra(device: Any) -> dict[str, Any]:
+def curfew_extra(device: Any) -> dict[str, Any]:
     curfew = getattr(device.control, "curfew", None)
     if not curfew:
         return {}

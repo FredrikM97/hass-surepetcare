@@ -21,7 +21,7 @@ from custom_components.surepcha.button import (
 )
 from custom_components.surepcha.const import NAME, PRODUCT_ID
 from custom_components.surepcha.field_helpers import (
-    _assignment_options,
+    assignment_options,
     iter_device_events,
 )
 from custom_components.surepcha.fields import (
@@ -266,11 +266,11 @@ def test_assignment_options_read_current_configuration_without_copied_inventory(
         "custom_components.surepcha.field_helpers.get_device_options",
         return_value=options,
     ):
-        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
+        assert assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
             name="initial"
         )
         options["20"][NAME] = "Renamed"
-        assert _assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
+        assert assignment_options(entity, ModifyDeviceTag.ADD) == snapshot(
             name="renamed"
         )
 

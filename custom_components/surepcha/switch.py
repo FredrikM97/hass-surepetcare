@@ -12,7 +12,7 @@ from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from .coordinator import SurePetcareConfigEntry
 from .entity import SurePetCareBaseEntity
-from .field_helpers import _flap_profiles, _indoor_only, _write_indoor_only
+from .field_helpers import flap_profiles, indoor_only, write_indoor_only
 from .fields import FLAP_PRODUCTS, SurePetCareBooleanDescription
 
 
@@ -42,10 +42,10 @@ SWITCH_FIELDS: dict[ProductId, tuple[SurePetCareSwitchEntityDescription, ...]] =
             key="indoor_only",
             icon="mdi:door",
             supported_products=FLAP_PRODUCTS,
-            value=_indoor_only,
-            command=_write_indoor_only,
+            value=indoor_only,
+            command=write_indoor_only,
             attributes=lambda entity: {
-                "flap_devices": [item.id for item in _flap_profiles(entity)]
+                "flap_devices": [item.id for item in flap_profiles(entity)]
             },
         ),
     ),

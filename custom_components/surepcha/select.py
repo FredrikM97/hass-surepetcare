@@ -23,7 +23,7 @@ from surepcio.enums import (
 
 from .coordinator import SurePetcareConfigEntry
 from .entity import SurePetCareBaseEntity
-from .field_helpers import _assignment_options
+from .field_helpers import assignment_options
 from .fields import FieldOption, SurePetCareDescriptionMixin
 
 
@@ -154,7 +154,7 @@ SELECT_FIELDS: dict[ProductId, tuple[SurePetCareSelectEntityDescription, ...]] =
             key="remove_assigned_device",
             icon="mdi:link-variant-off",
             device_class=SensorDeviceClass.ENUM,
-            options_fn=lambda entity: _assignment_options(
+            options_fn=lambda entity: assignment_options(
                 entity, ModifyDeviceTag.REMOVE
             ),
             command=lambda entity, value: entity.device.set_tag(
@@ -165,7 +165,7 @@ SELECT_FIELDS: dict[ProductId, tuple[SurePetCareSelectEntityDescription, ...]] =
             key="add_assigned_device",
             icon="mdi:link-variant",
             device_class=SensorDeviceClass.ENUM,
-            options_fn=lambda entity: _assignment_options(entity, ModifyDeviceTag.ADD),
+            options_fn=lambda entity: assignment_options(entity, ModifyDeviceTag.ADD),
             command=lambda entity, value: entity.device.set_tag(
                 int(value), ModifyDeviceTag.ADD
             ),

@@ -17,7 +17,7 @@ from surepcio.enums import PetLocation, ProductId, TimelineEventType
 
 from .coordinator import SurePetcareConfigEntry
 from .entity import SurePetCareBaseEntity
-from .field_helpers import _curfew_active, _curfew_extra
+from .field_helpers import curfew_active, curfew_extra
 from .fields import FLAP_PRODUCTS, SurePetCareBooleanDescription
 
 
@@ -43,8 +43,8 @@ _learn_mode = SurePetCareBinarySensorEntityDescription(
 _curfew = SurePetCareBinarySensorEntityDescription(
     key="curfew",
     translation_key="curfew_active",
-    value=lambda entity: _curfew_active(entity.device),
-    attributes=lambda entity: _curfew_extra(entity.device),
+    value=lambda entity: curfew_active(entity.device),
+    attributes=lambda entity: curfew_extra(entity.device),
 )
 BINARY_SENSOR_FIELDS: dict[
     ProductId, tuple[SurePetCareBinarySensorEntityDescription, ...]

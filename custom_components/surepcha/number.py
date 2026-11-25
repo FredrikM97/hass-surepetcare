@@ -16,7 +16,7 @@ from surepcio.enums import ProductId
 
 from .coordinator import SurePetcareConfigEntry
 from .entity import SurePetCareBaseEntity
-from .field_helpers import _bowl_target, _has_second_bowl
+from .field_helpers import bowl_target, has_second_bowl
 from .fields import SurePetCareDescriptionMixin
 
 
@@ -36,7 +36,7 @@ NUMBER_FIELDS: dict[ProductId, tuple[SurePetCareNumberEntityDescription, ...]] =
             icon="mdi:scale",
             mode=NumberMode.SLIDER,
             entity_category=EntityCategory.CONFIG,
-            value=lambda entity: _bowl_target(entity.device, 0),
+            value=lambda entity: bowl_target(entity.device, 0),
             command=lambda entity, value: entity.device.set_target_weight(0, value),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             native_min_value=0.0,
@@ -50,8 +50,8 @@ NUMBER_FIELDS: dict[ProductId, tuple[SurePetCareNumberEntityDescription, ...]] =
             icon="mdi:scale",
             mode=NumberMode.SLIDER,
             entity_category=EntityCategory.CONFIG,
-            value=lambda entity: _bowl_target(entity.device, 1),
-            supported=_has_second_bowl,
+            value=lambda entity: bowl_target(entity.device, 1),
+            supported=has_second_bowl,
             command=lambda entity, value: entity.device.set_target_weight(1, value),
             native_unit_of_measurement=UnitOfMass.GRAMS,
             native_min_value=0.0,
